@@ -2,6 +2,7 @@
 
 import { Linkedin, Instagram, Facebook, Youtube, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
 import { marketingNavItems, siteConfig } from '@/content/site';
@@ -35,9 +36,9 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto w-full h-full px-6 flex items-center justify-between">
         <div className="flex items-center space-x-12">
-          <a href="/" className="hover:opacity-80 transition-opacity font-extrabold uppercase tracking-tighter text-lg md:text-xl">
+          <Link href="/" className="hover:opacity-80 transition-opacity font-extrabold uppercase tracking-tighter text-lg md:text-xl">
             {siteConfig.name}
-          </a>
+          </Link>
 
           <div className="hidden md:flex items-center space-x-10">
             {navItems.map((item) => (
