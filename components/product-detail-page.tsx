@@ -108,6 +108,62 @@ export function ProductDetailPage({ product }: { product: ProductDetail }) {
         )}
       </main>
 
+      {product.slug === 'sarah-speaks' && (
+        <section className="bg-softGrey py-20">
+          <div className="mx-auto max-w-[1200px] px-6 md:px-12">
+            <div className="mb-10 flex items-center justify-between">
+              <div>
+                <p className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-brandBlue">Watch & Learn</p>
+                <h2 className="text-3xl font-bold tracking-tight text-black">Latest from the channel</h2>
+              </div>
+              <a
+                href="https://www.youtube.com/@aieconomyai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden items-center gap-2 rounded-full border border-black/10 px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-black sm:flex"
+              >
+                <svg className="h-4 w-4 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                View channel
+              </a>
+            </div>
+            <div className="mb-8 aspect-video overflow-hidden rounded-2xl bg-black shadow-lg">
+              <iframe
+                src="https://www.youtube.com/embed/Adtz3zKKBng?rel=0"
+                title="How to Rank Your Business First on ChatGPT"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="h-full w-full"
+              />
+            </div>
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                { id: '-W1PVeNdFkk', title: "SEO Isn't Enough Anymore \u2013 Tom Winter on GEO and AEO" },
+                { id: 'h9Uf1SGJ30s', title: 'From Chaos to Clarity: Audrey Chia on Making AI Actually Work' },
+                { id: 'du3EoH1Q5Nk', title: 'AI That Works: Valeriya Shows Us How' },
+                { id: 'DTtMGV9ZRak', title: "AI That Works: How do LLM's work?" },
+                { id: 'XsF8jin_y60', title: "CMO's this is your wake-up call. Are you ready for it?" },
+                { id: 'SSeuvBAR5R8', title: 'Stop wasting your time with AI - featuring Charlie Hills' },
+              ].map((video) => (
+                <div key={video.id} className="overflow-hidden rounded-xl border border-black/5 bg-white shadow-sm">
+                  <div className="aspect-video bg-black">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${video.id}?rel=0`}
+                      title={video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="h-full w-full"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <p className="line-clamp-2 text-sm font-semibold leading-snug text-black">{video.title}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       <SiteFooter />
     </div>
   );

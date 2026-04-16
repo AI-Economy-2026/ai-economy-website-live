@@ -36,8 +36,9 @@ export const featuredCards: ProductCard[] = [
     description:
       'Overwhelmed? Get access to a curated collection of tried and tested AI tools that I use every day.',
     cta: 'Explore the Tools',
-    href: '/tools',
+    href: 'https://aitoolkit-ashy.vercel.app/',
     image: '/images/ai_toolkit_hero.jpg',
+    external: true,
   },
   {
     id: 'geo-audit',

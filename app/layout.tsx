@@ -3,6 +3,7 @@ import { Poppins } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/lib/site';
 import { SiteNav } from '@/components/site-nav';
+import { ScrollToTop } from '@/components/scroll-to-top';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={poppins.variable}>
       <body>
+        <ScrollToTop />
         <SiteNav />
         {children}
       </body>
