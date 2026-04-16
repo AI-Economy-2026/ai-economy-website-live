@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { featuredCards } from '@/lib/products';
 import { SiteFooter } from '@/components/site-footer';
+import { MeetSarahVideo } from '@/components/meet-sarah-video';
 
 function DiscoverIcon() {
   return (
@@ -125,14 +126,7 @@ export function HomePage() {
           </div>
 
           <div className="w-full lg:flex lg:justify-end">
-            <div className="relative aspect-[9/12] w-full max-w-[420px] overflow-hidden rounded-2xl bg-gradient-to-br from-[#111827] via-[#0f3460] to-[#004AAD] shadow-[0_16px_48px_rgba(0,0,0,0.15)]">
-              <Image src="/images/sarah_balmer.jpg" alt="Sarah Balmer" fill className="object-cover opacity-70" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent" />
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-white">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-white/15 text-xl backdrop-blur">▶</div>
-                <span className="text-[13px] font-medium text-white/75">Meet Sarah</span>
-              </div>
-            </div>
+            <MeetSarahVideo />
           </div>
         </section>
 
