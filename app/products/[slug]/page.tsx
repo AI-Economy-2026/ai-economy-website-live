@@ -1,6 +1,9 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { ProductDetailPage } from '@/components/product-detail-page';
+import { AgentAlicePage } from '@/components/products/agent-alice-page';
+import { GathaPage } from '@/components/products/gatha-page';
+import { SarahSpeaksPage } from '@/components/products/sarah-speaks-page';
 import { getProductBySectionAndSlug, productDetails } from '@/lib/product-details';
 import { siteConfig } from '@/lib/site';
 import { breadcrumbSchema, faqSchema } from '@/lib/schema';
@@ -40,6 +43,19 @@ export default async function ProductPage({ params }: Props) {
 
   const pageUrl = `${siteConfig.url}/products/${slug}`;
 
+  function renderPage() {
+    switch (slug) {
+      case 'agent-alice':
+        return <AgentAlicePage product={product!} />;
+      case 'gatha-ai':
+        return <GathaPage product={product!} />;
+      case 'sarah-speaks':
+        return <SarahSpeaksPage product={product!} />;
+      default:
+        return <ProductDetailPage product={product!} />;
+    }
+  }
+
   return (
     <>
       <script
@@ -60,7 +76,7 @@ export default async function ProductPage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(product.faqs)) }}
         />
       )}
-      <ProductDetailPage product={product} />
+      {renderPage()}
     </>
   );
 }

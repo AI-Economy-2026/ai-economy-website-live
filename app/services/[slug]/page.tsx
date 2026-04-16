@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { ProductDetailPage } from '@/components/product-detail-page';
+import { PriorityAIPage } from '@/components/products/priority-ai-page';
+import { AIConsultancyPage } from '@/components/products/ai-consultancy-page';
 import { getProductBySectionAndSlug, productDetails } from '@/lib/product-details';
 import { siteConfig } from '@/lib/site';
 import { serviceSchema, breadcrumbSchema, faqSchema } from '@/lib/schema';
@@ -40,6 +42,17 @@ export default async function ServicePage({ params }: Props) {
 
   const pageUrl = `${siteConfig.url}/services/${slug}`;
 
+  function renderPage() {
+    switch (slug) {
+      case 'priority-ai':
+        return <PriorityAIPage product={product!} />;
+      case 'ai-consultancy':
+        return <AIConsultancyPage product={product!} />;
+      default:
+        return <ProductDetailPage product={product!} />;
+    }
+  }
+
   return (
     <>
       <script
@@ -66,7 +79,7 @@ export default async function ServicePage({ params }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(product.faqs)) }}
         />
       )}
-      <ProductDetailPage product={product} />
+      {renderPage()}
     </>
   );
 }
