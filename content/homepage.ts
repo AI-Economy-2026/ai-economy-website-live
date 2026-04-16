@@ -262,7 +262,7 @@ export const homepageHero = {
   body:
     "AI is everywhere, and it's hard to know where to start. Whether you're just trying to make sense of it all, or you're ready to put AI to work in your business, you're in the right place. I'll help you find your starting point, build your confidence, and get real results.",
   ctaHref: '#products',
-  videoSrc: '/sarah-speaks-preview.mp4',
+  videoSrc: '/ai-economy-video.mp4',
 };
 
 export const homepageFounder = {

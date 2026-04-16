@@ -1,0 +1,106 @@
+{
+  "pages": {
+    "/_not-found/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-4f212684648fcab9.js",
+      "static/chunks/main-app-538939a42422601f.js",
+      "static/chunks/app/_not-found/page-8cafb9b7dd6ea8c6.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-4f212684648fcab9.js",
+      "static/chunks/main-app-538939a42422601f.js",
+      "static/css/ece23b6cc0696300.css",
+      "static/chunks/app/layout-f06297e1f332106a.js"
+    ],
+    "/robots.txt/route": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-4f212684648fcab9.js",
+      "static/chunks/main-app-538939a42422601f.js",
+      "static/chunks/app/robots.txt/route-068ba3586843ea10.js"
+    ],
+    "/sitemap.xml/route": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-4f212684648fcab9.js",
+      "static/chunks/main-app-538939a42422601f.js",
+      "static/chunks/app/sitemap.xml/route-068ba3586843ea10.js"
+    ],
+    "/product/ai-toolkit/category/[category]/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-4f212684648fcab9.js",
+      "static/chunks/main-app-538939a42422601f.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/539-b852d0e89b7528a6.js",
+      "static/chunks/419-18678e7089969fc5.js",
+      "static/chunks/app/product/ai-toolkit/category/[category]/page-7fe67944713b6c74.js"
+    ],
+    "/privacy/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-4f212684648fcab9.js",
+      "static/chunks/main-app-538939a42422601f.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/539-b852d0e89b7528a6.js",
+      "static/chunks/909-9eb9e001d16de97f.js",
+      "static/chunks/16-ef580e70ef42d582.js",
+      "static/chunks/685-62ae3b147eb588c3.js",
+      "static/chunks/app/privacy/page-a880fe5820bc4ac5.js"
+    ],
+    "/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-4f212684648fcab9.js",
+      "static/chunks/main-app-538939a42422601f.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/app/page-77ba9dee328e34be.js"
+    ],
+    "/product/ai-toolkit/tools/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-4f212684648fcab9.js",
+      "static/chunks/main-app-538939a42422601f.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/539-b852d0e89b7528a6.js",
+      "static/chunks/419-18678e7089969fc5.js",
+      "static/chunks/app/product/ai-toolkit/tools/page-5653d49b0334521f.js"
+    ],
+    "/product/[id]/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-4f212684648fcab9.js",
+      "static/chunks/main-app-538939a42422601f.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/539-b852d0e89b7528a6.js",
+      "static/chunks/909-9eb9e001d16de97f.js",
+      "static/chunks/435-34c0a76525d5c003.js",
+      "static/chunks/app/product/[id]/page-2a70d2ad916dbdf3.js"
+    ],
+    "/terms/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-4f212684648fcab9.js",
+      "static/chunks/main-app-538939a42422601f.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/539-b852d0e89b7528a6.js",
+      "static/chunks/909-9eb9e001d16de97f.js",
+      "static/chunks/16-ef580e70ef42d582.js",
+      "static/chunks/685-62ae3b147eb588c3.js",
+      "static/chunks/app/terms/page-8af6e6a5a28b5c5c.js"
+    ],
+    "/product/ai-toolkit/page": [
+      "static/chunks/webpack-74c939c87fa0092a.js",
+      "static/chunks/4bd1b696-c023c6e3521b1417.js",
+      "static/chunks/255-4f212684648fcab9.js",
+      "static/chunks/main-app-538939a42422601f.js",
+      "static/chunks/619-ba102abea3e3d0e4.js",
+      "static/chunks/539-b852d0e89b7528a6.js",
+      "static/chunks/419-18678e7089969fc5.js",
+      "static/chunks/app/product/ai-toolkit/page-69adb3d689ea0843.js"
+    ]
+  }
+}

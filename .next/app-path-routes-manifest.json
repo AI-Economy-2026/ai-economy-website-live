@@ -1,0 +1,12 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/robots.txt/route": "/robots.txt",
+  "/sitemap.xml/route": "/sitemap.xml",
+  "/product/ai-toolkit/category/[category]/page": "/product/ai-toolkit/category/[category]",
+  "/privacy/page": "/privacy",
+  "/page": "/",
+  "/product/ai-toolkit/tools/page": "/product/ai-toolkit/tools",
+  "/product/[id]/page": "/product/[id]",
+  "/terms/page": "/terms",
+  "/product/ai-toolkit/page": "/product/ai-toolkit"
+}
