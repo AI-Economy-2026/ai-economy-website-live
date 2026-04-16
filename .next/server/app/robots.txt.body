@@ -1,7 +1,0 @@
-User-Agent: *
-Allow: /
-Disallow: /api/
-Disallow: /_next/
-
-Host: https://aieconomy.ai
-Sitemap: https://aieconomy.ai/sitemap.xml

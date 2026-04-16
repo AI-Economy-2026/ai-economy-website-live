@@ -29,8 +29,12 @@ dist-ssr
 **/.DS_Store
 **/._*
 
+# Next.js
+.next/
+out/
+next-env.d.ts
+
 # Temporary files
-1Line
 .vite/
 ai-economy-deploy.zip
 dist/
