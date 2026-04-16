@@ -4,10 +4,10 @@ const nextConfig: NextConfig = {
   images: {
     domains: [],
   },
+  // WordPress redirects — populated from content/redirects/wordpress-redirects.ts
+  // Add entries here when old WordPress URLs are confirmed
   async redirects() {
-    // WordPress redirects will be loaded from content/redirects/
-    const { wordpressRedirects } = await import('./content/redirects/wordpress-redirects');
-    return wordpressRedirects;
+    return [];
   },
 };
 

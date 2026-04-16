@@ -52,7 +52,7 @@ export default async function ProductPage({
   }
 
   const orgSchema = getOrganizationSchema();
-  const serviceSchema = getServiceSchema(product.name, product.description, product.seo.canonical);
+  const serviceSchema = getServiceSchema({ name: product.name, description: product.description, id: product.id });
   const faqSchema = product.faqs ? getFAQSchema(product.faqs) : null;
 
   const jsonLd = [orgSchema, serviceSchema, ...(faqSchema ? [faqSchema] : [])];
