@@ -38,10 +38,10 @@ function extractBlock(source, name) {
 }
 
 try {
-  const productsSource = read('src/content/products.ts');
-  const homepageSource = read('src/content/homepage.ts');
-  const siteSource = read('src/content/site.ts');
-  const legalSource = read('src/content/legal.ts');
+  const productsSource = read('content/products.ts');
+  const homepageSource = read('content/homepage.ts');
+  const siteSource = read('content/site.ts');
+  const legalSource = read('content/legal.ts');
   const socialLinksBlock = extractBlock(siteSource, 'socialLinks');
   const footerSocialLinksBlock = extractBlock(siteSource, 'footerSocialLinks');
 
