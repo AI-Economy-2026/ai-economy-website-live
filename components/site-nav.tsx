@@ -49,6 +49,11 @@ export function SiteNav() {
   const pathname = usePathname();
   const isHome = pathname === '/';
 
+  // Product/service detail pages have their own header
+  const isDetailPage =
+    (/^\/products\/.+/.test(pathname) || /^\/services\/.+/.test(pathname));
+  if (isDetailPage) return null;
+
   return (
     <>
       <div className="fixed inset-x-0 top-0 z-50 border-b border-black/5 bg-softGrey">
