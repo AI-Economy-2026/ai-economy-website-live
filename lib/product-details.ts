@@ -230,6 +230,18 @@ export const productDetails: ProductDetail[] = [
     ],
     outcome:
       'A workforce fully equipped to use AI as a force multiplier, moving quickly from overwhelmed to confident and capable.',
+    stats: [
+      { value: '12+', label: 'Hours of Content' },
+      { value: '4', label: 'Core Modules' },
+      { value: '5,000+', label: 'Professionals Trained' },
+      { value: '100%', label: 'Self-Paced' },
+    ],
+    faqs: [
+      { question: 'Who is this course designed for?', answer: 'Sarah Speaks is built for business leaders, managers, and professionals who want to use AI in their day-to-day work — no technical background required.' },
+      { question: 'How long does the course take?', answer: 'The full curriculum is 12+ hours of content, broken into self-paced modules you can complete on your own schedule.' },
+      { question: 'Is there any coding involved?', answer: 'None at all. Every lesson focuses on the interface, the strategy, and the human workflow — no coding required.' },
+      { question: 'Will I get lifetime access?', answer: 'Yes. Once enrolled, you have lifetime access to all current content plus future updates as the course evolves.' },
+    ],
   },
 ];
 

@@ -1,9 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 import {
-  ArrowLeft,
   ArrowRight,
   CheckCircle2,
   Sparkles,
@@ -50,30 +48,8 @@ interface AgentAlicePageProps {
 export function AgentAlicePage({ product }: AgentAlicePageProps) {
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Nav Bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b h-14 flex items-center">
-        <div className="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
-          <Link
-            href="/"
-            className="flex items-center space-x-2 text-ink/60 hover:text-ink transition-colors font-semibold text-sm group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>AI Economy</span>
-          </Link>
-          <span className="text-[11px] font-bold text-ink/30 uppercase tracking-widest">{product.label}</span>
-          <a
-            href={product.ctaHref}
-            target={product.ctaHref.startsWith('http') ? '_blank' : undefined}
-            rel="noopener noreferrer"
-            className="px-6 py-2 bg-[#2563EB] text-white rounded-full font-semibold text-sm hover:bg-[#1D4ED8] transition-all"
-          >
-            {product.ctaLabel}
-          </a>
-        </div>
-      </div>
-
       {/* Hero */}
-      <section className="relative pt-14 min-h-[85vh] flex items-center overflow-hidden bg-black text-white">
+      <section className="relative pt-24 min-h-[85vh] flex items-center overflow-hidden bg-black text-white">
         <div className="absolute inset-0 z-0">
           <img
             src={product.image}

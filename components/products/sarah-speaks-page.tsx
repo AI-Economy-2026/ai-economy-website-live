@@ -1,9 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 import {
-  ArrowLeft,
   ArrowRight,
   GraduationCap,
   BookOpen,
@@ -65,30 +63,8 @@ interface SarahSpeaksPageProps {
 export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
   return (
     <div className="min-h-screen bg-white">
-      {/* Top Nav Bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b h-14 flex items-center">
-        <div className="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
-          <Link
-            href="/"
-            className="flex items-center space-x-2 text-ink/60 hover:text-ink transition-colors font-semibold text-sm group"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>AI Economy</span>
-          </Link>
-          <span className="text-[11px] font-bold text-ink/30 uppercase tracking-widest">{product.label}</span>
-          <a
-            href={product.ctaHref}
-            target={product.ctaHref.startsWith('http') ? '_blank' : undefined}
-            rel="noopener noreferrer"
-            className="px-6 py-2 bg-[#2563EB] text-white rounded-full font-semibold text-sm hover:bg-[#1D4ED8] transition-all"
-          >
-            {product.ctaLabel}
-          </a>
-        </div>
-      </div>
-
       {/* Hero */}
-      <section className="relative pt-14 min-h-[85vh] flex items-center overflow-hidden bg-[#F5F5F7] text-black">
+      <section className="relative pt-24 min-h-[85vh] flex items-center overflow-hidden bg-[#F5F5F7] text-black">
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <div>
             <p className="text-[#2563EB] text-xs font-bold uppercase tracking-[0.2em] mb-6">
@@ -277,7 +253,7 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
                 title: 'Internal Workflow Integration',
                 desc: 'Mapping AI into your team processes without creating friction or cultural resistance.',
               },
-            ].map((mod, i) => (
+            ].map((mod) => (
               <div
                 key={mod.id}
                 className="bg-white p-10 rounded-[40px] shadow-sm flex items-start gap-8"
@@ -320,7 +296,7 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
         <section className="bg-white border-b border-black/5">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-black/5">
-              {product.stats.map((stat, i) => (
+              {product.stats.map((stat) => (
                 <div key={stat.label} className="py-10 px-8 text-center">
                   <div className="text-4xl md:text-5xl font-extrabold tracking-tighter text-ink mb-2">
                     {stat.value}
