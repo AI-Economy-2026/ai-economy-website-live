@@ -1,0 +1,75 @@
+# AI Economy – Full Site Context for LLMs
+
+## About AI Economy
+
+AI Economy is a global platform built to help businesses navigate the AI era with clarity and commercial intent. Founded by Sarah Balmer, the platform offers AI strategy consulting, practical training, curated tools, and autonomous AI agents that work inside real business workflows.
+
+## Founder: Sarah Balmer
+
+Sarah Balmer is an AI strategist, educator and entrepreneur. With 25+ years of experience in marketing, communications and commercial strategy, Sarah translated that expertise into AI practice beginning in 2022. She runs AI Economy as the primary vehicle for helping organisations move from AI curiosity to AI implementation. Sarah is the host of the AI Economy YouTube channel and the creator of the Sarah Speaks training programme.
+
+## Core Products
+
+### Priority AI (Diagnostic Tool)
+An AI readiness diagnostic that maps three critical dimensions:
+1. **Opportunity Scan** – Maps each department against AI automation potential, ranks by estimated hours saved and cost impact.
+2. **Fluency Assessment** – Measures team AI literacy. Classifies individuals as Aware, Starter, Confident, or Pioneer.
+3. **Human Advantage** – Evaluates cultural readiness, leadership alignment, trust levels and change capacity.
+
+Output: A Priority Matrix (2x2 grid of opportunity vs readiness) and a prioritised action plan.
+
+### Sarah Speaks (AI Training)
+Self-paced AI training designed for business professionals. Curriculum includes:
+- The Generative Era (foundations)
+- Prompt Architecture (professional prompting frameworks)
+- Tool Selection (model landscape and use-case matching)
+- Internal Workflow Integration (mapping AI into team processes)
+
+12+ hours of content. No coding required.
+
+### Agent Alice (Marketing AI Agent)
+An AI marketing and content agent trained on 25+ years of strategic marketing expertise. Capabilities:
+- Content repurposing: turns one webinar into 12 social posts, 3 blog articles, newsletter sequences
+- GEO (Generative Engine Optimisation): content designed to be cited by Perplexity, Gemini, ChatGPT
+- Tone of voice learning from brand guidelines
+- Instant briefing from rough notes
+- Integration with visual AI tools
+
+### AI Consultancy (Enterprise Strategy)
+Bespoke AI strategy engagements for enterprises. Typical engagement:
+- Phase 01: Opportunity Audit – mapping departments against automation potential
+- Phase 02: Strategic Roadmap – prioritising projects by effort vs reward
+- Phase 03: Activation Blocks – implementing workshops, training, pilot tools
+
+Includes executive workshops, governance frameworks, compliance strategy and commercial roadmaps.
+
+### AI Toolkit (Curated Directory)
+A weekly-updated directory of 50+ tested AI tools across 7 categories:
+- Writing & Chat (ChatGPT, Claude, Jasper)
+- Image & Design (Midjourney, DALL-E 3, Stable Diffusion)
+- Coding (Cursor, GitHub Copilot, v0)
+- Video (Runway, Sora, HeyGen)
+- Research (Perplexity, Gemini, NotebookLM)
+- Audio & Voice (ElevenLabs, Descript, Suno)
+- Productivity
+
+Each tool includes: honest review, pricing tier, use cases, and direct affiliate link.
+
+### Gatha (Knowledge Dashboard)
+A personal knowledge aggregation tool. Features:
+- Visual wall: beautiful mosaic of saved content
+- Semantic search: find ideas by meaning not keywords
+- Personal podcast: converts reading list into audio brief
+- Synthesised briefs: AI-generated morning newsletters from saved content
+
+## Company Information
+
+- **Website**: https://aieconomy.ai
+- **YouTube**: https://www.youtube.com/@aieconomyai
+- **LinkedIn**: https://www.linkedin.com/in/sarah-balmer/
+- **Focus areas**: AI strategy, AI training, AI tools curation, AI agents, enterprise AI consulting
+- **Clients**: Business owners, operations heads, HR/L&D leads, IT directors, consultants, enterprise teams
+
+## Content Policy
+
+All content on AI Economy is produced or curated by Sarah Balmer or the AI Economy team. The AI Toolkit contains affiliate links; commissions help fund independent reviews. No tool is given paid placement in editorial rankings.
