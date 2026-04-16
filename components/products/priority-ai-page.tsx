@@ -12,6 +12,7 @@ import {
   ChevronUp,
 } from 'lucide-react';
 import type { ProductDetail } from '@/lib/product-details';
+import { MoreProducts } from '@/components/more-products';
 import { SiteFooter } from '@/components/site-footer';
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
@@ -389,6 +390,7 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
         </div>
       </section>
 
+      <MoreProducts currentId="priority-ai" />
       <SiteFooter />
     </div>
   );
