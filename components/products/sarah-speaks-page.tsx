@@ -21,6 +21,7 @@ function YoutubeIcon({ className }: { className?: string }) {
   );
 }
 import type { ProductDetail } from '@/lib/product-details';
+import { MoreProducts } from '@/components/more-products';
 import { SiteFooter } from '@/components/site-footer';
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
@@ -327,6 +328,7 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
         </section>
       )}
 
+      <MoreProducts currentId="sarah-speaks" />
       <SiteFooter />
     </div>
   );

@@ -14,6 +14,7 @@ import {
   ChevronUp,
 } from 'lucide-react';
 import type { ProductDetail } from '@/lib/product-details';
+import { MoreProducts } from '@/components/more-products';
 import { SiteFooter } from '@/components/site-footer';
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
@@ -252,6 +253,7 @@ export function GathaPage({ product }: GathaPageProps) {
         </section>
       )}
 
+      <MoreProducts currentId="gatha-ai" />
       <SiteFooter />
     </div>
   );
