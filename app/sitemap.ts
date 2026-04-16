@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const productRoutes: MetadataRoute.Sitemap = products
-    .filter((p) => !p.externalLink)
+    .filter((p) => !p.externalLink && p.id !== 'ai-toolkit')
     .map((p) => ({
       url: `${base}/product/${p.id}`,
       lastModified: now,

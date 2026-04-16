@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, Target, Banknote, ShieldX, Chevron
 import { Product } from '@/data/products';
 import { Footer } from '@/components/layout/Footer';
 import { MoreProducts } from '@/components/product/MoreProducts';
+import { priorityAIContent as c } from '@/content/products/priority-ai';
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
@@ -78,12 +79,12 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-3xl"
           >
-            <p className="text-white/50 text-xs font-bold uppercase tracking-[0.2em] mb-6">AI Readiness Diagnostic</p>
+            <p className="text-white/50 text-xs font-bold uppercase tracking-[0.2em] mb-6">{c.hero.eyebrow}</p>
             <h1 className="text-6xl md:text-[90px] font-extrabold text-white tracking-tighter leading-[0.9] mb-8">
-              Stop guessing.<br />Start knowing.
+              {c.hero.headline.split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
             </h1>
             <p className="text-white/70 text-xl md:text-2xl font-medium max-w-2xl leading-relaxed mb-12">
-              In less than 10 minutes, find out where AI can automate operations, cut costs, and help you scale. Get a tailored roadmap with confident next steps.
+              {c.hero.body}
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <a
@@ -115,22 +116,19 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { icon: Target, text: 'AI pilots scattered across departments with no strategic thread' },
-              { icon: Banknote, text: "Budget spent on tools nobody uses because teams weren't ready" },
-              { icon: ShieldX, text: 'Resistance from teams who see AI as a threat, not an advantage' }
-            ].map((point) => {
-              const Icon = point.icon;
+            {c.painPoints.map((point) => {
+              const iconMap = { Target, Banknote, ShieldX } as Record<string, React.ElementType>;
+              const Icon = iconMap[point.icon];
               return (
                 <motion.div
-                  key={point.text}
+                  key={point.icon}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   className="bg-white p-10 rounded-[32px] shadow-sm flex flex-col items-center text-center"
                 >
                   <div className="mb-6 w-14 h-14 rounded-2xl bg-secondary/60 flex items-center justify-center">
-                    <Icon className="w-7 h-7 text-foreground/60" />
+                    {Icon && <Icon className="w-7 h-7 text-foreground/60" />}
                   </div>
                   <p className="text-lg font-semibold text-foreground/80 leading-relaxed">{point.text}</p>
                 </motion.div>
@@ -149,34 +147,12 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
             viewport={{ once: true }}
             className="mb-20"
           >
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Three modules.<br />One complete picture.</h2>
-            <p className="text-xl text-foreground/60 font-medium">Run one or run all three. Each builds on the last.</p>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">{c.modulesHeadline.split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}</h2>
+            <p className="text-xl text-foreground/60 font-medium">{c.modulesSubheadline}</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                id: '1',
-                price: 'Included',
-                title: 'Opportunity Scan',
-                desc: 'Maps departments against AI automation potential. Ranks by estimated hours saved and cost impact.',
-                features: ['Department-level mapping', 'Hours saved estimates', 'Cost impact analysis', 'Priority ranking']
-              },
-              {
-                id: '2',
-                price: '$XX',
-                title: 'Fluency Assessment',
-                desc: 'Measures team AI literacy. Classifies individuals and teams as Aware, Starter, Confident, or Pioneer.',
-                features: ['Individual scoring', 'Team heatmaps', 'Fluency classification', 'Training recommendations']
-              },
-              {
-                id: '3',
-                price: '$XX',
-                title: 'Human Advantage',
-                desc: 'Evaluates cultural readiness, leadership alignment, trust levels, and change capacity.',
-                features: ['Cultural readiness score', 'Leadership alignment', 'Trust assessment', 'Change capacity index']
-              }
-            ].map((mod, i) => (
+            {c.modules.map((mod, i) => (
               <motion.div
                 key={mod.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -214,18 +190,15 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
             viewport={{ once: true }}
             className="mb-20 max-w-3xl"
           >
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">Your Priority Matrix.</h2>
-            <p className="text-xl text-white/60 font-medium">Every department plotted across two axes. AI opportunity vs. team readiness.</p>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">{c.matrixHeadline}</h2>
+            <p className="text-xl text-white/60 font-medium">{c.matrixSubheadline}</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10 rounded-[40px] overflow-hidden p-[1px]">
-            {[
-              { title: 'Fast Track', cond: 'High opportunity + High readiness', act: 'Deploy now', bg: 'bg-white/5', hover: 'hover:bg-white/10' },
-              { title: 'Train First', cond: 'High opportunity + Low readiness', act: 'Upskill before tools', bg: 'bg-black/50', hover: 'hover:bg-white/5' },
-              { title: 'Optimise', cond: 'Low opportunity + High readiness', act: 'Revisit later', bg: 'bg-black/80', hover: 'hover:bg-black/60' },
-              { title: 'Foundation', cond: 'Low opportunity + Low readiness', act: 'Build fundamentals first', bg: 'bg-black', hover: 'hover:bg-black/80' }
-            ].map((quad, i) => (
-              <div key={i} className={`${quad.bg} ${quad.hover} p-12 md:p-16 transition-colors duration-500 flex flex-col justify-center h-[300px]`}>
+            {c.matrixQuadrants.map((quad, i) => {
+              const bgMap = ['bg-white/5 hover:bg-white/10', 'bg-black/50 hover:bg-white/5', 'bg-black/80 hover:bg-black/60', 'bg-black hover:bg-black/80'];
+              return (
+              <div key={i} className={`${bgMap[i]} p-12 md:p-16 transition-colors duration-500 flex flex-col justify-center h-[300px]`}>
                 <h3 className="text-3xl font-bold mb-4">{quad.title}</h3>
                 <p className="text-white/40 text-sm font-semibold uppercase tracking-widest mb-8">{quad.cond}</p>
                 <div className="flex items-center space-x-2 text-accent font-bold mt-auto">
@@ -233,7 +206,8 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
                   <span>{quad.act}</span>
                 </div>
               </div>
-            ))}
+            );
+            })}
           </div>
         </div>
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent/20 blur-[150px] pointer-events-none" />
@@ -248,15 +222,11 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
             viewport={{ once: true }}
             className="mb-20"
           >
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight">How it works.</h2>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight">{c.howItWorksHeadline}</h2>
           </motion.div>
 
           <div className="space-y-8">
-            {[
-              { step: '01', title: 'Complete the diagnostic', desc: 'Answer questions about your operations, team capabilities, and culture. Takes 15 to 20 minutes per module.' },
-              { step: '02', title: 'Receive your Priority Matrix', desc: 'Every department plotted on a 2×2 grid showing exactly where to start, where to train, and where to wait.' },
-              { step: '03', title: 'Get your action plan', desc: 'A prioritised roadmap with specific recommendations for tools, training, and quick wins. Ready to present to leadership.' }
-            ].map((s, i) => (
+            {c.howItWorksSteps.map((s, i) => (
               <motion.div
                 key={s.step}
                 initial={{ opacity: 0, x: -20 }}
@@ -324,7 +294,7 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
           >
             <p className="text-[11px] font-bold text-foreground/30 uppercase tracking-[0.2em] mb-8">Built for.</p>
             <div className="flex flex-wrap justify-center gap-3 mb-24">
-              {['Business owners', 'Ops & finance heads', 'HR & L&D leads', 'IT directors', 'Consultants'].map(role => (
+              {c.builtFor.map(role => (
                 <span key={role} className="px-6 py-3 bg-secondary/50 rounded-full font-semibold text-foreground/80 text-sm">
                   {role}
                 </span>
@@ -332,16 +302,18 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
             </div>
 
             <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-8 leading-[0.9]">
-              Start with the Opportunity Scan.
+              {c.finalCta.headline}
             </h2>
             <p className="text-foreground/60 text-xl font-medium mb-12 max-w-xl mx-auto leading-relaxed">
-              Ten minutes. Find out which departments have the biggest AI opportunity.
+              {c.finalCta.body}
             </p>
             <a
-              href="https://calendar.app.google/bZ3j6WLHznPt1FP4A"
+              href={product.ctaLink || product.externalLink || "https://calendar.app.google/bZ3j6WLHznPt1FP4A"}
+              target={(product.externalLink || product.ctaLink)?.startsWith('#') ? undefined : "_blank"}
+              rel="noopener noreferrer"
               className="inline-flex items-center space-x-3 px-12 py-5 rounded-full font-bold text-white text-lg transition-all hover:opacity-90 hover:scale-[1.02] shadow-2xl bg-[#2563EB]"
             >
-              <span>Start your diagnostic</span>
+              <span>{c.finalCta.buttonLabel}</span>
               <ArrowRight className="w-5 h-5" />
             </a>
           </motion.div>

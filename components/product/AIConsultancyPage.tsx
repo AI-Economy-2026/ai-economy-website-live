@@ -7,6 +7,7 @@ import { ArrowLeft, ArrowRight, CheckCircle2, BarChart3, Users, ShieldCheck, Che
 import { Product } from '@/data/products';
 import { Footer } from '@/components/layout/Footer';
 import { MoreProducts } from '@/components/product/MoreProducts';
+import { aiConsultancyContent as c } from '@/content/products/ai-consultancy';
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
@@ -68,12 +69,12 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-4xl"
           >
-            <p className="text-white/50 text-xs font-bold uppercase tracking-[0.2em] mb-6">AI Strategy & Consultation</p>
+            <p className="text-white/50 text-xs font-bold uppercase tracking-[0.2em] mb-6">{c.hero.eyebrow}</p>
             <h1 className="text-6xl md:text-[110px] font-extrabold text-white tracking-tighter leading-[0.85] mb-8">
-              Strategy over<br />software.
+              {c.hero.headline.split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}
             </h1>
             <p className="text-white/70 text-2xl md:text-3xl font-medium max-w-3xl leading-snug mb-12">
-              Bespoke AI consulting for businesses that want more than just another tool. We build practical roadmaps for commercial impact.
+              {c.hero.body}
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-8">
               <a
@@ -90,7 +91,7 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
                     <div key={i} className="w-10 h-10 rounded-full border-2 border-black bg-white/20" />
                   ))}
                 </div>
-                <span className="text-sm font-semibold tracking-wide uppercase">Trusted by 50+ Enterprises</span>
+                <span className="text-sm font-semibold tracking-wide uppercase">{c.hero.socialProof}</span>
               </div>
             </div>
           </motion.div>
@@ -105,26 +106,26 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8">The AI adoption gap.</h2>
+            <h2 className="text-4xl md:text-6xl font-bold tracking-tight mb-8">{c.adoptionGapHeadline}</h2>
             <p className="text-xl md:text-2xl text-foreground/60 font-medium leading-relaxed mb-12">
-              Most businesses have experimentation, but very few have alignment. We bridge the gap between &ldquo;cool pilots&rdquo; and &ldquo;core infrastructure.&rdquo;
+              {c.adoptionGapBody}
             </p>
             <div className="space-y-8">
-              {[
-                { title: 'Executive Workshops', desc: 'Aligning leadership on risk, budget, and commercial prioritization.', icon: Users },
-                { title: 'Compliance & Governance', desc: 'Secure implementation strategies that protect your proprietary data.', icon: ShieldCheck },
-                { title: 'Commercial Roadmaps', desc: 'Moving from vague ideas to ranked, ROI-focused project lists.', icon: BarChart3 }
-              ].map((item, i) => (
+              {c.services.map((item, i) => {
+                const iconMap = { Users, ShieldCheck, BarChart3 } as Record<string, React.ElementType>;
+                const Icon = iconMap[item.icon];
+                return (
                 <div key={i} className="flex gap-6">
                   <div className="w-12 h-12 rounded-xl bg-black/5 flex items-center justify-center flex-shrink-0">
-                    <item.icon className="w-6 h-6 text-black" />
+                    {Icon && <Icon className="w-6 h-6 text-black" />}
                   </div>
                   <div>
                     <h4 className="text-xl font-bold mb-2">{item.title}</h4>
                     <p className="text-foreground/60 font-medium leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </motion.div>
           <motion.div
@@ -133,13 +134,9 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
             viewport={{ once: true }}
             className="bg-[#F5F5F7] p-12 rounded-[48px] lg:sticky lg:top-24"
           >
-            <h3 className="text-3xl font-bold mb-8">Typical Engagement</h3>
+            <h3 className="text-3xl font-bold mb-8">{c.engagementHeadline}</h3>
             <div className="space-y-12">
-              {[
-                { step: 'Phase 01', title: 'Opportunity Audit', desc: 'Mapping departments against automation potential.' },
-                { step: 'Phase 02', title: 'Strategic Roadmap', desc: 'Prioritizing projects based on Effort vs. Reward.' },
-                { step: 'Phase 03', title: 'Activation Blocks', desc: 'Implementing workshops, training, and pilot tools.' }
-              ].map((s, i) => (
+              {c.engagementPhases.map((s, i) => (
                 <div key={i} className="relative pl-12">
                   {i < 2 && <div className="absolute left-[23px] top-12 w-px h-16 bg-black/10" />}
                   <div className="absolute left-0 top-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-sm border border-black/5">
@@ -159,7 +156,7 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
               rel="noopener noreferrer"
               className="mt-12 w-full py-5 bg-black text-white rounded-full font-bold flex items-center justify-center gap-2 hover:bg-black/90 transition-all"
             >
-              Start the audit <ChevronRight className="w-5 h-5" />
+              {c.engagementCtaLabel} <ChevronRight className="w-5 h-5" />
             </a>
           </motion.div>
         </div>
@@ -174,12 +171,12 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
             viewport={{ once: true }}
           >
             <p className="text-4xl md:text-5xl font-extrabold italic tracking-tight leading-tight text-black mb-12">
-              &ldquo;The single best strategic investment we made into AI. No fluff, just commercial reality.&rdquo;
+              &ldquo;{c.testimonial.quote}&rdquo;
             </p>
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 rounded-full bg-black/10 mb-4" />
-              <p className="font-bold text-lg">Managing Director</p>
-              <p className="text-foreground/40 text-sm font-semibold uppercase tracking-widest">Global Logistics Firm</p>
+              <p className="font-bold text-lg">{c.testimonial.author}</p>
+              <p className="text-foreground/40 text-sm font-semibold uppercase tracking-widest">{c.testimonial.company}</p>
             </div>
           </motion.div>
         </div>
@@ -194,16 +191,18 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
             viewport={{ once: true }}
           >
             <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-8 leading-[0.9]">
-              Build your AI blueprint.
+              {c.finalCta.headline}
             </h2>
             <p className="text-foreground/60 text-xl font-medium mb-12 max-w-xl mx-auto leading-relaxed">
-              Don&apos;t leave your AI strategy to chance. Partner with experts who have implemented AI at scale.
+              {c.finalCta.body}
             </p>
             <a
-              href="https://calendar.app.google/bZ3j6WLHznPt1FP4A"
+              href={product.ctaLink || product.externalLink || "https://calendar.app.google/bZ3j6WLHznPt1FP4A"}
+              target={(product.externalLink || product.ctaLink)?.startsWith('#') ? undefined : "_blank"}
+              rel="noopener noreferrer"
               className="inline-flex items-center space-x-3 px-12 py-5 rounded-full font-bold text-white text-lg transition-all hover:opacity-90 hover:scale-[1.02] shadow-2xl bg-[#2563EB]"
             >
-              <span>Request a Proposal</span>
+              <span>{c.finalCta.buttonLabel}</span>
               <ArrowRight className="w-5 h-5" />
             </a>
           </motion.div>

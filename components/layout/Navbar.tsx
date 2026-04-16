@@ -1,6 +1,6 @@
 'use client';
 
-import { Linkedin, Instagram, Menu, X } from 'lucide-react';
+import { Linkedin, Instagram, Facebook, Youtube, Menu, X } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -56,12 +56,16 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center space-x-6">
-          <a href="https://www.linkedin.com/in/sarahbalmer/" target="_blank" rel="noopener noreferrer" className="hidden sm:block text-foreground/70 hover:text-foreground transition-colors p-2">
-            <Linkedin className="h-4 w-4" />
-          </a>
-          <a href="https://www.instagram.com/sarahspeaks_ai/" target="_blank" rel="noopener noreferrer" className="hidden sm:block text-foreground/70 hover:text-foreground transition-colors p-2">
-            <Instagram className="h-4 w-4" />
-          </a>
+          {siteConfig.socialLinks.map((link) => {
+            const iconMap: Record<string, React.ElementType> = { LinkedIn: Linkedin, Instagram, Facebook, YouTube: Youtube };
+            const Icon = iconMap[link.label];
+            if (!Icon) return null;
+            return (
+              <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" className="hidden sm:block text-foreground/70 hover:text-foreground transition-colors p-2">
+                <Icon className="h-4 w-4" />
+              </a>
+            );
+          })}
 
           <button
             className="md:hidden p-2 text-foreground"
