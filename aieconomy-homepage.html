@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Economy — AI That Works</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #004AAD;
+    --black: #111111;
+    --orange: #E8890C;
+    --white: #FFFFFF;
+    --light-grey: #F5F5F7;
+    --mid-grey: #86868B;
+    --dark-bg: #1D1D1F;
+    --card-radius: 16px;
+    --section-padding: 100px 0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--black);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* SOCIAL BAR */
+  .social-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 101;
+    background: var(--light-grey);
+    height: 32px;
+    display: flex;
+    align-items: center;
+  }
+
+  .social-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 32px;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    padding: 0 48px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: -0.3px;
+    color: var(--black);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--black);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .nav-links a:hover { opacity: 1; }
+
+  .nav-social {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--black);
+    opacity: 0.4;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .nav-social:hover {
+    opacity: 1;
+  }
+
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    padding: 8px 0;
+    min-width: 160px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: all 0.2s;
+    list-style: none;
+    margin-top: 8px;
+  }
+
+  .nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .dropdown-menu li a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--black);
+    opacity: 0.7;
+  }
+
+  .dropdown-menu li a:hover {
+    opacity: 1;
+    background: var(--light-grey);
+  }
+
+  /* HERO */
+  .hero {
+    padding: 180px 48px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .hero h1 {
+    font-size: clamp(52px, 7vw, 86px);
+    font-weight: 700;
+    line-height: 1.02;
+    letter-spacing: -3px;
+    color: var(--black);
+    margin-bottom: 24px;
+  }
+
+  .hero p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--mid-grey);
+    max-width: 520px;
+  }
+
+  .hero-video {
+    width: 100%;
+  }
+
+  .video-placeholder {
+    width: 100%;
+    aspect-ratio: 9/12;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    border-radius: var(--card-radius);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .video-placeholder:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+  }
+
+  .video-play {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 18px;
+    padding-left: 3px;
+  }
+
+  .video-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .hero-scroll-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    color: var(--mid-grey);
+    text-decoration: none;
+    margin-top: 32px;
+    transition: all 0.3s;
+    animation: bounceDown 2s ease-in-out infinite;
+  }
+
+  .hero-scroll-arrow:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+  }
+
+  @keyframes bounceDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  .btn-primary {
+    background: var(--blue);
+    color: var(--white);
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: #003A8C;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--black);
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 1.5px solid rgba(0,0,0,0.15);
+    transition: all 0.25s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--black);
+  }
+
+  /* PRODUCT CARDS SECTION */
+  .products-section {
+    padding: 60px 48px 100px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .products-section h2 {
+    font-size: clamp(36px, 4.5vw, 52px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 12px;
+  }
+
+  .products-section .section-sub {
+    font-size: 15px;
+    color: var(--mid-grey);
+    margin-bottom: 48px;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+  }
+
+  /* Row 1: 2 large cards */
+  .product-card:nth-child(1),
+  .product-card:nth-child(2) {
+    grid-column: span 3;
+  }
+
+  /* Row 2: 3 equal cards */
+  .product-card:nth-child(3),
+  .product-card:nth-child(4),
+  .product-card:nth-child(5) {
+    grid-column: span 2;
+  }
+
+  /* Row 3: 3 equal cards */
+  .product-card:nth-child(6),
+  .product-card:nth-child(7),
+  .product-card:nth-child(8) {
+    grid-column: span 2;
+  }
+
+  .product-card {
+    position: relative;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.4s;
+  }
+
+  .product-card:hover .card-bg {
+    transform: scale(1.05);
+  }
+
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%);
+  }
+
+  .card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 28px;
+    color: var(--white);
+  }
+
+  .card-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+
+  .card-description {
+    font-size: 14px;
+    line-height: 1.5;
+    opacity: 0.85;
+    font-weight: 400;
+  }
+
+  .card-cta {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    text-decoration: none;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+  }
+
+  .card-cta::after {
+    content: ' →';
+  }
+
+  .card-cta:hover { opacity: 1; }
+
+  /* Coming soon badge */
+  .coming-soon-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* Card backgrounds */
+  .card-consultancy .card-bg {
+    background: linear-gradient(135deg, #0a1628 0%, #1a3a6e 40%, #E8890C 100%);
+  }
+
+  .card-priority .card-bg {
+    background: linear-gradient(135deg, #1a0a2e 0%, #004AAD 60%, #00b4d8 100%);
+  }
+
+  .card-toolkit .card-bg {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b2d4f 50%, #304878 100%);
+  }
+
+  .card-geo .card-bg {
+    background: linear-gradient(135deg, #111 0%, #2a1a3e 50%, #4a2070 100%);
+  }
+
+  .card-training .card-bg {
+    background: linear-gradient(135deg, #8B0000 0%, #c41e3a 50%, #e8450c 100%);
+  }
+
+  .card-asksarah .card-bg {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  }
+
+  .card-prolinks .card-bg {
+    background: linear-gradient(135deg, #111 0%, #222 50%, #333 100%);
+  }
+
+  .card-parently .card-bg {
+    background: linear-gradient(135deg, #e8f0fe 0%, #b3d4fc 50%, #7ab8f5 100%);
+  }
+
+  .card-parently .card-overlay {
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.55) 100%);
+  }
+
+  /* STATS SECTION */
+  .stats-section {
+    background: var(--dark-bg);
+    padding: 100px 0;
+  }
+
+  .stats-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  .stats-header {
+    margin-bottom: 64px;
+  }
+
+  .stats-header h2 {
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -1.5px;
+    line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  .stats-intro {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .stat-card {
+    padding: 32px 0;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+
+  .stat-number {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -2px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .stat-label {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .stat-source {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+    display: inline-block;
+  }
+
+  .stat-source:hover {
+    color: rgba(255,255,255,0.7);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .stats-inner { padding: 0 24px; }
+  }
+
+  @media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ROADMAP SECTION */
+  .roadmap-section {
+    padding: var(--section-padding);
+    border-top: 1px solid rgba(0,0,0,0.06);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+
+  .roadmap-section h2 {
+    font-size: clamp(32px, 4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+
+  .roadmap-intro {
+    font-size: 15px;
+    color: var(--mid-grey);
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 64px;
+  }
+
+  .roadmap-step {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    margin-bottom: 80px;
+  }
+
+  .roadmap-step.reverse {
+    direction: rtl;
+  }
+
+  .roadmap-step.reverse > * {
+    direction: ltr;
+  }
+
+  .step-number {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+
+  .step-title {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .step-subtitle {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .step-text {
+    font-size: 15px;
+    color: var(--mid-grey);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .step-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .step-tag {
+    background: var(--light-grey);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  .step-image {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    background: var(--light-grey);
+  }
+
+  .step-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e8e8e8 0%, #f5f5f5 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--mid-grey);
+    font-size: 14px;
+  }
+
+  /* GEO / AI SEARCH SECTION */
+  .geo-section {
+    padding: 100px 0;
+    background: var(--light-grey);
+  }
+
+  .geo-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .geo-content h2 {
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+    line-height: 1.15;
+  }
+
+  .geo-content p {
+    font-size: 15px;
+    color: var(--mid-grey);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .geo-stats-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin: 32px 0;
+  }
+
+  .geo-stat {
+    padding: 24px;
+    background: var(--white);
+    border-radius: 12px;
+  }
+
+  .geo-stat-number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .geo-stat-label {
+    font-size: 13px;
+    color: var(--mid-grey);
+    line-height: 1.5;
+  }
+
+  .geo-visual {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1b2d4f 50%, #4a2070 100%);
+    border-radius: var(--card-radius);
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    text-align: center;
+  }
+
+  .geo-visual-question {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -0.5px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .geo-visual-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .geo-cta {
+    display: inline-block;
+    background: var(--white);
+    color: var(--black);
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+
+  .geo-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  }
+
+  @media (max-width: 768px) {
+    .geo-inner { grid-template-columns: 1fr; padding: 0 24px; }
+    .geo-visual { aspect-ratio: 16/9; }
+  }
+
+  /* HOW WE WORK */
+  .how-section {
+    background: var(--light-grey);
+    padding: var(--section-padding);
+  }
+
+  .how-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+    text-align: center;
+  }
+
+  .how-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+
+  .how-section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+
+  .how-sub {
+    font-size: 15px;
+    color: var(--mid-grey);
+    max-width: 560px;
+    margin: 0 auto 56px;
+    line-height: 1.7;
+  }
+
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    text-align: left;
+  }
+
+  .how-card {
+    background: var(--white);
+    padding: 32px 24px;
+    border-radius: var(--card-radius);
+    transition: transform 0.2s;
+  }
+
+  .how-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .how-card-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px solid var(--blue);
+    color: var(--blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+  }
+
+  .how-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.3px;
+  }
+
+  .how-card p {
+    font-size: 13px;
+    color: var(--mid-grey);
+    line-height: 1.6;
+  }
+
+  /* DTA SECTION */
+  .dta-section {
+    padding: var(--section-padding);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+
+  .dta-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+
+  .dta-section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 16px;
+  }
+
+  .dta-sub {
+    font-size: 15px;
+    color: var(--mid-grey);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 56px;
+  }
+
+  .dta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+
+  .dta-card {
+    background: var(--light-grey);
+    padding: 36px 28px;
+    border-radius: var(--card-radius);
+    transition: transform 0.2s;
+  }
+
+  .dta-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .dta-card-icon {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .dta-card-icon svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .dta-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+  }
+
+  .dta-card .dta-card-sub {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+
+  .dta-card p {
+    font-size: 14px;
+    color: var(--mid-grey);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .dta-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .dta-tag {
+    background: var(--white);
+    padding: 5px 12px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--black);
+  }
+
+  /* BUILT BY SARAH */
+  .founder-section {
+    padding: 80px 48px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  .founder-image {
+    width: 300px;
+    height: 380px;
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    background: linear-gradient(135deg, #c41e3a 0%, #e85050 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    position: relative;
+    position: sticky;
+    top: 100px;
+  }
+
+  .founder-image-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    background: rgba(0,0,0,0.4);
+    backdrop-filter: blur(10px);
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .founder-content h3 {
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+
+  .founder-verified {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+
+  .founder-lead {
+    font-size: 16px;
+    color: var(--mid-grey);
+    line-height: 1.7;
+    max-width: 540px;
+    margin-bottom: 28px;
+  }
+
+  .founder-credentials {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .credential-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 14px;
+    color: var(--black);
+    line-height: 1.5;
+  }
+
+  .credential-icon-svg {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .founder-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .founder-linkedin {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--black);
+    text-decoration: none;
+    transition: all 0.25s;
+  }
+
+  .founder-linkedin:hover {
+    border-color: #0A66C2;
+    color: #0A66C2;
+    background: rgba(10, 102, 194, 0.05);
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    background: var(--dark-bg);
+    padding: 100px 48px;
+    text-align: center;
+  }
+
+  .cta-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 20px;
+  }
+
+  .cta-section h2 {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+  }
+
+  .cta-section p {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    max-width: 480px;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  .cta-section .btn-primary {
+    background: var(--white);
+    color: var(--black);
+  }
+
+  .cta-section .btn-primary:hover {
+    background: #eee;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 60px 48px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 48px;
+  }
+
+  .footer-brand {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .footer-social-link {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--light-grey);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--mid-grey);
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+
+  .footer-social-link:hover { background: #e0e0e0; }
+
+  .footer-col h4 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    color: var(--black);
+  }
+
+  .footer-col a {
+    display: block;
+    font-size: 13px;
+    color: var(--mid-grey);
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--black); }
+
+  .footer-bottom {
+    font-size: 12px;
+    color: var(--mid-grey);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    .cards-grid .product-card { grid-column: span 1; }
+    .how-grid { grid-template-columns: repeat(2, 1fr); }
+    .dta-grid { grid-template-columns: repeat(2, 1fr); }
+    .footer-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 24px; }
+    .hero { padding: 120px 24px 60px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+    .video-placeholder { aspect-ratio: 16/9; }
+    .products-section { padding: 40px 24px 80px; }
+    .cards-grid { grid-template-columns: 1fr; gap: 16px; }
+    .cards-grid .product-card { grid-column: span 1; }
+    .product-card { aspect-ratio: 16/9; }
+    .roadmap-section { padding: 60px 24px; }
+    .roadmap-step { grid-template-columns: 1fr; gap: 24px; }
+    .roadmap-step.reverse { direction: ltr; }
+    .how-inner { padding: 0 24px; }
+    .how-grid { grid-template-columns: 1fr; }
+    .dta-section { padding: 60px 24px; }
+    .dta-grid { grid-template-columns: 1fr; }
+    .founder-section { grid-template-columns: 1fr; padding: 60px 24px; }
+    .cta-section { padding: 60px 24px; }
+    footer { padding: 40px 24px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .product-card {
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .product-card:nth-child(1) { animation-delay: 0s; }
+  .product-card:nth-child(2) { animation-delay: 0.08s; }
+  .product-card:nth-child(3) { animation-delay: 0.16s; }
+  .product-card:nth-child(4) { animation-delay: 0.24s; }
+  .product-card:nth-child(5) { animation-delay: 0.32s; }
+  .product-card:nth-child(6) { animation-delay: 0.4s; }
+  .product-card:nth-child(7) { animation-delay: 0.48s; }
+  .product-card:nth-child(8) { animation-delay: 0.56s; }
+</style>
+</head>
+<body>
+
+<!-- SOCIAL BAR -->
+<div class="social-bar">
+  <div class="social-bar-inner">
+    <a href="#" class="nav-social" title="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    <a href="#" class="nav-social" title="Facebook"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+    <a href="#" class="nav-social" title="Instagram"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+    <a href="#" class="nav-social" title="YouTube"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">AI ECONOMY</a>
+  <ul class="nav-links">
+    <li><a href="#">Explore</a></li>
+    <li class="nav-dropdown">
+      <a href="#">About</a>
+      <ul class="dropdown-menu">
+        <li><a href="#">Resources</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid">
+    <div class="hero-text">
+      <h1>AI That Works</h1>
+      <p>AI is everywhere, and it's hard to know where to start. Whether you're just trying to make sense of it all, or you're ready to put AI to work in your business, you're in the right place. I'll help you find your starting point, build your confidence, and get real results.</p>
+      <a href="#products" class="hero-scroll-arrow">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      </a>
+    </div>
+    <div class="hero-video">
+      <div class="video-placeholder">
+        <div class="video-play">▶</div>
+        <div class="video-label">Meet Sarah</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT CARDS -->
+<section class="products-section" id="products">
+  <h2>Cut through AI overwhelm</h2>
+  <p class="section-sub">Explore our services</p>
+
+  <div class="cards-grid">
+
+    <!-- 1. AI Consultancy -->
+    <div class="product-card card-consultancy">
+      <div class="card-bg"></div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <div class="card-label">AI Economy</div>
+        <div class="card-title">AI Consultancy</div>
+        <div class="card-description">I'll help you tackle the overwhelm and start right with AI</div>
+        <a href="#" class="card-cta">Let's Talk</a>
+      </div>
+    </div>
+
+    <!-- 2. Priority AI -->
+    <div class="product-card card-priority">
+      <div class="card-bg"></div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <div class="card-label">AI Diagnostic</div>
+        <div class="card-title">Priority AI</div>
+        <div class="card-description">AI lives everywhere. But where does it get you the best AI ROI?</div>
+        <a href="#" class="card-cta">Find Out</a>
+      </div>
+    </div>
+
+    <!-- 3. AI Toolkit -->
+    <div class="product-card card-toolkit">
+      <div class="card-bg"></div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <div class="card-label">AI Tools</div>
+        <div class="card-title">AI Toolkit</div>
+        <div class="card-description">Overwhelmed? Get access to a curated collection of tried and tested AI tools that I use every day.</div>
+        <a href="#" class="card-cta">Explore the Tools</a>
+      </div>
+    </div>
+
+    <!-- 4. AI Visibility Ranking -->
+    <div class="product-card card-geo">
+      <div class="card-bg"></div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <div class="card-label">AI Search AKA GEO</div>
+        <div class="card-title">AI Visibility Ranking</div>
+        <div class="card-description">Is your business turning up in AI search for your key services and products? Start now, get ahead.</div>
+        <a href="#" class="card-cta">Check Your Visibility</a>
+      </div>
+    </div>
+
+    <!-- 5. Sarah Speaks AI — Training -->
+    <div class="product-card card-training">
+      <div class="card-bg"></div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <div class="card-label">AI Training</div>
+        <div class="card-title">Sarah Speaks AI</div>
+        <div class="card-description">AI courses online and self-paced, designed for busy professionals.</div>
+        <a href="#" class="card-cta">Join the Waitlist</a>
+      </div>
+    </div>
+
+    <!-- 6. Ask Sarah -->
+    <div class="product-card card-asksarah">
+      <div class="card-bg"></div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <span class="coming-soon-badge">Coming Soon</span>
+        <div class="card-label">AI Support</div>
+        <div class="card-title">Ask Sarah</div>
+        <div class="card-description">Don't know what to do? Or where to start? Ask an expert.</div>
+        <a href="#" class="card-cta">Join the Waitlist</a>
+      </div>
+    </div>
+
+    <!-- 7. Prolinks -->
+    <div class="product-card card-prolinks">
+      <div class="card-bg"></div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <span class="coming-soon-badge">Coming Soon</span>
+        <div class="card-label">Elevate</div>
+        <div class="card-title">Prolinks</div>
+        <div class="card-description">Transform your attachments into secure, trackable links in an instant.</div>
+        <a href="#" class="card-cta">Join the Waitlist</a>
+      </div>
+    </div>
+
+    <!-- 8. Parently -->
+    <div class="product-card card-parently">
+      <div class="card-bg"></div>
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <span class="coming-soon-badge">Coming Soon</span>
+        <div class="card-label">Everyday AI</div>
+        <div class="card-title">Parently</div>
+        <div class="card-description">AI powered life admin assistant to cut through the chaos. Connecting family networks, service providers and products, payments and events in one ecosystem.</div>
+        <a href="#" class="card-cta">Join the Waitlist</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BUILT BY SARAH BALMER -->
+<section class="founder-section">
+  <div class="founder-image">
+    <div class="founder-image-label">Sarah Balmer</div>
+  </div>
+  <div class="founder-content">
+    <div class="founder-verified">✓ Certified AI Trainer</div>
+    <h3>Start your AI journey right</h3>
+    <p class="founder-lead">CEO, Founder, and AI Strategist with 25+ years in business, marketing, and strategic solutions. I've been hands-on with AI tools since late 2022, and I built AI Economy to help businesses cut through the noise and get real results.</p>
+    <div class="founder-credentials">
+      <div class="credential-item">
+        <span class="credential-icon-svg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="1.5"><path d="M12 15l-3.5 2 .7-3.9L6 10.1l3.9-.6L12 6l2.1 3.5 3.9.6-2.8 2.8.7 3.9z" fill="#004AAD" fill-opacity="0.1"/><circle cx="12" cy="12" r="10"/></svg></span>
+        <span>Certified AI Trainer, AI Speaker and Chair</span>
+      </div>
+      <div class="credential-item">
+        <span class="credential-icon-svg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="1.5"><rect x="3" y="6" width="18" height="13" rx="2" fill="#004AAD" fill-opacity="0.1"/><path d="M3 10h18"/><circle cx="12" cy="15" r="2"/></svg></span>
+        <span>Founder of multiple AI ventures including Priority AI, AI Economy, and Parently</span>
+      </div>
+      <div class="credential-item">
+        <span class="credential-icon-svg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke-linecap="round"/><circle cx="12" cy="12" r="4" fill="#004AAD" fill-opacity="0.1"/></svg></span>
+        <span>25+ years in brand strategy, marketing, and business consulting</span>
+      </div>
+      <div class="credential-item">
+        <span class="credential-icon-svg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="#004AAD" fill-opacity="0.1" stroke-linejoin="round"/></svg></span>
+        <span>Hands-on AI practitioner since generative AI</span>
+      </div>
+      <div class="credential-item">
+        <span class="credential-icon-svg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="1.5"><path d="M12 3c-4.97 0-9 2.69-9 6v6c0 3.31 4.03 6 9 6s9-2.69 9-6V9c0-3.31-4.03-6-9-6z" fill="#004AAD" fill-opacity="0.1"/><path d="M3 9c0 3.31 4.03 6 9 6s9-2.69 9-6"/></svg></span>
+        <span>Speaker at HRFutureFest, HR Gurus, and industry events</span>
+      </div>
+      <div class="credential-item">
+        <span class="credential-icon-svg"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#004AAD" stroke-width="1.5"><circle cx="12" cy="12" r="10" fill="#004AAD" fill-opacity="0.1"/><polygon points="10,8 16,12 10,16" fill="#004AAD" fill-opacity="0.3"/></svg></span>
+        <span>Host of the AI That Works podcast</span>
+      </div>
+    </div>
+    <div class="founder-buttons">
+      <a href="#" class="btn-primary">Contact</a>
+      <a href="#" class="btn-secondary">About</a>
+      <a href="#" class="founder-linkedin" title="Connect on LinkedIn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- THE AI LANDSCAPE — STATS -->
+<section class="stats-section">
+  <div class="stats-inner">
+    <div class="stats-header">
+      <h2>AI is moving fast.<br>Is your business keeping up?</h2>
+      <p class="stats-intro">Whether you're ready to start, or just beginning to get your head around AI, AI Economy has something for everyone. From self-paced training, to support and tailored consultancy.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">88%</div>
+        <div class="stat-label">of organisations now use AI in at least one business function</div>
+        <a href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai" target="_blank" class="stat-source">McKinsey, 2025</a>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">59%</div>
+        <div class="stat-label">of enterprise leaders report an AI skills gap, even with training in place</div>
+        <a href="https://www.datacamp.com/blog/the-state-of-data-and-ai-literacy-in-2026-definitions-statistics-and-the-ai-skills-gap" target="_blank" class="stat-source">DataCamp, 2026</a>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">Only 34%</div>
+        <div class="stat-label">of businesses are truly reimagining how they work with AI</div>
+        <a href="https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-ai-in-the-enterprise.html" target="_blank" class="stat-source">Deloitte, 2026</a>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3.7x</div>
+        <div class="stat-label">average ROI for every dollar invested in generative AI</div>
+        <a href="https://www.netguru.com/blog/ai-adoption-statistics" target="_blank" class="stat-source">Netguru, 2025</a>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2x</div>
+        <div class="stat-label">more likely to see significant AI ROI when paired with structured training</div>
+        <a href="https://www.datacamp.com/blog/the-state-of-data-and-ai-literacy-in-2026-definitions-statistics-and-the-ai-skills-gap" target="_blank" class="stat-source">DataCamp, 2026</a>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">#1</div>
+        <div class="stat-label">barrier to AI integration is the skills gap, not the technology</div>
+        <a href="https://www.deloitte.com/us/en/what-we-do/capabilities/applied-artificial-intelligence/content/state-of-ai-in-the-enterprise.html" target="_blank" class="stat-source">Deloitte, 2026</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HERE'S HOW WE WORK -->
+<section class="roadmap-section">
+  <h2>Here's what you can expect</h2>
+  <p class="roadmap-intro">It doesn't matter where you are on the AI journey. What matters is that you start, and that you start right. AI Economy gives you the tools, training, and expert support to move at your own pace.</p>
+
+  <!-- Self-paced -->
+  <div class="roadmap-step">
+    <div>
+      <div class="step-number">Start here</div>
+      <div class="step-title">Learn at your own pace</div>
+      <div class="step-subtitle">Self-paced tools and training</div>
+      <p class="step-text">Not ready for a conversation yet? No problem. Start with the AI Toolkit to explore the tools I use every day, or join the waitlist for self-paced online courses designed for busy professionals.</p>
+      <div class="step-tags">
+        <span class="step-tag">AI Toolkit</span>
+        <span class="step-tag">Online Training</span>
+        <span class="step-tag">AI Visibility Ranking</span>
+      </div>
+    </div>
+    <div class="step-image">
+      <div class="step-image-placeholder">Image: Self-paced learning</div>
+    </div>
+  </div>
+
+  <!-- Guided -->
+  <div class="roadmap-step reverse">
+    <div>
+      <div class="step-number">Go deeper</div>
+      <div class="step-title">Get expert guidance</div>
+      <div class="step-subtitle">Workshops, keynotes, and hands-on sessions</div>
+      <p class="step-text">Bring AI to your team with hands-on workshops and keynotes tailored to your industry. I work directly with your people to build confidence and capability with the AI tools that matter most.</p>
+      <div class="step-tags">
+        <span class="step-tag">Sarah Speaks AI</span>
+        <span class="step-tag">Team Workshops</span>
+        <span class="step-tag">Keynotes</span>
+      </div>
+    </div>
+    <div class="step-image">
+      <div class="step-image-placeholder">Image: Speaking / Workshop</div>
+    </div>
+  </div>
+
+  <!-- Tailored -->
+  <div class="roadmap-step">
+    <div>
+      <div class="step-number">Go all in</div>
+      <div class="step-title">Tailored AI consultancy</div>
+      <div class="step-subtitle">Your AI strategy, mapped to your business</div>
+      <p class="step-text">Ready to get serious? I'll work with you to identify exactly where AI delivers the best ROI in your business, linked to your head hours and payroll. You get a clear roadmap, a prioritised action plan, and hands-on support to activate it.</p>
+      <div class="step-tags">
+        <span class="step-tag">AI Consultancy</span>
+        <span class="step-tag">Priority AI</span>
+        <span class="step-tag">AI Audit</span>
+        <span class="step-tag">Roadmap</span>
+      </div>
+    </div>
+    <div class="step-image">
+      <div class="step-image-placeholder">Image: Consultancy</div>
+    </div>
+  </div>
+</section>
+
+<!-- GET FOUND IN AI SEARCH -->
+<section class="geo-section">
+  <div class="geo-inner">
+    <div class="geo-content">
+      <h2>Will your business be found when AI answers your customers' questions?</h2>
+      <p>AI search is changing how customers find businesses. ChatGPT, Perplexity, Gemini and Copilot are already answering the questions your customers used to type into Google. If your business isn't showing up in those answers, you're invisible to a growing share of your market.</p>
+      <div class="geo-stats-row">
+        <div class="geo-stat">
+          <div class="geo-stat-number">5x</div>
+          <div class="geo-stat-label">more engaged traffic from AI search compared to traditional search</div>
+        </div>
+        <div class="geo-stat">
+          <div class="geo-stat-number">400%</div>
+          <div class="geo-stat-label">increase in AI-powered search usage in the last 12 months</div>
+        </div>
+      </div>
+      <p>GEO (generative engine optimisation) is no longer optional. The businesses that act now will own the AI search results in their category. The ones that wait will wonder where their traffic went.</p>
+    </div>
+    <div class="geo-visual">
+      <div class="geo-visual-question">Is your business turning up in AI search?</div>
+      <div class="geo-visual-sub">Find out where you rank for your key services and products. Get your AI visibility report.</div>
+      <a href="#" class="geo-cta">Check your visibility</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE WORK WITH YOU -->
+<section class="how-section">
+  <div class="how-inner">
+    <div class="how-eyebrow">Your AI Economy journey</div>
+    <h2>How we work with you</h2>
+    <p class="how-sub">A structured, repeatable process that takes AI from uncertain to indispensable across your business.</p>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-card-number">1</div>
+        <h3>The conversation</h3>
+        <p>We start with a conversation about where your business is today, what's working, and where AI could make the biggest difference.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-card-number">2</div>
+        <h3>The diagnostic</h3>
+        <p>We run your business through Priority AI to map your AI readiness against your head hours, payroll, and operational priorities.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-card-number">3</div>
+        <h3>The audit</h3>
+        <p>A deep-dive audit that produces a clear AI roadmap tied to your specific revenue, cost, and efficiency goals.</p>
+      </div>
+      <div class="how-card">
+        <div class="how-card-number">4</div>
+        <h3>The activation</h3>
+        <p>Hands-on implementation and training so your team can use AI tools independently and see results from day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISCOVER TRAIN ACTIVATE -->
+<section class="dta-section">
+  <div class="dta-eyebrow">Our approach</div>
+  <h2>Three steps</h2>
+  <p class="dta-sub">One focused approach. Every tool and service we offer connects back to this core strategy.</p>
+
+  <div class="dta-grid">
+    <div class="dta-card">
+      <div class="dta-card-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="21" stroke="#004AAD" stroke-width="1.5"/><circle cx="24" cy="24" r="2" fill="#004AAD"/><path d="M20 28L16 32l12-12-4 8-4 0z" fill="#004AAD" fill-opacity="0.15" stroke="#004AAD" stroke-width="1.5" stroke-linejoin="round"/><path d="M28 20l4-4-12 12 4-8h4z" fill="#004AAD" fill-opacity="0.08" stroke="#004AAD" stroke-width="1.5" stroke-linejoin="round"/><line x1="24" y1="3" x2="24" y2="7" stroke="#004AAD" stroke-width="1.5" stroke-linecap="round"/><line x1="24" y1="41" x2="24" y2="45" stroke="#004AAD" stroke-width="1.5" stroke-linecap="round"/><line x1="3" y1="24" x2="7" y2="24" stroke="#004AAD" stroke-width="1.5" stroke-linecap="round"/><line x1="41" y1="24" x2="45" y2="24" stroke="#004AAD" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <h3>Discover</h3>
+      <div class="dta-card-sub">Find your AI starting point</div>
+      <p>Unpack your business, identify where AI delivers the highest ROI, and build your custom roadmap to implementation.</p>
+      <div class="dta-card-tags">
+        <span class="dta-tag">Priority AI</span>
+        <span class="dta-tag">AI Consultancy</span>
+      </div>
+    </div>
+    <div class="dta-card">
+      <div class="dta-card-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="36" width="8" height="8" rx="1.5" stroke="#00a878" stroke-width="1.5" fill="#00a878" fill-opacity="0.08"/><rect x="16" y="26" width="8" height="18" rx="1.5" stroke="#00a878" stroke-width="1.5" fill="#00a878" fill-opacity="0.08"/><rect x="28" y="16" width="8" height="28" rx="1.5" stroke="#00a878" stroke-width="1.5" fill="#00a878" fill-opacity="0.12"/><rect x="40" y="6" width="4" height="38" rx="1.5" stroke="#00a878" stroke-width="1.5" fill="#00a878" fill-opacity="0.06"/><path d="M8 32L20 20l8 6L42 8" stroke="#00a878" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="42" cy="8" r="2.5" fill="#00a878"/></svg></div>
+      <h3>Train</h3>
+      <div class="dta-card-sub">Build the skills to deliver</div>
+      <p>Equip your team with practical AI skills through workshops, courses, and hands-on training with real tools and real workflows.</p>
+      <div class="dta-card-tags">
+        <span class="dta-tag">AI Training</span>
+        <span class="dta-tag">Workshops</span>
+      </div>
+    </div>
+    <div class="dta-card">
+      <div class="dta-card-icon"><svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M24 4C24 4 14 14 14 28c0 6 4 12 10 16 6-4 10-10 10-16C34 14 24 4 24 4z" stroke="#E8890C" stroke-width="1.5" stroke-linejoin="round" fill="#E8890C" fill-opacity="0.08"/><circle cx="24" cy="26" r="5" stroke="#E8890C" stroke-width="1.5" fill="#E8890C" fill-opacity="0.12"/><circle cx="24" cy="26" r="2" fill="#E8890C"/><path d="M18 40l-4 4" stroke="#E8890C" stroke-width="1.5" stroke-linecap="round"/><path d="M30 40l4 4" stroke="#E8890C" stroke-width="1.5" stroke-linecap="round"/><path d="M24 42v4" stroke="#E8890C" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <h3>Activate</h3>
+      <div class="dta-card-sub">Put AI into production</div>
+      <p>Move from planning to doing. Implement AI tools, automate workflows, and track results across your business operations.</p>
+      <div class="dta-card-tags">
+        <span class="dta-tag">AI Toolkit</span>
+        <span class="dta-tag">AI Visibility</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-eyebrow">From strategy to activation</div>
+  <h2>Start now.</h2>
+  <p>Discover. Train. Activate. Find out where AI fits in your business and start getting real results.</p>
+  <a href="#" class="btn-primary">Get in Touch</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">AI ECONOMY</div>
+      <div class="footer-socials">
+        <a href="#" class="footer-social-link">Li</a>
+        <a href="#" class="footer-social-link">X</a>
+        <a href="#" class="footer-social-link">IG</a>
+        <a href="#" class="footer-social-link">YT</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <a href="#">AI Consultancy</a>
+      <a href="#">Priority AI</a>
+      <a href="#">AI Toolkit</a>
+      <a href="#">AI Visibility Ranking</a>
+      <a href="#">Sarah Speaks AI</a>
+    </div>
+    <div class="footer-col">
+      <h4>Coming soon</h4>
+      <a href="#">Ask Sarah</a>
+      <a href="#">Prolinks</a>
+      <a href="#">Parently</a>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <a href="#">About Sarah</a>
+      <a href="#">Resources</a>
+      <a href="#">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="#">Privacy policy</a>
+      <a href="#">Terms of use</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 AI Economy. All rights reserved.</span>
+    <span>Privacy · Terms</span>
+  </div>
+</footer>
+
+</body>
+</html>
