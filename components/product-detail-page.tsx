@@ -1,6 +1,34 @@
+'use client';
+
 import Image from 'next/image';
+import { useState } from 'react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import type { ProductDetail } from '@/lib/product-details';
 import { SiteFooter } from '@/components/site-footer';
+
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div key={question} className="border-b border-black/8 last:border-0">
+      <button
+        className="w-full text-left p-6 flex items-start justify-between gap-4 group"
+        onClick={() => setOpen((o) => !o)}
+      >
+        <h3 className="text-lg font-semibold group-hover:text-brandBlue transition-colors leading-snug">
+          {question}
+        </h3>
+        {open ? (
+          <ChevronUp className="w-5 h-5 text-brandBlue flex-shrink-0 mt-0.5" />
+        ) : (
+          <ChevronDown className="w-5 h-5 text-midGrey flex-shrink-0 mt-0.5 group-hover:text-brandBlue transition-colors" />
+        )}
+      </button>
+      {open && (
+        <div className="px-6 pb-6 text-[15px] leading-7 text-midGrey">{answer}</div>
+      )}
+    </div>
+  );
+}
 
 export function ProductDetailPage({ product }: { product: ProductDetail }) {
   return (
@@ -96,12 +124,9 @@ export function ProductDetailPage({ product }: { product: ProductDetail }) {
         {product.faqs && (
           <section className="py-12">
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-brandBlue">FAQ</p>
-            <div className="divide-y divide-black/8 rounded-2xl border border-black/8">
+            <div className="rounded-2xl border border-black/8">
               {product.faqs.map((faq) => (
-                <div key={faq.question} className="p-6">
-                  <h3 className="mb-2 text-lg font-semibold">{faq.question}</h3>
-                  <p className="text-[15px] leading-7 text-midGrey">{faq.answer}</p>
-                </div>
+                <FAQItem key={faq.question} question={faq.question} answer={faq.answer} />
               ))}
             </div>
           </section>
