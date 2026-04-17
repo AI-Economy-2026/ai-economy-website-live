@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import './globals.css';
 import { SubscriptionModal } from '@/components/ui/SubscriptionModal';
 import { globalSEO } from '@/content/seo/global';
@@ -28,6 +29,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-7VS8LLDD4W"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-7VS8LLDD4W');
+          `}
+        </Script>
+      </head>
       <body>
         <SubscriptionModal />
         {children}
