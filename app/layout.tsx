@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import './globals.css';
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import { SubscriptionModal } from '@/components/ui/SubscriptionModal';
 import { globalSEO } from '@/content/seo/global';
 
@@ -28,6 +30,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <Suspense fallback={null}>
+          <GoogleAnalytics />
+        </Suspense>
+      </head>
       <body>
         <SubscriptionModal />
         {children}
