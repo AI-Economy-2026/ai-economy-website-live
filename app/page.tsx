@@ -57,7 +57,7 @@ export default function HomePage() {
           </div>
 
           <div className="w-full lg:flex lg:justify-end">
-            <MeetSarahVideo src={homepageHero.videoSrc} />
+            <MeetSarahVideo />
           </div>
         </section>
 
