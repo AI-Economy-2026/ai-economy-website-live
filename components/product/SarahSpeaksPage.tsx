@@ -68,9 +68,12 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             <p className="text-[#2563EB] text-xs font-bold uppercase tracking-[0.2em] mb-6">Practical AI Training</p>
-            <h1 className="text-6xl md:text-[90px] font-extrabold text-black tracking-tighter leading-[0.9] mb-8">
-              No jargon.<br />Just skills.
+            <h1 className="text-5xl md:text-[80px] font-extrabold text-black tracking-tighter leading-[0.9] mb-8">
+              Trusted by<br />5,000+<br />professionals
             </h1>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#2563EB]/10 rounded-full mb-8">
+              <span className="text-[#2563EB] text-sm font-bold">Trusted by 50+ Enterprises</span>
+            </div>
             <p className="text-foreground/60 text-xl md:text-2xl font-medium max-w-2xl leading-relaxed mb-12">
               Sarah Speaks demystifies AI. Practical, self-paced training designed for business leaders and teams. Skills you can use on Monday morning.
             </p>
@@ -167,7 +170,7 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
             className="mb-16"
           >
             <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-black">Cut through the noise.</h2>
-            <p className="text-xl text-foreground/60 font-medium">Most AI training is either too technical or too generic. We focus on the middle ground: commerical application.</p>
+            <p className="text-xl text-foreground/60 font-medium">Most AI training is either too technical or too generic. We focus on the middle ground: commercial application.</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
