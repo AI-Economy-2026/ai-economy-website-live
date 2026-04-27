@@ -146,7 +146,7 @@ export default function HomePage() {
                     href={stat.sourceHref}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block text-[11px] font-medium uppercase tracking-[0.14em] text-white/35 no-underline transition hover:text-white/70 hover:underline"
+                    className="inline-block text-[11px] font-medium uppercase tracking-[0.14em] text-white/60 no-underline transition hover:text-white hover:underline"
                   >
                     {stat.source}
                   </a>

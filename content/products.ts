@@ -839,7 +839,7 @@ export const products: Product[] = [
     ],
     outcome:
       'A clear picture of your AI search presence today and a targeted strategic roadmap to ensure your brand is consistently recommended by AI.',
-    cta: 'Start the audit',
+    cta: 'Start your journey',
     stats: [
       { value: '5+', label: 'AI Engines Audited' },
       { value: '87%', label: 'of Consumers Use AI Search' },
