@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Express Insurance — SEM Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#00843D;
+  --green-dark:#006B31;
+  --green-light:#E8F5EE;
+  --green-mid:#B8DEC9;
+  --bg:#F4F6F8;
+  --white:#FFFFFF;
+  --surface:#FAFBFC;
+  --border:#E2E8F0;
+  --border-strong:#CBD5E1;
+  --text:#0F172A;
+  --text-mid:#475569;
+  --text-muted:#94A3B8;
+  --red:#DC2626;
+  --red-bg:#FEF2F2;
+  --amber:#B45309;
+  --amber-bg:#FFFBEB;
+  --blue:#2563EB;
+  --blue-bg:#EFF6FF;
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+  --shadow:0 4px 12px rgba(0,0,0,0.07),0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg:0 12px 32px rgba(0,0,0,0.1),0 4px 8px rgba(0,0,0,0.05);
+  --radius:12px;
+  --radius-sm:8px;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.6}
+
+/* ── HEADER ── */
+.hdr{background:var(--white);border-bottom:1px solid var(--border);padding:0 48px;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:300;box-shadow:var(--shadow-sm)}
+.hdr-logo{display:flex;align-items:center;gap:10px}
+.hdr-logo svg{width:28px;height:28px}
+.hdr-name{font-size:16px;font-weight:700;color:var(--green)}
+.hdr-client{display:flex;align-items:center;gap:12px}
+.hdr-client-name{font-size:14px;font-weight:600;color:var(--text)}
+.hdr-badge{font-size:11px;font-weight:600;background:var(--green-light);color:var(--green-dark);padding:3px 10px;border-radius:20px;border:1px solid var(--green-mid)}
+.hdr-date{font-size:12px;color:var(--text-muted);font-family:'DM Mono',monospace}
+
+/* ── NAV ── */
+.nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 48px;display:flex;overflow-x:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex-shrink:0;padding:14px 16px;font-size:12px;font-weight:600;color:var(--text-muted);text-decoration:none;border-bottom:2px solid transparent;letter-spacing:0.04em;text-transform:uppercase;transition:color .15s,border-color .15s;white-space:nowrap}
+.nav a:hover{color:var(--text)}
+.nav a.active{color:var(--green);border-bottom-color:var(--green)}
+
+/* ── KPI BAR ── */
+.kpi-bar{background:var(--green);padding:12px 48px;display:flex;gap:0;border-bottom:2px solid var(--green-dark)}
+.kpi-item{flex:1;text-align:center;padding:0 16px;border-right:1px solid rgba(255,255,255,0.2)}
+.kpi-item:last-child{border-right:none}
+.kpi-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.7);margin-bottom:2px}
+.kpi-val{font-size:18px;font-weight:700;color:#fff;font-family:'DM Mono',monospace}
+.kpi-chg{font-size:11px;font-weight:500;color:rgba(255,255,255,0.75);margin-top:1px}
+
+/* ── LAYOUT ── */
+.page{padding:36px 48px 80px;max-width:1300px;margin:0 auto}
+.sec{margin-bottom:52px}
+.sec-hdr{margin-bottom:20px;display:flex;align-items:baseline;gap:12px}
+.sec-title{font-size:18px;font-weight:700;color:var(--text)}
+.sec-sub{font-size:13px;color:var(--text-muted)}
+.lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-muted);margin-bottom:10px}
+
+/* ── CARDS ── */
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow-sm)}
+.card-body{padding:24px}
+.card-sm{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;box-shadow:var(--shadow-sm)}
+
+/* ── STAT CARDS ── */
+.stats-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:18px 16px;box-shadow:var(--shadow-sm);transition:box-shadow .15s}
+.stat-card:hover{box-shadow:var(--shadow)}
+.stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:6px}
+.stat-val{font-size:22px;font-weight:700;font-family:'DM Mono',monospace;color:var(--text);margin-bottom:4px}
+.stat-chg{font-size:11px;font-weight:600;padding:2px 7px;border-radius:20px;display:inline-block}
+.chg-up{background:#F0FDF4;color:#16A34A}
+.chg-dn{background:var(--red-bg);color:var(--red)}
+.chg-good{background:#F0FDF4;color:#16A34A}
+
+/* ── TABLE ── */
+.tbl-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow-sm)}
+table{width:100%;border-collapse:collapse;background:var(--white)}
+th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);padding:12px 16px;text-align:left;border-bottom:1px solid var(--border);background:var(--surface)}
+td{padding:14px 16px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#F8FAFC}
+.mono{font-family:'DM Mono',monospace}
+
+/* ── BADGES ── */
+.bdg{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;display:inline-block;white-space:nowrap}
+.bdg-green{background:var(--green-light);color:var(--green-dark)}
+.bdg-amber{background:var(--amber-bg);color:var(--amber)}
+.bdg-red{background:var(--red-bg);color:var(--red)}
+.bdg-gray{background:#F1F5F9;color:#64748B}
+.bdg-blue{background:var(--blue-bg);color:var(--blue)}
+
+/* ── ROAS BAR ── */
+.roas-wrap{display:flex;align-items:center;gap:8px}
+.roas-track{flex:1;max-width:72px;height:5px;background:#F1F5F9;border-radius:3px;overflow:hidden}
+.roas-fill{height:100%;border-radius:3px;background:var(--green);transition:width .4s ease}
+
+/* ── BUDGET ── */
+.budget-layout{display:grid;grid-template-columns:1fr 340px;gap:24px}
+.brow{display:flex;align-items:center;gap:12px;padding:13px 16px;background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:8px;transition:box-shadow .15s}
+.brow:hover{box-shadow:var(--shadow-sm)}
+.brow-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.brow-info{flex:1;min-width:0}
+.brow-name{font-size:13px;font-weight:600;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brow-type{font-size:11px;color:var(--text-muted)}
+.brow-bar{height:3px;background:#EEF2F7;border-radius:2px;margin-top:6px}
+.brow-bar-fill{height:100%;border-radius:2px;transition:width .4s}
+.brow-amounts{text-align:right;flex-shrink:0}
+.brow-day{font-size:12px;font-weight:600;color:var(--text-mid);font-family:'DM Mono',monospace}
+.brow-mo{font-size:13px;font-weight:700;font-family:'DM Mono',monospace;color:var(--text)}
+.budget-total{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--green-light);border:2px solid var(--green-mid);border-radius:var(--radius-sm);margin-top:4px}
+.budget-total-lbl{font-size:13px;font-weight:600;color:var(--green-dark)}
+.budget-total-val{font-family:'DM Mono',monospace;font-size:18px;font-weight:700;color:var(--green)}
+
+/* Chart SVG */
+.donut-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow-sm)}
+.donut-title{font-size:13px;font-weight:700;margin-bottom:16px;color:var(--text)}
+.donut-legend{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.dl-row{display:flex;align-items:center;gap:8px}
+.dl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dl-name{font-size:12px;flex:1;color:var(--text-mid)}
+.dl-pct{font-size:11px;font-weight:700;color:var(--text-muted);font-family:'DM Mono',monospace}
+.dl-amt{font-size:12px;font-weight:700;font-family:'DM Mono',monospace;color:var(--text)}
+
+/* ── PMAX GROUPS ── */
+.groups-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gcard{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow .15s}
+.gcard:hover{box-shadow:var(--shadow)}
+.gcard-top{height:4px}
+.gcard-body{padding:20px}
+.gcard-status{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
+.gcard-name{font-size:15px;font-weight:700;color:var(--text);margin-bottom:3px}
+.gcard-rev{font-size:12px;color:var(--text-muted);margin-bottom:14px}
+.gcard-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.gstat{background:var(--surface);border-radius:6px;padding:8px 10px;border:1px solid var(--border)}
+.gstat-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:2px}
+.gstat-val{font-size:13px;font-weight:700;font-family:'DM Mono',monospace}
+.gcard-note{font-size:12px;color:var(--text-mid);line-height:1.6;padding-top:12px;border-top:1px solid var(--border)}
+
+/* ── CREATIVE BRIEF ── */
+.brief-tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:4px;margin-bottom:24px;width:fit-content;box-shadow:var(--shadow-sm)}
+.brief-tab{padding:8px 24px;font-size:13px;font-weight:600;border-radius:7px;cursor:pointer;transition:all .15s;color:var(--text-muted);user-select:none}
+.brief-tab.active{background:var(--white);color:var(--green);box-shadow:var(--shadow-sm)}
+
+/* Accordion */
+.acc-item{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:8px;background:var(--white)}
+.acc-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;transition:background .15s;user-select:none}
+.acc-head:hover{background:var(--surface)}
+.acc-head-left{display:flex;align-items:center;gap:10px}
+.acc-icon{width:22px;height:22px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--green);flex-shrink:0}
+.acc-title{font-size:13px;font-weight:600;color:var(--text)}
+.acc-count{font-size:11px;color:var(--text-muted)}
+.acc-chevron{font-size:14px;color:var(--text-muted);transition:transform .2s}
+.acc-chevron.open{transform:rotate(180deg)}
+.acc-body{padding:0 18px 18px;display:none}
+.acc-body.open{display:block}
+
+.hl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.hl{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:9px 11px;font-size:12px;line-height:1.5;position:relative;padding-bottom:20px}
+.hl-len{position:absolute;bottom:5px;right:8px;font-family:'DM Mono',monospace;font-size:9px;color:var(--text-muted);background:var(--border);padding:1px 4px;border-radius:3px}
+.desc{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:11px 13px;font-size:13px;line-height:1.6;margin-bottom:6px}
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.theme-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:13px 15px}
+.theme-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--green);margin-bottom:5px}
+.theme-title{font-size:13px;font-weight:600;margin-bottom:4px}
+.theme-desc{font-size:12px;color:var(--text-mid);line-height:1.6}
+.search-themes{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.st{background:var(--green-light);border:1px solid var(--green-mid);border-radius:6px;padding:4px 10px;font-size:12px;color:var(--green-dark);font-weight:500}
+.img-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.img-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:13px 15px}
+.img-format{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--blue);margin-bottom:4px}
+.brief-content{display:none}
+.brief-content.active{display:block}
+
+/* ── LTV ── */
+.ltv-ctrl-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:22px 24px;margin-bottom:20px;box-shadow:var(--shadow-sm);display:flex;gap:40px;align-items:center;flex-wrap:wrap}
+.ltv-ctrl{display:flex;flex-direction:column;gap:8px}
+.ltv-ctrl-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted)}
+.ltv-ctrl-row{display:flex;align-items:center;gap:10px}
+.ltv-ctrl-row input[type=range]{width:140px;accent-color:var(--green);height:4px;cursor:pointer}
+.ltv-ctrl-val{font-family:'DM Mono',monospace;font-size:16px;font-weight:700;color:var(--green);min-width:44px}
+.ltv-sum{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.ltv-sum-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px;box-shadow:var(--shadow-sm)}
+.ltv-sum-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:6px}
+.ltv-sum-val{font-family:'DM Mono',monospace;font-size:20px;font-weight:700;color:var(--text)}
+.tbl-section-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+.tbl-section-lbl::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── FUTURE GROUPS ── */
+.future-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.fcard{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm);transition:box-shadow .15s}
+.fcard:hover{box-shadow:var(--shadow)}
+.fcard-pri{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px}
+.fcard-name{font-size:14px;font-weight:700;color:var(--text);margin-bottom:8px}
+.fcard-stats{display:flex;gap:16px;margin-bottom:10px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.fstat{font-size:12px;color:var(--text-muted)}
+.fstat strong{color:var(--text)}
+.fcard-reason{font-size:12px;color:var(--text-mid);line-height:1.6}
+
+/* ── NEXT STEPS ── */
+.steps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.step{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow-sm);transition:box-shadow .15s}
+.step:hover{box-shadow:var(--shadow)}
+.step-n{width:30px;height:30px;border-radius:50%;background:var(--green);color:var(--white);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-size:13px;font-weight:700;margin-bottom:4px;color:var(--text)}
+.step-desc{font-size:12px;color:var(--text-mid);line-height:1.6}
+.step-urgency{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px}
+
+/* ── NOTES ── */
+.note{background:var(--blue-bg);border:1px solid #BFDBFE;border-radius:var(--radius-sm);padding:13px 16px;font-size:13px;color:#1E40AF;line-height:1.7;margin-top:14px}
+.note-warn{background:var(--amber-bg);border:1px solid #FCD34D;border-radius:var(--radius-sm);padding:13px 16px;font-size:13px;color:var(--amber);line-height:1.6;margin-top:10px}
+.note-green{background:var(--green-light);border:1px solid var(--green-mid);border-radius:var(--radius-sm);padding:13px 16px;font-size:13px;color:var(--green-dark);line-height:1.7;margin-top:14px}
+
+/* ── FOOTER ── */
+.ftr{background:var(--white);border-top:1px solid var(--border);padding:20px 48px;display:flex;justify-content:space-between;align-items:center}
+.ftr-l{font-size:12px;color:var(--text-muted)}
+.ftr-r{font-size:12px;color:var(--green);font-weight:600}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.sec{animation:fadeUp .35s ease both}
+.sec:nth-child(2){animation-delay:.04s}
+.sec:nth-child(3){animation-delay:.08s}
+.sec:nth-child(4){animation-delay:.12s}
+
+/* Two-col grid */
+.col2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.col3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+@media(max-width:1024px){
+  .hdr,.nav,.page,.kpi-bar,.ftr{padding-left:20px;padding-right:20px}
+  .stats-row{grid-template-columns:repeat(3,1fr)}
+  .budget-layout,.col2{grid-template-columns:1fr}
+  .groups-grid,.future-grid,.col3{grid-template-columns:1fr 1fr}
+  .steps-grid{grid-template-columns:1fr}
+  .ltv-sum{grid-template-columns:repeat(2,1fr)}
+  .hl-grid,.theme-grid,.img-grid{grid-template-columns:1fr 1fr}
+  .kpi-bar{flex-wrap:wrap}
+  .kpi-item{flex:1 1 30%}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-logo">
+    <span class="hdr-name">Express Insurance</span>
+  </div>
+  <div class="hdr-client">
+    <span class="hdr-badge">SEM Strategy</span>
+    <span class="hdr-client-name">Managed by Balmer Agency</span>
+    <span class="hdr-date">May 2026</span>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#perf" class="active">Performance</a>
+  <a href="#budget">Budget</a>
+  <a href="#pmax">PMax Strategy</a>
+  <a href="#creative">Creative Brief</a>
+  <a href="#ltv">LTV & ROAS</a>
+  <a href="#future">Future Groups</a>
+  <a href="#nextsteps">Action Plan</a>
+</nav>
+
+<!-- KPI BAR -->
+<div class="kpi-bar">
+  <div class="kpi-item"><div class="kpi-label">Monthly Budget</div><div class="kpi-val">$18K</div><div class="kpi-chg">$600/day</div></div>
+  <div class="kpi-item"><div class="kpi-label">Account ROAS</div><div class="kpi-val">2.42</div><div class="kpi-chg">Non-brand: 1.90</div></div>
+  <div class="kpi-item"><div class="kpi-label">Best Campaign</div><div class="kpi-val">Brand</div><div class="kpi-chg">ROAS 4.98</div></div>
+  <div class="kpi-item"><div class="kpi-label">PMax ROAS</div><div class="kpi-val">1.71</div><div class="kpi-chg">Optimising — new groups in progress</div></div>
+  <div class="kpi-item"><div class="kpi-label">Total Conv. Value</div><div class="kpi-val">$92K</div><div class="kpi-chg">1 Mar – 4 May 2026</div></div>
+  <div class="kpi-item"><div class="kpi-label">Target ROAS</div><div class="kpi-val">2.0+</div><div class="kpi-chg">Profitable Yr 2</div></div>
+</div>
+
+<div class="page">
+
+<!-- ── 1. PERFORMANCE ── -->
+<section class="sec" id="perf">
+  <div class="sec-hdr">
+    <span class="sec-title">Performance Overview</span>
+    <span class="sec-sub">Current period: <strong>1 Mar – 4 May 2026</strong> &nbsp;·&nbsp; Compared to: <strong>26 Dec 2025 – 28 Feb 2026</strong></span>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-label">Impressions</div><div class="stat-val">436K</div><span class="stat-chg chg-up">↑ +473%</span></div>
+    <div class="stat-card"><div class="stat-label">Clicks</div><div class="stat-val">12,780</div><span class="stat-chg chg-up">↑ +183%</span></div>
+    <div class="stat-card"><div class="stat-label">Conversions</div><div class="stat-val">68.75</div><span class="stat-chg chg-dn">↓ −14.6%</span></div>
+    <div class="stat-card"><div class="stat-label">Conv. Value</div><div class="stat-val">$479K</div><span class="stat-chg chg-dn">↓ −16.6%</span></div>
+    <div class="stat-card"><div class="stat-label">Total Cost</div><div class="stat-val">$17,895</div><span class="stat-chg chg-good">↓ −3.8%</span></div>
+    <div class="stat-card"><div class="stat-label">Avg. CPC</div><div class="stat-val">$1.40</div><span class="stat-chg chg-good">↓ −66%</span></div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>Campaign</th><th>Status</th><th>Cost</th><th>Conversions</th><th>CPA</th><th>Conv. Value</th><th>ROAS</th><th>Assessment</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Brand</strong></td>
+          <td><span class="bdg bdg-green">Active</span></td>
+          <td class="mono">$7,750</td><td class="mono">57.65</td><td class="mono">$134</td><td class="mono">$38,628</td>
+          <td><div class="roas-wrap"><strong class="mono" style="color:var(--green)">4.98</strong><div class="roas-track"><div class="roas-fill" style="width:100%"></div></div></div></td>
+          <td><span class="bdg bdg-green">✓ Defence strategy</span></td>
+        </tr>
+        <tr>
+          <td><strong>Performance Max</strong></td>
+          <td><span class="bdg bdg-blue">Restructuring</span></td>
+          <td class="mono">$21,088</td><td class="mono">54.10</td><td class="mono">$390</td><td class="mono">$36,146</td>
+          <td><div class="roas-wrap"><strong class="mono" style="color:var(--red)">1.71</strong><div class="roas-track"><div class="roas-fill" style="width:43%;background:var(--red)"></div></div></div></td>
+          <td><span class="bdg bdg-red">Below target — fix in progress</span></td>
+        </tr>
+        <tr>
+          <td><strong>Professional Indemnity</strong></td>
+          <td><span class="bdg bdg-green">Active</span></td>
+          <td class="mono">$1,768</td><td class="mono">6.00</td><td class="mono">$295</td><td class="mono">$4,677</td>
+          <td><div class="roas-wrap"><strong class="mono" style="color:var(--green)">2.65</strong><div class="roas-track"><div class="roas-fill" style="width:66%"></div></div></div></td>
+          <td><span class="bdg bdg-green">✓ Best search ROAS</span></td>
+        </tr>
+        <tr>
+          <td><strong>Accountant Insurance</strong></td>
+          <td><span class="bdg bdg-green">Active — Keep</span></td>
+          <td class="mono">$4,213</td><td class="mono">11.50</td><td class="mono">$366</td><td class="mono">$9,932</td>
+          <td><div class="roas-wrap"><strong class="mono">2.36</strong><div class="roas-track"><div class="roas-fill" style="width:59%"></div></div></div></td>
+          <td><span class="bdg bdg-green">✓ Outperforming PMax group</span></td>
+        </tr>
+        <tr>
+          <td><strong>Public Liability</strong></td>
+          <td><span class="bdg bdg-green">Active</span></td>
+          <td class="mono">$1,159</td><td class="mono">10.00</td><td class="mono">$116</td><td class="mono">$2,767</td>
+          <td><div class="roas-wrap"><strong class="mono">2.39</strong><div class="roas-track"><div class="roas-fill" style="width:60%"></div></div></div></td>
+          <td><span class="bdg bdg-green">✓ Efficient</span></td>
+        </tr>
+        <tr style="opacity:0.6">
+          <td><strong>Engineers Search</strong></td>
+          <td><span class="bdg bdg-gray">Paused</span></td>
+          <td class="mono">—</td><td class="mono">—</td><td class="mono">—</td><td class="mono">—</td>
+          <td><span class="mono" style="color:var(--text-muted)">—</span></td>
+          <td><span class="bdg bdg-gray">Partner conflict</span></td>
+        </tr>
+        <tr style="opacity:0.6">
+          <td><strong>Demand Gen</strong></td>
+          <td><span class="bdg bdg-gray">Paused</span></td>
+          <td class="mono">$1,997</td><td class="mono">0</td><td class="mono">—</td><td class="mono">$0</td>
+          <td><span class="mono" style="color:var(--red)">0</span></td>
+          <td><span class="bdg bdg-gray">Revisit when PMax stable</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">ℹ️ <strong>Data source:</strong> All figures from Google Ads campaign report (1 Mar–4 May 2026), verified from raw CSV. Conv value is tracked via the income parameter in Google Ads — cross-referencing with Looker Studio income report for full accuracy.</div>
+</section>
+
+<!-- ── 2. BUDGET ── -->
+<section class="sec" id="budget">
+  <div class="sec-hdr">
+    <span class="sec-title">Budget Allocation</span>
+    <span class="sec-sub">$18,000/month · $600/day &nbsp;·&nbsp; <strong>Effective from May 2026</strong></span>
+  </div>
+
+  <div class="budget-layout">
+    <div>
+      <div class="lbl">Daily & Monthly Breakdown</div>
+      <div class="brow"><div class="brow-dot" style="background:var(--green)"></div><div class="brow-info"><div class="brow-name">Brand Campaign</div><div class="brow-type">Search — Brand defence · ROAS 4.98</div><div class="brow-bar"><div class="brow-bar-fill" style="width:25%;background:var(--green)"></div></div></div><div class="brow-amounts"><div class="brow-day">$150/d</div><div class="brow-mo">$4,500</div></div></div>
+      <div class="brow"><div class="brow-dot" style="background:#0E7A37"></div><div class="brow-info"><div class="brow-name">Performance Max</div><div class="brow-type">PMax — Main conversion driver</div><div class="brow-bar"><div class="brow-bar-fill" style="width:47%;background:#0E7A37"></div></div></div><div class="brow-amounts"><div class="brow-day">$280/d</div><div class="brow-mo">$8,400</div></div></div>
+      <div class="brow"><div class="brow-dot" style="background:#22C55E"></div><div class="brow-info"><div class="brow-name">Professional Indemnity</div><div class="brow-type">Search — Budget Limited, ROAS 2.65 (best search)</div><div class="brow-bar"><div class="brow-bar-fill" style="width:10%;background:#22C55E"></div></div></div><div class="brow-amounts"><div class="brow-day">$60/d</div><div class="brow-mo">$1,800</div></div></div>
+      <div class="brow"><div class="brow-dot" style="background:var(--green)"></div><div class="brow-info"><div class="brow-name">Accountant Insurance</div><div class="brow-type">Search — Keep · ROAS 2.36 outperforms PMax group (0.87)</div><div class="brow-bar"><div class="brow-bar-fill" style="width:8%;background:var(--green)"></div></div></div><div class="brow-amounts"><div class="brow-day">$50/d</div><div class="brow-mo">$1,500</div></div></div>
+      <div class="brow"><div class="brow-dot" style="background:#94A3B8"></div><div class="brow-info"><div class="brow-name">Public Liability</div><div class="brow-type">Search — Maintain current · ROAS 2.39</div><div class="brow-bar"><div class="brow-bar-fill" style="width:7%;background:#94A3B8"></div></div></div><div class="brow-amounts"><div class="brow-day">$40/d</div><div class="brow-mo">$1,200</div></div></div>
+      <div class="brow"><div class="brow-dot" style="background:#CBD5E1"></div><div class="brow-info"><div class="brow-name">Architects</div><div class="brow-type">Search — Small test · Confirmed continue</div><div class="brow-bar"><div class="brow-bar-fill" style="width:5%;background:#CBD5E1"></div></div></div><div class="brow-amounts"><div class="brow-day">$30/d</div><div class="brow-mo">$900</div></div></div>
+      <div class="brow" style="opacity:0.45"><div class="brow-dot" style="background:#E2E8F0"></div><div class="brow-info"><div class="brow-name">Engineers / Demand Gen</div><div class="brow-type">Paused</div></div><div class="brow-amounts"><div class="brow-day" style="color:var(--text-muted)">$0/d</div><div class="brow-mo" style="color:var(--text-muted)">$0</div></div></div>
+      <div class="budget-total">
+        <span class="budget-total-lbl">Total (incl. $600 buffer)</span>
+        <span class="budget-total-val">$18,000 / mo</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="donut-wrap">
+        <div class="donut-title">Budget Split</div>
+        <svg viewBox="0 0 160 160" width="140" style="display:block;margin:0 auto">
+          <!-- Donut chart: simple arcs -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#F1F5F9" stroke-width="24"/>
+          <!-- PMax 47% -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#00843D" stroke-width="24" stroke-dasharray="177 200" stroke-dashoffset="50" stroke-linecap="butt"/>
+          <!-- Brand 25% -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#22C55E" stroke-width="24" stroke-dasharray="94 283" stroke-dashoffset="-127" stroke-linecap="butt"/>
+          <!-- PI 10% -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#86EFAC" stroke-width="24" stroke-dasharray="37 340" stroke-dashoffset="-221" stroke-linecap="butt"/>
+          <!-- Accountant 8% -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#F59E0B" stroke-width="24" stroke-dasharray="30 347" stroke-dashoffset="-258" stroke-linecap="butt"/>
+          <!-- PL 7% -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#94A3B8" stroke-width="24" stroke-dasharray="26 351" stroke-dashoffset="-288" stroke-linecap="butt"/>
+          <!-- Architects 5% -->
+          <circle cx="80" cy="80" r="60" fill="none" stroke="#CBD5E1" stroke-width="24" stroke-dasharray="19 358" stroke-dashoffset="-314" stroke-linecap="butt"/>
+          <text x="80" y="75" text-anchor="middle" font-size="11" font-weight="700" fill="#0F172A" font-family="Plus Jakarta Sans">$18K</text>
+          <text x="80" y="91" text-anchor="middle" font-size="9" fill="#94A3B8" font-family="Plus Jakarta Sans">per month</text>
+        </svg>
+        <div class="donut-legend">
+          <div class="dl-row"><div class="dl-dot" style="background:#00843D"></div><span class="dl-name">Performance Max</span><span class="dl-pct">47%</span><span class="dl-amt">$8,400</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:#22C55E"></div><span class="dl-name">Brand</span><span class="dl-pct">25%</span><span class="dl-amt">$4,500</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:#86EFAC"></div><span class="dl-name">Prof. Indemnity</span><span class="dl-pct">10%</span><span class="dl-amt">$1,800</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:#F59E0B"></div><span class="dl-name">Accountant Search</span><span class="dl-pct">8%</span><span class="dl-amt">$1,500</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:#94A3B8"></div><span class="dl-name">Public Liability</span><span class="dl-pct">7%</span><span class="dl-amt">$1,200</span></div>
+          <div class="dl-row"><div class="dl-dot" style="background:#CBD5E1"></div><span class="dl-name">Architects</span><span class="dl-pct">5%</span><span class="dl-amt">$900</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. PMAX ── -->
+<section class="sec" id="pmax">
+  <div class="sec-hdr">
+    <span class="sec-title">Performance Max — Asset Group Strategy</span>
+    <span class="sec-sub">Performance data: <strong>1 Mar – 4 May 2026</strong> &nbsp;·&nbsp; Restructuring from broad General → targeted product groups</span>
+  </div>
+  <div class="groups-grid">
+    <div class="gcard"><div class="gcard-top" style="background:var(--green)"></div><div class="gcard-body">
+      <div class="gcard-status" style="color:var(--green)">✓ Active — Optimising</div>
+      <div class="gcard-name">Accountants</div>
+      <div class="gcard-rev">LOB Avg Revenue $400.62 · 302 policies · Ad Strength: Excellent</div>
+      <div class="gcard-stats">
+        <div class="gstat"><div class="gstat-lbl">CPA</div><div class="gstat-val">$442</div></div>
+        <div class="gstat"><div class="gstat-lbl">ROAS</div><div class="gstat-val">0.87</div></div>
+      </div>
+      <div class="gcard-note">Currently being reviewed and optimised. The Accountant Search campaign continues to perform well alongside this group — we are identifying the best channel mix for this product line.</div>
+    </div></div>
+
+    <div class="gcard"><div class="gcard-top" style="background:var(--red)"></div><div class="gcard-body">
+      <div class="gcard-status" style="color:var(--red)">⏸ Pause This Week</div>
+      <div class="gcard-name">Engineers & Construction</div>
+      <div class="gcard-rev">LOB Avg Revenue $738.72 · 89 policies · Ad Strength: Good</div>
+      <div class="gcard-stats">
+        <div class="gstat"><div class="gstat-lbl">CPA</div><div class="gstat-val">$440</div></div>
+        <div class="gstat"><div class="gstat-lbl">ROAS</div><div class="gstat-val" style="color:var(--green)">2.19</div></div>
+      </div>
+      <div class="gcard-note">Actually the best performing PMax group (ROAS 2.19), but Confirmed partner conflict — must pause regardless. This $9K/month conv value will need to be replaced by new groups.</div>
+    </div></div>
+
+    <div class="gcard"><div class="gcard-top" style="background:#94A3B8"></div><div class="gcard-body">
+      <div class="gcard-status" style="color:#64748B">Active — Reduce over time</div>
+      <div class="gcard-name">General</div>
+      <div class="gcard-rev">Blended mix · All remaining products · Ad Strength: Excellent</div>
+      <div class="gcard-stats">
+        <div class="gstat"><div class="gstat-lbl">CPA</div><div class="gstat-val">$351</div></div>
+        <div class="gstat"><div class="gstat-lbl">ROAS</div><div class="gstat-val">1.93</div></div>
+      </div>
+      <div class="gcard-note">Takes 59% of PMax budget ($12,528). ROAS 1.93 is stable but below target. As new dedicated groups are built, budget will naturally shift away from General toward better-targeted groups.</div>
+    </div></div>
+
+    <div class="gcard" style="border-color:var(--green);border-width:2px"><div class="gcard-top" style="background:linear-gradient(90deg,var(--green),#22C55E)"></div><div class="gcard-body">
+      <div class="gcard-status" style="color:var(--green)">🆕 New — Priority 1</div>
+      <div class="gcard-name">IT Contractors & Consultants</div>
+      <div class="gcard-rev">LOB Avg Revenue $260.97 · <strong style="color:var(--green)">1,065 policies</strong> (largest)</div>
+      <div class="gcard-stats">
+        <div class="gstat"><div class="gstat-lbl">Market Size</div><div class="gstat-val" style="color:var(--green)">Biggest</div></div>
+        <div class="gstat"><div class="gstat-lbl">Max CPA (Yr2)</div><div class="gstat-val">$125</div></div>
+      </div>
+      <div class="gcard-note">Biggest existing customer base — buried in General group. Dedicated group with IT-specific copy and search themes will dramatically improve algorithm targeting. Creative brief ready.</div>
+    </div></div>
+
+    <div class="gcard" style="border-color:#86EFAC;border-width:2px"><div class="gcard-top" style="background:linear-gradient(90deg,#16A34A,#86EFAC)"></div><div class="gcard-body">
+      <div class="gcard-status" style="color:#16A34A">🆕 New — Priority 2</div>
+      <div class="gcard-name">Management Consultants</div>
+      <div class="gcard-rev">LOB Avg Revenue $348.44 · 269 policies</div>
+      <div class="gcard-stats">
+        <div class="gstat"><div class="gstat-lbl">Market Size</div><div class="gstat-val">Strong</div></div>
+        <div class="gstat"><div class="gstat-lbl">Max CPA (Yr2)</div><div class="gstat-val">$174</div></div>
+      </div>
+      <div class="gcard-note">Good volume + above-average AOV. Different messaging to IT — no audience overlap. Build 1 week after IT group to avoid interfering learning phases. Creative brief ready.</div>
+    </div></div>
+  </div>
+  <div class="note-green">✅ <strong>PMax optimisation in progress:</strong> We are restructuring asset groups to improve targeting precision. New dedicated groups for IT Contractors and Management Consultants are being built to replace the Engineers group and pull budget away from the broad General group — which will progressively lift overall ROAS.</div>
+</section>
+
+<!-- ── 4. CREATIVE ── -->
+<section class="sec" id="creative">
+  <div class="sec-hdr">
+    <span class="sec-title">Creative Brief</span>
+    <span class="sec-sub">Full copy, messaging direction & asset requirements — ready to upload</span>
+  </div>
+
+  <div class="col3" style="margin-bottom:20px">
+    <div class="card-sm" style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--green);font-family:'DM Mono',monospace">15</div><div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Headlines (30 chars)</div></div>
+    <div class="card-sm" style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--green);font-family:'DM Mono',monospace">5</div><div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Long Headlines + Descriptions</div></div>
+    <div class="card-sm" style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--green);font-family:'DM Mono',monospace">8</div><div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Images (3 sizes)</div></div>
+  </div>
+
+  <div class="brief-tabs">
+    <div class="brief-tab active" onclick="switchBrief('it',this)">IT Contractors</div>
+    <div class="brief-tab" onclick="switchBrief('mc',this)">Management Consultants</div>
+    <div class="brief-tab" onclick="switchBrief('re',this)">Real Estate Agents</div>
+    <div class="brief-tab" onclick="switchBrief('rc',this)">Recruitment Consultants</div>
+    <div class="brief-tab" onclick="switchBrief('misc',this)">Misc. Professions</div>
+  </div>
+
+  <!-- IT -->
+  <div class="brief-content active" id="bc-it">
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">1</div><div><div class="acc-title">Messaging Strategy</div><div class="acc-count">3 key angles</div></div></div><div class="acc-chevron open">▾</div></div>
+      <div class="acc-body open">
+        <div class="theme-grid">
+          <div class="theme-card"><div class="theme-tag">Contract Compliance</div><div class="theme-title">Required for most contracts</div><div class="theme-desc">Most IT contracts mandate PI insurance. This is the #1 conversion trigger — people buy because they must, not just want to. Lead with this.</div></div>
+          <div class="theme-card"><div class="theme-tag">Speed & Simplicity</div><div class="theme-title">Get covered fast, online</div><div class="theme-desc">IT contractors are busy professionals. Emphasise instant quotes, online purchase, immediate certificate. Reduce every friction point.</div></div>
+          <div class="theme-card"><div class="theme-tag">Risk Protection</div><div class="theme-title">One claim can wipe you out</div><div class="theme-desc">Data breach, system failure, bad advice — clients can sue. Position as essential professional protection that pays for itself with one incident avoided.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">2</div><div><div class="acc-title">Headlines</div><div class="acc-count">15 headlines · 30 characters max each</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body">
+        <div class="hl-grid">
+          <div class="hl">IT Contractor Insurance<div class="hl-len">23</div></div>
+          <div class="hl">Required for IT Contracts<div class="hl-len">25</div></div>
+          <div class="hl">Get Covered in Minutes<div class="hl-len">22</div></div>
+          <div class="hl">IT Consultant Insurance AU<div class="hl-len">26</div></div>
+          <div class="hl">Instant Online IT Cover<div class="hl-len">23</div></div>
+          <div class="hl">PI Insurance for IT Pros<div class="hl-len">24</div></div>
+          <div class="hl">Protect Your IT Business<div class="hl-len">24</div></div>
+          <div class="hl">IT Insurance — Apply Now<div class="hl-len">24</div></div>
+          <div class="hl">Australian IT Professionals<div class="hl-len">28</div></div>
+          <div class="hl">One Data Breach = Lawsuit<div class="hl-len">25</div></div>
+          <div class="hl">Cyber & PI Cover for IT<div class="hl-len">23</div></div>
+          <div class="hl">Trusted by IT Contractors<div class="hl-len">25</div></div>
+          <div class="hl">Instant Certificate Issued<div class="hl-len">26</div></div>
+          <div class="hl">IT Cover From $X/Month<div class="hl-len">22</div></div>
+          <div class="hl">Compare IT Insurance Plans<div class="hl-len">27</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">3</div><div><div class="acc-title">Long Headlines & Descriptions</div><div class="acc-count">5 long headlines + 5 descriptions · 90 chars max</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body">
+        <div class="lbl" style="margin-bottom:8px">Long Headlines</div>
+        <div class="desc">Professional Indemnity Insurance Built for Australian IT Contractors & Consultants</div>
+        <div class="desc">Get Your IT Insurance Certificate Online — Most Contracts Require It</div>
+        <div class="desc">Protect Your IT Consulting Business From Client Claims — Instant Quote</div>
+        <div class="desc">IT Contractor Insurance — Apply in Minutes, Get Covered Immediately</div>
+        <div class="desc">Cyber Liability & PI Insurance for IT Professionals Across Australia</div>
+        <div class="lbl" style="margin-top:14px;margin-bottom:8px">Descriptions</div>
+        <div class="desc">Most IT contracts require Professional Indemnity insurance. Get covered online in minutes with an instant certificate. Trusted by Australian IT professionals.</div>
+        <div class="desc">One client claim can cost thousands. Protect your IT consulting business with PI and Cyber Liability cover — quick quote, immediate coverage.</div>
+        <div class="desc">Purpose-built IT contractor insurance. Cover for data breaches, system failures, and professional advice claims. Apply online today.</div>
+        <div class="desc">Get the insurance certificate your next IT contract requires. Fast online application, competitive rates, instant policy documents.</div>
+        <div class="desc">Australian IT professionals trust Express Insurance for professional indemnity cover. Compare plans and get covered in under 10 minutes.</div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">4</div><div><div class="acc-title">Image Direction</div><div class="acc-count">8 images across 3 sizes</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body">
+        <div class="img-grid">
+          <div class="img-card"><div class="img-format">1:1 Square — 3 images</div><strong style="font-size:13px;display:block;margin-bottom:4px">Professional IT setting</strong><p style="font-size:12px;color:var(--text-mid)">Person at laptop/dual screens, home office or corporate. Clean, professional. Dark or neutral background preferred.</p></div>
+          <div class="img-card"><div class="img-format">1.91:1 Landscape — 3 images</div><strong style="font-size:13px;display:block;margin-bottom:4px">Team / corporate context</strong><p style="font-size:12px;color:var(--text-mid)">IT team in meeting or server room. Wide format — leave space on right side for ad copy overlay.</p></div>
+          <div class="img-card"><div class="img-format">4:5 Portrait — 2 images</div><strong style="font-size:13px;display:block;margin-bottom:4px">Mobile-first close-up</strong><p style="font-size:12px;color:var(--text-mid)">Close-up of professional, or phone showing certificate. Works as vertical social format. Unsplash stock is fine.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">5</div><div><div class="acc-title">Search Themes</div><div class="acc-count">10 terms to add to asset group</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body">
+        <div class="search-themes">
+          <span class="st">IT contractor insurance</span><span class="st">IT consultant PI insurance</span><span class="st">professional indemnity IT</span><span class="st">tech contractor insurance Australia</span><span class="st">IT insurance certificate</span><span class="st">cyber liability IT consultants</span><span class="st">software developer insurance</span><span class="st">IT business insurance</span><span class="st">technology professional insurance</span><span class="st">contract IT work insurance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MC -->
+  <div class="brief-content" id="bc-mc">
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">1</div><div><div class="acc-title">Messaging Strategy</div><div class="acc-count">3 key angles</div></div></div><div class="acc-chevron open">▾</div></div>
+      <div class="acc-body open">
+        <div class="theme-grid">
+          <div class="theme-card"><div class="theme-tag">Advice Protection</div><div class="theme-title">Your advice, your liability</div><div class="theme-desc">Management consultants give high-stakes strategic advice. If it goes wrong, clients can sue for significant losses. Frame as career protection.</div></div>
+          <div class="theme-card"><div class="theme-tag">Credibility Signal</div><div class="theme-title">Win more corporate clients</div><div class="theme-desc">Large corporate clients expect insured consultants. Position insurance as a competitive advantage — shows professionalism and seriousness.</div></div>
+          <div class="theme-card"><div class="theme-tag">Business Continuity</div><div class="theme-title">Don't let one claim end it all</div><div class="theme-desc">One bad engagement claim can wipe out years of profit. Frame as protecting what you've built — the business, the reputation, the future.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">2</div><div><div class="acc-title">Headlines</div><div class="acc-count">15 headlines · 30 characters max each</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body">
+        <div class="hl-grid">
+          <div class="hl">Management Consultant PI<div class="hl-len">25</div></div>
+          <div class="hl">Protect Your Consulting Biz<div class="hl-len">28</div></div>
+          <div class="hl">Consulting Insurance Online<div class="hl-len">28</div></div>
+          <div class="hl">PI Cover for Consultants<div class="hl-len">24</div></div>
+          <div class="hl">Get Covered in Minutes<div class="hl-len">22</div></div>
+          <div class="hl">Clients Expect You're Insured<div class="hl-len">29</div></div>
+          <div class="hl">Consultant Insurance AU<div class="hl-len">23</div></div>
+          <div class="hl">One Claim Can Cost Thousands<div class="hl-len">28</div></div>
+          <div class="hl">Instant Certificate Online<div class="hl-len">26</div></div>
+          <div class="hl">Win More Corporate Contracts<div class="hl-len">28</div></div>
+          <div class="hl">Business Consultant Cover<div class="hl-len">25</div></div>
+          <div class="hl">Professional Advice Cover<div class="hl-len">25</div></div>
+          <div class="hl">Compare Consulting Plans<div class="hl-len">24</div></div>
+          <div class="hl">Trusted by AU Consultants<div class="hl-len">25</div></div>
+          <div class="hl">Apply Online — Fast & Easy<div class="hl-len">26</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">3</div><div><div class="acc-title">Long Headlines & Descriptions</div><div class="acc-count">5 long headlines + 5 descriptions · 90 chars max</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body">
+        <div class="lbl" style="margin-bottom:8px">Long Headlines</div>
+        <div class="desc">Professional Indemnity Insurance for Australian Management Consultants</div>
+        <div class="desc">Protect Your Consulting Business From Client Claims — Get a Quote Today</div>
+        <div class="desc">Management Consultant Insurance — Apply Online, Get Covered Immediately</div>
+        <div class="desc">Corporate Clients Expect You're Insured — Get Your PI Certificate Online</div>
+        <div class="desc">One Bad Engagement Shouldn't End Your Business — PI Insurance From $X</div>
+        <div class="lbl" style="margin-top:14px;margin-bottom:8px">Descriptions</div>
+        <div class="desc">Management consultants face real risk — one client dispute can result in costly legal action. Protect your business with PI insurance from Express Insurance.</div>
+        <div class="desc">Major corporate clients expect their consultants to be properly insured. Get your PI certificate online today — fast, simple, and competitively priced.</div>
+        <div class="desc">Professional Indemnity insurance designed for management consultants. Cover for advice claims, contract disputes, and errors. Apply in minutes.</div>
+        <div class="desc">Don't let one engagement define your business. PI insurance protects your reputation and finances if a client claims your advice caused them a loss.</div>
+        <div class="desc">Express Insurance makes it easy for management consultants to get covered. Compare plans, get an instant quote, receive your certificate immediately.</div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">4</div><div><div class="acc-title">Image Direction</div><div class="acc-count">8 images across 3 sizes</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body">
+        <div class="img-grid">
+          <div class="img-card"><div class="img-format">1:1 Square — 3 images</div><strong style="font-size:13px;display:block;margin-bottom:4px">Boardroom / Strategy</strong><p style="font-size:12px;color:var(--text-mid)">Consultant presenting to board, whiteboard strategy session, or confident professional headshot. Senior, authoritative look.</p></div>
+          <div class="img-card"><div class="img-format">1.91:1 Landscape — 3 images</div><strong style="font-size:13px;display:block;margin-bottom:4px">Corporate negotiation</strong><p style="font-size:12px;color:var(--text-mid)">Two professionals in agreement or meeting, modern office. Conveys the high-stakes business context of the product.</p></div>
+          <div class="img-card"><div class="img-format">4:5 Portrait — 2 images</div><strong style="font-size:13px;display:block;margin-bottom:4px">Individual consultant</strong><p style="font-size:12px;color:var(--text-mid)">Professional mid-shot, phone or tablet, confident pose. Premium feel — AOV $348, visuals should reflect quality. Unsplash OK.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">5</div><div><div class="acc-title">Search Themes</div><div class="acc-count">10 terms to add to asset group</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body">
+        <div class="search-themes">
+          <span class="st">management consultant insurance</span><span class="st">business consultant PI insurance</span><span class="st">consulting firm insurance Australia</span><span class="st">professional indemnity consultants</span><span class="st">strategy consultant insurance</span><span class="st">management consulting liability</span><span class="st">independent consultant insurance</span><span class="st">consultant professional cover</span><span class="st">business advisory insurance</span><span class="st">HR consultant insurance Australia</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-green">⏱ <strong>Time estimate:</strong> Copy is done above — copy-paste directly into Google Ads. Image sourcing + Canva editing ≈ 3–4 hrs. Upload & setup ≈ 45 min per group. <strong>Total ~6 hours for both groups.</strong> Recommended: launch IT Contractors first, Management Consultants 1 week later so learning phases don't interfere.</div>
+
+  <!-- REAL ESTATE -->
+  <div class="brief-content" id="bc-re">
+    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">1</div><div><div class="acc-title">Messaging Strategy</div><div class="acc-count">3 key angles</div></div></div><div class="acc-chevron open">▾</div></div>
+      <div class="acc-body open"><div class="theme-grid">
+        <div class="theme-card"><div class="theme-tag">Transaction Disputes</div><div class="theme-title">Property deals go wrong</div><div class="theme-desc">Buyers and sellers can sue over missed disclosures, bad advice, or valuation errors. PI insurance covers legal costs and settlements.</div></div>
+        <div class="theme-card"><div class="theme-tag">Licensing Compliance</div><div class="theme-title">Required by your licence</div><div class="theme-desc">Many real estate licences and contracts require PI cover. Frame as a business necessity, not just a safety net.</div></div>
+        <div class="theme-card"><div class="theme-tag">Reputation Protection</div><div class="theme-title">Protect your reputation</div><div class="theme-desc">One claim can damage years of reputation. Insurance lets you resolve disputes professionally without out-of-pocket exposure.</div></div>
+      </div></div>
+    </div>
+    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">2</div><div><div class="acc-title">Headlines</div><div class="acc-count">15 headlines · 30 chars max</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body"><div class="hl-grid">
+        <div class="hl">Real Estate Agent Insurance<div class="hl-len">27</div></div>
+        <div class="hl">PI Cover for Real Estate<div class="hl-len">24</div></div>
+        <div class="hl">Property Agent Insurance AU<div class="hl-len">27</div></div>
+        <div class="hl">Get Covered in Minutes<div class="hl-len">22</div></div>
+        <div class="hl">Protect Your Agency Business<div class="hl-len">28</div></div>
+        <div class="hl">Real Estate PI Insurance<div class="hl-len">24</div></div>
+        <div class="hl">Instant Certificate Online<div class="hl-len">26</div></div>
+        <div class="hl">Required for Licensed Agents<div class="hl-len">28</div></div>
+        <div class="hl">Cover for Property Claims<div class="hl-len">25</div></div>
+        <div class="hl">Apply Online — Fast Quote<div class="hl-len">25</div></div>
+        <div class="hl">Licensed Agent Cover AU<div class="hl-len">23</div></div>
+        <div class="hl">One Dispute Can Cost Thousands<div class="hl-len">30</div></div>
+        <div class="hl">Compare Agent Insurance Plans<div class="hl-len">29</div></div>
+        <div class="hl">Trusted by Property Agents<div class="hl-len">26</div></div>
+        <div class="hl">Real Estate Business Cover<div class="hl-len">26</div></div>
+      </div></div>
+    </div>
+    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">3</div><div><div class="acc-title">Descriptions</div><div class="acc-count">5 descriptions · 90 chars max</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body">
+        <div class="desc">Real estate agents face claims for missed disclosures, bad advice, and valuation errors. Get PI insurance online in minutes.</div>
+        <div class="desc">Protect your agency from property transaction disputes. Express Insurance offers PI cover built for Australian real estate agents.</div>
+        <div class="desc">One property dispute can cost thousands in legal fees. Cover yourself with PI insurance — instant quote, immediate certificate.</div>
+        <div class="desc">Many agency contracts and licences require PI cover. Apply online today and get your certificate instantly from Express Insurance.</div>
+        <div class="desc">Compare real estate agent insurance plans, get an instant quote, and receive your policy certificate within minutes. 100% online.</div>
+      </div>
+    </div>
+    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">4</div><div><div class="acc-title">Search Themes</div><div class="acc-count">10 terms</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body"><div class="search-themes">
+        <span class="st">real estate agent insurance</span><span class="st">property agent PI insurance</span><span class="st">real estate PI cover Australia</span><span class="st">licensed agent insurance</span><span class="st">property transaction insurance</span><span class="st">real estate professional indemnity</span><span class="st">estate agent liability insurance</span><span class="st">buyers agent insurance</span><span class="st">real estate business insurance</span><span class="st">property manager insurance</span>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- RECRUITMENT -->
+  <div class="brief-content" id="bc-rc">
+    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">1</div><div><div class="acc-title">Messaging Strategy</div><div class="acc-count">3 key angles</div></div></div><div class="acc-chevron open">▾</div></div>
+      <div class="acc-body open"><div class="theme-grid">
+        <div class="theme-card"><div class="theme-tag">Placement Claims</div><div class="theme-title">Wrong hire = lawsuit</div><div class="theme-desc">Clients can sue if a placed candidate causes losses or misrepresents themselves. PI covers legal costs for wrongful placement claims.</div></div>
+        <div class="theme-card"><div class="theme-tag">Contract Requirement</div><div class="theme-title">Clients require it</div><div class="theme-desc">Corporate clients increasingly require recruiters to carry PI insurance before signing contracts. Position as a deal-enabler.</div></div>
+        <div class="theme-card"><div class="theme-tag">Business Protection</div><div class="theme-title">Protect your fees</div><div class="theme-desc">A single claim can wipe out months of placement fees. Insurance ensures one bad placement doesn't threaten your entire business.</div></div>
+      </div></div>
+    </div>
+    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">2</div><div><div class="acc-title">Headlines</div><div class="acc-count">15 headlines · 30 chars max</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body"><div class="hl-grid">
+        <div class="hl">Recruitment Consultant PI<div class="hl-len">25</div></div>
+        <div class="hl">Insurance for Recruiters AU<div class="hl-len">27</div></div>
+        <div class="hl">Protect Your Recruitment Biz<div class="hl-len">28</div></div>
+        <div class="hl">Get Covered in Minutes<div class="hl-len">22</div></div>
+        <div class="hl">Recruiter PI Insurance Online<div class="hl-len">29</div></div>
+        <div class="hl">Clients Require You're Insured<div class="hl-len">29</div></div>
+        <div class="hl">Cover for Placement Claims<div class="hl-len">26</div></div>
+        <div class="hl">Instant Certificate Online<div class="hl-len">26</div></div>
+        <div class="hl">Recruitment Agency Insurance<div class="hl-len">28</div></div>
+        <div class="hl">One Claim = Business Risk<div class="hl-len">25</div></div>
+        <div class="hl">Apply Online — Fast & Easy<div class="hl-len">26</div></div>
+        <div class="hl">HR Recruiter Insurance AU<div class="hl-len">25</div></div>
+        <div class="hl">Win More Client Contracts<div class="hl-len">25</div></div>
+        <div class="hl">Compare Recruiter Insurance<div class="hl-len">27</div></div>
+        <div class="hl">Trusted by AU Recruiters<div class="hl-len">24</div></div>
+      </div></div>
+    </div>
+    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">3</div><div><div class="acc-title">Descriptions</div><div class="acc-count">5 descriptions · 90 chars max</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body">
+        <div class="desc">Recruitment consultants face claims for wrongful placement, misrepresentation, and contract breaches. Get covered online in minutes.</div>
+        <div class="desc">Corporate clients increasingly require recruiters to carry PI insurance. Get your certificate today and close more contracts with confidence.</div>
+        <div class="desc">One bad placement claim can wipe out months of fees. Protect your recruitment business with PI insurance from Express Insurance.</div>
+        <div class="desc">Purpose-built PI insurance for Australian recruitment consultants and agencies. Fast online application, instant policy documents.</div>
+        <div class="desc">Compare recruitment consultant insurance plans and get an instant quote. Express Insurance covers placement claims, contract disputes, and more.</div>
+      </div>
+    </div>
+    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">4</div><div><div class="acc-title">Search Themes</div><div class="acc-count">10 terms</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body"><div class="search-themes">
+        <span class="st">recruitment consultant insurance</span><span class="st">recruiter PI insurance Australia</span><span class="st">staffing agency insurance</span><span class="st">employment agency insurance</span><span class="st">professional indemnity recruiters</span><span class="st">recruitment business insurance</span><span class="st">HR consultant insurance</span><span class="st">headhunter insurance Australia</span><span class="st">placement consultant cover</span><span class="st">executive recruiter insurance</span>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- MISC PROFESSIONS -->
+  <div class="brief-content" id="bc-misc">
+    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">1</div><div><div class="acc-title">Messaging Strategy</div><div class="acc-count">3 key angles</div></div></div><div class="acc-chevron open">▾</div></div>
+      <div class="acc-body open"><div class="theme-grid">
+        <div class="theme-card"><div class="theme-tag">Universal Need</div><div class="theme-title">Any professional needs cover</div><div class="theme-desc">Lead with breadth — if you give professional advice for money, you can be sued. This covers any professional not in a dedicated group.</div></div>
+        <div class="theme-card"><div class="theme-tag">Simplicity</div><div class="theme-title">Tell us your job, we'll find cover</div><div class="theme-desc">Reduce anxiety about "which insurance do I need" — position Express Insurance as the easy, no-jargon solution for any profession.</div></div>
+        <div class="theme-card"><div class="theme-tag">Speed</div><div class="theme-title">Covered today, not next week</div><div class="theme-desc">Many professionals need a certificate urgently (starting a contract, client requires it). Instant online purchase is the key differentiator.</div></div>
+      </div></div>
+    </div>
+    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">2</div><div><div class="acc-title">Headlines</div><div class="acc-count">15 headlines · 30 chars max</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body"><div class="hl-grid">
+        <div class="hl">Professional Insurance AU<div class="hl-len">25</div></div>
+        <div class="hl">PI Insurance for Any Profession<div class="hl-len">30</div></div>
+        <div class="hl">Get Business Insurance Online<div class="hl-len">29</div></div>
+        <div class="hl">Instant PI Certificate<div class="hl-len">22</div></div>
+        <div class="hl">Cover Your Profession Today<div class="hl-len">27</div></div>
+        <div class="hl">Any Industry, Instant Cover<div class="hl-len">27</div></div>
+        <div class="hl">Get Covered in Minutes<div class="hl-len">22</div></div>
+        <div class="hl">Australian Business Insurance<div class="hl-len">29</div></div>
+        <div class="hl">What Insurance Do You Need?<div class="hl-len">27</div></div>
+        <div class="hl">Professional Advice Insurance<div class="hl-len">29</div></div>
+        <div class="hl">Apply Online — No Paperwork<div class="hl-len">27</div></div>
+        <div class="hl">Consultant & Adviser Cover<div class="hl-len">26</div></div>
+        <div class="hl">Compare PI Insurance Plans<div class="hl-len">26</div></div>
+        <div class="hl">Trusted by AU Professionals<div class="hl-len">27</div></div>
+        <div class="hl">Business Insurance Made Easy<div class="hl-len">28</div></div>
+      </div></div>
+    </div>
+    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">3</div><div><div class="acc-title">Descriptions</div><div class="acc-count">5 descriptions · 90 chars max</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body">
+        <div class="desc">If you give professional advice for money, you can be sued. Get the right PI insurance for your profession online in minutes.</div>
+        <div class="desc">Professional Indemnity insurance for Australian consultants, advisers, and specialists. Fast online quotes, instant certificates.</div>
+        <div class="desc">Not sure what insurance you need? Express Insurance makes it simple — tell us your profession and we'll find the right cover.</div>
+        <div class="desc">Protect your professional reputation and business finances with PI insurance. Apply online, get your certificate today. No paperwork.</div>
+        <div class="desc">Compare professional insurance plans across dozens of industries. Get an instant quote from Express Insurance and get covered today.</div>
+      </div>
+    </div>
+    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">4</div><div><div class="acc-title">Search Themes</div><div class="acc-count">10 terms</div></div></div><div class="acc-chevron">▾</div></div>
+      <div class="acc-body"><div class="search-themes">
+        <span class="st">professional indemnity insurance</span><span class="st">PI insurance Australia</span><span class="st">business insurance for consultants</span><span class="st">professional liability insurance</span><span class="st">adviser insurance Australia</span><span class="st">consultant business insurance</span><span class="st">professional insurance online</span><span class="st">small business PI cover</span><span class="st">independent contractor insurance</span><span class="st">professional cover Australia</span>
+      </div></div>
+    </div>
+  </div>
+
+<!-- ── 5. LTV ── -->
+<section class="sec" id="ltv">
+  <div class="sec-hdr">
+    <span class="sec-title">LTV & ROAS Calculator</span>
+    <span class="sec-sub">Revenue data: <strong>LOB report (Looker Studio)</strong> &nbsp;·&nbsp; May 2026</span>
+  </div>
+
+  <div class="ltv-ctrl-wrap">
+    <div class="ltv-ctrl"><div class="ltv-ctrl-lbl">Target ROAS → enter in Google Ads as %</div><div class="ltv-ctrl-row"><input type="range" min="0.5" max="4" step="0.1" value="2.0" id="rs" oninput="upLTV()"><span class="ltv-ctrl-val" id="rv">2.0</span><span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-muted);margin-left:4px" id="roas-pct">(200%)</span></div></div>
+    <div class="ltv-ctrl"><div class="ltv-ctrl-lbl">Retention Rate (Confirmed: 75%)</div><div class="ltv-ctrl-row"><input type="range" min="50" max="95" step="5" value="75" id="ret" oninput="upLTV()"><span class="ltv-ctrl-val" id="retv">75%</span></div></div>
+    <div class="ltv-ctrl"><div class="ltv-ctrl-lbl">Cancellation Rate (3%)</div><div class="ltv-ctrl-row"><input type="range" min="1" max="15" step="1" value="3" id="can" oninput="upLTV()"><span class="ltv-ctrl-val" id="canv">3%</span></div></div>
+  </div>
+
+  <div class="ltv-sum" id="ltv-sum"></div>
+
+  <div class="tbl-section-lbl">New PMax Groups — Priority Build</div>
+  <div class="tbl-wrap" style="margin-bottom:20px"><table id="new2-tbl"></table></div>
+  <div class="tbl-section-lbl">Suggested New Lines</div>
+  <div class="tbl-wrap" style="margin-bottom:20px"><table id="new3-tbl"></table></div>
+  <div class="tbl-section-lbl">Existing Campaigns</div>
+  <div class="tbl-wrap"><table id="ex-tbl"></table></div>
+
+  <div class="note">✅ <strong>How to read this table:</strong> Drag the Target ROAS slider to see how CPA changes — and how that directly impacts <strong>Yr 1 Net Profit</strong> and <strong>3yr Net Margin per Customer</strong>. Higher ROAS = lower CPA = more profit per customer. Lower ROAS = higher CPA = more volume but less margin. Revenue data from LOB report (Looker Studio). Gross margin 100%, retention 75%, cancellation 3%.</div>
+</section>
+
+<!-- ── 6. FUTURE GROUPS ── -->
+<section class="sec" id="future">
+  <div class="sec-hdr">
+    <span class="sec-title">PMax Group Selector</span>
+    <span class="sec-sub">Pick up to 3 groups to build next &nbsp;·&nbsp; Based on LOB data (Looker Studio, May 2026)</span>
+  </div>
+
+  <div id="sel-count-bar" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--green-light);border:1px solid var(--green-mid);border-radius:var(--radius-sm);margin-bottom:16px">
+    <span style="font-size:13px;font-weight:600;color:var(--green-dark)">Select up to <strong>3 groups</strong> to build — click to select/deselect</span>
+    <span id="sel-count" style="font-family:'DM Mono',monospace;font-size:14px;font-weight:700;color:var(--green)">0 / 3 selected</span>
+  </div>
+
+  <div class="future-grid" id="group-selector">
+    <div class="fcard sel-card" data-id="it" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--green)">★ Priority 1 — Recommended</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">IT Contractors & Consultants</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$261</strong></div><div class="fstat">Policies <strong>1,065</strong></div><div class="fstat">Max CPA <strong>$125</strong></div></div>
+      <div class="fcard-reason">Biggest existing customer base. Contract compliance is #1 trigger. Copy & brief already complete — fastest to launch.</div>
+    </div>
+    <div class="fcard sel-card" data-id="mc" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--green)">★ Priority 2 — Recommended</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Management Consultants</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$348</strong></div><div class="fstat">Policies <strong>269</strong></div><div class="fstat">Max CPA <strong>$174</strong></div></div>
+      <div class="fcard-reason">Good volume + above-average AOV. Different messaging to IT — no audience overlap. Copy & brief complete.</div>
+    </div>
+    <div class="fcard sel-card" data-id="re" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--blue)">Suggested</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Real Estate Agents</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$499</strong></div><div class="fstat">Policies <strong>16</strong></div><div class="fstat">Max CPA <strong>$249</strong></div></div>
+      <div class="fcard-reason">High AOV is attractive. Risk: only 16 policies — slow algorithm learning. May need 4–6 weeks to stabilise. Messaging: property transaction disputes, licensing requirements.</div>
+    </div>
+    <div class="fcard sel-card" data-id="rc" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--blue)">Suggested</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Recruitment Consultants</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$467</strong></div><div class="fstat">Policies <strong>20–26</strong></div><div class="fstat">Max CPA <strong>$233</strong></div></div>
+      <div class="fcard-reason">Strong AOV, Our Engineers replacement. Messaging: wrongful placement claims, contract requirements. Similar volume risk to Real Estate — build after more established groups.</div>
+    </div>
+    <div class="fcard sel-card" data-id="misc" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--amber)">High Volume</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Miscellaneous Professions</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$335</strong></div><div class="fstat">Policies <strong>376</strong></div><div class="fstat">Max CPA <strong>$167</strong></div></div>
+      <div class="fcard-reason">Large volume (376 policies) is the appeal. Good catch-all for professions not in other dedicated groups. Messaging needs to be broad but still profession-specific in search themes.</div>
+    </div>
+    <div class="fcard sel-card" data-id="fm" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--amber)">Caution — Suggested</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Finance / Mortgage Broking</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$424</strong></div><div class="fstat">Policies <strong>13–18</strong></div><div class="fstat">Max CPA <strong>$212</strong></div></div>
+      <div class="fcard-reason">Actual LOB revenue $424 is lower than initial estimates. Very low volume. Highly regulated industry = competitive keywords. Small budget test only.</div>
+    </div>
+    <div class="fcard sel-card" data-id="hc" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--text-muted)">Long Term</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Healthcare Professionals</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$168</strong></div><div class="fstat">Policies <strong>301</strong></div><div class="fstat">Max CPA <strong>$84</strong></div></div>
+      <div class="fcard-reason">Large volume but low AOV makes economics tight. Max CPA ~$84 is very hard to hit in insurance search. Only viable once account ROAS is above 2.5 and landing page is optimised.</div>
+    </div>
+    <div class="fcard sel-card" data-id="tax" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--text-muted)">Long Term</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Tax Agents & Bookkeepers</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$148</strong></div><div class="fstat">Policies <strong>810</strong></div><div class="fstat">Max CPA <strong>$74</strong></div></div>
+      <div class="fcard-reason">Biggest volume in LOB (810 policies) but lowest AOV. Max CPA ~$74 is very difficult. Economics only work at very high scale with extremely efficient execution.</div>
+    </div>
+    <div class="fcard sel-card" data-id="arch" onclick="toggleSel(this)" style="cursor:pointer">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="fcard-pri" style="color:var(--text-muted)">Already Running (Search)</div>
+        <div class="sel-check" style="width:20px;height:20px;border-radius:50%;border:2px solid var(--border-strong);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all .15s"></div>
+      </div>
+      <div class="fcard-name">Architects</div>
+      <div class="fcard-stats"><div class="fstat">AOV <strong>$446</strong></div><div class="fstat">Policies <strong>77–112</strong></div><div class="fstat">Max CPA <strong>$223</strong></div></div>
+      <div class="fcard-reason">Confirmed Architects can continue. Currently in search + General group. Add a dedicated PMax asset group to improve targeting and pull budget away from General.</div>
+    </div>
+  </div>
+
+  <div id="sel-result" style="display:none;margin-top:16px;padding:16px 18px;background:var(--green-light);border:1px solid var(--green-mid);border-radius:var(--radius-sm)">
+    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green-dark);margin-bottom:8px">Your selected groups</div>
+    <div id="sel-result-names" style="font-size:14px;font-weight:600;color:var(--green)"></div>
+    <div style="font-size:12px;color:var(--green-dark);margin-top:6px">Recommended build order: launch first group → wait 1 week → launch second → wait 1 week → launch third. Stagger to avoid overlapping learning phases.</div>
+  </div>
+</section>
+
+<!-- ── 7. NEXT STEPS ── -->
+<section class="sec" id="nextsteps">
+  <div class="sec-hdr">
+    <span class="sec-title">Action Plan</span>
+    <span class="sec-sub">Prioritised by impact and urgency</span>
+  </div>
+  <div class="steps-grid">
+    <div class="step"><div class="step-n">1</div><div><div class="step-urgency" style="color:var(--red)">Do this week</div><div class="step-title">Pause Engineers PMax asset group</div><div class="step-desc">Confirmed partner conflict. Must be done immediately. Engineers search campaign already paused. Architects group continues.</div></div></div>
+    <div class="step"><div class="step-n">2</div><div><div class="step-urgency" style="color:var(--green)">This week</div><div class="step-title">Build IT Contractors asset group</div><div class="step-desc">Use creative brief above — all copy is ready. Source 8 images from Unsplash ("IT professional Australia"). ~4–5 hours total including upload.</div></div></div>
+    <div class="step"><div class="step-n">3</div><div><div class="step-urgency" style="color:var(--green)">Week 2</div><div class="step-title">Build Management Consultants group</div><div class="step-desc">Wait 1 week after IT group launches so learning phases don't overlap. Copy and image brief above is ready to use.</div></div></div>
+    <div class="step"><div class="step-n">4</div><div><div class="step-urgency" style="color:var(--amber)">This week</div><div class="step-title">Increase PI Search budget to $60/day</div><div class="step-desc">Best ROAS of all search campaigns (2.65) and currently Budget Limited. More budget = more conversions at proven efficiency. Easy win.</div></div></div>
+    <div class="step"><div class="step-n">5</div><div><div class="step-urgency" style="color:var(--amber)">In progress</div><div class="step-title">Fix mobile bid adjustment error</div><div class="step-desc">Mobile = high clicks, low conversions. Need to reduce mobile bid % in PMax. Technical error encountered — follow up with Google team to resolve.</div></div></div>
+    <div class="step"><div class="step-n">6</div><div><div class="step-urgency" style="color:var(--amber)">Ongoing</div><div class="step-title">Monitor Accountant Search phaseout</div><div class="step-desc">PMax Accountants CPA $235 vs Search $366. Reduce Search by $10/day per week once PMax continues to outperform, to avoid disrupting learning.</div></div></div>
+    <div class="step"><div class="step-n">7</div><div><div class="step-urgency" style="color:var(--blue)">Month 2</div><div class="step-title">Add audience signals to new groups</div><div class="step-desc">Upload existing customer lists as audience signals. Add website visitor audiences. Custom intent: people searching IT contractor roles, consulting jobs.</div></div></div>
+    <div class="step"><div class="step-n">8</div><div><div class="step-urgency" style="color:var(--blue)">Month 2</div><div class="step-title">Build negative keyword list</div><div class="step-desc">Exclude: job seekers ("IT contractor jobs"), transit/freight, consumer insurance ("car/home insurance"). Work with Google team on PMax exclusion best practices.</div></div></div>
+  </div>
+</section>
+
+</div>
+
+<footer class="ftr">
+  <div class="ftr-l">Balmer Agency · Express Insurance SEM Strategy · May 2026</div>
+  <div class="ftr-r">bing@balmeragency.com.au</div>
+</footer>
+
+<script>
+// Group selector
+const MAX_SEL = 3;
+let selected = new Set();
+function toggleSel(card) {
+  const id = card.dataset.id;
+  const check = card.querySelector('.sel-check');
+  if (selected.has(id)) {
+    selected.delete(id);
+    card.style.borderColor = '';
+    card.style.borderWidth = '';
+    card.style.background = '';
+    check.style.background = '';
+    check.style.borderColor = '';
+    check.textContent = '';
+  } else {
+    if (selected.size >= MAX_SEL) {
+      const bar = document.getElementById('sel-count-bar');
+      bar.style.background = 'var(--red-bg)';
+      bar.style.borderColor = '#FCA5A5';
+      setTimeout(() => { bar.style.background = ''; bar.style.borderColor = ''; }, 800);
+      return;
+    }
+    selected.add(id);
+    card.style.borderColor = 'var(--green)';
+    card.style.borderWidth = '2px';
+    card.style.background = 'var(--green-light)';
+    check.style.background = 'var(--green)';
+    check.style.borderColor = 'var(--green)';
+    check.textContent = '✓';
+    check.style.color = '#fff';
+    check.style.fontSize = '11px';
+  }
+  document.getElementById('sel-count').textContent = selected.size + ' / 3 selected';
+  const names = [...selected].map(id => document.querySelector('.sel-card[data-id="'+id+'"] .fcard-name').textContent);
+  const res = document.getElementById('sel-result');
+  if (selected.size > 0) {
+    res.style.display = 'block';
+    document.getElementById('sel-result-names').textContent = names.map((n,i) => (i+1)+'. '+n).join('  ·  ');
+  } else {
+    res.style.display = 'none';
+  }
+}
+
+// Accordion
+function toggleAcc(head) {
+  const body = head.nextElementSibling;
+  const chev = head.querySelector('.acc-chevron');
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  chev.classList.toggle('open', !open);
+}
+
+// Brief tabs
+function switchBrief(id, el) {
+  document.querySelectorAll('.brief-content').forEach(e => e.classList.remove('active'));
+  document.querySelectorAll('.brief-tab').forEach(e => e.classList.remove('active'));
+  document.getElementById('bc-' + id).classList.add('active');
+  el.classList.add('active');
+}
+
+// LTV
+const prods = [
+  {n:'IT Contractors & Consultants', r:260.97, t:'new2'},
+  {n:'Management Consultants', r:348.44, t:'new2'},
+  {n:'Real Estate Agents', r:499.37, t:'new3'},
+  {n:'Recruitment Consultants', r:466.95, t:'new3'},
+  {n:'Finance/Mortgage Broking', r:423.87, t:'new3'},
+  {n:'Accountants', r:400.62, t:'ex'},
+  {n:'Public Liability', r:154.22, t:'ex'},
+  {n:'Architects', r:433.63, t:'ex'},
+];
+// Note: Professional Indemnity excluded — no revenue data in LOB report. Architects updated to LOB figure $433.63.
+
+function calc(r,roas,ret,can){
+  const rv=ret/100,c=can/100;
+  const p=r*(1-c);
+  const ltv=p*(1+rv+rv*rv);
+  const mx=p*(1+rv);
+  const cpa=r/roas;
+  const netMargin=ltv-cpa;
+  const yr1net=p-cpa;
+  const be=cpa<=p?1:cpa<=mx?2:cpa<=ltv?3:4;
+  return{p,ltv,mx,cpa,netMargin,yr1net,be};
+}
+function fm(n){return'$'+Math.round(n).toLocaleString()}
+
+function renderTbl(id,items,roas,ret,can){
+  const t=document.getElementById(id);
+  t.innerHTML=`<thead><tr><th>Product</th><th>Avg Revenue</th><th>Profit/Order</th><th>3yr LTV</th><th>CPA @ ROAS ${roas.toFixed(1)}</th><th>Yr 1 Net Profit</th><th>3yr Net Margin</th><th>Break-even</th></tr></thead><tbody>`;
+  items.forEach(p=>{
+    const c=calc(p.r,roas,ret,can);
+    const yr1color=c.yr1net>=0?'var(--green)':'var(--red)'; const nmColor=c.netMargin>=0?'var(--green)':'var(--red)';
+    const tagBg = p.t==='new2'?'var(--green-light)':p.t==='new3'?'var(--blue-bg)':'#F1F5F9';
+    const tagColor = p.t==='new2'?'var(--green-dark)':p.t==='new3'?'var(--blue)':'#64748B';
+    const tagLabel = p.t==='new2'?'new group':p.t==='new3'?'suggested':'existing';
+    t.innerHTML+=`<tr><td><strong>${p.n}</strong><span style="font-size:10px;font-weight:700;padding:1px 6px;border-radius:20px;margin-left:6px;background:${tagBg};color:${tagColor}">${tagLabel}</span></td><td class="mono">${fm(p.r)}</td><td class="mono">${fm(c.p)}</td><td class="mono">${fm(c.ltv)}</td><td class="mono">${fm(c.cpa)}</td><td class="mono" style="color:${yr1color};font-weight:700">${c.yr1net>=0?'+':''}${fm(c.yr1net)}</td><td class="mono" style="color:${nmColor};font-weight:700">${c.netMargin>=0?'+':''}${fm(c.netMargin)}</td><td>${beBadge(c.be)}</td></tr>`;
+  });
+  t.innerHTML+='</tbody>';
+}
+function beBadge(y){
+  if(y===1)return'<span class="bdg bdg-green">Year 1 ✓</span>';
+  if(y===2)return'<span class="bdg bdg-amber">Year 2</span>';
+  return'<span class="bdg bdg-red">Year 3+</span>';
+}
+function upLTV(){
+  const roas=parseFloat(document.getElementById('rs').value);
+  const ret=parseInt(document.getElementById('ret').value);
+  const can=parseInt(document.getElementById('can').value);
+  document.getElementById('rv').textContent=roas.toFixed(1);
+  document.getElementById('roas-pct').textContent='('+Math.round(roas*100)+'%)';
+  document.getElementById('retv').textContent=ret+'%';
+  document.getElementById('canv').textContent=can+'%';
+  const all=prods.map(p=>calc(p.r,roas,ret,can));
+  const avgLtv=all.reduce((s,c)=>s+c.ltv,0)/all.length;
+  const avgMx=all.reduce((s,c)=>s+c.mx,0)/all.length;
+  const minR=(1/((1-can/100)*(1+ret/100))).toFixed(2);
+  const blended=Math.round(prods.reduce((s,p)=>s+p.r,0)/prods.length);
+  document.getElementById('ltv-sum').innerHTML=`
+    <div class="ltv-sum-card"><div class="ltv-sum-lbl">Blended Avg AOV</div><div class="ltv-sum-val">$${blended}</div></div>
+    <div class="ltv-sum-card"><div class="ltv-sum-lbl">Avg 3yr LTV</div><div class="ltv-sum-val">${fm(avgLtv)}</div></div>
+    <div class="ltv-sum-card"><div class="ltv-sum-lbl">Avg Max CPA</div><div class="ltv-sum-val">${fm(avgMx)}</div></div>
+    <div class="ltv-sum-card"><div class="ltv-sum-lbl">Min ROAS (Yr2 BE)</div><div class="ltv-sum-val">${minR}</div></div>`;
+  renderTbl('new2-tbl',prods.filter(p=>p.t==='new2'),roas,ret,can);
+  renderTbl('new3-tbl',prods.filter(p=>p.t==='new3'),roas,ret,can);
+  renderTbl('ex-tbl',prods.filter(p=>p.t==='ex'),roas,ret,can);
+}
+
+// Nav click scroll with offset
+document.querySelectorAll('.nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const id = a.getAttribute('href').replace('#','');
+    const el = document.getElementById(id);
+    if (!el) return;
+    const offset = 130; // header + nav + kpi bar height
+    const top = el.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({top, behavior:'smooth'});
+  });
+});
+
+// Nav scroll spy
+const secs=document.querySelectorAll('section[id]');
+const nls=document.querySelectorAll('.nav a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-140)cur=s.id});
+  nls.forEach(a=>{a.classList.remove('active');if(a.getAttribute('href')==='#'+cur)a.classList.add('active')});
+});
+
+upLTV();
+</script>
+</body>
+</html>
