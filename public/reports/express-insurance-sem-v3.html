@@ -208,14 +208,45 @@ tr:hover td{background:#F8FAFC}
 .fstat strong{color:var(--text)}
 .fcard-reason{font-size:12px;color:var(--text-mid);line-height:1.6}
 
-/* ── NEXT STEPS ── */
-.steps-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.step{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:18px;display:flex;gap:14px;align-items:flex-start;box-shadow:var(--shadow-sm);transition:box-shadow .15s}
-.step:hover{box-shadow:var(--shadow)}
-.step-n{width:30px;height:30px;border-radius:50%;background:var(--green);color:var(--white);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.step-title{font-size:13px;font-weight:700;margin-bottom:4px;color:var(--text)}
-.step-desc{font-size:12px;color:var(--text-mid);line-height:1.6}
-.step-urgency{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px}
+/* ── DEBRIEF INSIGHTS EMBED ── */
+.finding{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm);margin-bottom:12px}
+.finding-head{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;transition:background .12s}
+.finding-head:hover{background:var(--surface)}
+.finding-num{width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.finding-title{font-size:14px;font-weight:600;color:var(--text);flex:1}
+.finding-badge{font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px}
+.finding-chev{font-size:13px;color:var(--text-muted);transition:transform .18s}
+.finding-chev.open{transform:rotate(180deg)}
+.finding-body{padding:0 18px 16px;display:none;border-top:1px solid var(--border)}
+.finding-body.open{display:block}
+.finding-body p{font-size:13px;color:var(--text-mid);line-height:1.7;margin-top:12px}
+.ip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;margin:4px 3px}
+.ip-red{background:var(--red-bg);color:var(--red)}
+.ip-green{background:var(--green-light);color:var(--green-dark)}
+.ip-amber{background:var(--amber-bg);color:var(--amber)}
+.ip-blue{background:var(--blue-bg);color:var(--blue)}
+.geo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.state-bars{display:flex;flex-direction:column;gap:10px}
+.state-row{display:flex;align-items:center;gap:12px}
+.state-name{font-size:12px;font-weight:600;color:var(--text);width:80px;flex-shrink:0}
+.state-bar-wrap{flex:1;position:relative}
+.state-bar-bg{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.state-bar-fill{height:100%;border-radius:4px;background:var(--green);transition:width .6s ease}
+.state-conv{font-family:'DM Mono',monospace;font-size:12px;color:var(--text);width:36px;text-align:right;flex-shrink:0}
+.state-chg{font-size:11px;font-weight:600;width:54px;text-align:right;flex-shrink:0}
+.lp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.lp-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow-sm)}
+.lp-channel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:8px}
+.lp-metric{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--text);margin-bottom:2px}
+.lp-label{font-size:11px;color:var(--text-muted)}
+.lp-pill{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:6px;display:inline-block}
+.creative-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;margin-bottom:6px}
+.creative-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:4px}
+.creative-text{font-size:13px;color:var(--text);line-height:1.5;font-weight:500}
+.creative-flag{font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px;margin-top:6px;display:inline-block}
+.flag-warn{background:var(--amber-bg);color:var(--amber)}
+.flag-ok{background:var(--green-light);color:var(--green-dark)}
+.flag-bad{background:var(--red-bg);color:var(--red)}
 
 /* ── NOTES ── */
 .note{background:var(--blue-bg);border:1px solid #BFDBFE;border-radius:var(--radius-sm);padding:13px 16px;font-size:13px;color:#1E40AF;line-height:1.7;margin-top:14px}
@@ -269,10 +300,9 @@ tr:hover td{background:#F8FAFC}
   <a href="#perf" class="active">Performance</a>
   <a href="#budget">Budget</a>
   <a href="#pmax">PMax Strategy</a>
-  <a href="#creative">Creative Brief</a>
   <a href="#ltv">LTV & ROAS</a>
   <a href="#future">Future Groups</a>
-  <a href="#nextsteps">Action Plan</a>
+  <a href="#insights">More Insights</a>
 </nav>
 
 <!-- KPI BAR -->
@@ -486,266 +516,6 @@ tr:hover td{background:#F8FAFC}
   <div class="note-green">✅ <strong>PMax optimisation in progress:</strong> We are restructuring asset groups to improve targeting precision. New dedicated groups for IT Contractors and Management Consultants are being built to replace the Engineers group and pull budget away from the broad General group — which will progressively lift overall ROAS.</div>
 </section>
 
-<!-- ── 4. CREATIVE ── -->
-<section class="sec" id="creative">
-  <div class="sec-hdr">
-    <span class="sec-title">Creative Brief</span>
-    <span class="sec-sub">Full copy, messaging direction & asset requirements — ready to upload</span>
-  </div>
-
-  <div class="col3" style="margin-bottom:20px">
-    <div class="card-sm" style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--green);font-family:'DM Mono',monospace">15</div><div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Headlines (30 chars)</div></div>
-    <div class="card-sm" style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--green);font-family:'DM Mono',monospace">5</div><div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Long Headlines + Descriptions</div></div>
-    <div class="card-sm" style="text-align:center"><div style="font-size:28px;font-weight:800;color:var(--green);font-family:'DM Mono',monospace">8</div><div style="font-size:11px;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:.06em">Images (3 sizes)</div></div>
-  </div>
-
-  <div class="brief-tabs">
-    <div class="brief-tab active" onclick="switchBrief('it',this)">IT Contractors</div>
-    <div class="brief-tab" onclick="switchBrief('mc',this)">Management Consultants</div>
-    <div class="brief-tab" onclick="switchBrief('re',this)">Real Estate Agents</div>
-    <div class="brief-tab" onclick="switchBrief('rc',this)">Recruitment Consultants</div>
-  </div>
-
-  <!-- IT -->
-  <div class="brief-content active" id="bc-it">
-    <div class="acc-item">
-      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">1</div><div><div class="acc-title">Messaging Strategy</div><div class="acc-count">3 key angles</div></div></div><div class="acc-chevron open">▾</div></div>
-      <div class="acc-body open">
-        <div class="theme-grid">
-          <div class="theme-card"><div class="theme-tag">Contract Compliance</div><div class="theme-title">Required for most contracts</div><div class="theme-desc">Most IT contracts mandate PI insurance. This is the #1 conversion trigger — people buy because they must, not just want to. Lead with this.</div></div>
-          <div class="theme-card"><div class="theme-tag">Speed & Simplicity</div><div class="theme-title">Get covered fast, online</div><div class="theme-desc">IT contractors are busy professionals. Emphasise instant quotes, online purchase, immediate certificate. Reduce every friction point.</div></div>
-          <div class="theme-card"><div class="theme-tag">Risk Protection</div><div class="theme-title">One claim can wipe you out</div><div class="theme-desc">Data breach, system failure, bad advice — clients can sue. Position as essential professional protection that pays for itself with one incident avoided.</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="acc-item">
-      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">2</div><div><div class="acc-title">Headlines</div><div class="acc-count">15 headlines · 30 characters max each</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body">
-        <div class="hl-grid">
-          <div class="hl">IT Contractor Insurance<div class="hl-len">23</div></div>
-          <div class="hl">Required for IT Contracts<div class="hl-len">25</div></div>
-          <div class="hl">Get Covered in Minutes<div class="hl-len">22</div></div>
-          <div class="hl">IT Consultant Insurance AU<div class="hl-len">26</div></div>
-          <div class="hl">Instant Online IT Cover<div class="hl-len">23</div></div>
-          <div class="hl">PI Insurance for IT Pros<div class="hl-len">24</div></div>
-          <div class="hl">Protect Your IT Business<div class="hl-len">24</div></div>
-          <div class="hl">IT Insurance — Apply Now<div class="hl-len">24</div></div>
-          <div class="hl">Australian IT Professionals<div class="hl-len">28</div></div>
-          <div class="hl">One Data Breach = Lawsuit<div class="hl-len">25</div></div>
-          <div class="hl">Cyber & PI Cover for IT<div class="hl-len">23</div></div>
-          <div class="hl">Trusted by IT Contractors<div class="hl-len">25</div></div>
-          <div class="hl">Instant Certificate Issued<div class="hl-len">26</div></div>
-          <div class="hl">IT Cover From $X/Month<div class="hl-len">22</div></div>
-          <div class="hl">Compare IT Insurance Plans<div class="hl-len">27</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="acc-item">
-      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">3</div><div><div class="acc-title">Long Headlines & Descriptions</div><div class="acc-count">5 long headlines + 5 descriptions · 90 chars max</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body">
-        <div class="lbl" style="margin-bottom:8px">Long Headlines</div>
-        <div class="desc">Professional Indemnity Insurance Built for Australian IT Contractors & Consultants</div>
-        <div class="desc">Get Your IT Insurance Certificate Online — Most Contracts Require It</div>
-        <div class="desc">Protect Your IT Consulting Business From Client Claims — Instant Quote</div>
-        <div class="desc">IT Contractor Insurance — Apply in Minutes, Get Covered Immediately</div>
-        <div class="desc">Cyber Liability & PI Insurance for IT Professionals Across Australia</div>
-        <div class="lbl" style="margin-top:14px;margin-bottom:8px">Descriptions</div>
-        <div class="desc">Most IT contracts require Professional Indemnity insurance. Get covered online in minutes with an instant certificate. Trusted by Australian IT professionals.</div>
-        <div class="desc">One client claim can cost thousands. Protect your IT consulting business with PI and Cyber Liability cover — quick quote, immediate coverage.</div>
-        <div class="desc">Purpose-built IT contractor insurance. Cover for data breaches, system failures, and professional advice claims. Apply online today.</div>
-        <div class="desc">Get the insurance certificate your next IT contract requires. Fast online application, competitive rates, instant policy documents.</div>
-        <div class="desc">Australian IT professionals trust Express Insurance for professional indemnity cover. Compare plans and get covered in under 10 minutes.</div>
-      </div>
-    </div>
-
-    <div class="acc-item">
-      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">4</div><div><div class="acc-title">Image Direction</div><div class="acc-count">8 images across 3 sizes</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body">
-        <div class="img-grid">
-          <div class="img-card"><div class="img-format">1:1 Square — 3 images</div><strong style="font-size:13px;display:block;margin-bottom:4px">Professional IT setting</strong><p style="font-size:12px;color:var(--text-mid)">Person at laptop/dual screens, home office or corporate. Clean, professional. Dark or neutral background preferred.</p></div>
-          <div class="img-card"><div class="img-format">1.91:1 Landscape — 3 images</div><strong style="font-size:13px;display:block;margin-bottom:4px">Team / corporate context</strong><p style="font-size:12px;color:var(--text-mid)">IT team in meeting or server room. Wide format — leave space on right side for ad copy overlay.</p></div>
-          <div class="img-card"><div class="img-format">4:5 Portrait — 2 images</div><strong style="font-size:13px;display:block;margin-bottom:4px">Mobile-first close-up</strong><p style="font-size:12px;color:var(--text-mid)">Close-up of professional, or phone showing certificate. Works as vertical social format. Unsplash stock is fine.</p></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="acc-item">
-      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">5</div><div><div class="acc-title">Search Themes</div><div class="acc-count">10 terms to add to asset group</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body">
-        <div class="search-themes">
-          <span class="st">IT contractor insurance</span><span class="st">IT consultant PI insurance</span><span class="st">professional indemnity IT</span><span class="st">tech contractor insurance Australia</span><span class="st">IT insurance certificate</span><span class="st">cyber liability IT consultants</span><span class="st">software developer insurance</span><span class="st">IT business insurance</span><span class="st">technology professional insurance</span><span class="st">contract IT work insurance</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MC -->
-  <div class="brief-content" id="bc-mc">
-    <div class="acc-item">
-      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">1</div><div><div class="acc-title">Messaging Strategy</div><div class="acc-count">3 key angles</div></div></div><div class="acc-chevron open">▾</div></div>
-      <div class="acc-body open">
-        <div class="theme-grid">
-          <div class="theme-card"><div class="theme-tag">Advice Protection</div><div class="theme-title">Your advice, your liability</div><div class="theme-desc">Management consultants give high-stakes strategic advice. If it goes wrong, clients can sue for significant losses. Frame as career protection.</div></div>
-          <div class="theme-card"><div class="theme-tag">Credibility Signal</div><div class="theme-title">Win more corporate clients</div><div class="theme-desc">Large corporate clients expect insured consultants. Position insurance as a competitive advantage — shows professionalism and seriousness.</div></div>
-          <div class="theme-card"><div class="theme-tag">Business Continuity</div><div class="theme-title">Don't let one claim end it all</div><div class="theme-desc">One bad engagement claim can wipe out years of profit. Frame as protecting what you've built — the business, the reputation, the future.</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="acc-item">
-      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">2</div><div><div class="acc-title">Headlines</div><div class="acc-count">15 headlines · 30 characters max each</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body">
-        <div class="hl-grid">
-          <div class="hl">Management Consultant PI<div class="hl-len">25</div></div>
-          <div class="hl">Protect Your Consulting Biz<div class="hl-len">28</div></div>
-          <div class="hl">Consulting Insurance Online<div class="hl-len">28</div></div>
-          <div class="hl">PI Cover for Consultants<div class="hl-len">24</div></div>
-          <div class="hl">Get Covered in Minutes<div class="hl-len">22</div></div>
-          <div class="hl">Clients Expect You're Insured<div class="hl-len">29</div></div>
-          <div class="hl">Consultant Insurance AU<div class="hl-len">23</div></div>
-          <div class="hl">One Claim Can Cost Thousands<div class="hl-len">28</div></div>
-          <div class="hl">Instant Certificate Online<div class="hl-len">26</div></div>
-          <div class="hl">Win More Corporate Contracts<div class="hl-len">28</div></div>
-          <div class="hl">Business Consultant Cover<div class="hl-len">25</div></div>
-          <div class="hl">Professional Advice Cover<div class="hl-len">25</div></div>
-          <div class="hl">Compare Consulting Plans<div class="hl-len">24</div></div>
-          <div class="hl">Trusted by AU Consultants<div class="hl-len">25</div></div>
-          <div class="hl">Apply Online — Fast & Easy<div class="hl-len">26</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="acc-item">
-      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">3</div><div><div class="acc-title">Long Headlines & Descriptions</div><div class="acc-count">5 long headlines + 5 descriptions · 90 chars max</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body">
-        <div class="lbl" style="margin-bottom:8px">Long Headlines</div>
-        <div class="desc">Professional Indemnity Insurance for Australian Management Consultants</div>
-        <div class="desc">Protect Your Consulting Business From Client Claims — Get a Quote Today</div>
-        <div class="desc">Management Consultant Insurance — Apply Online, Get Covered Immediately</div>
-        <div class="desc">Corporate Clients Expect You're Insured — Get Your PI Certificate Online</div>
-        <div class="desc">One Bad Engagement Shouldn't End Your Business — PI Insurance From $X</div>
-        <div class="lbl" style="margin-top:14px;margin-bottom:8px">Descriptions</div>
-        <div class="desc">Management consultants face real risk — one client dispute can result in costly legal action. Protect your business with PI insurance from Express Insurance.</div>
-        <div class="desc">Major corporate clients expect their consultants to be properly insured. Get your PI certificate online today — fast, simple, and competitively priced.</div>
-        <div class="desc">Professional Indemnity insurance designed for management consultants. Cover for advice claims, contract disputes, and errors. Apply in minutes.</div>
-        <div class="desc">Don't let one engagement define your business. PI insurance protects your reputation and finances if a client claims your advice caused them a loss.</div>
-        <div class="desc">Express Insurance makes it easy for management consultants to get covered. Compare plans, get an instant quote, receive your certificate immediately.</div>
-      </div>
-    </div>
-
-    <div class="acc-item">
-      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">4</div><div><div class="acc-title">Image Direction</div><div class="acc-count">8 images across 3 sizes</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body">
-        <div class="img-grid">
-          <div class="img-card"><div class="img-format">1:1 Square — 3 images</div><strong style="font-size:13px;display:block;margin-bottom:4px">Boardroom / Strategy</strong><p style="font-size:12px;color:var(--text-mid)">Consultant presenting to board, whiteboard strategy session, or confident professional headshot. Senior, authoritative look.</p></div>
-          <div class="img-card"><div class="img-format">1.91:1 Landscape — 3 images</div><strong style="font-size:13px;display:block;margin-bottom:4px">Corporate negotiation</strong><p style="font-size:12px;color:var(--text-mid)">Two professionals in agreement or meeting, modern office. Conveys the high-stakes business context of the product.</p></div>
-          <div class="img-card"><div class="img-format">4:5 Portrait — 2 images</div><strong style="font-size:13px;display:block;margin-bottom:4px">Individual consultant</strong><p style="font-size:12px;color:var(--text-mid)">Professional mid-shot, phone or tablet, confident pose. Premium feel — AOV $348, visuals should reflect quality. Unsplash OK.</p></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="acc-item">
-      <div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">5</div><div><div class="acc-title">Search Themes</div><div class="acc-count">10 terms to add to asset group</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body">
-        <div class="search-themes">
-          <span class="st">management consultant insurance</span><span class="st">business consultant PI insurance</span><span class="st">consulting firm insurance Australia</span><span class="st">professional indemnity consultants</span><span class="st">strategy consultant insurance</span><span class="st">management consulting liability</span><span class="st">independent consultant insurance</span><span class="st">consultant professional cover</span><span class="st">business advisory insurance</span><span class="st">HR consultant insurance Australia</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="note-green">⏱ <strong>Time estimate:</strong> Copy is done above — copy-paste directly into Google Ads. Image sourcing + Canva editing ≈ 3–4 hrs. Upload & setup ≈ 45 min per group. <strong>Total ~6 hours for both groups.</strong> Recommended: launch IT Contractors first, Management Consultants 1 week later so learning phases don't interfere.</div>
-
-  <!-- REAL ESTATE -->
-  <div class="brief-content" id="bc-re">
-    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">1</div><div><div class="acc-title">Messaging Strategy</div><div class="acc-count">3 key angles</div></div></div><div class="acc-chevron open">▾</div></div>
-      <div class="acc-body open"><div class="theme-grid">
-        <div class="theme-card"><div class="theme-tag">Transaction Disputes</div><div class="theme-title">Property deals go wrong</div><div class="theme-desc">Buyers and sellers can sue over missed disclosures, bad advice, or valuation errors. PI insurance covers legal costs and settlements.</div></div>
-        <div class="theme-card"><div class="theme-tag">Licensing Compliance</div><div class="theme-title">Required by your licence</div><div class="theme-desc">Many real estate licences and contracts require PI cover. Frame as a business necessity, not just a safety net.</div></div>
-        <div class="theme-card"><div class="theme-tag">Reputation Protection</div><div class="theme-title">Protect your reputation</div><div class="theme-desc">One claim can damage years of reputation. Insurance lets you resolve disputes professionally without out-of-pocket exposure.</div></div>
-      </div></div>
-    </div>
-    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">2</div><div><div class="acc-title">Headlines</div><div class="acc-count">15 headlines · 30 chars max</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body"><div class="hl-grid">
-        <div class="hl">Real Estate Agent Insurance<div class="hl-len">27</div></div>
-        <div class="hl">PI Cover for Real Estate<div class="hl-len">24</div></div>
-        <div class="hl">Property Agent Insurance AU<div class="hl-len">27</div></div>
-        <div class="hl">Get Covered in Minutes<div class="hl-len">22</div></div>
-        <div class="hl">Protect Your Agency Business<div class="hl-len">28</div></div>
-        <div class="hl">Real Estate PI Insurance<div class="hl-len">24</div></div>
-        <div class="hl">Instant Certificate Online<div class="hl-len">26</div></div>
-        <div class="hl">Required for Licensed Agents<div class="hl-len">28</div></div>
-        <div class="hl">Cover for Property Claims<div class="hl-len">25</div></div>
-        <div class="hl">Apply Online — Fast Quote<div class="hl-len">25</div></div>
-        <div class="hl">Licensed Agent Cover AU<div class="hl-len">23</div></div>
-        <div class="hl">One Dispute Can Cost Thousands<div class="hl-len">30</div></div>
-        <div class="hl">Compare Agent Insurance Plans<div class="hl-len">29</div></div>
-        <div class="hl">Trusted by Property Agents<div class="hl-len">26</div></div>
-        <div class="hl">Real Estate Business Cover<div class="hl-len">26</div></div>
-      </div></div>
-    </div>
-    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">3</div><div><div class="acc-title">Descriptions</div><div class="acc-count">5 descriptions · 90 chars max</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body">
-        <div class="desc">Real estate agents face claims for missed disclosures, bad advice, and valuation errors. Get PI insurance online in minutes.</div>
-        <div class="desc">Protect your agency from property transaction disputes. Express Insurance offers PI cover built for Australian real estate agents.</div>
-        <div class="desc">One property dispute can cost thousands in legal fees. Cover yourself with PI insurance — instant quote, immediate certificate.</div>
-        <div class="desc">Many agency contracts and licences require PI cover. Apply online today and get your certificate instantly from Express Insurance.</div>
-        <div class="desc">Compare real estate agent insurance plans, get an instant quote, and receive your policy certificate within minutes. 100% online.</div>
-      </div>
-    </div>
-    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">4</div><div><div class="acc-title">Search Themes</div><div class="acc-count">10 terms</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body"><div class="search-themes">
-        <span class="st">real estate agent insurance</span><span class="st">property agent PI insurance</span><span class="st">real estate PI cover Australia</span><span class="st">licensed agent insurance</span><span class="st">property transaction insurance</span><span class="st">real estate professional indemnity</span><span class="st">estate agent liability insurance</span><span class="st">buyers agent insurance</span><span class="st">real estate business insurance</span><span class="st">property manager insurance</span>
-      </div></div>
-    </div>
-  </div>
-
-  <!-- RECRUITMENT -->
-  <div class="brief-content" id="bc-rc">
-    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">1</div><div><div class="acc-title">Messaging Strategy</div><div class="acc-count">3 key angles</div></div></div><div class="acc-chevron open">▾</div></div>
-      <div class="acc-body open"><div class="theme-grid">
-        <div class="theme-card"><div class="theme-tag">Placement Claims</div><div class="theme-title">Wrong hire = lawsuit</div><div class="theme-desc">Clients can sue if a placed candidate causes losses or misrepresents themselves. PI covers legal costs for wrongful placement claims.</div></div>
-        <div class="theme-card"><div class="theme-tag">Contract Requirement</div><div class="theme-title">Clients require it</div><div class="theme-desc">Corporate clients increasingly require recruiters to carry PI insurance before signing contracts. Position as a deal-enabler.</div></div>
-        <div class="theme-card"><div class="theme-tag">Business Protection</div><div class="theme-title">Protect your fees</div><div class="theme-desc">A single claim can wipe out months of placement fees. Insurance ensures one bad placement doesn't threaten your entire business.</div></div>
-      </div></div>
-    </div>
-    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">2</div><div><div class="acc-title">Headlines</div><div class="acc-count">15 headlines · 30 chars max</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body"><div class="hl-grid">
-        <div class="hl">Recruitment Consultant PI<div class="hl-len">25</div></div>
-        <div class="hl">Insurance for Recruiters AU<div class="hl-len">27</div></div>
-        <div class="hl">Protect Your Recruitment Biz<div class="hl-len">28</div></div>
-        <div class="hl">Get Covered in Minutes<div class="hl-len">22</div></div>
-        <div class="hl">Recruiter PI Insurance Online<div class="hl-len">29</div></div>
-        <div class="hl">Clients Require You're Insured<div class="hl-len">29</div></div>
-        <div class="hl">Cover for Placement Claims<div class="hl-len">26</div></div>
-        <div class="hl">Instant Certificate Online<div class="hl-len">26</div></div>
-        <div class="hl">Recruitment Agency Insurance<div class="hl-len">28</div></div>
-        <div class="hl">One Claim = Business Risk<div class="hl-len">25</div></div>
-        <div class="hl">Apply Online — Fast & Easy<div class="hl-len">26</div></div>
-        <div class="hl">HR Recruiter Insurance AU<div class="hl-len">25</div></div>
-        <div class="hl">Win More Client Contracts<div class="hl-len">25</div></div>
-        <div class="hl">Compare Recruiter Insurance<div class="hl-len">27</div></div>
-        <div class="hl">Trusted by AU Recruiters<div class="hl-len">24</div></div>
-      </div></div>
-    </div>
-    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">3</div><div><div class="acc-title">Descriptions</div><div class="acc-count">5 descriptions · 90 chars max</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body">
-        <div class="desc">Recruitment consultants face claims for wrongful placement, misrepresentation, and contract breaches. Get covered online in minutes.</div>
-        <div class="desc">Corporate clients increasingly require recruiters to carry PI insurance. Get your certificate today and close more contracts with confidence.</div>
-        <div class="desc">One bad placement claim can wipe out months of fees. Protect your recruitment business with PI insurance from Express Insurance.</div>
-        <div class="desc">Purpose-built PI insurance for Australian recruitment consultants and agencies. Fast online application, instant policy documents.</div>
-        <div class="desc">Compare recruitment consultant insurance plans and get an instant quote. Express Insurance covers placement claims, contract disputes, and more.</div>
-      </div>
-    </div>
-    <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)"><div class="acc-head-left"><div class="acc-icon">4</div><div><div class="acc-title">Search Themes</div><div class="acc-count">10 terms</div></div></div><div class="acc-chevron">▾</div></div>
-      <div class="acc-body"><div class="search-themes">
-        <span class="st">recruitment consultant insurance</span><span class="st">recruiter PI insurance Australia</span><span class="st">staffing agency insurance</span><span class="st">employment agency insurance</span><span class="st">professional indemnity recruiters</span><span class="st">recruitment business insurance</span><span class="st">HR consultant insurance</span><span class="st">headhunter insurance Australia</span><span class="st">placement consultant cover</span><span class="st">executive recruiter insurance</span>
-      </div></div>
-    </div>
-  </div>
-
 <!-- ── 5. LTV ── -->
 <section class="sec" id="ltv">
   <div class="sec-hdr">
@@ -865,22 +635,258 @@ tr:hover td{background:#F8FAFC}
   </div>
 </section>
 
-<!-- ── 7. NEXT STEPS ── -->
-<section class="sec" id="nextsteps">
+<!-- ── 7. MORE INSIGHTS ── -->
+<section class="sec" id="insights">
   <div class="sec-hdr">
-    <span class="sec-title">Action Plan</span>
-    <span class="sec-sub">Prioritised by impact and urgency</span>
+    <span class="sec-title">More Insights — Accountant Targeting Debrief</span>
+    <span class="sec-sub">Feb – May 2026 · Asset group, landing page & geography analysis</span>
   </div>
-  <div class="steps-grid">
-    <div class="step" style="opacity:0.6"><div class="step-n" style="background:var(--green);color:#fff">✓</div><div><div class="step-urgency" style="color:var(--green)">Done</div><div class="step-title" style="text-decoration:line-through">Pause Engineers PMax asset group</div><div class="step-desc">Confirmed partner conflict. Must be done immediately. Engineers search campaign already paused. Architects group continues.</div></div></div>
-    <div class="step"><div class="step-n">2</div><div><div class="step-urgency" style="color:var(--green)">This week</div><div class="step-title">Build IT Contractors asset group</div><div class="step-desc">Use creative brief above — all copy is ready. Source 8 images from Unsplash ("IT professional Australia"). ~4–5 hours total including upload.</div></div></div>
-    <div class="step"><div class="step-n">3</div><div><div class="step-urgency" style="color:var(--green)">Week 2</div><div class="step-title">Build Management Consultants group</div><div class="step-desc">Wait 1 week after IT group launches so learning phases don't overlap. Copy and image brief above is ready to use.</div></div></div>
-    <div class="step"><div class="step-n">4</div><div><div class="step-urgency" style="color:var(--amber)">This week</div><div class="step-title">Increase PI Search budget to $60/day</div><div class="step-desc">Best ROAS of all search campaigns (2.65) and currently Budget Limited. More budget = more conversions at proven efficiency. Easy win.</div></div></div>
-    <div class="step"><div class="step-n">5</div><div><div class="step-urgency" style="color:var(--amber)">In progress</div><div class="step-title">Fix mobile bid adjustment error</div><div class="step-desc">Mobile = high clicks, low conversions. Need to reduce mobile bid % in PMax. Technical error encountered — follow up with Google team to resolve.</div></div></div>
-    <div class="step"><div class="step-n">6</div><div><div class="step-urgency" style="color:var(--amber)">Ongoing</div><div class="step-title">Monitor Accountant Search phaseout</div><div class="step-desc">PMax Accountants CPA $235 vs Search $366. Reduce Search by $10/day per week once PMax continues to outperform, to avoid disrupting learning.</div></div></div>
-    <div class="step"><div class="step-n">7</div><div><div class="step-urgency" style="color:var(--blue)">Month 2</div><div class="step-title">Add audience signals to new groups</div><div class="step-desc">Upload existing customer lists as audience signals. Add website visitor audiences. Custom intent: people searching IT contractor roles, consulting jobs.</div></div></div>
-    <div class="step"><div class="step-n">8</div><div><div class="step-urgency" style="color:var(--blue)">Month 2</div><div class="step-title">Build negative keyword list</div><div class="step-desc">Exclude: job seekers ("IT contractor jobs"), transit/freight, consumer insurance ("car/home insurance"). Work with Google team on PMax exclusion best practices.</div></div></div>
+
+  <!-- Summary highlights -->
+  <div style="background:var(--green);border-radius:var(--radius);margin-bottom:28px;display:grid;grid-template-columns:repeat(5,1fr);gap:0;overflow:hidden">
+    <div style="text-align:center;padding:14px 12px;border-right:1px solid rgba(255,255,255,0.2)"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Accounting Asset ROAS</div><div style="font-family:'DM Mono',monospace;font-size:17px;font-weight:500;color:#fff">0.87</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">Accounting asset group</div></div>
+    <div style="text-align:center;padding:14px 12px;border-right:1px solid rgba(255,255,255,0.2)"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Growing NSW Location</div><div style="font-family:'DM Mono',monospace;font-size:17px;font-weight:500;color:#fff">Inner West</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">3 conv · +200%</div></div>
+    <div style="text-align:center;padding:14px 12px;border-right:1px solid rgba(255,255,255,0.2)"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Landing Page Conv. Rate</div><div style="font-family:'DM Mono',monospace;font-size:17px;font-weight:500;color:#fff">23.7%</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">Paid Search channel</div></div>
+    <div style="text-align:center;padding:14px 12px;border-right:1px solid rgba(255,255,255,0.2)"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Cross-network Bounce</div><div style="font-family:'DM Mono',monospace;font-size:17px;font-weight:500;color:#fff">85.6%</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">Cross-network / likely PMax</div></div>
+    <div style="text-align:center;padding:14px 12px"><div style="font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px">Top Converting Location</div><div style="font-family:'DM Mono',monospace;font-size:17px;font-weight:500;color:#fff">Brisbane</div><div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px">6 conv · +8%</div></div>
   </div>
+
+  <!-- Key Findings -->
+  <div style="margin-bottom:32px">
+    <div class="lbl">Key Findings — Accountant Targeting Optimisation Opportunities</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Data: Feb – May 2026 (asset group) · Mar – Apr 2026 (landing page) · 1 Apr – 11 May 2026 (geography)</div>
+
+    <div class="finding">
+      <div class="finding-head" onclick="togInsight(this)">
+        <div class="finding-num">1</div>
+        <div class="finding-title">Cross-network traffic is driving volume, but needs tighter qualification</div>
+        <span class="finding-badge ip-amber">Optimisation Area</span>
+        <div class="finding-chev open">▾</div>
+      </div>
+      <div class="finding-body open">
+        <p>The Accounting asset group has generated meaningful reach and traffic, but the conversion quality is not yet as strong as Search. GA4 shows Cross-network traffic to the accountant landing page delivering high session volume, while Paid Search delivers stronger conversion engagement.</p>
+        <p>Cross-network in GA4 typically includes Performance Max and other Google cross-network campaign activity. To keep the debrief precise, this should be described as <strong>Cross-network / likely PMax traffic</strong> unless confirmed directly by Session campaign or Google Ads campaign name in GA4.</p>
+        <div style="margin-top:12px">
+          <span class="ip ip-amber">Review audience signals</span>
+          <span class="ip ip-amber">Confirm campaign source in GA4</span>
+          <span class="ip ip-blue">Optimise reach quality</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head" onclick="togInsight(this)">
+        <div class="finding-num">2</div>
+        <div class="finding-title">Landing page performs strongly for high-intent Paid Search traffic</div>
+        <span class="finding-badge ip-green">Positive Finding</span>
+        <div class="finding-chev">▾</div>
+      </div>
+      <div class="finding-body">
+        <p>The accountants landing page (<code>/professional-indemnity-insurance/accountants-insurance</code>) shows strong engagement from Paid Search visitors, with a 23.7% session key event rate and a lower bounce rate than Cross-network traffic.</p>
+        <p>This indicates the page is capable of converting when users arrive with high intent. The opportunity is to bring more qualified traffic into the page and use the Search learnings to guide cross-network optimisation.</p>
+        <div style="margin-top:12px">
+          <span class="ip ip-green">Paid Search: 23.7% key event rate</span>
+          <span class="ip ip-green">Paid Search: 32.2% bounce rate</span>
+          <span class="ip ip-blue">Use Search as benchmark</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head" onclick="togInsight(this)">
+        <div class="finding-num">3</div>
+        <div class="finding-title">Brisbane and selected NSW areas are key locations to monitor</div>
+        <span class="finding-badge ip-blue">Geo Insight</span>
+        <div class="finding-chev">▾</div>
+      </div>
+      <div class="finding-body">
+        <p>From 1 April to 11 May 2026, Brisbane City was the top converting location with 6 conversions. Sydney, Inner West Council and Rouse Hill also contributed conversions, with Inner West Council and Rouse Hill showing growth from smaller bases.</p>
+        <p>This gives a clear direction for monitoring future performance by location, while avoiding over-adjustment before campaign-level and location-level conversion data are reviewed together.</p>
+        <div style="margin-top:12px">
+          <span class="ip ip-green">Brisbane City: 6 conv</span>
+          <span class="ip ip-green">Inner West: +200%</span>
+          <span class="ip ip-blue">Monitor by campaign</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Geography -->
+  <div style="margin-bottom:32px">
+    <div class="lbl">Geographic Performance</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">All campaigns · 1 Apr – 11 May 2026 · User location</div>
+    <div class="geo-grid">
+      <div>
+        <div class="lbl">Top Converting Locations</div>
+        <div class="card card-body">
+          <div class="state-bars" id="insight-state-bars"></div>
+          <div class="note-green" style="margin-top:16px">✅ <strong>Current opportunity:</strong> Brisbane City is the strongest converting location in the current period, while Inner West Council and Rouse Hill are showing positive growth from a smaller base.</div>
+          <div class="note-warn" style="margin-top:8px">ℹ️ <strong>Monitoring point:</strong> Sydney remains relevant, but City of Sydney conversions declined versus the previous period and should be reviewed at campaign and keyword level.</div>
+        </div>
+      </div>
+      <div>
+        <div class="lbl">Top Converting Locations</div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>#</th><th>City</th><th>State</th><th>Conv.</th><th>vs Prev.</th><th>Change</th></tr></thead>
+            <tbody id="insight-city-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:20px">
+      <div class="lbl">What This Means for Location Optimisation</div>
+      <div class="col3">
+        <div class="card card-body">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin-bottom:8px">NSW — Key Metro Clusters</div>
+          <div style="font-size:13px;color:var(--text-mid);line-height:1.6">Sydney, Inner West Council and Rouse Hill all generated conversions during 1 Apr – 11 May. Inner West Council and Rouse Hill are showing positive growth and should remain under review for future bid and budget adjustments.</div>
+        </div>
+        <div class="card card-body">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin-bottom:8px">QLD — Brisbane Lead</div>
+          <div style="font-size:13px;color:var(--text-mid);line-height:1.6">Brisbane City recorded the highest conversion volume in the current period with 6 conversions and growth versus the previous period. It should remain a priority location for monitoring and optimisation.</div>
+        </div>
+        <div class="card card-body">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:8px">Next Step — Validate by Campaign</div>
+          <div style="font-size:13px;color:var(--text-mid);line-height:1.6">The location data is account-wide, so the next step is to cut the same report by campaign / asset group to confirm whether the strongest locations are also driving accountant-specific conversions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Landing Page -->
+  <div style="margin-bottom:32px">
+    <div class="lbl">Landing Page Performance</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">Page: /professional-indemnity-insurance/accountants-insurance · GA4 · Mar – Apr 2026</div>
+    <div class="lp-grid">
+      <div class="lp-card" style="border-top:3px solid var(--red)">
+        <div class="lp-channel">Cross-network / likely PMax</div>
+        <div class="lp-metric">1,928</div>
+        <div class="lp-label">Sessions</div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:12px;color:var(--text-mid)">Key Events: <strong style="color:var(--text)">14</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Conv. Rate: <strong style="color:var(--red)">0.21%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Bounce Rate: <strong style="color:var(--red)">85.6%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Avg. Engagement: <strong style="color:var(--text)">5.6 sec</strong></div>
+        </div>
+        <span class="lp-pill" style="background:var(--red-bg);color:var(--red)">Traffic quality review</span>
+      </div>
+      <div class="lp-card" style="border-top:3px solid var(--green)">
+        <div class="lp-channel">Paid Search</div>
+        <div class="lp-metric">59</div>
+        <div class="lp-label">Sessions</div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:12px;color:var(--text-mid)">Key Events: <strong style="color:var(--text)">31</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Conv. Rate: <strong style="color:var(--green)">23.7%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Bounce Rate: <strong style="color:var(--green)">32.2%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Avg. Engagement: <strong style="color:var(--text)">78 sec</strong></div>
+        </div>
+        <span class="lp-pill" style="background:var(--green-light);color:var(--green-dark)">High quality, high intent</span>
+      </div>
+      <div class="lp-card" style="border-top:3px solid #94A3B8">
+        <div class="lp-channel">Direct</div>
+        <div class="lp-metric">84</div>
+        <div class="lp-label">Sessions</div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:12px;color:var(--text-mid)">Key Events: <strong style="color:var(--text)">6</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Conv. Rate: <strong style="color:var(--text)">5.95%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Bounce Rate: <strong style="color:var(--green)">15.5%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Avg. Engagement: <strong style="color:var(--text)">8.9 sec</strong></div>
+        </div>
+        <span class="lp-pill" style="background:#F1F5F9;color:#475569">Brand recall visitors</span>
+      </div>
+      <div class="lp-card" style="border-top:3px solid #94A3B8">
+        <div class="lp-channel">Organic Search</div>
+        <div class="lp-metric">28</div>
+        <div class="lp-label">Sessions</div>
+        <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:12px;color:var(--text-mid)">Key Events: <strong style="color:var(--text)">3</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Conv. Rate: <strong style="color:var(--text)">7.1%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Bounce Rate: <strong style="color:var(--amber)">60.7%</strong></div>
+          <div style="font-size:12px;color:var(--text-mid)">Avg. Engagement: <strong style="color:var(--text)">8.1 sec</strong></div>
+        </div>
+        <span class="lp-pill" style="background:#F1F5F9;color:#475569">Low volume, decent quality</span>
+      </div>
+    </div>
+    <div class="note" style="margin-top:16px">ℹ️ <strong>The key takeaway:</strong> The accountants landing page converts at 23.7% for Paid Search, which indicates strong relevance for high-intent visitors. Cross-network traffic is driving much higher session volume than Paid Search, but with weaker engagement and conversion quality. The next priority is to confirm the campaign source in GA4 and refine PMax / cross-network audience signals, search themes and asset structure.</div>
+  </div>
+
+  <!-- Asset Group -->
+  <div>
+    <div class="lbl">Accounting Asset Group — Messaging & Structure Review</div>
+    <div style="font-size:12px;color:var(--text-muted);margin-bottom:16px">PMax Accounting asset group · Feb – May 2026 · Ad Strength: Excellent</div>
+    <div class="note-warn">⚠️ <strong>Optimisation opportunity:</strong> The asset group has Excellent ad strength (creative quality score) but ROAS 0.87. This suggests the main improvement area is likely <strong>traffic quality and audience matching</strong>, rather than a lack of creative assets. Ad Strength measures asset completeness and relevance, but it does not guarantee the campaign is reaching the highest-intent audience.</div>
+    <div class="col2" style="margin-top:20px">
+      <div>
+        <div class="lbl">Headlines — PI / PL Messaging Split</div>
+        <div class="card" style="overflow:hidden">
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Headline — PI Focused ✓</div>
+            <div class="creative-text">"Trusted PI For Accountants"</div>
+            <span class="creative-flag flag-ok">Correct signal</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Headline — PI Focused ✓</div>
+            <div class="creative-text">"Professional Indemnity Cover"</div>
+            <span class="creative-flag flag-ok">Correct signal</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Headline — PL Message</div>
+            <div class="creative-text">"Accountant PL Insurance"</div>
+            <span class="creative-flag flag-warn">PL-focused message</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Headline — PL Message</div>
+            <div class="creative-text">"PL Insurance for Accountants"</div>
+            <span class="creative-flag flag-warn">PL-focused message</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Headline — PL Message</div>
+            <div class="creative-text">"Accountant Liability Cover"</div>
+            <span class="creative-flag flag-warn">Broad liability message</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none">
+            <div class="creative-type">Headline — Generic</div>
+            <div class="creative-text">"Quick & Easy Insurance"</div>
+            <span class="creative-flag flag-bad">Lower priority</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="lbl">Long Headlines — Product Focus Review</div>
+        <div class="card" style="overflow:hidden">
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Long Headline — PL ⚠️</div>
+            <div class="creative-text">"Public Liability for accountants made simple. Instant online..."</div>
+            <span class="creative-flag flag-warn">PL-focused message</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Long Headline — PI ✓</div>
+            <div class="creative-text">"Get A Quote In Seconds & Secure Your Professional Indemnity"</div>
+            <span class="creative-flag flag-ok">Correct signal</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none">
+            <div class="creative-type">Long Headline — PI ✓</div>
+            <div class="creative-text">"Reliable accountant cover from brokers who understand your practice"</div>
+            <span class="creative-flag flag-ok">Correct signal</span>
+          </div>
+        </div>
+        <div class="lbl" style="margin-top:16px">Descriptions</div>
+        <div class="card" style="overflow:hidden">
+          <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+            <div class="creative-type">Description — PI ✓</div>
+            <div class="creative-text">"Get instant quotes for professional indemnity insurance for accountants."</div>
+            <span class="creative-flag flag-ok">Correct signal</span>
+          </div>
+          <div class="creative-item" style="border-radius:0;border:none">
+            <div class="creative-type">Description — PL ⚠️</div>
+            <div class="creative-text">"We offer tailored public liability insurance for your accounting practice."</div>
+            <span class="creative-flag flag-warn">PL-focused message</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 </div>
@@ -1016,6 +1022,59 @@ function upLTV(){
   renderTbl('new2-tbl',prods.filter(p=>p.t==='new2'),roas,ret,can);
   renderTbl('new3-tbl',prods.filter(p=>p.t==='new3'),roas,ret,can);
   renderTbl('ex-tbl',prods.filter(p=>p.t==='ex'),roas,ret,can);
+}
+
+// Insights accordion
+function togInsight(head) {
+  const body = head.nextElementSibling;
+  const chev = head.querySelector('.finding-chev');
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  chev.classList.toggle('open', !open);
+}
+
+// Insights state bars
+const insightStates = [
+  { name: 'Brisbane City', conv: 6, prev: 5.54, chg: '+8%', up: true },
+  { name: 'City of Sydney', conv: 3, prev: 6, chg: '−50%', up: false },
+  { name: 'Inner West', conv: 3, prev: 1, chg: '+200%', up: true },
+  { name: 'Rouse Hill', conv: 2, prev: 1, chg: '+100%', up: true },
+];
+const insightMaxConv = Math.max(...insightStates.map(s => s.conv));
+const insightSB = document.getElementById('insight-state-bars');
+if (insightSB) {
+  insightStates.forEach(s => {
+    const pct = (s.conv / insightMaxConv * 100).toFixed(1);
+    const chgStyle = s.up ? 'color:var(--green)' : 'color:var(--red)';
+    insightSB.innerHTML += `<div class="state-row">
+      <span class="state-name">${s.name}</span>
+      <div class="state-bar-wrap"><div class="state-bar-bg"><div class="state-bar-fill" style="width:${pct}%"></div></div></div>
+      <span class="state-conv">${s.conv.toFixed(0)}</span>
+      <span class="state-chg" style="${chgStyle}">${s.chg}</span>
+    </div>`;
+  });
+}
+
+// Insights city table
+const insightCities = [
+  { city: 'Brisbane City', state: 'QLD', conv: 6, prev: 5.54, chg: '+8%', up: true },
+  { city: 'Sydney / City of Sydney', state: 'NSW', conv: 3, prev: 6, chg: '−50%', up: false },
+  { city: 'Inner West Council', state: 'NSW', conv: 3, prev: 1, chg: '+200%', up: true },
+  { city: 'Rouse Hill', state: 'NSW', conv: 2, prev: 1, chg: '+100%', up: true },
+];
+const insightTbody = document.getElementById('insight-city-tbody');
+if (insightTbody) {
+  insightCities.forEach((c, i) => {
+    const chgStyle = c.up ? 'color:var(--green)' : 'color:var(--red)';
+    insightTbody.innerHTML += `<tr>
+      <td class="mono" style="color:var(--text-muted)">${i+1}</td>
+      <td><strong>${c.city}</strong></td>
+      <td style="color:var(--text-muted)">${c.state}</td>
+      <td class="mono">${c.conv.toFixed(2)}</td>
+      <td class="mono" style="color:var(--text-muted)">${c.prev.toFixed(2)}</td>
+      <td class="mono" style="${chgStyle};font-weight:600">${c.chg}</td>
+    </tr>`;
+  });
 }
 
 // Nav click scroll with offset
