@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
-const toolkitProxyUrl =
-  process.env.TOOLKIT_PROXY_URL || "http://localhost:3002";
+const toolkitProxyUrl = process.env.TOOLKIT_PROXY_URL || "";
 
 const nextConfig: NextConfig = {
   async rewrites() {
