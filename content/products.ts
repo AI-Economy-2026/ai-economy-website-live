@@ -492,7 +492,7 @@ export const products: Product[] = [
     image: '/images/ai_toolkit_hero.jpg',
     letter: 'T',
     color: '#2563EB',
-    ctaLink: 'https://aitoolkit-ashy.vercel.app/',
+    ctaLink: '/toolkit',
     hero: {
       headline: 'Cut through the noise. Use the tools that work.',
       subheadline:

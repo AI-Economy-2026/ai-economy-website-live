@@ -80,7 +80,7 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     title: 'AI Toolkit',
     description: '50+ handpicked AI tools across writing, coding, design, video, productivity, and research.',
     cta: 'Explore the Tools',
-    href: 'https://aitoolkit-ashy.vercel.app/',
+    href: '/toolkit',
   },
   {
     id: 'geo-audit',
