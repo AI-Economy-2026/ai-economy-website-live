@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const toolkitProxyUrl = process.env.TOOLKIT_PROXY_URL || "";
+const toolkitProxyUrl = "https://toolkit.rankco.ai";
 
 const nextConfig: NextConfig = {
   async rewrites() {
