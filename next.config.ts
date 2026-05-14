@@ -1,32 +1,30 @@
-import type { NextConfig } from 'next';
+import type { NextConfig } from "next";
 
-const toolkitProxyUrl = process.env.TOOLKIT_PROXY_URL || 'http://localhost:3002';
+const toolkitProxyUrl =
+  process.env.TOOLKIT_PROXY_URL || "http://localhost:3002";
 
 const nextConfig: NextConfig = {
-  images: {
-    domains: [],
-  },
   async rewrites() {
     return [
       {
-        source: '/toolkit',
+        source: "/toolkit",
         destination: `${toolkitProxyUrl}/`,
       },
       {
-        source: '/toolkit/:path*',
+        source: "/toolkit/:path*",
         destination: `${toolkitProxyUrl}/:path*`,
       },
       // Static assets and routes served by the toolkit app at their absolute paths
       {
-        source: '/assets/:path*',
+        source: "/assets/:path*",
         destination: `${toolkitProxyUrl}/assets/:path*`,
       },
       {
-        source: '/dashboard',
+        source: "/dashboard",
         destination: `${toolkitProxyUrl}/dashboard`,
       },
       {
-        source: '/dashboard/:path*',
+        source: "/dashboard/:path*",
         destination: `${toolkitProxyUrl}/dashboard/:path*`,
       },
     ];
