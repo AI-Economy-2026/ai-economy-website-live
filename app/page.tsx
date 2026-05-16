@@ -40,24 +40,30 @@ export default function HomePage() {
       <SiteNav />
 
       <main>
-        <section className="mx-auto grid max-w-[1200px] grid-cols-1 gap-14 px-6 pb-20 pt-44 md:px-12 lg:grid-cols-[1.2fr_0.88fr] lg:items-center">
-          <div>
-            <h1 className="mb-6 text-[clamp(3.5rem,8vw,6rem)] font-bold leading-[0.95] tracking-[-0.06em] text-black">
-              {homepageHero.title}
-            </h1>
-            <p className="max-w-[34rem] text-lg leading-8 text-[#86868B]">
-              {homepageHero.body}
-            </p>
+        <section className="mx-auto max-w-[1200px] px-6 pb-12 pt-44 md:px-12">
+          <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1.2fr_0.88fr] lg:items-center">
+            <div>
+              <h1 className="mb-6 text-[clamp(3.5rem,8vw,6rem)] font-bold leading-[0.95] tracking-[-0.06em] text-black">
+                {homepageHero.title}
+              </h1>
+              <p className="max-w-[34rem] text-lg leading-8 text-[#86868B]">
+                {homepageHero.body}
+              </p>
+            </div>
+
+            <div className="w-full lg:flex lg:justify-end">
+              <MeetSarahVideo />
+            </div>
+          </div>
+
+          <div className="mt-12 flex justify-center pb-8">
             <a
               href={homepageHero.ctaHref}
-              className="mt-8 inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#86868B] transition hover:border-[#004AAD] hover:text-[#004AAD]"
+              aria-label="Scroll to products"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#86868B] transition hover:border-[#004AAD] hover:text-[#004AAD]"
             >
               <ArrowDown className="h-4 w-4 animate-bounce" />
             </a>
-          </div>
-
-          <div className="w-full lg:flex lg:justify-end">
-            <MeetSarahVideo />
           </div>
         </section>
 
@@ -75,19 +81,26 @@ export default function HomePage() {
         </section>
 
         <section id="founder" className="mx-auto grid max-w-[1200px] grid-cols-1 gap-14 px-6 py-20 md:px-12 lg:grid-cols-[300px_1fr]">
-          <div className="relative h-[380px] overflow-hidden rounded-2xl lg:sticky lg:top-28">
+          <div className="relative h-[380px] overflow-hidden rounded-2xl">
             <img src={sarahImg} alt="Sarah Balmer" className="h-full w-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-            <div className="absolute bottom-4 left-4 rounded-full border border-white/15 bg-black/35 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/90 backdrop-blur">
-              {homepageFounder.imageBadge}
-            </div>
           </div>
 
           <div>
             <p className="mb-3 text-[13px] font-semibold uppercase tracking-[0.18em] text-[#004AAD]">{homepageFounder.eyebrow}</p>
-            <h3 className="mb-5 text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-black">
+            <h3 className="mb-3 text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-black">
               {homepageFounder.title}
             </h3>
+            <p className="mb-3 text-base font-semibold text-black/80">{homepageFounder.name}</p>
+            <div className="mb-6 flex flex-wrap gap-2">
+              {homepageFounder.chips.map((chip) => (
+                <span
+                  key={chip}
+                  className="rounded-full border border-black/10 bg-[#F5F5F7] px-3 py-1.5 text-[12px] font-medium text-[#1D1D1F]"
+                >
+                  {chip}
+                </span>
+              ))}
+            </div>
             <div className="space-y-5 text-lg leading-8 text-[#86868B]">
               {homepageFounder.body.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
@@ -220,10 +233,15 @@ export default function HomePage() {
             </div>
 
             <div className="flex aspect-square flex-col items-center justify-center rounded-2xl bg-gradient-to-br from-[#0d1b2a] via-[#1b2d4f] to-[#4a2070] p-10 text-center">
-              <h3 className="mb-4 max-w-sm text-3xl font-bold tracking-[-0.03em] text-white">
+              <img
+                src="/images/rankco-wordmark-mint.svg"
+                alt="RankCo"
+                className="mb-6 h-10 w-auto"
+              />
+              <h3 className="mb-4 max-w-sm text-3xl font-bold tracking-[-0.03em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
                 {homepageGeoSection.cardTitle}
               </h3>
-              <p className="mb-6 max-w-sm text-sm leading-7 text-white/65">
+              <p className="mb-6 max-w-sm text-base font-medium leading-7 text-white drop-shadow-[0_1px_6px_rgba(0,0,0,0.5)]">
                 {homepageGeoSection.cardBody}
               </p>
               <Link

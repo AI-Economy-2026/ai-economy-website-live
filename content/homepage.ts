@@ -9,6 +9,9 @@ export type HomepageCardItem = {
   description: string;
   cta: string;
   href: string;
+  ctaSecondary?: string;
+  hrefSecondary?: string;
+  ctaAsButton?: boolean;
   image?: string;
   external?: boolean;
   comingSoon?: boolean;
@@ -53,7 +56,7 @@ const productMap = Object.fromEntries(
   products.map((product) => [product.id, product]),
 ) as Record<string, Product>;
 
-const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
+const featuredCardConfig: HomepageCardItem[] = [
   {
     id: 'ai-consultancy',
     productId: 'ai-consultancy',
@@ -70,7 +73,7 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     label: 'DIAGNOSTIC TOOL',
     title: 'Priority AI',
     description: 'Find out where AI fits in your business and where the best ROI opportunities sit right now.',
-    cta: 'Find Out',
+    cta: 'Learn More',
     href: '/product/priority-ai',
   },
   {
@@ -78,8 +81,9 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     productId: 'ai-toolkit',
     label: 'AI TOOLKIT',
     title: 'AI Toolkit',
-    description: '50+ handpicked AI tools across writing, coding, design, video, productivity, and research.',
-    cta: 'Explore the Tools',
+    description:
+      'Hundreds of tools tested over three years. These are the ones I use every day to get ahead with AI.',
+    cta: 'Unlock Now',
     href: '/toolkit',
   },
   {
@@ -92,6 +96,17 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     href: '/product/geo-audit',
   },
   {
+    id: 'partner-program',
+    label: 'AI NETWORK',
+    title: 'AI Economy Partner Program',
+    description:
+      'When it comes to AI it is really hard to know who to go to. We connect clients to trusted AI partners. If you are providing AI services and would like to be featured, get in touch.',
+    cta: 'Get Listed',
+    href: '/partners/apply',
+    ctaAsButton: true,
+    image: '/images/agent_alice_orchestra_v2.png',
+  },
+  {
     id: 'sarah-speaks',
     productId: 'sarah-speaks',
     label: 'AI TRAINING',
@@ -102,21 +117,12 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     comingSoon: true,
   },
   {
-    id: 'agent-alice',
-    productId: 'agent-alice',
-    label: 'MARKETING AGENT',
-    title: 'Ask Sarah',
-    description: 'Your AI marketing agent for content ideation, repurposing, and SEO/GEO-aware campaign output.',
-    cta: 'Join the Waitlist',
-    href: '/product/agent-alice',
-    comingSoon: true,
-  },
-  {
     id: 'prolinks',
     productId: 'prolinks',
     label: 'DOCUMENT AI',
     title: 'Prolinks',
-    description: 'Turn static documents into dynamic AI-powered web experiences with heatmaps, analytics, and signatures.',
+    description:
+      'Turn static documents into dynamic AI-powered web experiences with heatmaps, analytics, and signatures.',
     cta: 'Join the Waitlist',
     href: 'https://prolinksai.com/',
     external: true,
@@ -127,7 +133,8 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     productId: 'parently',
     label: 'LIFE ADMIN AI',
     title: 'Parently',
-    description: 'A practical assistant for managing the endless life admin that comes with parenting and family logistics.',
+    description:
+      'A practical assistant for managing the endless life admin that comes with parenting and family logistics.',
     cta: 'Join the Waitlist',
     href: 'https://parently.ai/',
     external: true,
@@ -137,7 +144,7 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
 
 export const homepageFeaturedCards: HomepageCardItem[] = featuredCardConfig.map((card) => ({
   ...card,
-  image: card.productId ? productMap[card.productId]?.image : undefined,
+  image: card.image ?? (card.productId ? productMap[card.productId]?.image : undefined),
 }));
 
 export const homepageFeaturedIntro: HomepageSectionIntro = {
@@ -226,7 +233,7 @@ export const homepageNavItems = [
   { label: 'Explore', href: '#products' },
   { label: 'About', href: '#founder' },
   { label: 'Resources', href: '#roadmap' },
-  { label: 'Contact', href: '#cta' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export const homepageApproachSteps: HomepageApproachStep[] = [
@@ -268,7 +275,14 @@ export const homepageHero = {
 export const homepageFounder = {
   eyebrow: 'BUILT BY SARAH',
   title: 'Start your AI journey right',
-  imageBadge: 'LinkedIn Top Voice for AI',
+  name: 'Sarah Balmer · CEO and Founder',
+  chips: [
+    '25+ years digital',
+    'AI Strategist',
+    'AI Trainer',
+    'Consultant',
+    'CEO, Balmer Agency',
+  ],
   contactLabel: siteConfig.contactLabel,
   aboutLabel: siteConfig.aboutLabel,
   linkedInLabel: 'Connect on LinkedIn',
@@ -307,9 +321,8 @@ export const homepageGeoSection = {
   ],
   outro:
     'GEO (generative engine optimisation) is no longer optional. The businesses that act now will own the AI search results in their category. The ones that wait will wonder where their traffic went.',
-  cardTitle: 'Is your business turning up in AI search?',
-  cardBody:
-    'Find out where you rank for your key services and products. Get your AI visibility report.',
+  cardTitle: 'RankCo · AI search visibility tool',
+  cardBody: 'Get found in AI searches. Prioritise what to do first.',
   cardHref: '/product/geo-audit',
   cardCta: 'Check your visibility',
 };

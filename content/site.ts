@@ -15,8 +15,9 @@ export const siteConfig = {
   description:
     'Helping businesses simplify the complex and focus on what works in the AI era.',
   copyright: '© 2026 AI Economy. All rights reserved.',
-  contactHref: 'https://calendar.app.google/bZ3j6WLHznPt1FP4A',
+  contactHref: '/contact',
   contactLabel: 'Contact',
+  contactEmail: 'sarah@aieconomy.ai',
   aboutHref: 'https://www.balmeragency.com.au/profile/',
   aboutLabel: 'About',
   socialLinks: [
@@ -38,7 +39,7 @@ export const marketingNavItems: SiteLink[] = [
   { label: 'Toolkit', href: '#products' },
   { label: 'Roadmap', href: '#approach' },
   { label: 'Ecosystem', href: '#ecosystem' },
-  { label: 'Contact', href: '#get-started' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export const footerSections: FooterSection[] = [
@@ -65,7 +66,7 @@ export const footerSections: FooterSection[] = [
     items: [
       { label: 'About Sarah', href: '#founder' },
       { label: 'Resources', href: '#roadmap' },
-      { label: 'Contact', href: '#cta' },
+      { label: 'Contact', href: '/contact' },
     ],
   },
   {

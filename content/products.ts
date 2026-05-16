@@ -151,9 +151,9 @@ export const products: Product[] = [
     type: 'product',
     label: 'MARKETING & CONTENT',
     name: 'Agent Alice.',
-    tagline: '25 years of marketing expertise in one agent.',
+    tagline: "Do you need help with AI? Just Ask me and I'll use my AI knowledge to guide you through.",
     description:
-      'One piece of content in, a full multichannel campaign out. Matched to your tone of voice.',
+      "Do you need help with AI? Just Ask me and I'll use my AI knowledge to guide you through.",
     image: '/images/agent_alice_orchestra_v2.png',
     letter: 'A',
     color: '#2563EB',
@@ -959,7 +959,7 @@ export const products: Product[] = [
       { value: '100%', label: 'Commercial Focus' },
     ],
     targetAudience: [
-      'CEOs and senior leaders who need a clear, honest AI strategy — not vendor hype',
+      'CEOs and senior leaders who need a clear, honest AI strategy, not vendor hype',
       'Boards under pressure to demonstrate AI credibility to investors and stakeholders',
       'Operations directors who want to automate intelligently, not recklessly',
       'HR leaders navigating AI\'s impact on workforce structure and culture',
@@ -968,7 +968,7 @@ export const products: Product[] = [
     testimonials: [
       {
         quote:
-          'Sarah cuts through the noise like no one else. We had three vendor pitches that week — none of them gave us the clarity one session with her consultancy did.',
+          'Sarah cuts through the noise like no one else. We had three vendor pitches that week, and none of them gave us the clarity one session with her consultancy did.',
         author: 'Jonathan H.',
         role: 'CEO, ASX-Listed Company',
       },
@@ -999,10 +999,10 @@ export const products: Product[] = [
       {
         question: 'Do you implement the AI tools yourselves?',
         answer:
-          'We focus on strategy and selection — ensuring you choose the right tools for your specific commercial needs. We partner with trusted implementation specialists where required.',
+          'We focus on strategy and selection, ensuring you choose the right tools for your specific commercial needs. We partner with trusted implementation specialists where required.',
       },
       {
-        question: 'How long does a full consultancy engagement run?',
+        question: 'How long does it go for?',
         answer:
           'Engagements range from a single intensive strategy day through to a 6-month embedded advisory partnership, depending on your needs.',
       },

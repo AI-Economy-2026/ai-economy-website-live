@@ -100,6 +100,13 @@ function GenericProductPage({ product }: { product: Parameters<typeof PriorityAI
           </div>
         )}
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 w-full">
+          {product.id === 'geo-audit' && (
+            <img
+              src="/images/rankco-wordmark-mint.svg"
+              alt="RankCo"
+              className="mb-8 h-14 w-auto"
+            />
+          )}
           <p className="text-white/50 text-xs font-bold uppercase tracking-[0.2em] mb-6">{product.label}</p>
           <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tighter leading-[0.9] mb-8">{product.name}</h1>
           <p className="text-white/70 text-xl font-medium max-w-2xl leading-relaxed mb-12">{product.description}</p>

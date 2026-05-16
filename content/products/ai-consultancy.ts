@@ -6,12 +6,11 @@ export const aiConsultancyContent = {
     eyebrow: 'AI Strategy & Consultation',
     headline: 'Strategy over\nsoftware.',
     body: 'Bespoke AI consulting for businesses that want more than just another tool. We build practical roadmaps for commercial impact.',
-    socialProof: 'Trusted by 50+ Enterprises',
   },
 
   adoptionGapHeadline: 'The AI adoption gap.',
   adoptionGapBody:
-    'Most businesses have experimentation, but very few have alignment. We bridge the gap between "cool pilots" and "core infrastructure."',
+    'Most businesses have experimentation, but very few have alignment. We bridge the gap between "cool pilots" and "core infrastructure".',
 
   services: [
     { title: 'Executive Workshops', desc: 'Aligning leadership on risk, budget, and commercial prioritisation.', icon: 'Users' },
@@ -20,18 +19,13 @@ export const aiConsultancyContent = {
   ],
 
   engagementHeadline: 'Typical Engagement',
+  engagementIntro: 'We start with Priority AI.',
   engagementPhases: [
-    { step: 'Phase 01', title: 'Opportunity Audit', desc: 'Mapping departments against automation potential.' },
-    { step: 'Phase 02', title: 'Strategic Roadmap', desc: 'Prioritizing projects based on Effort vs. Reward.' },
-    { step: 'Phase 03', title: 'Activation Blocks', desc: 'Implementing workshops, training, and pilot tools.' },
+    { step: 'Phase 01', title: 'Opportunity Audit (Priority AI)', desc: 'Mapping departments against automation potential.' },
+    { step: 'Phase 02', title: 'Strategic Roadmap', desc: 'Prioritising projects based on Effort vs. Reward.' },
+    { step: 'Phase 03', title: 'Activate the plan', desc: 'Implementing workshops, training, and pilot tools.' },
   ],
   engagementCtaLabel: 'Start your journey',
-
-  testimonial: {
-    quote: 'The single best strategic investment we made into AI. No fluff, just commercial reality.',
-    author: 'Managing Director',
-    company: 'Global Logistics Firm',
-  },
 
   finalCta: {
     headline: 'Build your AI blueprint.',

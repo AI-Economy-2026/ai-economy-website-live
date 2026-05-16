@@ -41,8 +41,12 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
           </Link>
           <span className="text-[11px] font-bold text-foreground/30 uppercase tracking-widest">{product.label}</span>
           <a
-            href={product.ctaLink || product.externalLink || "https://calendar.app.google/bZ3j6WLHznPt1FP4A"}
-            target={(product.externalLink || product.ctaLink)?.startsWith('#') ? undefined : "_blank"}
+            href={product.ctaLink || product.externalLink || "/contact"}
+            target={(() => {
+              const href = product.ctaLink || product.externalLink || "/contact";
+              if (href.startsWith('/') || href.startsWith('#')) return undefined;
+              return "_blank";
+            })()}
             rel="noopener noreferrer"
             className="px-6 py-2 bg-[#2563EB] text-white rounded-full font-semibold text-sm hover:bg-[#1D4ED8] transition-all"
           >
@@ -78,21 +82,17 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-8">
               <a
-                href={product.ctaLink || product.externalLink || "https://calendar.app.google/bZ3j6WLHznPt1FP4A"}
-                target={(product.externalLink || product.ctaLink)?.startsWith('#') ? undefined : "_blank"}
+                href={product.ctaLink || product.externalLink || "/contact"}
+                target={(() => {
+              const href = product.ctaLink || product.externalLink || "/contact";
+              if (href.startsWith('/') || href.startsWith('#')) return undefined;
+              return "_blank";
+            })()}
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-12 py-5 bg-[#2563EB] text-white rounded-full font-bold hover:bg-[#1D4ED8] transition-all transform hover:scale-[1.02] text-center text-lg shadow-2xl"
               >
                 {product.cta}
               </a>
-              <div className="flex items-center gap-4 text-white/50">
-                <div className="flex -space-x-3">
-                  {[1, 2, 3].map(i => (
-                    <div key={i} className="w-10 h-10 rounded-full border-2 border-black bg-white/20" />
-                  ))}
-                </div>
-                <span className="text-sm font-semibold tracking-wide uppercase">{c.hero.socialProof}</span>
-              </div>
             </div>
           </motion.div>
         </div>
@@ -134,7 +134,8 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
             viewport={{ once: true }}
             className="bg-[#F5F5F7] p-12 rounded-[48px] lg:sticky lg:top-24"
           >
-            <h3 className="text-3xl font-bold mb-8">{c.engagementHeadline}</h3>
+            <h3 className="text-3xl font-bold mb-3">{c.engagementHeadline}</h3>
+            <p className="text-foreground/70 text-base font-medium mb-8">{c.engagementIntro}</p>
             <div className="space-y-12">
               {c.engagementPhases.map((s, i) => (
                 <div key={i} className="relative pl-12">
@@ -151,33 +152,17 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
               ))}
             </div>
             <a
-              href={product.ctaLink || product.externalLink || "https://calendar.app.google/bZ3j6WLHznPt1FP4A"}
-              target={(product.externalLink || product.ctaLink)?.startsWith('#') ? undefined : "_blank"}
+              href={product.ctaLink || product.externalLink || "/contact"}
+              target={(() => {
+              const href = product.ctaLink || product.externalLink || "/contact";
+              if (href.startsWith('/') || href.startsWith('#')) return undefined;
+              return "_blank";
+            })()}
               rel="noopener noreferrer"
               className="mt-12 w-full py-5 bg-black text-white rounded-full font-bold flex items-center justify-center gap-2 hover:bg-black/90 transition-all"
             >
               {c.engagementCtaLabel} <ChevronRight className="w-5 h-5" />
             </a>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Testimonial Placeholder */}
-      <section className="py-32 bg-[#F5F5F7]">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
-            <p className="text-4xl md:text-5xl font-extrabold italic tracking-tight leading-tight text-black mb-12">
-              &ldquo;{c.testimonial.quote}&rdquo;
-            </p>
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 rounded-full bg-black/10 mb-4" />
-              <p className="font-bold text-lg">{c.testimonial.author}</p>
-              <p className="text-foreground/40 text-sm font-semibold uppercase tracking-widest">{c.testimonial.company}</p>
-            </div>
           </motion.div>
         </div>
       </section>
@@ -197,8 +182,12 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
               {c.finalCta.body}
             </p>
             <a
-              href={product.ctaLink || product.externalLink || "https://calendar.app.google/bZ3j6WLHznPt1FP4A"}
-              target={(product.externalLink || product.ctaLink)?.startsWith('#') ? undefined : "_blank"}
+              href={product.ctaLink || product.externalLink || "/contact"}
+              target={(() => {
+              const href = product.ctaLink || product.externalLink || "/contact";
+              if (href.startsWith('/') || href.startsWith('#')) return undefined;
+              return "_blank";
+            })()}
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-3 px-12 py-5 rounded-full font-bold text-white text-lg transition-all hover:opacity-90 hover:scale-[1.02] shadow-2xl bg-[#2563EB]"
             >
