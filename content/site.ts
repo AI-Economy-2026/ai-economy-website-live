@@ -15,7 +15,7 @@ export const siteConfig = {
   description:
     'Helping businesses simplify the complex and focus on what works in the AI era.',
   copyright: '© 2026 AI Economy. All rights reserved.',
-  contactHref: 'https://calendar.app.google/bZ3j6WLHznPt1FP4A',
+  contactHref: '/contact',
   contactLabel: 'Contact',
   aboutHref: 'https://www.balmeragency.com.au/profile/',
   aboutLabel: 'About',

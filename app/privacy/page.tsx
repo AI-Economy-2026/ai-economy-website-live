@@ -30,8 +30,6 @@ export default function PrivacyPage() {
                   If you have any questions about this Privacy Policy, please{' '}
                   <a
                     href={siteConfig.contactHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     className="text-[#2563EB] hover:underline"
                   >
                     contact us

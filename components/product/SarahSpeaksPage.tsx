@@ -3,10 +3,11 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, CheckCircle2, GraduationCap, BookOpen, Clock, ChevronRight, Zap, Target, ChevronDown, ChevronUp, Youtube } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, GraduationCap, BookOpen, Clock, ChevronRight, Zap, Target, ChevronDown, ChevronUp, Youtube } from 'lucide-react';
 import { Product } from '@/data/products';
 import { Footer } from '@/components/layout/Footer';
 import { MoreProducts } from '@/components/product/MoreProducts';
+import { ContactForm } from '@/components/product/ContactForm';
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
@@ -49,7 +50,7 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
           </Link>
           <span className="text-[11px] font-bold text-foreground/30 uppercase tracking-widest">{product.label}</span>
           <a
-            href={product.ctaLink || product.externalLink || "https://calendar.app.google/bZ3j6WLHznPt1FP4A"}
+            href={product.ctaLink || product.externalLink || "#contact"}
             target={(product.externalLink || product.ctaLink)?.startsWith('#') ? undefined : "_blank"}
             rel="noopener noreferrer"
             className="px-6 py-2 bg-[#2563EB] text-white rounded-full font-semibold text-sm hover:bg-[#1D4ED8] transition-all"
@@ -79,7 +80,7 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <a
-                href={product.ctaLink || product.externalLink || "https://calendar.app.google/bZ3j6WLHznPt1FP4A"}
+                href={product.ctaLink || product.externalLink || "#contact"}
                 target={(product.externalLink || product.ctaLink)?.startsWith('#') ? undefined : "_blank"}
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-10 py-5 bg-[#2563EB] text-white rounded-full font-bold hover:bg-[#1D4ED8] transition-all transform hover:scale-[1.02] text-center text-lg shadow-lg shadow-blue-500/20"
@@ -242,8 +243,8 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
       </section>
 
       {/* Final CTA */}
-      <section className="py-32 bg-black text-white text-center">
-        <div className="max-w-4xl mx-auto px-6">
+      <section id="contact" className="py-32 bg-black text-white text-center">
+        <div className="max-w-2xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -255,13 +256,7 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
             <p className="text-white/60 text-xl font-medium mb-12 max-w-xl mx-auto leading-relaxed">
               Join 5,000+ professionals who have transitioned from AI-overwhelmed to AI-confident.
             </p>
-            <a
-              href="https://calendar.app.google/bZ3j6WLHznPt1FP4A"
-              className="inline-flex items-center space-x-3 px-12 py-5 rounded-full font-bold text-white text-lg transition-all hover:opacity-90 hover:scale-[1.02] shadow-2xl bg-[#2563EB]"
-            >
-              <span>Get Lifetime Access</span>
-              <ArrowRight className="w-5 h-5" />
-            </a>
+            <ContactForm />
           </motion.div>
         </div>
       </section>

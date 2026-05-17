@@ -97,8 +97,6 @@ export default function HomePage() {
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center">
               <a
                 href={siteConfig.contactHref}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center rounded-full bg-[#004AAD] px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-[#003A8C]"
               >
                 {homepageFounder.contactLabel}

@@ -57,8 +57,6 @@ export function Footer({ minimal = false }: FooterProps) {
               {minimalFooterContent.titlePrefix}{' '}
               <a
                 href={siteConfig.contactHref}
-                target="_blank"
-                rel="noopener noreferrer"
                 className="text-accent hover:underline"
               >
                 {minimalFooterContent.titleLinkLabel}

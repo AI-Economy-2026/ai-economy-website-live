@@ -919,7 +919,7 @@ export const products: Product[] = [
     image: '/images/ai_consultancy_hero.jpg',
     letter: 'A',
     color: '#2563EB',
-    ctaLink: 'https://calendar.app.google/bZ3j6WLHznPt1FP4A',
+    ctaLink: '#contact',
     hero: {
       headline: 'Bespoke AI strategy tailored for commercial impact.',
       subheadline:

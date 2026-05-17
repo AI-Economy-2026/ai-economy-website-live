@@ -51,7 +51,7 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
           </Link>
           <span className="text-[11px] font-bold text-foreground/30 uppercase tracking-widest">{product.label}</span>
           <a
-            href={product.ctaLink || product.externalLink || "https://calendar.app.google/bZ3j6WLHznPt1FP4A"}
+            href={product.ctaLink || product.externalLink || "#contact"}
             target={(product.externalLink || product.ctaLink)?.startsWith('#') ? undefined : "_blank"}
             rel="noopener noreferrer"
             className="px-6 py-2 bg-[#2563EB] text-white rounded-full font-semibold text-sm hover:bg-[#1D4ED8] transition-all"
@@ -88,7 +88,7 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
             </p>
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <a
-                href={product.ctaLink || product.externalLink || "https://calendar.app.google/bZ3j6WLHznPt1FP4A"}
+                href={product.ctaLink || product.externalLink || "#contact"}
                 target={(product.externalLink || product.ctaLink)?.startsWith('#') ? undefined : "_blank"}
                 rel="noopener noreferrer"
                 className="w-full sm:w-auto px-10 py-5 bg-[#2563EB] text-white rounded-full font-bold hover:bg-[#1D4ED8] transition-all transform hover:scale-[1.02] text-center text-lg shadow-lg shadow-blue-500/20"
@@ -308,7 +308,7 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
               {c.finalCta.body}
             </p>
             <a
-              href={product.ctaLink || product.externalLink || "https://calendar.app.google/bZ3j6WLHznPt1FP4A"}
+              href={product.ctaLink || product.externalLink || "#contact"}
               target={(product.externalLink || product.ctaLink)?.startsWith('#') ? undefined : "_blank"}
               rel="noopener noreferrer"
               className="inline-flex items-center space-x-3 px-12 py-5 rounded-full font-bold text-white text-lg transition-all hover:opacity-90 hover:scale-[1.02] shadow-2xl bg-[#2563EB]"
