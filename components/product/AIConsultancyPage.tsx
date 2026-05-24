@@ -86,14 +86,6 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
               >
                 {product.cta}
               </a>
-              <div className="flex items-center gap-4 text-white/50">
-                <div className="flex -space-x-3">
-                  {[1, 2, 3].map(i => (
-                    <div key={i} className="w-10 h-10 rounded-full border-2 border-black bg-white/20" />
-                  ))}
-                </div>
-                <span className="text-sm font-semibold tracking-wide uppercase">{c.hero.socialProof}</span>
-              </div>
             </div>
           </motion.div>
         </div>
@@ -135,7 +127,9 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
             viewport={{ once: true }}
             className="bg-[#F5F5F7] p-12 rounded-[48px] lg:sticky lg:top-24"
           >
-            <h3 className="text-3xl font-bold mb-8">{c.engagementHeadline}</h3>
+            <h3 className="text-3xl font-bold mb-4">{c.engagementHeadline}</h3>
+            <p className="text-foreground/60 text-sm font-medium leading-relaxed mb-4">{c.engagementDuration}</p>
+            <p className="text-foreground/80 text-sm font-semibold leading-relaxed mb-8">{c.engagementNote}</p>
             <div className="space-y-12">
               {c.engagementPhases.map((s, i) => (
                 <div key={i} className="relative pl-12">

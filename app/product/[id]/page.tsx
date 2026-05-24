@@ -8,6 +8,7 @@ import { SarahSpeaksPage } from '@/components/product/SarahSpeaksPage';
 import { AgentAlicePage } from '@/components/product/AgentAlicePage';
 import { AIConsultancyPage } from '@/components/product/AIConsultancyPage';
 import { GathaPage } from '@/components/product/GathaPage';
+import { RankcoPage } from '@/components/product/RankcoPage';
 
 export async function generateStaticParams() {
   return products
@@ -83,8 +84,10 @@ function renderProductPage(id: string, product: Parameters<typeof PriorityAIPage
       return <AIConsultancyPage product={product} />;
     case 'gatha-ai':
       return <GathaPage product={product} />;
+    case 'geo-audit':
+      return <RankcoPage product={product} />;
     default:
-      // For products without a custom page (parently, prolinks, geo-audit), show generic layout
+      // For products without a custom page (parently, prolinks), show generic layout
       return <GenericProductPage product={product} />;
   }
 }

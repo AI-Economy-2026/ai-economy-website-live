@@ -70,7 +70,7 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     label: 'DIAGNOSTIC TOOL',
     title: 'Priority AI',
     description: 'Find out where AI fits in your business and where the best ROI opportunities sit right now.',
-    cta: 'Find Out',
+    cta: 'Learn More',
     href: '/product/priority-ai',
   },
   {
@@ -78,16 +78,16 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     productId: 'ai-toolkit',
     label: 'AI TOOLKIT',
     title: 'AI Toolkit',
-    description: '50+ handpicked AI tools across writing, coding, design, video, productivity, and research.',
-    cta: 'Explore the Tools',
+    description: 'Hundreds of tools tested over three years. These are the ones I use every day to get ahead with AI.',
+    cta: 'Unlock Now',
     href: '/toolkit',
   },
   {
     id: 'geo-audit',
     productId: 'geo-audit',
     label: 'AI VISIBILITY',
-    title: 'AI Visibility Ranking',
-    description: 'Check how often your brand is surfaced across ChatGPT, Gemini, Perplexity, and other AI engines.',
+    title: 'Rankco',
+    description: 'Is your business showing up when AI answers your customers\u2019 questions? Get ranked and get found.',
     cta: 'Check Your Visibility',
     href: '/product/geo-audit',
   },
@@ -132,6 +132,14 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     href: 'https://parently.ai/',
     external: true,
     comingSoon: true,
+  },
+  {
+    id: 'partner-program',
+    label: 'AI ECONOMY',
+    title: 'Partner Program',
+    description: 'We want to be the home of AI service providers — the go-to for those who have no idea where to start. Join our ecosystem of trusted partners.',
+    cta: 'Get Involved',
+    href: '/contact',
   },
 ];
 
@@ -226,7 +234,7 @@ export const homepageNavItems = [
   { label: 'Explore', href: '#products' },
   { label: 'About', href: '#founder' },
   { label: 'Resources', href: '#roadmap' },
-  { label: 'Contact', href: '#cta' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 export const homepageApproachSteps: HomepageApproachStep[] = [
@@ -268,7 +276,7 @@ export const homepageHero = {
 export const homepageFounder = {
   eyebrow: 'BUILT BY SARAH',
   title: 'Start your AI journey right',
-  imageBadge: 'LinkedIn Top Voice for AI',
+  imageBadge: 'Sarah Balmer',
   contactLabel: siteConfig.contactLabel,
   aboutLabel: siteConfig.aboutLabel,
   linkedInLabel: 'Connect on LinkedIn',

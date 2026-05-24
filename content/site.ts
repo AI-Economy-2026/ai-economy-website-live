@@ -48,7 +48,7 @@ export const footerSections: FooterSection[] = [
       { label: 'AI Consultancy', href: '/product/ai-consultancy' },
       { label: 'Priority AI', href: '/product/priority-ai' },
       { label: 'AI Toolkit', href: '/product/ai-toolkit' },
-      { label: 'AI Visibility Ranking', href: '/product/geo-audit' },
+      { label: 'Rankco', href: '/product/geo-audit' },
       { label: 'Sarah Speaks AI', href: '/product/sarah-speaks' },
     ],
   },
