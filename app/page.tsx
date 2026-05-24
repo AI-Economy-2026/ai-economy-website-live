@@ -42,10 +42,17 @@ export default function HomePage() {
       <main>
         <section className="mx-auto grid max-w-[1200px] grid-cols-1 gap-14 px-6 pb-20 pt-44 md:px-12 lg:grid-cols-[1.2fr_0.88fr] lg:items-center">
           <div>
-            <h1 className="mb-6 text-[clamp(3.5rem,8vw,6rem)] font-bold leading-[0.95] tracking-[-0.06em] text-black">
+            <h1 className="mb-4 text-[clamp(3.5rem,8vw,6rem)] font-bold leading-[0.95] tracking-[-0.06em] text-black">
               {homepageHero.title}
             </h1>
-            <p className="max-w-[34rem] text-lg leading-8 text-[#86868B]">
+            <div className="mb-6 flex flex-wrap gap-2">
+              {['AI Trainer', 'Consultant', 'Founder', 'Speaker', 'Podcast Host'].map((role) => (
+                <span key={role} className="rounded-full bg-[#F5F5F7] px-4 py-1.5 text-xs font-semibold text-black">
+                  {role}
+                </span>
+              ))}
+            </div>
+            <p className="max-w-[34rem] text-lg leading-8 text-[#555555]">
               {homepageHero.body}
             </p>
             <a
@@ -75,7 +82,7 @@ export default function HomePage() {
         </section>
 
         <section id="founder" className="mx-auto grid max-w-[1200px] grid-cols-1 gap-14 px-6 py-20 md:px-12 lg:grid-cols-[300px_1fr]">
-          <div className="relative h-[380px] overflow-hidden rounded-2xl lg:sticky lg:top-28">
+          <div className="relative h-[380px] overflow-hidden rounded-2xl">
             <img src={sarahImg} alt="Sarah Balmer" className="h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             <div className="absolute bottom-4 left-4 rounded-full border border-white/15 bg-black/35 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/90 backdrop-blur">
@@ -85,9 +92,16 @@ export default function HomePage() {
 
           <div>
             <p className="mb-3 text-[13px] font-semibold uppercase tracking-[0.18em] text-[#004AAD]">{homepageFounder.eyebrow}</p>
-            <h3 className="mb-5 text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-black">
+            <h3 className="mb-3 text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-black">
               {homepageFounder.title}
             </h3>
+            <div className="mb-5 flex flex-wrap gap-2">
+              {['AI Trainer', 'Consultant', 'Founder', 'Speaker', 'Podcast Host'].map((role) => (
+                <span key={role} className="rounded-full bg-[#F5F5F7] px-4 py-1.5 text-xs font-semibold text-black">
+                  {role}
+                </span>
+              ))}
+            </div>
             <div className="space-y-5 text-lg leading-8 text-[#86868B]">
               {homepageFounder.body.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
@@ -221,7 +235,7 @@ export default function HomePage() {
               <h3 className="mb-4 max-w-sm text-3xl font-bold tracking-[-0.03em] text-white">
                 {homepageGeoSection.cardTitle}
               </h3>
-              <p className="mb-6 max-w-sm text-sm leading-7 text-white/65">
+              <p className="mb-6 max-w-sm text-sm leading-7 text-white">
                 {homepageGeoSection.cardBody}
               </p>
               <Link
