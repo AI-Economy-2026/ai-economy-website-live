@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowLeft, BarChart3, Search, Globe, Users, Map, Zap, TrendingUp, FileText, ChevronRight } from 'lucide-react';
 import { Product } from '@/data/products';
@@ -164,7 +163,7 @@ export function RankcoPage({ product }: RankcoPageProps) {
               Own AI<br />search.
             </h1>
             <p className="mb-12 text-white/70 text-xl md:text-2xl font-medium max-w-2xl leading-snug">
-              Rankco measures your brand's visibility across every major AI engine, identifies where competitors are winning, and generates a 90-day plan to close the gap.
+              Rankco measures your brand&apos;s visibility across every major AI engine, identifies where competitors are winning, and generates a 90-day plan to close the gap.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
