@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 609 192" width="609" height="192">
+  <defs>
+    
+  </defs>
+  
+  <text x="80" y="152" class="word">R</text>
+  <g transform="translate(154.216796875, 80)">
+    <path d="M 0 72 L 39 0 L 78 72 L 62 72 L 39 30 L 16 72 Z" fill="#0F1A2E"></path>
+  </g>
+  <text x="234.216796875" y="152" class="word">NKCO</text>
+</svg>

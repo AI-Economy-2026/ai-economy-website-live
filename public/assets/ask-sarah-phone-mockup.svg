@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="420" height="820" viewBox="0 0 420 820">
+  <defs>
+    <clipPath id="screenClip">
+      <rect x="28" y="58" width="364" height="704" rx="20"/>
+    </clipPath>
+    <clipPath id="avatarClipHeader">
+      <circle cx="74" cy="124" r="18"/>
+    </clipPath>
+    <clipPath id="avatarClipMsg1">
+      <circle cx="58" cy="290" r="14"/>
+    </clipPath>
+    <clipPath id="avatarClipTyping">
+      <circle cx="58" cy="572" r="14"/>
+    </clipPath>
+    <linearGradient id="phoneShine" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E8ECF2"/>
+      <stop offset="40%" stop-color="#D1D5DB"/>
+      <stop offset="100%" stop-color="#BCC2CC"/>
+    </linearGradient>
+    <filter id="phoneShadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+  </defs>
+
+  <!-- Phone body -->
+  <rect x="10" y="10" width="400" height="800" rx="52" fill="url(#phoneShine)" filter="url(#phoneShadow)"/>
+  <rect x="16" y="16" width="388" height="788" rx="48" fill="#1A1A1A"/>
+  <rect x="28" y="58" width="364" height="704" rx="20" fill="#FFFFFF"/>
+
+  <!-- Dynamic Island (centred) -->
+  <rect x="162" y="24" width="96" height="28" rx="14" fill="#000"/>
+  <circle cx="230" cy="38" r="5" fill="#1A1A1A" stroke="#333" stroke-width="1"/>
+
+  <g clip-path="url(#screenClip)">
+
+    <!-- Status bar -->
+    <rect x="28" y="58" width="364" height="36" fill="#FAFBFC"/>
+    <text x="52" y="80" font-family="SF Pro Display, DM Sans, sans-serif" font-size="12" font-weight="600" fill="#111">9:41</text>
+    <rect x="342" y="72" width="22" height="10" rx="2" fill="none" stroke="#111" stroke-width="1.2"/>
+    <rect x="364" y="75" width="2" height="4" rx="1" fill="#111"/>
+    <rect x="344" y="74" width="16" height="6" rx="1" fill="#111"/>
+    <rect x="308" y="80" width="3" height="4" rx="0.5" fill="#111"/>
+    <rect x="313" y="77" width="3" height="7" rx="0.5" fill="#111"/>
+    <rect x="318" y="74" width="3" height="10" rx="0.5" fill="#111"/>
+    <rect x="323" y="71" width="3" height="13" rx="0.5" fill="#111"/>
+    <path d="M336 80 L340 74 L344 80" fill="none" stroke="#111" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Chat header -->
+    <rect x="28" y="94" width="364" height="60" fill="#FAFBFC"/>
+    <line x1="28" y1="154" x2="392" y2="154" stroke="#E5E7EB" stroke-width="1"/>
+    <path d="M48 124 L42 124 M42 124 L46 120 M42 124 L46 128" fill="none" stroke="#004AAD" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Header avatar with photo -->
+    <image href="data:image/jpeg;base64,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" x="56" y="106" width="36" height="36" clip-path="url(#avatarClipHeader)" preserveAspectRatio="xMidYMin slice"/>
+    <circle cx="74" cy="124" r="18" fill="none" stroke="#E5E7EB" stroke-width="1"/>
+    <circle cx="88" cy="134" r="4.5" fill="#22C55E" stroke="#FAFBFC" stroke-width="2"/>
+
+    <text x="100" y="120" font-family="DM Sans, sans-serif" font-size="14" font-weight="700" fill="#111">Ask Sarah</text>
+    <text x="100" y="136" font-family="Poppins, sans-serif" font-size="10" fill="#9CA3AF">AI support · powered by Sarah's knowledge</text>
+
+    <!-- Chat body -->
+    <rect x="28" y="154" width="364" height="540" fill="#FFFFFF"/>
+
+    <!-- Date -->
+    <text x="210" y="180" font-family="Poppins, sans-serif" font-size="10" fill="#C4C9D2" text-anchor="middle">Today</text>
+
+    <!-- User message (no label) -->
+    <rect x="120" y="194" width="252" height="44" rx="18" fill="#004AAD"/>
+    <rect x="354" y="220" width="18" height="18" rx="2" fill="#004AAD"/>
+    <text x="136" y="213" font-family="Poppins, sans-serif" font-size="12.5" fill="#FFF">I don't know how to make</text>
+    <text x="136" y="229" font-family="Poppins, sans-serif" font-size="12.5" fill="#FFF">AI work for me.</text>
+
+    <!-- Sarah response with avatar (name shown once) -->
+    <text x="80" y="268" font-family="Poppins, sans-serif" font-size="9" font-weight="600" fill="#9CA3AF">Sarah</text>
+
+    <!-- Small avatar next to first Sarah message -->
+    <image href="data:image/jpeg;base64,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" x="44" y="276" width="28" height="28" clip-path="url(#avatarClipMsg1)" preserveAspectRatio="xMidYMin slice"/>
+    <circle cx="58" cy="290" r="14" fill="none" stroke="#E5E7EB" stroke-width="0.8"/>
+
+    <rect x="80" y="276" width="290" height="176" rx="18" fill="#F3F5F8"/>
+    <rect x="80" y="434" width="18" height="18" rx="2" fill="#F3F5F8"/>
+
+    <text x="96" y="296" font-family="Poppins, sans-serif" font-size="12" fill="#1F2937">That is the most common thing I</text>
+    <text x="96" y="313" font-family="Poppins, sans-serif" font-size="12" fill="#1F2937">hear, and it usually comes down</text>
+    <text x="96" y="330" font-family="Poppins, sans-serif" font-size="12" fill="#1F2937">to one thing: </text>
+    <text x="166" y="330" font-family="Poppins, sans-serif" font-size="12" font-weight="600" fill="#004AAD">you are starting</text>
+    <text x="96" y="347" font-family="Poppins, sans-serif" font-size="12" font-weight="600" fill="#004AAD">with the tools instead of the</text>
+    <text x="96" y="364" font-family="Poppins, sans-serif" font-size="12" font-weight="600" fill="#004AAD">problem.</text>
+
+    <text x="96" y="388" font-family="Poppins, sans-serif" font-size="12" fill="#1F2937">Pick the one task in your week</text>
+    <text x="96" y="405" font-family="Poppins, sans-serif" font-size="12" fill="#1F2937">that drains the most time. Start</text>
+    <text x="96" y="422" font-family="Poppins, sans-serif" font-size="12" fill="#1F2937">there. Pick </text>
+    <text x="154" y="422" font-family="Poppins, sans-serif" font-size="12" font-weight="600" fill="#004AAD">one task, one tool</text>
+    <text x="282" y="422" font-family="Poppins, sans-serif" font-size="12" fill="#1F2937">,</text>
+    <text x="96" y="439" font-family="Poppins, sans-serif" font-size="12" fill="#1F2937">and get a quick win.</text>
+
+    <!-- User follow-up (no label) -->
+    <rect x="80" y="464" width="292" height="44" rx="18" fill="#004AAD"/>
+    <rect x="354" y="490" width="18" height="18" rx="2" fill="#004AAD"/>
+    <text x="96" y="483" font-family="Poppins, sans-serif" font-size="12.5" fill="#FFF">OK so mine is definitely writing</text>
+    <text x="96" y="499" font-family="Poppins, sans-serif" font-size="12.5" fill="#FFF">content. What tool should I use?</text>
+
+    <!-- Typing indicator with avatar (no repeated name) -->
+    <image href="data:image/jpeg;base64,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" x="44" y="558" width="28" height="28" clip-path="url(#avatarClipTyping)" preserveAspectRatio="xMidYMin slice"/>
+    <circle cx="58" cy="572" r="14" fill="none" stroke="#E5E7EB" stroke-width="0.8"/>
+
+    <rect x="80" y="558" width="72" height="34" rx="17" fill="#F3F5F8"/>
+    <circle cx="98" cy="575" r="4" fill="#B0B8C4" opacity="0.4"/>
+    <circle cx="112" cy="575" r="4" fill="#B0B8C4" opacity="0.7"/>
+    <circle cx="126" cy="575" r="4" fill="#B0B8C4" opacity="1"/>
+
+    <!-- Input bar -->
+    <rect x="28" y="618" width="364" height="56" fill="#FAFBFC"/>
+    <line x1="28" y1="618" x2="392" y2="618" stroke="#E5E7EB" stroke-width="1"/>
+    <rect x="46" y="632" width="280" height="36" rx="18" fill="#FFF" stroke="#E2E5EA" stroke-width="1"/>
+    <text x="66" y="654" font-family="Poppins, sans-serif" font-size="11.5" fill="#C4C9D2">Ask Sarah anything about AI...</text>
+    <circle cx="352" cy="650" r="18" fill="#004AAD"/>
+    <path d="M345 650 L359 650 M355 644 L361 650 L355 656" fill="none" stroke="#FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Powered by -->
+    <text x="210" y="692" font-family="Poppins, sans-serif" font-size="9" fill="#C4C9D2" text-anchor="middle">Powered by Sarah Balmer's knowledge.</text>
+
+  </g>
+
+  <!-- Home indicator -->
+  <rect x="155" y="774" width="110" height="5" rx="2.5" fill="#555"/>
+</svg>
