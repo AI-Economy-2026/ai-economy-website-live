@@ -18,6 +18,14 @@ export function SiteNav() {
               {item.label}
             </a>
           ))}
+          <a
+            href="https://balmeragency.com.au"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[13px] font-semibold text-[#004AAD] border border-[#004AAD]/30 rounded-full px-4 py-1.5 transition hover:bg-[#004AAD] hover:text-white"
+          >
+            Balmer Agency
+          </a>
         </div>
       </div>
     </div>
