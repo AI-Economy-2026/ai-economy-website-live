@@ -57,6 +57,15 @@ export function Navbar() {
         </div>
 
         <div className="flex items-center space-x-6">
+          <a
+            href="https://balmeragency.com.au"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden sm:inline-flex items-center text-[12px] font-semibold tracking-tight text-foreground/70 hover:text-accent transition-colors border border-foreground/20 hover:border-accent rounded px-3 py-1"
+          >
+            Balmer Agency
+          </a>
+
           {siteConfig.socialLinks.map((link) => {
             const iconMap: Record<string, React.ElementType> = { LinkedIn: Linkedin, Instagram, Facebook, YouTube: Youtube };
             const Icon = iconMap[link.label];
@@ -100,6 +109,15 @@ export function Navbar() {
                   {item.name}
                 </a>
               ))}
+              <a
+                href="https://balmeragency.com.au"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="text-lg font-bold tracking-tight py-2 text-foreground/70"
+              >
+                Balmer Agency
+              </a>
             </div>
           </motion.div>
         )}
