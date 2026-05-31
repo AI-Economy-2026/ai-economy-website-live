@@ -19,9 +19,12 @@ export function MeetSarahVideo() {
           />
         </div>
       </div>
-      <div className="mt-3 text-center">
-        <p className="text-[13px] font-semibold text-black">Sarah Balmer</p>
-        <p className="text-[11px] text-black/50">Founder, AI Economy</p>
+      <div className="mt-3 flex flex-wrap justify-center gap-2">
+        {['AI Trainer', 'Consultant', 'Founder', 'Speaker', 'Podcast Host'].map((role) => (
+          <span key={role} className="rounded-full bg-[#F5F5F7] px-3.5 py-1.5 text-xs font-semibold text-black">
+            {role}
+          </span>
+        ))}
       </div>
     </div>
   );
