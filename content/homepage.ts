@@ -71,7 +71,7 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     title: 'Priority AI',
     description: 'Find out where AI fits in your business and where the best ROI opportunities sit right now.',
     cta: 'Learn More',
-    href: '/product/priority-ai',
+    href: 'https://priorityai.ai',
   },
   {
     id: 'ai-toolkit',
