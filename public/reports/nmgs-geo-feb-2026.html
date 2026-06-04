@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NMGS GEO Audit Dashboard - February 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+        
+        .header {
+            background: #000;
+            color: #fff;
+            padding: 40px 20px;
+            margin: -40px -20px 50px -20px;
+            text-align: center;
+        }
+        
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            letter-spacing: 3px;
+        }
+        
+        .client-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 56px;
+            letter-spacing: 4px;
+            margin: 20px 0;
+        }
+        
+        .report-date { font-size: 14px; color: #ccc; margin-top: 5px; }
+        
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            letter-spacing: 2px;
+            margin: 40px 0 20px 0;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin-top: 30px;
+        }
+        
+        .exec-summary {
+            background: #f9f9f9;
+            padding: 40px;
+            margin: 40px 0;
+            border-left: 5px solid #000;
+        }
+        
+        .exec-summary p { font-size: 16px; line-height: 1.8; margin-bottom: 15px; }
+        
+        .highlight-stat {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 3px 8px;
+            font-weight: bold;
+        }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .kpi-card {
+            background: #000;
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .kpi-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        
+        .kpi-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            letter-spacing: 2px;
+        }
+        
+        .kpi-subtitle { font-size: 12px; margin-top: 10px; opacity: 0.8; }
+        
+        .rankings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 40px 0;
+        }
+        
+        .rankings-table thead {
+            background: #000;
+            color: #fff;
+        }
+        
+        .rankings-table th {
+            padding: 15px;
+            text-align: left;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            font-weight: normal;
+        }
+        
+        .rankings-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+        
+        .rankings-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .rankings-table tr.nmgs-row {
+            background: #fffacd;
+        }
+        
+        .rankings-table tr.nmgs-row:hover {
+            background: #fff5b8;
+        }
+        
+        .rank-badge {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 5px 12px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .share-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .share-bar {
+            flex: 1;
+            height: 20px;
+            background: #e8e8e8;
+            position: relative;
+            max-width: 150px;
+        }
+        
+        .share-fill {
+            height: 100%;
+            background: #ff9500;
+            transition: width 0.5s ease;
+        }
+        
+        .share-text {
+            font-weight: bold;
+            min-width: 45px;
+            font-size: 15px;
+        }
+        
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            background: #fff;
+            border: 2px solid #000;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn:hover { background: #f0f0f0; }
+        .tab-btn.active { background: #000; color: #fff; }
+        
+        .prompt-item {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .prompt-item:hover {
+            border-color: #999;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .prompt-item.has-nmgs {
+            border-left: 5px solid #000;
+            background: #fffacd;
+        }
+        
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .prompt-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+        
+        .prompt-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            min-width: 40px;
+            color: #999;
+        }
+        
+        .prompt-text {
+            flex: 1;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        .prompt-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+        
+        .status-badge {
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .status-badge.mentioned { 
+            background: #d4f4dd;
+            color: #2e7d32;
+        }
+        
+        .prompt-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .stat-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .stat-number {
+            font-weight: bold;
+            color: #0066cc;
+        }
+        
+        .stat-number.sources {
+            color: #ff9500;
+        }
+        
+        .stat-label {
+            color: #999;
+        }
+        
+        .expand-arrow {
+            font-size: 18px;
+            color: #999;
+            transition: transform 0.2s;
+        }
+        
+        .prompt-item.expanded .expand-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .engines-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e8e8e8;
+        }
+        
+        .engines-grid.show { display: grid; }
+        
+        .engine-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .engine-item.has-nmgs {
+            background: #d4f4dd;
+            border-left: 3px solid #2e7d32;
+            cursor: pointer;
+        }
+        
+        .engine-item.has-nmgs:hover {
+            background: #c8efd3;
+        }
+        
+        .engine-name { font-weight: 600; font-size: 13px; }
+        
+        .engine-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .stat-item .stat-label {
+            font-weight: 500;
+            color: #999;
+            font-size: 11px;
+        }
+        
+        .stat-item .stat-value {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .nmgs-check {
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 40px 0;
+            padding: 20px;
+        }
+        
+        .pagination-btn {
+            padding: 12px 30px;
+            background: #fff;
+            border: 2px solid #000;
+            cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+            background: #000;
+            color: #fff;
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .page-info {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 30px;
+            border: 2px solid #000;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #000;
+        }
+        
+        .modal-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 1px;
+            flex: 1;
+        }
+        
+        .modal-close {
+            font-size: 32px;
+            font-weight: bold;
+            color: #999;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 10px;
+        }
+        
+        .modal-close:hover {
+            color: #000;
+        }
+        
+        .mention-item {
+            background: #fffacd;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #000;
+            line-height: 1.9;
+            font-size: 15px;
+            font-family: Georgia, serif;
+        }
+        
+        .mention-item mark {
+            background: #000;
+            color: #fff;
+            padding: 3px 6px;
+            font-weight: bold;
+            border-radius: 2px;
+        }
+        
+        .mention-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .no-mentions {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .client-logo { font-size: 42px; }
+            .kpi-grid { grid-template-columns: 1fr; }
+            .engines-grid { grid-template-columns: 1fr; }
+            .prompt-header { flex-direction: column; align-items: flex-start; }
+            .prompt-left { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .prompt-right { 
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                gap: 10px;
+            }
+            .prompt-stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .rankings-table { font-size: 13px; }
+            .rankings-table th, .rankings-table td { padding: 10px 5px; }
+            .share-bar { max-width: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-text">BALMER AGENCY</div>
+            <div class="client-logo">NMGS</div>
+            <div class="report-date">GEO Audit Report | 12 February 2026</div>
+        </div>
+
+        <div class="exec-summary">
+            <h2>Executive Summary</h2>
+            <p>This comprehensive audit analyses NMGS (National Make Good Solutions) visibility across <span class="highlight-stat">30 search prompts</span> spanning commercial make good services, office refurbishment, and related sectors. NMGS appears in <span class="highlight-stat">70% of queries</span> tested across multiple AI search engines - demonstrating strong overall visibility in a competitive market.</p>
+            
+            <p>The "Make Good Melbourne" category shows exceptional performance with <span class="highlight-stat">90% visibility</span> and <span class="highlight-stat">#2 ranking (34% share of voice)</span>. "Make Good Services" delivers solid results at <span class="highlight-stat">#3 ranking (16% share)</span>, whilst "Office Refurbishment Melbourne" presents the primary optimisation opportunity at <span class="highlight-stat">#36 ranking (6% share)</span>.</p>
+        </div>
+
+        <h2>Performance Overview</h2>
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">Total Prompts Analysed</div>
+                <div class="kpi-value">30</div>
+                <div class="kpi-subtitle">Across 3 service sectors</div>
+            </div>
+            
+            <div class="kpi-card">
+                <div class="kpi-label">Visibility Rate</div>
+                <div class="kpi-value">70%</div>
+                <div class="kpi-subtitle">Mentioned in 21 of 30 prompts</div>
+            </div>
+            
+            <div class="kpi-card">
+                <div class="kpi-label">AI Engines Tested</div>
+                <div class="kpi-value">9</div>
+                <div class="kpi-subtitle">ChatGPT, Gemini, Perplexity, etc.</div>
+            </div>
+            
+            <div class="kpi-card">
+                <div class="kpi-label">Best Performance</div>
+                <div class="kpi-value">#2</div>
+                <div class="kpi-subtitle">Make Good Melbourne sector</div>
+            </div>
+        </div>
+
+
+        <!-- Keyword Performance Dashboard -->
+        <h3>Keyword Performance Dashboard</h3>
+        <div style="background: #f9f9f9; padding: 40px; margin: 40px 0; border: 1px solid #e0e0e0;">
+            
+            <table class="rankings-table">
+                <thead>
+                    <tr>
+                        <th style="width: 300px;">Keyword</th>
+                        <th style="width: 100px;">Rank</th>
+                        <th style="width: 300px;">Share of Voice</th>
+                        <th style="width: 100px;">Position</th>
+                        <th style="width: 150px;">Search Volume</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Make Good Melbourne - Strong -->
+                    <tr class="nmgs-row">
+                        <td>
+                            <strong>make good melbourne</strong> 🇦🇺
+                            <div style="font-size: 11px; color: #2e7d32; margin-top: 3px; font-weight: bold;">★ Top Performer</div>
+                        </td>
+                        <td>
+                            <span class="rank-badge" style="background: #2e7d32;">#2</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 34%; background: #2e7d32;"></div>
+                                </div>
+                                <span class="share-text" style="color: #2e7d32;">34%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center; font-weight: bold;">3.6</td>
+                        <td>
+                            <span style="background: #2e7d32; color: #fff; padding: 4px 12px; font-weight: bold; font-size: 13px; border-radius: 3px;">100/mo</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- End of Lease - Strong -->
+                    <tr class="nmgs-row">
+                        <td>
+                            <strong>end of lease make good</strong> 🇦🇺
+                            <div style="font-size: 11px; color: #2e7d32; margin-top: 3px; font-weight: bold;">★ Strong Performance</div>
+                        </td>
+                        <td>
+                            <span class="rank-badge" style="background: #2e7d32;">#2</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 21%; background: #2e7d32;"></div>
+                                </div>
+                                <span class="share-text" style="color: #2e7d32;">21%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center; font-weight: bold;">4.3</td>
+                        <td>
+                            <span style="background: #999; color: #fff; padding: 4px 12px; font-size: 13px; border-radius: 3px;">-</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- Make Good Services - Moderate -->
+                    <tr class="nmgs-row">
+                        <td>
+                            <strong>make good services</strong> 🇦🇺
+                            <div style="font-size: 11px; color: #ff9500; margin-top: 3px; font-weight: bold;">Moderate Performance</div>
+                        </td>
+                        <td>
+                            <span class="rank-badge" style="background: #ff9500;">#3</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 16%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text" style="color: #ff9500;">16%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center; font-weight: bold;">3.9</td>
+                        <td>
+                            <span style="background: #2e7d32; color: #fff; padding: 4px 12px; font-weight: bold; font-size: 13px; border-radius: 3px;">100/mo</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- Office Renovation - Opportunity -->
+                    <tr style="background: #fff3cd;">
+                        <td>
+                            <strong>office renovation</strong> 🇦🇺
+                            <div style="font-size: 11px; color: #856404; margin-top: 3px; font-weight: bold;">⚡ HIGH VOLUME OPPORTUNITY</div>
+                        </td>
+                        <td>
+                            <span class="rank-badge" style="background: #856404;">#12</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 11%; background: #856404;"></div>
+                                </div>
+                                <span class="share-text" style="color: #856404;">11%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center; font-weight: bold;">11.0</td>
+                        <td>
+                            <span style="background: #ff6b6b; color: #fff; padding: 4px 12px; font-weight: bold; font-size: 13px; border-radius: 3px;">500/mo</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- Office Refurbishment Melbourne - Low -->
+                    <tr style="background: #fff;">
+                        <td>
+                            <strong>office refurbishment melbourne</strong> 🇦🇺
+                            <div style="font-size: 11px; color: #999; margin-top: 3px;">Needs Improvement</div>
+                        </td>
+                        <td>
+                            <span class="rank-badge" style="background: #999;">#36</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 6%; background: #999;"></div>
+                                </div>
+                                <span class="share-text" style="color: #999;">6%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center; font-weight: bold;">7.9</td>
+                        <td>
+                            <span style="background: #999; color: #fff; padding: 4px 12px; font-size: 13px; border-radius: 3px;">-</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- Office Refurbishment - Low -->
+                    <tr style="background: #fff;">
+                        <td>
+                            <strong>office refurbishment</strong> 🇦🇺
+                            <div style="font-size: 11px; color: #999; margin-top: 3px;">Needs Improvement</div>
+                        </td>
+                        <td>
+                            <span class="rank-badge" style="background: #999;">#96</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 2%; background: #999;"></div>
+                                </div>
+                                <span class="share-text" style="color: #999;">2%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center; font-weight: bold;">8.5</td>
+                        <td>
+                            <span style="background: #ff9500; color: #fff; padding: 4px 12px; font-weight: bold; font-size: 13px; border-radius: 3px;">300/mo</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- Office Refurbishment Sydney - Critical Gap -->
+                    <tr style="background: #ffebee;">
+                        <td>
+                            <strong>office refurbishment sydney</strong> 🇦🇺
+                            <div style="font-size: 11px; color: #c62828; margin-top: 3px; font-weight: bold;">🚨 CRITICAL SYDNEY GAP</div>
+                        </td>
+                        <td>
+                            <span class="rank-badge" style="background: #c62828;">#363</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 1%; background: #c62828;"></div>
+                                </div>
+                                <span class="share-text" style="color: #c62828;">1%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center; font-weight: bold;">16.0</td>
+                        <td>
+                            <span style="background: #999; color: #fff; padding: 4px 12px; font-size: 13px; border-radius: 3px;">-</span>
+                        </td>
+                    </tr>
+                    
+                    <!-- Office Strip Out Sydney - No Visibility -->
+                    <tr style="background: #ffebee;">
+                        <td>
+                            <strong>office strip out sydney</strong> 🇦🇺
+                            <div style="font-size: 11px; color: #c62828; margin-top: 3px; font-weight: bold;">🚨 NO VISIBILITY</div>
+                        </td>
+                        <td>
+                            <span class="rank-badge" style="background: #c62828;">-</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 0%; background: #c62828;"></div>
+                                </div>
+                                <span class="share-text" style="color: #c62828;">0%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center; font-weight: bold;">-</td>
+                        <td>
+                            <span style="background: #999; color: #fff; padding: 4px 12px; font-size: 13px; border-radius: 3px;">-</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- Performance Summary Cards -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div style="background: #2e7d32; color: #fff; padding: 25px; text-align: center;">
+                    <div style="font-size: 13px; opacity: 0.9; margin-bottom: 10px; letter-spacing: 1px;">STRONG KEYWORDS</div>
+                    <div style="font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 2px;">3</div>
+                    <div style="font-size: 13px; opacity: 0.9; margin-top: 8px;">Average 24% SOV</div>
+                </div>
+                
+                <div style="background: #ff9500; color: #fff; padding: 25px; text-align: center;">
+                    <div style="font-size: 13px; opacity: 0.9; margin-bottom: 10px; letter-spacing: 1px;">HIGH VOLUME OPP.</div>
+                    <div style="font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 2px;">500</div>
+                    <div style="font-size: 13px; opacity: 0.9; margin-top: 8px;">Monthly searches</div>
+                </div>
+                
+                <div style="background: #c62828; color: #fff; padding: 25px; text-align: center;">
+                    <div style="font-size: 13px; opacity: 0.9; margin-bottom: 10px; letter-spacing: 1px;">SYDNEY GAPS</div>
+                    <div style="font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 2px;">2</div>
+                    <div style="font-size: 13px; opacity: 0.9; margin-top: 8px;">Priority keywords</div>
+                </div>
+                
+                <div style="background: #000; color: #fff; padding: 25px; text-align: center;">
+                    <div style="font-size: 13px; opacity: 0.9; margin-bottom: 10px; letter-spacing: 1px;">TOTAL POTENTIAL</div>
+                    <div style="font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 2px;">1K+</div>
+                    <div style="font-size: 13px; opacity: 0.9; margin-top: 8px;">Monthly searches</div>
+                </div>
+            </div>
+            
+            <!-- Key Insights -->
+            <div style="margin-top: 30px; padding: 30px; background: #fff; border-left: 5px solid #000;">
+                <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 22px; margin-bottom: 18px; letter-spacing: 1px;">📊 Key Performance Insights</h4>
+                <ul style="line-height: 2.3; color: #333; font-size: 15px; margin: 0; padding-left: 20px;">
+                    <li><strong style="color: #2e7d32;">Melbourne Market Leader:</strong> NMGS dominates with #2 rankings and 34% share of voice for "make good melbourne" (100/mo)</li>
+                    <li><strong style="color: #2e7d32;">End-of-Lease Authority:</strong> Strong 21% SOV for "end of lease make good" demonstrates specialized expertise</li>
+                    <li><strong style="color: #ff9500;">Massive Growth Opportunity:</strong> "office renovation" at rank #12 with 500/mo searches - highest volume keyword available</li>
+                    <li><strong style="color: #856404;">Room for Improvement:</strong> "make good services" at 16% SOV and "office refurbishment" at 2% need optimisation</li>
+                    <li><strong style="color: #c62828;">Critical Sydney Expansion:</strong> Near-zero visibility in Sydney market (#363 for refurbishment, 0% for strip out)</li>
+                    <li><strong style="color: #c62828;">Service Coverage Gap:</strong> "Strip out" terminology completely missing from AI visibility</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Competitive Landscape Dashboard -->
+        <h3>Competitive Landscape Analysis</h3>
+        <div style="background: #f9f9f9; padding: 40px; margin: 40px 0; border: 1px solid #e0e0e0;">
+            
+            <p style="font-size: 15px; line-height: 1.8; margin-bottom: 25px; color: #666;">
+                Analysis of NMGS's position relative to direct competitors in the commercial make good space across AI search platforms.
+            </p>
+            
+            <table class="rankings-table">
+                <thead>
+                    <tr>
+                        <th style="width: 280px;">Company</th>
+                        <th style="width: 140px;">AI Visibility</th>
+                        <th style="width: 130px;">Best Ranking</th>
+                        <th style="width: 220px;">Share of Voice</th>
+                        <th>Performance Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="nmgs-row">
+                        <td>
+                            <strong style="font-size: 17px;">NMGS</strong>
+                            <div style="font-size: 12px; color: #2e7d32; margin-top: 3px; font-weight: bold;">National Make Good Solutions</div>
+                        </td>
+                        <td>
+                            <span style="background: #2e7d32; color: #fff; padding: 7px 14px; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; border-radius: 3px;">STRONG</span>
+                        </td>
+                        <td style="text-align: center;">
+                            <span style="background: #2e7d32; color: #fff; padding: 6px 14px; font-weight: bold; border-radius: 3px; font-size: 15px;">#2</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 34%; background: #2e7d32;"></div>
+                                </div>
+                                <span class="share-text" style="color: #2e7d32; font-size: 16px;">34%</span>
+                            </div>
+                        </td>
+                        <td style="font-size: 14px; font-weight: 500;">Market leader in Melbourne - Strong visibility across ChatGPT, Perplexity, Google AI</td>
+                    </tr>
+                    
+                    <tr style="background: #fff;">
+                        <td>
+                            <strong style="font-size: 17px;">Vaughans Construction</strong>
+                            <div style="font-size: 12px; color: #666; margin-top: 3px;">vaughans.com.au</div>
+                        </td>
+                        <td>
+                            <span style="background: #ff9500; color: #fff; padding: 7px 14px; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; border-radius: 3px;">MINIMAL</span>
+                        </td>
+                        <td style="text-align: center;">
+                            <span style="background: #ff9500; color: #fff; padding: 6px 14px; font-weight: bold; border-radius: 3px; font-size: 15px;">#73</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 2%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text" style="color: #ff9500; font-size: 16px;">2%</span>
+                            </div>
+                        </td>
+                        <td style="font-size: 14px;">Rank #73 for "make good services" with position 7.5 - Very limited digital presence</td>
+                    </tr>
+                    
+                    <tr style="background: #fff;">
+                        <td>
+                            <strong style="font-size: 17px;">Astra Building Services</strong>
+                            <div style="font-size: 12px; color: #666; margin-top: 3px;">Direct Competitor</div>
+                        </td>
+                        <td>
+                            <span style="background: #c62828; color: #fff; padding: 7px 14px; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; border-radius: 3px;">NONE</span>
+                        </td>
+                        <td style="text-align: center;">
+                            <span style="background: #999; color: #fff; padding: 6px 14px; font-weight: bold; border-radius: 3px; font-size: 15px;">-</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 0%; background: #c62828;"></div>
+                                </div>
+                                <span class="share-text" style="color: #999; font-size: 16px;">0%</span>
+                            </div>
+                        </td>
+                        <td style="font-size: 14px;">Zero AI search visibility detected - No GEO strategy in place</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <!-- Competitive Position Summary -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 35px;">
+                <div style="background: #fff; padding: 30px; border-left: 5px solid #2e7d32;">
+                    <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 22px; margin-bottom: 18px; letter-spacing: 1px; color: #2e7d32;">✓ YOUR COMPETITIVE EDGE</h4>
+                    <ul style="line-height: 2.2; color: #333; font-size: 15px; margin: 0; padding-left: 20px;">
+                        <li><strong>Clear Market Leader:</strong> 34% SOV vs 2% (Vaughans) and 0% (Astra)</li>
+                        <li><strong>17x Better Than Vaughans:</strong> You're ranked #2 vs their #73</li>
+                        <li><strong>Total Domination Over Astra:</strong> They have zero AI presence</li>
+                        <li><strong>Established Authority:</strong> Strong citations across multiple AI platforms</li>
+                        <li><strong>Melbourne Powerhouse:</strong> #2 rankings in core geographic market</li>
+                        <li><strong>First-Mover Advantage:</strong> Competitors haven't optimised for AI search</li>
+                    </ul>
+                </div>
+                
+                <div style="background: #fff; padding: 30px; border-left: 5px solid #ff9500;">
+                    <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 22px; margin-bottom: 18px; letter-spacing: 1px; color: #ff9500;">⚡ GROWTH OPPORTUNITIES</h4>
+                    <ul style="line-height: 2.2; color: #333; font-size: 15px; margin: 0; padding-left: 20px;">
+                        <li><strong>Sydney Market Wide Open:</strong> No competitors visible - capture entire market</li>
+                        <li><strong>Office Renovation Gap:</strong> 500/mo searches with minimal competition</li>
+                        <li><strong>Service Expansion:</strong> "Strip out" terminology needs content development</li>
+                        <li><strong>Competitor Weakness:</strong> Neither Vaughans nor Astra have GEO strategies</li>
+                        <li><strong>Market Share Gains:</strong> Can easily capture their potential customers</li>
+                        <li><strong>Sustainability:</strong> Maintain lead while competitors catch up (6-12 months)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Visual Comparison Chart -->
+            <div style="margin-top: 35px; padding: 35px; background: #fff; border: 2px solid #e0e0e0;">
+                <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 22px; margin-bottom: 25px; letter-spacing: 1px; text-align: center;">Share of Voice Comparison - "Make Good Services"</h4>
+                <div style="display: flex; align-items: flex-end; justify-content: space-around; gap: 20px; min-height: 300px;">
+                    <!-- NMGS Bar -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: linear-gradient(to top, #2e7d32, #4caf50); width: 100%; margin: 0 auto; height: 255px; position: relative; border-radius: 8px 8px 0 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <div style="position: absolute; top: 20px; left: 0; right: 0; color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 42px; letter-spacing: 2px;">34%</div>
+                        </div>
+                        <div style="margin-top: 15px; font-weight: bold; font-size: 16px;">NMGS</div>
+                        <div style="font-size: 13px; color: #2e7d32; margin-top: 5px; font-weight: bold;">★ Market Leader</div>
+                    </div>
+                    
+                    <!-- Vaughans Bar -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: linear-gradient(to top, #ff9500, #ffa726); width: 100%; margin: 0 auto; height: 15px; position: relative; border-radius: 8px 8px 0 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                            <div style="position: absolute; top: -30px; left: 0; right: 0; color: #ff9500; font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px;">2%</div>
+                        </div>
+                        <div style="margin-top: 15px; font-weight: bold; font-size: 16px;">Vaughans</div>
+                        <div style="font-size: 13px; color: #999; margin-top: 5px;">Rank #73, Pos 7.5</div>
+                    </div>
+                    
+                    <!-- Astra Bar -->
+                    <div style="text-align: center; flex: 1;">
+                        <div style="background: #e0e0e0; width: 100%; margin: 0 auto; height: 1px; position: relative; border-radius: 8px 8px 0 0;">
+                            <div style="position: absolute; top: -30px; left: 0; right: 0; color: #999; font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px;">0%</div>
+                        </div>
+                        <div style="margin-top: 15px; font-weight: bold; font-size: 16px;">Astra</div>
+                        <div style="font-size: 13px; color: #c62828; margin-top: 5px;">No Visibility</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Strategic Positioning -->
+            <div style="margin-top: 35px; padding: 35px; background: #000; color: #fff;">
+                <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 26px; margin-bottom: 20px; letter-spacing: 2px;">🎯 STRATEGIC MARKET POSITION</h4>
+                <p style="font-size: 17px; line-height: 1.9; margin: 0;">
+                    <strong>NMGS dominates the AI search landscape</strong> for commercial make good services in Melbourne with a commanding 
+                    <strong style="color: #4caf50;">34% share of voice</strong> and consistent <strong style="color: #4caf50;">#2 rankings</strong>. 
+                    Competitors are significantly behind: Vaughans Construction has minimal presence at <strong>2% SOV (rank #73)</strong> while 
+                    Astra Building Services has <strong>zero AI visibility</strong>. This creates a massive opportunity to capture market share from 
+                    under-optimised competitors while expanding into the <strong style="color: #ff9500;">untapped Sydney market</strong> where no 
+                    competitors have established presence. The next 6-12 months are critical to maintain this lead before competitors realise 
+                    the importance of GEO optimisation.
+                </p>
+            </div>
+        </div>
+
+        <h2>NMGS Rankings by Category</h2>
+        
+        <h3>Make Good Melbourne (Strong Performance)</h3>
+        <table class="rankings-table">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">Rank</th>
+                    <th>Brand</th>
+                    <th style="width: 200px;">Share of Voice</th>
+                    <th style="width: 100px;">Position</th>
+                    <th style="width: 120px;">Citations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="rank-badge">#1</span></td>
+                    <td>Make Good Melbourne <span style="color: #999; font-size: 13px;">makegood.melbourne</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 45%"></div>
+                            </div>
+                            <span class="share-text">45%</span>
+                        </div>
+                    </td>
+                    <td>2.7</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">9</span> URLs</td>
+                </tr>
+                <tr class="nmgs-row">
+                    <td><span class="rank-badge">#2</span></td>
+                    <td><strong>NMGS</strong> <span style="color: #999; font-size: 13px;">nmgs.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 34%"></div>
+                            </div>
+                            <span class="share-text">34%</span>
+                        </div>
+                    </td>
+                    <td>3.6</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">8</span> URLs</td>
+                </tr>
+                <tr>
+                    <td><span class="rank-badge">#3</span></td>
+                    <td>Symmetry Commercial <span style="color: #999; font-size: 13px;">symmetrycommercial.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 26%"></div>
+                            </div>
+                            <span class="share-text">26%</span>
+                        </div>
+                    </td>
+                    <td>4.9</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">4</span> URLs</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Make Good Services (Solid Performance)</h3>
+        <table class="rankings-table">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">Rank</th>
+                    <th>Brand</th>
+                    <th style="width: 200px;">Share of Voice</th>
+                    <th style="width: 100px;">Position</th>
+                    <th style="width: 120px;">Citations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="rank-badge">#1</span></td>
+                    <td>Makegoods <span style="color: #999; font-size: 13px;">makegoods.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 20%"></div>
+                            </div>
+                            <span class="share-text">20%</span>
+                        </div>
+                    </td>
+                    <td>4.7</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">5</span> URLs</td>
+                </tr>
+                <tr>
+                    <td><span class="rank-badge">#2</span></td>
+                    <td>Australian Make Good Solutions <span style="color: #999; font-size: 13px;">ausmakegood.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 16%"></div>
+                            </div>
+                            <span class="share-text">16%</span>
+                        </div>
+                    </td>
+                    <td>2.3</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">5</span> URLs</td>
+                </tr>
+                <tr class="nmgs-row">
+                    <td><span class="rank-badge">#3</span></td>
+                    <td><strong>NMGS</strong> <span style="color: #999; font-size: 13px;">nmgs.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 16%"></div>
+                            </div>
+                            <span class="share-text">16%</span>
+                        </div>
+                    </td>
+                    <td>3.9</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">3</span> URLs</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Office Refurbishment Melbourne (Improvement Opportunity)</h3>
+        <table class="rankings-table">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">Rank</th>
+                    <th>Brand</th>
+                    <th style="width: 200px;">Share of Voice</th>
+                    <th style="width: 100px;">Position</th>
+                    <th style="width: 120px;">Citations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="rank-badge">#1</span></td>
+                    <td>Contour Interiors <span style="color: #999; font-size: 13px;">contourinteriors.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 42%"></div>
+                            </div>
+                            <span class="share-text">42%</span>
+                        </div>
+                    </td>
+                    <td>4.9</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">6</span> URLs</td>
+                </tr>
+                <tr>
+                    <td><span class="rank-badge">#2</span></td>
+                    <td>Canopy Fitouts <span style="color: #999; font-size: 13px;">canopyfitouts.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 30%"></div>
+                            </div>
+                            <span class="share-text">30%</span>
+                        </div>
+                    </td>
+                    <td>4.5</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">4</span> URLs</td>
+                </tr>
+                <tr>
+                    <td><span class="rank-badge">#3</span></td>
+                    <td>Sensa Interiors <span style="color: #999; font-size: 13px;">sensainteriors.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 33%"></div>
+                            </div>
+                            <span class="share-text">33%</span>
+                        </div>
+                    </td>
+                    <td>6.4</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">7</span> URLs</td>
+                </tr>
+                <tr style="border-top: 2px dashed #ccc;">
+                    <td colspan="5" style="text-align: center; padding: 10px; color: #999; font-style: italic;">... 33 other competitors ranked between #4 and #36 ...</td>
+                </tr>
+                <tr class="nmgs-row">
+                    <td><span class="rank-badge">#36</span></td>
+                    <td><strong>NMGS</strong> <span style="color: #999; font-size: 13px;">nmgs.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 6%"></div>
+                            </div>
+                            <span class="share-text">6%</span>
+                        </div>
+                    </td>
+                    <td>7.9</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">1</span> URL</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 style="margin-top: 60px;">AI Engine Performance & Opportunities</h2>
+        <p style="margin-bottom: 20px; color: #666;">Analysis showing which AI engines mention NMGS and where optimisation opportunities exist.</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0;">
+            <!-- Best Performers -->
+            <div style="border: 2px solid #000; padding: 25px; background: #f9f9f9;">
+                <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 15px;">✓ Strong Performance</h3>
+                <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Engines consistently mentioning NMGS</p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #fff; border-left: 3px solid #2e7d32;">
+                        <span style="font-weight: 500; font-size: 14px;">Google AI Mode</span>
+                        <span style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #2e7d32;">43%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #fff; border-left: 3px solid #2e7d32;">
+                        <span style="font-weight: 500; font-size: 14px;">Microsoft Copilot</span>
+                        <span style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #2e7d32;">30%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #fff; border-left: 3px solid #2e7d32;">
+                        <span style="font-weight: 500; font-size: 14px;">Google Gemini</span>
+                        <span style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #2e7d32;">30%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Critical Gaps -->
+            <div style="border: 2px solid #d32f2f; padding: 25px; background: #fff5f5;">
+                <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: #d32f2f; margin-bottom: 15px;">⚠ Critical optimisation Gaps</h3>
+                <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Highest priority engines for GEO work</p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #fff; border-left: 3px solid #d32f2f;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">Meta AI</div>
+                            <div style="font-size: 11px; color: #666;">30 missed opportunities</div>
+                        </div>
+                        <span style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #d32f2f;">100% gap</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #fff; border-left: 3px solid #d32f2f;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">Anthropic Claude</div>
+                            <div style="font-size: 11px; color: #666;">30 missed opportunities</div>
+                        </div>
+                        <span style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #d32f2f;">100% gap</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #fff; border-left: 3px solid #ff9500;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">Google AI Overviews</div>
+                            <div style="font-size: 11px; color: #666;">22 missed opportunities</div>
+                        </div>
+                        <span style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #ff9500;">73% gap</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category Performance -->
+            <div style="border: 2px solid #000; padding: 25px; background: #f9f9f9;">
+                <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 15px;">📊 Category Performance</h3>
+                <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Mention rates by service sector</p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="padding: 12px; background: #fff;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 500; font-size: 14px;">Make Good Melbourne</span>
+                            <span style="font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #2e7d32;">90%</span>
+                        </div>
+                        <div style="height: 6px; background: #e8e8e8;">
+                            <div style="height: 100%; background: #2e7d32; width: 90%;"></div>
+                        </div>
+                    </div>
+                    <div style="padding: 12px; background: #fff;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 500; font-size: 14px;">Make Good Services</span>
+                            <span style="font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #2e7d32;">60%</span>
+                        </div>
+                        <div style="height: 6px; background: #e8e8e8;">
+                            <div style="height: 100%; background: #2e7d32; width: 60%;"></div>
+                        </div>
+                    </div>
+                    <div style="padding: 12px; background: #fff;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 500; font-size: 14px;">Office Refurbishment</span>
+                            <span style="font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #ff9500;">60%</span>
+                        </div>
+                        <div style="height: 6px; background: #e8e8e8;">
+                            <div style="height: 100%; background: #ff9500; width: 60%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Engine Analysis Table -->
+        <h3 style="margin-top: 40px; font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px;">Complete Engine Gap Analysis</h3>
+        <p style="color: #666; margin-bottom: 20px; font-size: 14px;">How often each AI engine mentions NMGS across all relevant queries</p>
+        
+        <table class="rankings-table">
+            <thead>
+                <tr>
+                    <th>AI Engine</th>
+                    <th style="width: 100px;">Tested</th>
+                    <th style="width: 100px;">Mentioned</th>
+                    <th style="width: 140px;">Mention Rate</th>
+                    <th style="width: 100px;">Missed</th>
+                    <th style="width: 150px;">Priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background: #fff5f5;">
+                    <td><strong>Meta AI</strong></td>
+                    <td>30</td>
+                    <td style="color: #d32f2f; font-weight: bold;">0</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #d32f2f; width: 0%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">0%</span>
+                        </div>
+                    </td>
+                    <td style="color: #d32f2f; font-weight: bold;">30</td>
+                    <td style="color: #d32f2f; font-weight: bold;">🔴 CRITICAL</td>
+                </tr>
+                <tr style="background: #fff5f5;">
+                    <td><strong>Anthropic Claude</strong></td>
+                    <td>30</td>
+                    <td style="color: #d32f2f; font-weight: bold;">0</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #d32f2f; width: 0%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">0%</span>
+                        </div>
+                    </td>
+                    <td style="color: #d32f2f; font-weight: bold;">30</td>
+                    <td style="color: #d32f2f; font-weight: bold;">🔴 CRITICAL</td>
+                </tr>
+                <tr style="background: #fff9f0;">
+                    <td><strong>Perplexity AI</strong></td>
+                    <td>30</td>
+                    <td style="color: #ff9500; font-weight: bold;">2</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #ff9500; width: 7%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">7%</span>
+                        </div>
+                    </td>
+                    <td style="color: #ff9500; font-weight: bold;">28</td>
+                    <td style="color: #ff9500; font-weight: bold;">🟠 HIGH</td>
+                </tr>
+                <tr style="background: #fff9f0;">
+                    <td><strong>OpenAI ChatGPT</strong></td>
+                    <td>30</td>
+                    <td style="color: #ff9500; font-weight: bold;">3</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #ff9500; width: 10%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">10%</span>
+                        </div>
+                    </td>
+                    <td style="color: #ff9500; font-weight: bold;">27</td>
+                    <td style="color: #ff9500; font-weight: bold;">🟠 HIGH</td>
+                </tr>
+                <tr style="background: #fff9f0;">
+                    <td><strong>xAI Grok</strong></td>
+                    <td>27</td>
+                    <td style="color: #ff9500; font-weight: bold;">8</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #ff9500; width: 30%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">30%</span>
+                        </div>
+                    </td>
+                    <td style="color: #ff9500; font-weight: bold;">19</td>
+                    <td style="color: #ff9500; font-weight: bold;">🟠 MEDIUM</td>
+                </tr>
+                <tr>
+                    <td><strong>Google AI Overviews</strong></td>
+                    <td>30</td>
+                    <td>8</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #666; width: 27%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">27%</span>
+                        </div>
+                    </td>
+                    <td>22</td>
+                    <td>Medium</td>
+                </tr>
+                <tr style="background: #f5faf5;">
+                    <td><strong>Microsoft Copilot</strong></td>
+                    <td>30</td>
+                    <td style="color: #2e7d32; font-weight: bold;">9</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #2e7d32; width: 30%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">30%</span>
+                        </div>
+                    </td>
+                    <td>21</td>
+                    <td style="color: #2e7d32;">✓ Good</td>
+                </tr>
+                <tr style="background: #f5faf5;">
+                    <td><strong>Google Gemini</strong></td>
+                    <td>30</td>
+                    <td style="color: #2e7d32; font-weight: bold;">9</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #2e7d32; width: 30%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">30%</span>
+                        </div>
+                    </td>
+                    <td>21</td>
+                    <td style="color: #2e7d32;">✓ Good</td>
+                </tr>
+                <tr style="background: #f5faf5;">
+                    <td><strong>Google AI Mode</strong></td>
+                    <td>30</td>
+                    <td style="color: #2e7d32; font-weight: bold;">13</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #2e7d32; width: 43%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">43%</span>
+                        </div>
+                    </td>
+                    <td>17</td>
+                    <td style="color: #2e7d32;">✓ Excellent</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Strategic Insights -->
+        <div style="background: #f9f9f9; padding: 35px; margin: 40px 0; border-left: 5px solid #000;">
+            <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px; margin-bottom: 20px;">💡 Strategic Insights & Recommendations</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 25px;">
+                <div style="background: #fff; padding: 20px; border-left: 4px solid #d32f2f;">
+                    <div style="font-weight: bold; margin-bottom: 8px; color: #d32f2f;">🎯 Immediate Priority</div>
+                    <div style="font-size: 14px; line-height: 1.7;">Focus on <strong>Meta AI</strong> (0% visibility) and <strong>Anthropic Claude</strong> (0% visibility) - combined 60 missed opportunities across all categories.</div>
+                </div>
+                <div style="background: #fff; padding: 20px; border-left: 4px solid #ff9500;">
+                    <div style="font-weight: bold; margin-bottom: 8px; color: #ff9500;">📈 Sector Focus</div>
+                    <div style="font-size: 14px; line-height: 1.7;"><strong>Office Refurbishment Melbourne</strong> (#36 ranking, 60% visibility) has significant room for improvement vs Make Good Melbourne's #2 position.</div>
+                </div>
+                <div style="background: #fff; padding: 20px; border-left: 4px solid #2e7d32;">
+                    <div style="font-weight: bold; margin-bottom: 8px; color: #2e7d32;">✓ Leverage Success</div>
+                    <div style="font-size: 14px; line-height: 1.7;"><strong>Google AI Mode</strong> (43%) and Make Good Melbourne content strategy show what's working - replicate this approach.</div>
+                </div>
+            </div>
+            
+            <div style="background: #fff; padding: 25px; margin-top: 20px;">
+                <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 15px;">Key Focus Areas</h4>
+                <ul style="line-height: 2; margin-left: 20px; font-size: 14px;">
+                    <li><strong>Meta AI & Anthropic Claude:</strong> 60 combined missed opportunities - highest impact targets for immediate GEO work</li>
+                    <li><strong>Office Refurbishment Category:</strong> Weakest category performance (#36) needs strategic content development and topic authority building</li>
+                    <li><strong>Make Good Melbourne Success:</strong> Apply 90% visibility tactics (strong content depth, technical SEO) to other categories</li>
+                    <li><strong>Google AI Mode Leadership:</strong> Maintain and expand 43% mention rate by continuing current content strategy</li>
+                    <li><strong>ChatGPT & Perplexity Gaps:</strong> 55 combined missed opportunities requiring structured content optimisation</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 id="promptAnalysis">Detailed Prompt Analysis</h2>
+        <p style="margin-bottom: 20px; color: #666;">Click any prompt to expand and see which AI engines mentioned NMGS. Click green engine boxes to view actual mentions.</p>
+        
+        <div class="category-tabs">
+            <button class="tab-btn active" onclick="filterPrompts('all')">ALL PROMPTS (30)</button>
+            <button class="tab-btn" onclick="filterPrompts('make_good_melbourne')">MAKE GOOD MELBOURNE (10)</button>
+            <button class="tab-btn" onclick="filterPrompts('make_good_services')">MAKE GOOD SERVICES (10)</button>
+            <button class="tab-btn" onclick="filterPrompts('office_refurbishment_melbourne')">OFFICE REFURBISHMENT (10)</button>
+            <button class="tab-btn" onclick="filterPrompts('mentioned')">NMGS MENTIONED (21)</button>
+        </div>
+        
+        <div id="promptsList"></div>
+        
+        <div class="pagination">
+            <button class="pagination-btn" id="prevBtn" onclick="changePage('prev')">← Previous</button>
+            <div class="page-info" id="pageInfo">Page 1 of 6</div>
+            <button class="pagination-btn" id="nextBtn" onclick="changePage('next')">Next →</button>
+        </div>
+        
+        <!-- Modal -->
+        <div id="mentionModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title" id="modalTitle"></div>
+                    <span class="modal-close" onclick="closeModal()">&times;</span>
+                </div>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const promptsData = [{"id": 1, "category": "make_good_melbourne", "prompt": "Where can I find reliable contractors for make good services across Melbourne?", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 11, "sources": 44, "mentioned": true, "nmgs_mentions": ["* **National Make Good Solutions (NMGS)** (nmgs", "* **National Make Good Solutions (NMGS)** (nmgs.com.au/make-good) \u2014 A registered commercial builder with over 50 years of combined experience, specializing in end-of-lease make good, office strip-outs, and defits across Melbourne (and nationally). They handle scope negotiation, trade coordination, and landlord sign-off, with CM3-accredited safety standards. Family-owned and focused on budget/time compliance."]}, {"name": "Microsoft Copilot", "brands": 6, "sources": 8, "mentioned": true, "nmgs_mentions": ["au/locations/)  \\n**National Make Good Solutions (NMGS)**| End\u2011to\u2011end commercial make good and relocation services| [Make Good Services Melbourne | Commercial & End-of-Lease Experts - NMGS](https://nmgs", "**National Make Good Solutions (NMGS)**| End\u2011to\u2011end commercial make good and relocation services| [Make Good Services Melbourne | Commercial & End-of-Lease Experts - NMGS](https://nmgs.com.au/make-good/)"]}, {"name": "OpenAI ChatGPT", "brands": 8, "sources": 23, "mentioned": true, "nmgs_mentions": ["au/locations/)[Make Good Services Melbourne | Commercial & End-of-Lease Experts](https://nmgs", "au/locations/)\\n\\n  * **National Make Good Solutions** \u2014 Provides commercial make good solutions including rack removal, painting, plastering, and other reinstatement tasks", "[Make Good Services Melbourne | Commercial & End-of-Lease Experts](https://nmgs"]}, {"name": "Google Gemini", "brands": 8, "sources": 9, "mentioned": true, "nmgs_mentions": [")\\n\\n  * **[National Make Good Solutions (NMGS)](https://nmgs", "* **[National Make Good Solutions (NMGS)](https://nmgs.com.au/) :** They offer an end-to-end service and are particularly strong if your space requires technical work like core drilling, electrical re-wiring, or plumbing capping."]}, {"name": "Perplexity AI", "brands": 4, "sources": 10, "mentioned": false}, {"name": "Google AI Mode", "brands": 12, "sources": 16, "mentioned": true, "nmgs_mentions": ["[![Image of NMGS](https://lh3", "[Source 1](https://nmgs", "![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAAM1BMVEVHcEwmOn4lOn7hgSXlgyTjgiXfgCblgiQlOn7hgSXkgiTjgiQmOn7hgSXDdjUmOn7lgyTf4tnGAAAAD3RSTlMA32BY5Ton9yMNoqV/grx9FHWhAAACAUlEQVR4nO3Y646CMBCGYV2FCs0u3P/VSimHHubQlmzMbj5+G/vwzqDG263q6s2sXM+h7h0rLwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPjvgP5xHfDzdQHQPTWBChi7+wVBZ4wi0AD29pqmdkFnZqWBAhgHB2gXLIBZbiAD7LKADtA8BQeQG4iA0T0ADtDcYAWIAglg1wfQAxobeIA0BQFg/Ss8oLHBBhAa8AA7xIAmwQ7gG7CAcf8APAAtUzgAbAMOcJx/AloanABOwADs+QUQAOobBABmCjTABq8IAPUNQg"]}, {"name": "Google AI Overviews", "brands": 8, "sources": 15, "mentioned": true, "nmgs_mentions": ["Reliable make-good contractors in Melbourne specializing in commercial, retail, and office end-of-lease restorations can be found through firms like \\n\\n[National Make Good Solutions](https://nmgs", "[Source 1](https://nmgs", "au/services/property-maintenance-for-property-managers/)\\n\\n**Top Recommended Make-Good Contractors in Melbourne**\\n\\n  * **National Make Good Solutions (NMGS):** Specializes in end-of-lease, commercial make-good, and relocation services across Melbourne to return spaces to their original condition"]}, {"name": "Meta AI", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}]}, {"id": 2, "category": "make_good_melbourne", "prompt": "Compare prices for make good services for retail spaces in Melbourne.", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 6, "sources": 43, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 5, "sources": 5, "mentioned": true, "nmgs_mentions": ["melbourne/)  \\n**National Make Good Solutions (NMGS)**| End\u2011to\u2011end make good, relocation support, core drilling, refurbishment| **Low** \u2013 no pricing listed| Full\u2011service provider with transition support for businesses of all sizes [Make Good Services Melbourne | Commercial & End-of-Lease Experts - NMGS](https://nmgs", "### If you want **hands\u2011off project management**\\n\\n  * AFS or NMGS specialise in full end\u2011to\u2011end management", "**National Make Good Solutions (NMGS)**| End\u2011to\u2011end make good, relocation support, core drilling, refurbishment| **Low** \u2013 no pricing listed| Full\u2011service provider with transition support for businesses of all sizes [Make Good Services Melbourne | Commercial & End-of-Lease Experts - NMGS](https://nmgs.com.au/make-good/)"]}, {"name": "OpenAI ChatGPT", "brands": 13, "sources": 19, "mentioned": false}, {"name": "Perplexity AI", "brands": 8, "sources": 10, "mentioned": false}, {"name": "Google AI Mode", "brands": 9, "sources": 17, "mentioned": true, "nmgs_mentions": ["au)[Source 2](https://nmgs", "au)[Source 3](https://nmgs", "* **Full Reinstatement (Strip-out):** Costs generally fall between **$250 and $350 per sqm**. This is a comprehensive service involving the removal of partitions, lifting of floor finishes, and restoring the space to its base building condition. [Source 1](https://www.melbournecityrubbish.com.au)[Source 2](https://nmgs.com.au)[Source 3](https://nmgs.com.au)[Source 4](https://www.melbournecityrubbish.com.au)[Source 5](https://www.airtasker.com)[Source 6](https://makegood.melbourne)[Source 7](http"]}, {"name": "Google Gemini", "brands": 0, "sources": 0, "mentioned": false}, {"name": "Meta AI", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Google AI Overviews", "brands": 4, "sources": 7, "mentioned": false}]}, {"id": 3, "category": "make_good_melbourne", "prompt": "What is included in a standard make good service package in Melbourne?", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 0, "sources": 44, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 4, "sources": 4, "mentioned": true, "nmgs_mentions": ["au/services/make-good)[Make Good Services Melbourne | Commercial & End-of-Lease Experts - NMGS](https://nmgs", "Removal & Decommissioning**\\n\\nA standard package often covers:\\n\\n  * Removal of furniture, cabling, signage, and equipment\\n\\n  * Safe disposal or recycling of unwanted items\\n\\n  * Decommissioning of IT and electrical systems [Make Good Services Melbourne | Commercial & End-of-Lease Experts - NMGS](https://nmgs", "Repairs & Trade Work**\\n\\nDepending on the condition of the space, this may include:\\n\\n  * Core drilling and patching\\n\\n  * Carpentry and plastering\\n\\n  * Painting and surface restoration\\n\\n  * Minor structural fixes [Make Good Services Melbourne | Commercial & End-of-Lease Experts - NMGS](https://nmgs"]}, {"name": "Google Gemini", "brands": 3, "sources": 4, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 3, "sources": 22, "mentioned": false}, {"name": "Perplexity AI", "brands": 0, "sources": 10, "mentioned": false}, {"name": "Google AI Mode", "brands": 8, "sources": 19, "mentioned": true, "nmgs_mentions": ["au/what-happens-if-you-dont-fulfill-your-make-good-provision/)[Source 4](https://nmgs", "au)[Source 5](https://nmgs", "* **Compliance Checks:** Ensuring fire and safety systems (smoke detectors, sprinklers, emergency lighting) are restored to the building\\'s base standard and remain compliant. [Source 1](https://www.makegoods.com.au/victorian-make-good-laws-what-commercial-tenants-need-to-know/)[Source 2](https://www.a1precision.com.au/commercial-offices-buildings/end-of-lease-make-good/)[Source 3](https://www.melbournecityrubbish.com.au/what-happens-if-you-dont-fulfill-your-make-good-provision/)[Source 4](https:"]}, {"name": "Google AI Overviews", "brands": 4, "sources": 8, "mentioned": false}, {"name": "Meta AI", "brands": 4, "sources": 0, "mentioned": false}, {"name": "Anthropic Claude", "brands": 1, "sources": 1, "mentioned": false}]}, {"id": 4, "category": "make_good_melbourne", "prompt": "Show me a list of businesses specializing in end-of-lease property make good in Melbourne.", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 13, "sources": 38, "mentioned": true, "nmgs_mentions": ["This list is based on established providers offering these services in Melbourne:\\n\\n  * **National Make Good Solutions (NMGS)** \u2014 Specializes in professional end-of-lease make good, office strip-outs, and defits for commercial, industrial, and warehouse properties across Melbourne (and nationally)", "* Website: nmgs", "* **National Make Good Solutions (NMGS)** \u2014 Specializes in professional end-of-lease make good, office strip-outs, and defits for commercial, industrial, and warehouse properties across Melbourne (and nationally). They are a registered commercial builder with extensive experience."]}, {"name": "Microsoft Copilot", "brands": 8, "sources": 8, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 9, "sources": 18, "mentioned": false}, {"name": "Perplexity AI", "brands": 7, "sources": 10, "mentioned": true, "nmgs_mentions": ["au/tenancy-make-good-services/)\u200b\\n\\n  * National Make Good Solutions (Make Good Melbourne) \u2013 End-to-end make-good services for commercial spaces, designed to be simple and stress-free", "](https://nmgs", "* National Make Good Solutions (Make Good Melbourne) \u2013 End-to-end make-good services for commercial spaces, designed to be simple and stress-free.[Commercial & End-of-Lease...](https://nmgs.com.au/make-good/)\u200b"]}, {"name": "Google Gemini", "brands": 9, "sources": 0, "mentioned": true, "nmgs_mentions": ["Here are several highly-rated businesses in Melbourne that specialize in end-of-lease make goods and commercial defits:\\n\\n### Specialized Make Good & Defit Companies\\n\\nCompany| Specialty| Notable Services  \\n---|---|---  \\n**National Make Good Solutions (NMGS)**|  Full end-to-end commercial solutions| Planning, management, line marking removal, and trade services (plumbing/electrical)", "**National Make Good Solutions (NMGS)**|  Full end-to-end commercial solutions| Planning, management, line marking removal, and trade services (plumbing/electrical)."]}, {"name": "Google AI Mode", "brands": 11, "sources": 20, "mentioned": true, "nmgs_mentions": ["[![Image of NMGS](https://lh3", "melbourne/)[Source 2](https://nmgs", "[![Image of NMGS](https://lh3.googleusercontent.com/p/AF1QipPUSRzO3FHxawy8dItLuPaMfGpmcos2pDN6pw9-=s192-w192-h144-n-k-no)NMGS5.0(1)Moving and storage serviceOpen359 Frankston - Dandenong Rd](/viewer/place?mid=%2Fg%2F11h64hr28x)"]}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Meta AI", "brands": 8, "sources": 0, "mentioned": false}, {"name": "Google AI Overviews", "brands": 18, "sources": 35, "mentioned": true, "nmgs_mentions": ["au/expert-office-strip-out-services-for-end-of-lease-make-goods-in-melbourne/)[Source 2](https://nmgs", "au)[Source 7](https://nmgs", "au)[Source 5](https://nmgs"]}]}, {"id": 5, "category": "make_good_melbourne", "prompt": "Can you find me companies that do commercial make good in Melbourne?", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 14, "sources": 33, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 12, "sources": 12, "mentioned": true, "nmgs_mentions": ["**National Make Good Solutions (NMGS)**\\n\\n  * Provides commercial make good services across Melbourne\\n\\n  * Offers full end\u2011to\u2011end project management for office and commercial spaces\\n\\n  * Includes core drilling, refurbishment, and relocation support [Make Good Services Melbourne | Commercial & End-of-Lease Experts - NMGS](https://nmgs", "### 2\\\\. **National Make Good Solutions (NMGS)**", "* Includes core drilling, refurbishment, and relocation support [Make Good Services Melbourne | Commercial & End-of-Lease Experts - NMGS](https://nmgs.com.au/make-good/)"]}, {"name": "Perplexity AI", "brands": 4, "sources": 10, "mentioned": true, "nmgs_mentions": ["au)\u200b\\n\\n  * National Make Good Solutions (NMGS)\\n\\n * Focus: commercial and industrial make-good and fitout services; end-to-end workspace transition support across Melbourne", "](https://nmgs", "](https://nmgs"]}, {"name": "Google Gemini", "brands": 7, "sources": 7, "mentioned": true, "nmgs_mentions": ["**[National Make Good Solutions](https://nmgs", "**[National Make Good Solutions](https://nmgs.com.au/make-good/)**| **Industrial & Warehouse**| Experts in racking removal, core drilling, and line marking removal for large industrial spaces."]}, {"name": "Google AI Mode", "brands": 10, "sources": 21, "mentioned": true, "nmgs_mentions": ["au)\\n\\nLeading Make Good Specialists\\n\\n[![Image of NMGS](https://lh3", "[Source 1](https://nmgs", "[![Image of NMGS](https://lh3.googleusercontent.com/p/AF1QipN3d4K9EjS3zMEHHFMkeC7uAnH5sgq2Kot2y59s=s192-w192-h144-n-k-no)NMGS5.0(1)Moving and storage serviceOpen359 Frankston - Dandenong Rd](/viewer/place?mid=%2Fg%2F11h64hr28x)"]}, {"name": "OpenAI ChatGPT", "brands": 9, "sources": 18, "mentioned": false}, {"name": "Meta AI", "brands": 8, "sources": 8, "mentioned": false}, {"name": "Google AI Overviews", "brands": 5, "sources": 11, "mentioned": true, "nmgs_mentions": ["Key providers include \\n\\nNational Make Good Solutions, Make Good Melbourne, React Maintenance Group, and Symmetry Commercial, offering services from strip-outs to full remedial repairs", "[Source 1](https://nmgs", "* **[National Make Good Solutions (NMGS)](https://nmgs"]}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}]}, {"id": 6, "category": "make_good_melbourne", "prompt": "Who should I hire to handle the strip-out and make good for a Melbourne warehouse?", "has_nmgs": false, "engines": [{"name": "xAI Grok", "brands": 7, "sources": 19, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 13, "sources": 13, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 20, "sources": 18, "mentioned": false}, {"name": "Google Gemini", "brands": 6, "sources": 5, "mentioned": false}, {"name": "Perplexity AI", "brands": 0, "sources": 10, "mentioned": false}, {"name": "Google AI Mode", "brands": 11, "sources": 20, "mentioned": false}, {"name": "Meta AI", "brands": 7, "sources": 7, "mentioned": false}, {"name": "Google AI Overviews", "brands": 17, "sources": 20, "mentioned": false}, {"name": "Anthropic Claude", "brands": 9, "sources": 9, "mentioned": false}]}, {"id": 7, "category": "make_good_melbourne", "prompt": "Give me contact information for make good specialists near central Melbourne.", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 9, "sources": 42, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 3, "sources": 3, "mentioned": false}, {"name": "Google AI Mode", "brands": 7, "sources": 13, "mentioned": false}, {"name": "Google Gemini", "brands": 6, "sources": 7, "mentioned": true, "nmgs_mentions": ["**NMGS (National Make Good Solutions)**|  \u2014| [nmgs", "au](https://nmgs", "**NMGS (National Make Good Solutions)**|  \u2014| [nmgs.com.au](https://nmgs.com.au)| Large-scale commercial transitions and relocation services."]}, {"name": "Perplexity AI", "brands": 4, "sources": 10, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 10, "sources": 23, "mentioned": false}, {"name": "Meta AI", "brands": 7, "sources": 2, "mentioned": false}, {"name": "Anthropic Claude", "brands": 4, "sources": 4, "mentioned": false}, {"name": "Google AI Overviews", "brands": 0, "sources": 0, "mentioned": false}]}, {"id": 8, "category": "make_good_melbourne", "prompt": "What are the best services for make good in Melbourne?", "has_nmgs": true, "engines": [{"name": "Microsoft Copilot", "brands": 5, "sources": 5, "mentioned": true, "nmgs_mentions": ["**National Make Good Solutions (NMGS)**\\n\\nProvides end\u2011to\u2011end commercial make\u2011good services, including office strip\u2011outs, refurbishment, core drilling, and relocation support", "[Make Good Services Melbourne | Commercial & End-of-Lease Experts - NMGS](https://nmgs", "au/locations/)\\n\\n# \ud83d\udcca Comparison Table\\n\\nProvider| Best For| Service Type| Strengths  \\n---|---|---|---  \\n**Make Good Melbourne**| Offices, retail, commercial| Strip\u2011outs, remediation, make\u2011safe| One\u2011contractor solution, licensed trades, strong commercial focus  \\n**MGWS**|  Warehouses & industrial sites| Warehouse make\u2011good, racking removal| Industrial expertise, multi\u2011state coverage  \\n**NMGS**|  All commercial tenants| Full make\u2011good \\\\+ relocation| End\u2011to\u2011end project management  \\n**AFS**|  Office t"]}, {"name": "xAI Grok", "brands": 9, "sources": 40, "mentioned": true, "nmgs_mentions": ["* **National Make Good Solutions (NMGS)** (nmgs", "* **National Make Good Solutions (NMGS)** (nmgs.com.au) \u2014 National provider (strong in Melbourne) with 50+ years of combined experience as a registered commercial builder. They handle full end-of-lease make good, office strip-outs, defits, and related trades like painting, plastering, plumbing, and electrical. Family-owned with safety accreditations."]}, {"name": "Google Gemini", "brands": 7, "sources": 5, "mentioned": false}, {"name": "Perplexity AI", "brands": 3, "sources": 10, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 18, "sources": 19, "mentioned": false}, {"name": "Google AI Mode", "brands": 16, "sources": 21, "mentioned": true, "nmgs_mentions": ["au)\\n\\nThe following are the top-rated specialist make good services in Melbourne for 2026:\\n\\n**Commercial & Office Specialists**\\n\\n[![Image of NMGS](https://lh3", "0(1)Moving and storage serviceOpen359 Frankston - Dandenong Rd](/viewer/place?mid=%2Fg%2F11h64hr28x)\\n\\nOffers comprehensive end-to-end relocation and [commercial make good services](https://nmgs", "[Source 1](https://nmgs"]}, {"name": "Meta AI", "brands": 5, "sources": 0, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Google AI Overviews", "brands": 9, "sources": 17, "mentioned": true, "nmgs_mentions": ["Top make-good services in Melbourne, focusing on \\n\\ncommercial, office, and industrial end-of-lease restorations, include [National Make Good Solutions](https://nmgs", "[Source 1](https://nmgs", "au)\\n\\n**Top-Rated Melbourne Make Good & Defit Services**\\n\\n  * **National Make Good Solutions:** Provides comprehensive, managed services for retail and commercial properties, including racking removal and electrical work"]}]}, {"id": 9, "category": "make_good_melbourne", "prompt": "I need a quote for a make good service for my Melbourne office lease end.", "has_nmgs": true, "engines": [{"name": "OpenAI ChatGPT", "brands": 9, "sources": 23, "mentioned": true, "nmgs_mentions": ["* **National Make Good Solutions** \u2013 Comprehensive make-good including repairs, plastering, painting, cleaning, and rack removal", "* **National Make Good Solutions** \u2013 Comprehensive make-good including repairs, plastering, painting, cleaning, and rack removal. [Make Good Services Melbourne | Commercial & End-of-Lease Experts](https://nationalmakegoodsolutions.com.au/make-good/)"]}, {"name": "Microsoft Copilot", "brands": 0, "sources": 0, "mentioned": false}, {"name": "xAI Grok", "brands": 10, "sources": 49, "mentioned": true, "nmgs_mentions": ["* RPC Group, NMGS, Symmetry Commercial, or A1 Precision Solutions \u2014 Other experienced options for office decommissioning", "* RPC Group, NMGS, Symmetry Commercial, or A1 Precision Solutions \u2014 Other experienced options for office decommissioning."]}, {"name": "Perplexity AI", "brands": 9, "sources": 10, "mentioned": false}, {"name": "Google AI Mode", "brands": 5, "sources": 8, "mentioned": true, "nmgs_mentions": ["au)\\n\\nRecommended Melbourne Make-Good Providers\\n\\nTo get a formal quote, you can contact these local specialists:\\n\\n  * **\\n\\n[National Make Good Solutions (NMGS)](/viewer/place?mid=/g/11h64hr28x&sa=X&ved=2ahUKEwjLsqOCo9OSAxX5UUEAHYcYKeMQqdYPegQIBRAC)\\n\\n:** Offers end-to-end relocation and restoration services, including painting, plumbing, and electrical work", "Use their [Quote Request Page](https://nmgs", "[Source 1](https://nmgs"]}, {"name": "Google Gemini", "brands": 4, "sources": 0, "mentioned": true, "nmgs_mentions": ["* **National Make Good Solutions (NMGS):** Best for large-scale corporate or industrial office spaces requiring structural remediation", "* **National Make Good Solutions (NMGS):** Best for large-scale corporate or industrial office spaces requiring structural remediation."]}, {"name": "Google AI Overviews", "brands": 7, "sources": 14, "mentioned": false}, {"name": "Meta AI", "brands": 4, "sources": 4, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}]}, {"id": 10, "category": "make_good_melbourne", "prompt": "What steps are involved in a typical make good process when leaving a Melbourne commercial property?", "has_nmgs": true, "engines": [{"name": "Microsoft Copilot", "brands": 0, "sources": 0, "mentioned": false}, {"name": "Google Gemini", "brands": 8, "sources": 9, "mentioned": true, "nmgs_mentions": ["[Understanding Make Good Obligations in Commercial Leases](https://nmgs", "[Step-by-Step End of Lease Make Good Checklist for Tenants](https://nmgs", "[Understanding Make Good Obligations in Commercial Leases](https://nmgs"]}, {"name": "Perplexity AI", "brands": 3, "sources": 10, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 5, "sources": 22, "mentioned": false}, {"name": "Google AI Mode", "brands": 8, "sources": 19, "mentioned": true, "nmgs_mentions": ["[Source 1](https://nmgs", "au/victorian-make-good-laws-what-commercial-tenants-need-to-know/)[Source 3](https://nmgs", "9. **Handover:** Return all keys, swipe cards, and security passes. Confirm utility disconnections (electricity, gas, water) to avoid ongoing charges. [Source 1](https://nmgs.com.au)[Source 2](https://www.vsbc.vic.gov.au)[Source 3](https://legalvision.com.au)[Source 4](https://www.makegoods.com.au)[Source 5](https://www.makegoods.com.au/victorian-make-good-laws-what-commercial-tenants-need-to-know/)[Source 6](https://www.makegoods.com.au)[Source 7](https://www.a1precision.com.au/commercial-offic"]}, {"name": "Google AI Overviews", "brands": 14, "sources": 27, "mentioned": true, "nmgs_mentions": ["[Source 1](https://nmgs", "au)[Source 2](https://nmgs", "au)[Source 4](https://nmgs"]}, {"name": "Meta AI", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Anthropic Claude", "brands": 1, "sources": 2, "mentioned": false}]}, {"id": 11, "category": "make_good_services", "prompt": "Are there any make good services that also handle racking dismantle and removal?", "has_nmgs": false, "engines": [{"name": "xAI Grok", "brands": 9, "sources": 33, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 6, "sources": 6, "mentioned": false}, {"name": "Google Gemini", "brands": 6, "sources": 5, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 14, "sources": 22, "mentioned": false}, {"name": "Google AI Mode", "brands": 9, "sources": 21, "mentioned": false}, {"name": "Perplexity AI", "brands": 0, "sources": 10, "mentioned": false}, {"name": "Google AI Overviews", "brands": 11, "sources": 21, "mentioned": false}, {"name": "Meta AI", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Anthropic Claude", "brands": 4, "sources": 4, "mentioned": false}]}, {"id": 12, "category": "make_good_services", "prompt": "What kind of project management is included when you hire a make good service?", "has_nmgs": false, "engines": [{"name": "xAI Grok", "brands": 29, "sources": 43, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 2, "sources": 22, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 0, "sources": 0, "mentioned": false}, {"name": "Google Gemini", "brands": 0, "sources": 0, "mentioned": false}, {"name": "Google AI Mode", "brands": 4, "sources": 12, "mentioned": false}, {"name": "Perplexity AI", "brands": 0, "sources": 10, "mentioned": false}, {"name": "Google AI Overviews", "brands": 10, "sources": 21, "mentioned": false}, {"name": "Anthropic Claude", "brands": 1, "sources": 1, "mentioned": false}, {"name": "Meta AI", "brands": 3, "sources": 3, "mentioned": false}]}, {"id": 13, "category": "make_good_services", "prompt": "Show me local businesses that perform make good services including painting and plastering.", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 9, "sources": 50, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 8, "sources": 5, "mentioned": false}, {"name": "Perplexity AI", "brands": 4, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 7, "sources": 1, "mentioned": false}, {"name": "Google AI Mode", "brands": 6, "sources": 10, "mentioned": true, "nmgs_mentions": ["au)\\n\\n**Melbourne**\\n\\n[![Image of NMGS](https://lh3", "[Source 1](https://nmgs", "[![Image of NMGS](https://lh3.googleusercontent.com/p/AF1QipN3d4K9EjS3zMEHHFMkeC7uAnH5sgq2Kot2y59s=s192-w192-h144-n-k-no)NMGS5.0(1)Moving and storage serviceOpen359 Frankston - Dandenong Rd](/viewer/place?mid=%2Fg%2F11h64hr28x)"]}, {"name": "OpenAI ChatGPT", "brands": 22, "sources": 21, "mentioned": false}, {"name": "Google AI Overviews", "brands": 14, "sources": 27, "mentioned": false}, {"name": "Meta AI", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}]}, {"id": 14, "category": "make_good_services", "prompt": "Where can I find companies that offer comprehensive make good services for commercial properties?", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 14, "sources": 57, "mentioned": true, "nmgs_mentions": ["* **National Make Good Solutions (NMGS)** (nmgs", "* **National Make Good Solutions (NMGS)** (nmgs.com.au) \u2014 Specializes in make good, end-of-lease strip-outs, and defits for offices, warehouses, and industrial properties across Melbourne, Sydney, Brisbane, and Australia-wide. They handle scope negotiation, trade coordination, and landlord sign-off as a registered commercial builder."]}, {"name": "Microsoft Copilot", "brands": 7, "sources": 6, "mentioned": false}, {"name": "Google Gemini", "brands": 11, "sources": 3, "mentioned": false}, {"name": "Google AI Mode", "brands": 14, "sources": 29, "mentioned": true, "nmgs_mentions": ["* **National Make Good Solutions (NMGS):** Offers end-to-end relocation and restoration for commercial enterprises, specializing in making the transition simple and stress-free", "[Source 1](https://nmgs", "au)[Source 3](https://nmgs"]}, {"name": "OpenAI ChatGPT", "brands": 15, "sources": 25, "mentioned": false}, {"name": "Perplexity AI", "brands": 0, "sources": 10, "mentioned": false}, {"name": "Google AI Overviews", "brands": 10, "sources": 19, "mentioned": true, "nmgs_mentions": ["* **[National Make Good Solutions](https://nmgs", "com)[Source 7](https://nmgs", "com\\n\\n![](data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\\n\\n  * [](https://nmgs"]}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Meta AI", "brands": 7, "sources": 7, "mentioned": false}]}, {"id": 15, "category": "make_good_services", "prompt": "What should I look for when choosing a reliable make good service provider?", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 15, "sources": 21, "mentioned": false}, {"name": "Google Gemini", "brands": 3, "sources": 3, "mentioned": true, "nmgs_mentions": ["[Step-by-Step End of Lease Make Good Checklist for Tenants](https://nmgs", "[Step-by-Step End of Lease Make Good Checklist for Tenants](https://nmgs.com.au/blog/end-of-lease-make-good-checklist-for-tenants/#:~:text=Lease%20clause%20and%20any%20schedules,for%20electrical%2C%20mechanical%20and%20fire)"]}, {"name": "Microsoft Copilot", "brands": 0, "sources": 0, "mentioned": false}, {"name": "Google AI Mode", "brands": 11, "sources": 12, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 9, "sources": 23, "mentioned": false}, {"name": "Perplexity AI", "brands": 0, "sources": 10, "mentioned": false}, {"name": "Google AI Overviews", "brands": 22, "sources": 44, "mentioned": false}, {"name": "Meta AI", "brands": 3, "sources": 3, "mentioned": false}, {"name": "Anthropic Claude", "brands": 0, "sources": 0, "mentioned": false}]}, {"id": 16, "category": "make_good_services", "prompt": "What are the typical steps involved in a make good service when ending a lease?", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 1, "sources": 47, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 4, "sources": 4, "mentioned": true, "nmgs_mentions": ["[Step-by-Step End of Lease Make Good Checklist for Tenants](https://nmgs", "[Step-by-Step End of Lease Make Good Checklist for Tenants](https://nmgs", "[Step-by-Step End of Lease Make Good Checklist for Tenants](https://nmgs"]}, {"name": "Google Gemini", "brands": 2, "sources": 2, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 11, "sources": 22, "mentioned": true, "nmgs_mentions": ["[Step-by-Step End of Lease Make Good Checklist for Tenants](https://nmgs", "[Step-by-Step End of Lease Make Good Checklist for Tenants](https://nmgs", "* Walk through the property and make a list of items to remove, repair, or reinstate. Include fixtures, signage, cabinetry, partitions, and any structural changes made during tenancy. [Step-by-Step End of Lease Make Good Checklist for Tenants](https://nmgs.com.au/blog/end-of-lease-make-good-checklist-for-tenants/)"]}, {"name": "Google AI Mode", "brands": 12, "sources": 27, "mentioned": true, "nmgs_mentions": ["au)[Source 6](https://nmgs", "au)[Source 4](https://nmgs", "[Source 1](https://nmgs"]}, {"name": "Perplexity AI", "brands": 0, "sources": 10, "mentioned": false}, {"name": "Google AI Overviews", "brands": 8, "sources": 17, "mentioned": true, "nmgs_mentions": ["au)[Source 2](https://nmgs", "[Source 1](https://nmgs", "au)[Source 3](https://nmgs"]}, {"name": "Anthropic Claude", "brands": 7, "sources": 7, "mentioned": false}, {"name": "Meta AI", "brands": 5, "sources": 3, "mentioned": false}]}, {"id": 17, "category": "make_good_services", "prompt": "Which make good services focus on sustainable practices like recycling during property restoration?", "has_nmgs": false, "engines": [{"name": "xAI Grok", "brands": 12, "sources": 39, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Google AI Mode", "brands": 7, "sources": 12, "mentioned": false}, {"name": "Perplexity AI", "brands": 7, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 6, "sources": 0, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 6, "sources": 18, "mentioned": false}, {"name": "Google AI Overviews", "brands": 13, "sources": 25, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Meta AI", "brands": 7, "sources": 0, "mentioned": false}]}, {"id": 18, "category": "make_good_services", "prompt": "Can you list providers that specialize in industrial property make good services in major Australian cities?", "has_nmgs": true, "engines": [{"name": "Microsoft Copilot", "brands": 5, "sources": 5, "mentioned": true, "nmgs_mentions": ["[Commercial Relocation, Fitout & Refurb Services Australia](https://nmgs", "* **Notes:** Handles full end\u2011of\u2011lease reinstatement and workspace transitions. [Commercial Relocation, Fitout & Refurb Services Australia](https://nmgs.com.au/)"]}, {"name": "Perplexity AI", "brands": 4, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 8, "sources": 0, "mentioned": true, "nmgs_mentions": ["* **National Make Good Solutions (NMGS):** Highly active in **Melbourne** and **Sydney**", "* **National Make Good Solutions (NMGS):** Highly active in **Melbourne** and **Sydney**. They offer a \\\"one-stop-shop\\\" model, managing plumbing, painting, and the removal of complex industrial mezzanine structures."]}, {"name": "Google AI Mode", "brands": 16, "sources": 20, "mentioned": true, "nmgs_mentions": ["* **Melbourne**\\n    * **[National Make Good Solutions (NMGS)](https://nmgs", "au)[Source 4](https://nmgs", "* **[National Make Good Solutions (NMGS)](https://nmgs.com.au/make-good/)** : Provides specialized relocation and transition services for Melbourne-based commercial and industrial enterprises."]}, {"name": "OpenAI ChatGPT", "brands": 7, "sources": 18, "mentioned": false}, {"name": "Meta AI", "brands": 8, "sources": 8, "mentioned": false}, {"name": "Google AI Overviews", "brands": 7, "sources": 13, "mentioned": true, "nmgs_mentions": ["Top industrial property \\\"make good\\\" and reinstatement service providers in major Australian cities include specialized firms like \\n\\n[National Make Good Solutions](https://nmgs", "[Source 1](https://nmgs", "au)\\n\\n**Key Industrial \\\"Make Good\\\" and Property Service Providers:**\\n\\n  * **National Make Good Solutions (NMGS):** Focuses on commercial end-of-lease services in Melbourne, providing end-to-end solutions for office and industrial spaces"]}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}]}, {"id": 19, "category": "make_good_services", "prompt": "How do I compare different make good services based on their commitment to quality workmanship?", "has_nmgs": false, "engines": [{"name": "Google Gemini", "brands": 5, "sources": 3, "mentioned": false}, {"name": "Google AI Mode", "brands": 17, "sources": 34, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 7, "sources": 24, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 0, "sources": 0, "mentioned": false}, {"name": "Perplexity AI", "brands": 0, "sources": 10, "mentioned": false}, {"name": "Google AI Overviews", "brands": 29, "sources": 28, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Meta AI", "brands": 14, "sources": 11, "mentioned": false}]}, {"id": 20, "category": "make_good_services", "prompt": "I need to hire someone to handle the electrical and plumbing aspects of a make good service, who should I contact?", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 5, "sources": 63, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 4, "sources": 4, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 13, "sources": 23, "mentioned": false}, {"name": "Google AI Mode", "brands": 18, "sources": 28, "mentioned": true, "nmgs_mentions": ["au/local-electricians/)[Source 2](https://nmgs", "* **\\\"Make Safe\\\" Documentation** : Proof that services have been safely terminated or reinstated to the base building\\'s original state. [Source 1](https://twinelectrics.com.au/local-electricians/)[Source 2](https://nmgs.com.au)[Source 3](https://www.wa.gov.au)[Source 4](https://www.qbcc.qld.gov.au)"]}, {"name": "Perplexity AI", "brands": 1, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 4, "sources": 0, "mentioned": false}, {"name": "Meta AI", "brands": 5, "sources": 0, "mentioned": false}, {"name": "Anthropic Claude", "brands": 6, "sources": 6, "mentioned": false}, {"name": "Google AI Overviews", "brands": 9, "sources": 11, "mentioned": false}]}, {"id": 21, "category": "office_refurbishment_melbourne", "prompt": "I need a quote for a complete office refurbishment in Melbourne, who should I contact?", "has_nmgs": false, "engines": [{"name": "xAI Grok", "brands": 10, "sources": 37, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 20, "sources": 21, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 6, "sources": 6, "mentioned": false}, {"name": "Perplexity AI", "brands": 4, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 6, "sources": 1, "mentioned": false}, {"name": "Google AI Mode", "brands": 16, "sources": 19, "mentioned": false}, {"name": "Google AI Overviews", "brands": 7, "sources": 16, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Meta AI", "brands": 5, "sources": 5, "mentioned": false}]}, {"id": 22, "category": "office_refurbishment_melbourne", "prompt": "Find me service providers for small-scale office refurbishment updates in Melbourne.", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 11, "sources": 41, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 11, "sources": 11, "mentioned": true, "nmgs_mentions": ["au/office-renovation/)\\n\\n### **National Make Good Solutions (NMGS)**\\n\\nHandles **minor alterations through to larger upgrades**, including make\u2011good works when vacating or refreshing", "[Commercial Office Renovations & Refurbishment Australia | NMGS](https://nmgs", "au/)\\n\\n## \ud83e\udded Quick Comparison Table\\n\\nProvider| Best For| Strengths| Notes  \\n---|---|---|---  \\nMelbourne Maintenance & Repairs| Small fixes, touch\u2011ups| 24/7 availability| Good for quick jobs  \\nApplied Interiors| Light refurbishments| High ratings, office\u2011focused| More design\u2011oriented  \\nSpace Plan Vic| Office layout updates| Strong small\u2011project capability| Good for reconfigurations  \\nMaintenance World| General maintenance| Very high reviews| Reliable for ongoing updates  \\nSolution4 Experts| Cosmeti"]}, {"name": "OpenAI ChatGPT", "brands": 13, "sources": 17, "mentioned": false}, {"name": "Perplexity AI", "brands": 7, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Google AI Mode", "brands": 12, "sources": 22, "mentioned": false}, {"name": "Google AI Overviews", "brands": 10, "sources": 10, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Meta AI", "brands": 5, "sources": 5, "mentioned": false}]}, {"id": 23, "category": "office_refurbishment_melbourne", "prompt": "List reputable companies that handle office refurbishment projects in Melbourne.", "has_nmgs": false, "engines": [{"name": "xAI Grok", "brands": 12, "sources": 35, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Google Gemini", "brands": 10, "sources": 0, "mentioned": false}, {"name": "Perplexity AI", "brands": 7, "sources": 15, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 20, "sources": 21, "mentioned": false}, {"name": "Google AI Mode", "brands": 11, "sources": 17, "mentioned": false}, {"name": "Google AI Overviews", "brands": 11, "sources": 15, "mentioned": false}, {"name": "Meta AI", "brands": 8, "sources": 8, "mentioned": false}, {"name": "Anthropic Claude", "brands": 18, "sources": 5, "mentioned": false}]}, {"id": 24, "category": "office_refurbishment_melbourne", "prompt": "What are the typical costs associated with office refurbishment in Melbourne?", "has_nmgs": false, "engines": [{"name": "OpenAI ChatGPT", "brands": 5, "sources": 16, "mentioned": false}, {"name": "xAI Grok", "brands": 2, "sources": 31, "mentioned": false}, {"name": "Perplexity AI", "brands": 8, "sources": 10, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Google Gemini", "brands": 3, "sources": 3, "mentioned": false}, {"name": "Google AI Mode", "brands": 9, "sources": 18, "mentioned": false}, {"name": "Google AI Overviews", "brands": 11, "sources": 21, "mentioned": false}, {"name": "Meta AI", "brands": 3, "sources": 0, "mentioned": false}, {"name": "Anthropic Claude", "brands": 1, "sources": 1, "mentioned": false}]}, {"id": 25, "category": "office_refurbishment_melbourne", "prompt": "Are there any providers offering sustainable office refurbishment options in Melbourne?", "has_nmgs": false, "engines": [{"name": "xAI Grok", "brands": 9, "sources": 40, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 4, "sources": 4, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 14, "sources": 20, "mentioned": false}, {"name": "Perplexity AI", "brands": 6, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 10, "sources": 6, "mentioned": false}, {"name": "Google AI Mode", "brands": 13, "sources": 19, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Meta AI", "brands": 6, "sources": 6, "mentioned": false}, {"name": "Google AI Overviews", "brands": 7, "sources": 17, "mentioned": false}]}, {"id": 26, "category": "office_refurbishment_melbourne", "prompt": "Show me local businesses specializing in modern office refurbishment in Melbourne.", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 9, "sources": 42, "mentioned": true, "nmgs_mentions": ["**NMGS (National Make Good Solutions)** Specializes in commercial office renovations and refurbishments, modernizing spaces to create inviting, productive environments (also operates in other cities but serves Melbourne extensively)", "Website: nmgs", "8. **NMGS (National Make Good Solutions)** Specializes in commercial office renovations and refurbishments, modernizing spaces to create inviting, productive environments (also operates in other cities but serves Melbourne extensively). Website: nmgs.com.au"]}, {"name": "Perplexity AI", "brands": 6, "sources": 10, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 5, "sources": 11, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 20, "sources": 18, "mentioned": false}, {"name": "Google Gemini", "brands": 8, "sources": 9, "mentioned": false}, {"name": "Google AI Mode", "brands": 31, "sources": 56, "mentioned": false}, {"name": "Meta AI", "brands": 7, "sources": 7, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Google AI Overviews", "brands": 0, "sources": 0, "mentioned": false}]}, {"id": 27, "category": "office_refurbishment_melbourne", "prompt": "Compare different office refurbishment companies operating in the Melbourne area.", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 11, "sources": 42, "mentioned": true, "nmgs_mentions": ["* **NMGS (National Make Good Solutions)** \u2014 Focuses on commercial office renovations and refurbishments (including make-goods for lease ends), with services across Melbourne (and nationally)", "* **NMGS (National Make Good Solutions)** \u2014 Focuses on commercial office renovations and refurbishments (including make-goods for lease ends), with services across Melbourne (and nationally). They offer end-to-end management for alterations to major upgrades."]}, {"name": "Microsoft Copilot", "brands": 9, "sources": 12, "mentioned": false}, {"name": "Perplexity AI", "brands": 8, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 9, "sources": 4, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 20, "sources": 24, "mentioned": false}, {"name": "Google AI Mode", "brands": 14, "sources": 21, "mentioned": false}, {"name": "Google AI Overviews", "brands": 8, "sources": 18, "mentioned": false}, {"name": "Anthropic Claude", "brands": 6, "sources": 6, "mentioned": false}, {"name": "Meta AI", "brands": 8, "sources": 8, "mentioned": false}]}, {"id": 28, "category": "office_refurbishment_melbourne", "prompt": "Can you recommend contractors for office refurbishment in Melbourne that minimize business disruption?", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 8, "sources": 60, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 8, "sources": 9, "mentioned": true, "nmgs_mentions": ["au/services/commercial-refurbishment/)  \\n**National Make Good Solutions (NMGS)**| Commercial refurbishments nationwide| Works \u201cquickly and with minimum disruption\u201d in sensitive environments| [Commercial Office Renovations & Refurbishment Australia | NMGS](https://nmgs", "**National Make Good Solutions (NMGS)**| Commercial refurbishments nationwide| Works \u201cquickly and with minimum disruption\u201d in sensitive environments| [Commercial Office Renovations & Refurbishment Australia | NMGS](https://nmgs.com.au/office-renovations-and-refurbishment/)"]}, {"name": "Google Gemini", "brands": 4, "sources": 0, "mentioned": false}, {"name": "Perplexity AI", "brands": 5, "sources": 10, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 19, "sources": 24, "mentioned": false}, {"name": "Google AI Mode", "brands": 6, "sources": 12, "mentioned": false}, {"name": "Google AI Overviews", "brands": 11, "sources": 22, "mentioned": false}, {"name": "Meta AI", "brands": 7, "sources": 7, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}]}, {"id": 29, "category": "office_refurbishment_melbourne", "prompt": "Where can I find the best office refurbishment services in Melbourne?", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 12, "sources": 48, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 8, "sources": 8, "mentioned": false}, {"name": "Perplexity AI", "brands": 6, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 12, "sources": 4, "mentioned": true, "nmgs_mentions": ["[Commercial Fit-Out Vs Office Refurbishment: Which to Choose?](https://nmgs", "[Commercial Fit-Out Vs Office Refurbishment: Which to Choose?](https://nmgs.com.au/blog/commercial-fit-out-or-office-refurbishment/#:~:text=for%20your%20business%3A-,Aspect,Disruption)"]}, {"name": "Google AI Overviews", "brands": 9, "sources": 18, "mentioned": false}, {"name": "Google AI Mode", "brands": 12, "sources": 10, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 16, "sources": 20, "mentioned": false}, {"name": "Meta AI", "brands": 8, "sources": 5, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}]}, {"id": 30, "category": "office_refurbishment_melbourne", "prompt": "I want to redesign my workspace; show me office refurbishment experts in Melbourne.", "has_nmgs": true, "engines": [{"name": "xAI Grok", "brands": 10, "sources": 46, "mentioned": true, "nmgs_mentions": ["**NMGS (National Make Good Solutions)** Specialists in commercial office renovations and refurbishments across Melbourne (and nationally)", "Website: nmgs", "5. **NMGS (National Make Good Solutions)** Specialists in commercial office renovations and refurbishments across Melbourne (and nationally). They cover everything from minor updates to major rejuvenations. Website: nmgs.com.au"]}, {"name": "Microsoft Copilot", "brands": 8, "sources": 8, "mentioned": false}, {"name": "Perplexity AI", "brands": 8, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 8, "sources": 7, "mentioned": false}, {"name": "Google AI Mode", "brands": 17, "sources": 22, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 20, "sources": 21, "mentioned": false}, {"name": "Google AI Overviews", "brands": 10, "sources": 18, "mentioned": false}, {"name": "Meta AI", "brands": 7, "sources": 7, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}]}];
+        
+        let currentPage = 1;
+        let currentFilter = 'all';
+        const itemsPerPage = 5;
+        
+        function showMentions(promptId, engineName, mentions) {
+            event.stopPropagation();
+            
+            const modal = document.getElementById('mentionModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            
+            title.textContent = engineName + ' - NMGS Mentions';
+            
+            if (!mentions || mentions.length === 0) {
+                body.innerHTML = '<div class="no-mentions">No specific NMGS mentions extracted from this response.</div>';
+            } else {
+                const mentionsHtml = mentions.map((m, idx) => {
+                    const highlighted = m.replace(/nmgs/gi, match => '<mark>' + match + '</mark>');
+                    return '<div class="mention-number">Mention ' + (idx + 1) + ' of ' + mentions.length + '</div><div class="mention-item">' + highlighted + '</div>';
+                }).join('');
+                
+                body.innerHTML = mentionsHtml;
+            }
+            
+            modal.style.display = 'block';
+        }
+        
+        function closeModal() {
+            document.getElementById('mentionModal').style.display = 'none';
+        }
+        
+        window.onclick = function(event) {
+            const modal = document.getElementById('mentionModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        function toggleEngines(id, event) {
+            event.stopPropagation();
+            const item = document.querySelector('[data-prompt-id="' + id + '"]');
+            const grid = document.getElementById('engines-' + id);
+            
+            if (item.classList.contains('expanded')) {
+                item.classList.remove('expanded');
+                grid.classList.remove('show');
+            } else {
+                item.classList.add('expanded');
+                grid.classList.add('show');
+            }
+        }
+        
+        function getTotalStats(engines) {
+            let totalBrands = 0;
+            let totalSources = 0;
+            
+            engines.forEach(e => {
+                totalBrands += e.brands;
+                totalSources += e.sources;
+            });
+            
+            return { totalBrands: totalBrands, totalSources: totalSources };
+        }
+        
+        function renderPrompts(filter, page) {
+            filter = filter || 'all';
+            page = page || 1;
+            
+            currentFilter = filter;
+            currentPage = page;
+            
+            const container = document.getElementById('promptsList');
+            container.innerHTML = '';
+            
+            let filtered = promptsData;
+            if (filter === 'make_good_melbourne') filtered = promptsData.filter(p => p.category === 'make_good_melbourne');
+            if (filter === 'make_good_services') filtered = promptsData.filter(p => p.category === 'make_good_services');
+            if (filter === 'office_refurbishment_melbourne') filtered = promptsData.filter(p => p.category === 'office_refurbishment_melbourne');
+            if (filter === 'mentioned') filtered = promptsData.filter(p => p.has_nmgs);
+            
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            const startIdx = (page - 1) * itemsPerPage;
+            const endIdx = startIdx + itemsPerPage;
+            const pagePrompts = filtered.slice(startIdx, endIdx);
+            
+            pagePrompts.forEach(prompt => {
+                const div = document.createElement('div');
+                div.className = 'prompt-item' + (prompt.has_nmgs ? ' has-nmgs' : '');
+                div.setAttribute('data-prompt-id', prompt.id);
+                div.onclick = function(e) { toggleEngines(prompt.id, e); };
+                
+                const stats = getTotalStats(prompt.engines);
+                
+                const enginesHtml = prompt.engines.map(e => {
+                    const mentions = e.nmgs_mentions || [];
+                    const mentionsJson = JSON.stringify(mentions).replace(/"/g, '&quot;');
+                    const clickHandler = e.mentioned ? ' onclick="showMentions(' + prompt.id + ', \'' + e.name.replace(/'/g, "\\'") + '\', ' + mentionsJson + ')"' : '';
+                    const cursorStyle = e.mentioned ? 'cursor: pointer;' : '';
+                    
+                    return '<div class="engine-item' + (e.mentioned ? ' has-nmgs' : '') + '"' + clickHandler + ' style="' + cursorStyle + '">' +
+                        '<div class="engine-name">' + e.name + '</div>' +
+                        '<div class="engine-stats">' +
+                            '<div class="stat-item">' +
+                                '<span class="stat-label">Brands:</span>' +
+                                '<span class="stat-value">' + e.brands + '</span>' +
+                            '</div>' +
+                            '<div class="stat-item">' +
+                                '<span class="stat-label">Sources:</span>' +
+                                '<span class="stat-value">' + e.sources + '</span>' +
+                            '</div>' +
+                            (e.mentioned ? '<div class="nmgs-check">✓ NMGS (Click to view)</div>' : '') +
+                        '</div>' +
+                    '</div>';
+                }).join('');
+                
+                div.innerHTML = 
+                    '<div class="prompt-header">' +
+                        '<div class="prompt-left">' +
+                            '<div class="prompt-number">#' + prompt.id + '</div>' +
+                            '<div class="prompt-text">' + prompt.prompt + '</div>' +
+                        '</div>' +
+                        '<div class="prompt-right">' +
+                            (prompt.has_nmgs ? '<span class="status-badge mentioned">✓ Mentioned</span>' : '') +
+                            '<div class="prompt-stats">' +
+                                '<div class="stat-group">' +
+                                    '<span class="stat-number">' + stats.totalBrands + '</span>' +
+                                    '<span class="stat-label">Brands</span>' +
+                                '</div>' +
+                                '<div class="stat-group">' +
+                                    '<span class="stat-number sources">' + stats.totalSources + '</span>' +
+                                    '<span class="stat-label">Sources</span>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="expand-arrow">▼</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="engines-grid" id="engines-' + prompt.id + '">' +
+                        enginesHtml +
+                    '</div>';
+                
+                container.appendChild(div);
+            });
+            
+            updatePagination(totalPages, filtered.length);
+        }
+        
+        function updatePagination(totalPages, totalItems) {
+            const paginationDiv = document.querySelector('.pagination');
+            if (totalPages <= 1) {
+                paginationDiv.style.display = 'none';
+            } else {
+                paginationDiv.style.display = 'flex';
+                document.getElementById('pageInfo').textContent = 'Page ' + currentPage + ' of ' + totalPages;
+                document.getElementById('prevBtn').disabled = currentPage === 1;
+                document.getElementById('nextBtn').disabled = currentPage === totalPages;
+            }
+        }
+        
+        function changePage(direction) {
+            if (direction === 'prev' && currentPage > 1) {
+                renderPrompts(currentFilter, currentPage - 1);
+                document.getElementById('promptAnalysis').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if (direction === 'next') {
+                renderPrompts(currentFilter, currentPage + 1);
+                document.getElementById('promptAnalysis').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        function filterPrompts(category) {
+            document.querySelectorAll('.tab-btn').forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            renderPrompts(category, 1);
+        }
+        
+        // Initialize
+        renderPrompts('all', 1);
+    </script>
+</body>
+</html>
+

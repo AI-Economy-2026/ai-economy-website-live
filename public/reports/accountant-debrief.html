@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Express Insurance — Accountant Targeting Optimisation Debrief</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#00843D;--green-d:#006630;--green-l:#E6F4EC;--green-m:#B8DEC9;
+  --ink:#0C1A12;--ink2:#1E3A28;--mid:#4A6356;--muted:#7A9585;
+  --bg:#F5F7F5;--white:#FFFFFF;--surface:#FAFBFA;
+  --border:#DDE8E1;--border2:#C5D9CC;
+  --red:#C0392B;--red-l:#FDECEA;
+  --amber:#9A6B00;--amber-l:#FEF9E7;
+  --blue:#1A56A0;--blue-l:#EBF2FB;
+  --shadow:0 2px 8px rgba(0,60,30,0.07),0 1px 2px rgba(0,60,30,0.05);
+  --shadow-md:0 6px 20px rgba(0,60,30,0.09),0 2px 6px rgba(0,60,30,0.05);
+  --r:10px;--r-sm:6px;
+}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.6;min-height:100vh}
+
+/* HEADER */
+.hdr{background:var(--ink2);padding:0 48px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200}
+.hdr-brand{font-family:'Instrument Serif',serif;font-size:18px;color:var(--green-m);letter-spacing:.01em}
+.hdr-r{display:flex;align-items:center;gap:16px}
+.hdr-badge{font-size:11px;font-weight:600;background:rgba(0,132,61,0.2);color:var(--green-m);padding:3px 10px;border-radius:20px;border:1px solid rgba(0,132,61,0.3);text-transform:uppercase;letter-spacing:.06em}
+.hdr-date{font-family:'DM Mono',monospace;font-size:11px;color:rgba(255,255,255,0.35)}
+
+/* NAV */
+.nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 48px;display:flex;overflow-x:auto;scrollbar-width:none;box-shadow:var(--shadow)}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex-shrink:0;padding:13px 18px;font-size:12px;font-weight:600;color:var(--muted);text-decoration:none;border-bottom:2px solid transparent;letter-spacing:.05em;text-transform:uppercase;transition:all .15s;white-space:nowrap}
+.nav a:hover{color:var(--ink)}
+.nav a.active{color:var(--green);border-bottom-color:var(--green)}
+
+/* SUMMARY BAR */
+.summary-bar{background:var(--green);padding:14px 48px;display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.sb-item{text-align:center;padding:0 16px;border-right:1px solid rgba(255,255,255,0.2)}
+.sb-item:last-child{border-right:none}
+.sb-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,0.65);margin-bottom:2px}
+.sb-val{font-family:'DM Mono',monospace;font-size:17px;font-weight:500;color:#fff}
+.sb-chg{font-size:11px;color:rgba(255,255,255,0.7);margin-top:1px}
+
+/* LAYOUT */
+.page{padding:36px 48px 80px;max-width:1280px;margin:0 auto}
+.sec{margin-bottom:52px}
+.sec-hdr{margin-bottom:20px}
+.sec-title{font-family:'Instrument Serif',serif;font-size:22px;color:var(--ink);margin-bottom:4px}
+.sec-sub{font-size:13px;color:var(--muted)}
+.lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:10px}
+
+/* CARDS */
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)}
+.card-body{padding:24px}
+
+/* FINDING BOX */
+.finding{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);margin-bottom:12px}
+.finding-head{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;user-select:none;transition:background .12s}
+.finding-head:hover{background:var(--surface)}
+.finding-num{width:26px;height:26px;border-radius:50%;background:var(--green);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.finding-title{font-size:14px;font-weight:600;color:var(--ink);flex:1}
+.finding-badge{font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px}
+.finding-chev{font-size:13px;color:var(--muted);transition:transform .18s}
+.finding-chev.open{transform:rotate(180deg)}
+.finding-body{padding:0 18px 16px;display:none;border-top:1px solid var(--border)}
+.finding-body.open{display:block}
+.finding-body p{font-size:13px;color:var(--mid);line-height:1.7;margin-top:12px}
+
+/* INSIGHT PILLS */
+.ip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:4px 10px;border-radius:20px;margin:4px 3px}
+.ip-red{background:var(--red-l);color:var(--red)}
+.ip-green{background:var(--green-l);color:var(--green-d)}
+.ip-amber{background:var(--amber-l);color:var(--amber)}
+.ip-blue{background:var(--blue-l);color:var(--blue)}
+
+/* GEO MAP VISUAL */
+.geo-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.state-bars{display:flex;flex-direction:column;gap:10px}
+.state-row{display:flex;align-items:center;gap:12px}
+.state-name{font-size:12px;font-weight:600;color:var(--ink);width:80px;flex-shrink:0}
+.state-bar-wrap{flex:1;position:relative}
+.state-bar-bg{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.state-bar-fill{height:100%;border-radius:4px;background:var(--green);transition:width .6s ease}
+.state-conv{font-family:'DM Mono',monospace;font-size:12px;color:var(--ink);width:36px;text-align:right;flex-shrink:0}
+.state-chg{font-size:11px;font-weight:600;width:54px;text-align:right;flex-shrink:0}
+.chg-up{color:var(--green)}
+.chg-dn{color:var(--red)}
+.chg-new{color:var(--blue)}
+
+/* CITY TABLE */
+.tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--border);box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;background:var(--white)}
+th{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:11px 15px;text-align:left;border-bottom:1px solid var(--border);background:var(--surface)}
+td{padding:12px 15px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#F6FAF7}
+.mono{font-family:'DM Mono',monospace}
+
+/* LANDING PAGE STATS */
+.lp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.lp-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}
+.lp-channel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+.lp-metric{font-family:'DM Mono',monospace;font-size:20px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.lp-label{font-size:11px;color:var(--muted)}
+.lp-pill{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;margin-top:6px;display:inline-block}
+
+/* ASSET CREATIVE */
+.creative-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.creative-item{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:12px 14px;margin-bottom:6px}
+.creative-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+.creative-text{font-size:13px;color:var(--ink);line-height:1.5;font-weight:500}
+.creative-flag{font-size:11px;font-weight:600;padding:2px 7px;border-radius:4px;margin-top:6px;display:inline-block}
+.flag-warn{background:var(--amber-l);color:var(--amber)}
+.flag-ok{background:var(--green-l);color:var(--green-d)}
+.flag-bad{background:var(--red-l);color:var(--red)}
+
+/* NOTE BOXES */
+.note{background:var(--blue-l);border:1px solid #C3D9F5;border-radius:var(--r-sm);padding:13px 16px;font-size:13px;color:var(--blue);line-height:1.7;margin-top:14px}
+.note-warn{background:var(--amber-l);border:1px solid #F0D060;border-radius:var(--r-sm);padding:13px 16px;font-size:13px;color:var(--amber);line-height:1.6;margin-top:10px}
+.note-green{background:var(--green-l);border:1px solid var(--green-m);border-radius:var(--r-sm);padding:13px 16px;font-size:13px;color:var(--green-d);line-height:1.7;margin-top:10px}
+.note-red{background:var(--red-l);border:1px solid #F5C6C2;border-radius:var(--r-sm);padding:13px 16px;font-size:13px;color:var(--red);line-height:1.6;margin-top:10px}
+
+/* SEARCH TERMS */
+.st-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);font-size:13px}
+.st-item:last-child{border-bottom:none}
+.st-term{flex:1;color:var(--ink);font-style:italic}
+.st-match{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 7px;border-radius:4px;flex-shrink:0}
+.match-broad{background:#FEF3C7;color:#92400E}
+.match-ai{background:#E0E7FF;color:#3730A3}
+.st-badge{font-size:11px;font-weight:600;color:var(--red);flex-shrink:0}
+.st-badge-ok{font-size:11px;font-weight:600;color:var(--green);flex-shrink:0}
+
+/* RECS */
+.rec-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:18px;display:flex;gap:14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.rec-n{width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.rec-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.rec-desc{font-size:12px;color:var(--mid);line-height:1.6}
+.rec-priority{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}
+
+/* 2-col layout */
+.col2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.col3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+/* FOOTER */
+.ftr{background:var(--white);border-top:1px solid var(--border);padding:20px 48px;display:flex;justify-content:space-between;align-items:center;margin-top:40px}
+.ftr-l{font-size:12px;color:var(--muted)}
+.ftr-r{font-size:12px;color:var(--green);font-weight:600}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.sec{animation:fadeUp .35s ease both}
+.sec:nth-child(2){animation-delay:.04s}
+.sec:nth-child(3){animation-delay:.08s}
+.sec:nth-child(4){animation-delay:.12s}
+
+@media(max-width:900px){
+  .hdr,.nav,.page,.summary-bar,.ftr{padding-left:20px;padding-right:20px}
+  .summary-bar{grid-template-columns:repeat(3,1fr)}
+  .geo-grid,.col2,.creative-grid{grid-template-columns:1fr}
+  .lp-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <span class="hdr-brand">Express Insurance</span>
+  <div class="hdr-r">
+    <span class="hdr-badge">Accountant Targeting Optimisation</span>
+    <span class="hdr-date">May 2026 · Balmer Agency</span>
+  </div>
+</header>
+
+<nav class="nav">
+  <a href="#findings" class="active">Key Findings</a>
+  <a href="#geo">Geography</a>
+  <a href="#landing">Landing Page</a>
+  <a href="#asset">Asset Group</a>
+</nav>
+
+<div class="summary-bar">
+  <div class="sb-item"><div class="sb-label">Accounting Asset ROAS</div><div class="sb-val">0.87</div><div class="sb-chg">Accounting asset group</div></div>
+  <div class="sb-item"><div class="sb-label">Growing NSW Location</div><div class="sb-val">Inner West</div><div class="sb-chg">3 conv · +200%</div></div>
+  <div class="sb-item"><div class="sb-label">Landing Page Conv. Rate</div><div class="sb-val">23.7%</div><div class="sb-chg">Paid Search channel</div></div>
+  <div class="sb-item"><div class="sb-label">Cross-network Bounce</div><div class="sb-val">85.6%</div><div class="sb-chg">Cross-network / likely PMax</div></div>
+  <div class="sb-item"><div class="sb-label">Top Converting Location</div><div class="sb-val">Brisbane</div><div class="sb-chg">6 conv · +8%</div></div>
+</div>
+
+<div class="page">
+
+<!-- ── FINDINGS ── -->
+<section class="sec" id="findings">
+  <div class="sec-hdr">
+    <div class="sec-title">Key Findings — Accountant Targeting Optimisation Opportunities</div>
+    <div class="sec-sub">Data: Feb – May 2026 (asset group) · Mar – Apr 2026 (landing page) · 1 Apr – 11 May 2026 (geography)</div>
+  </div>
+
+  <div class="finding">
+    <div class="finding-head" onclick="tog(this)">
+      <div class="finding-num">1</div>
+      <div class="finding-title">Cross-network traffic is driving volume, but needs tighter qualification</div>
+      <span class="finding-badge ip-amber">Optimisation Area</span>
+      <div class="finding-chev open">▾</div>
+    </div>
+    <div class="finding-body open">
+      <p>The Accounting asset group has generated meaningful reach and traffic, but the conversion quality is not yet as strong as Search. GA4 shows Cross-network traffic to the accountant landing page delivering high session volume, while Paid Search delivers stronger conversion engagement.</p>
+      <p>Cross-network in GA4 typically includes Performance Max and other Google cross-network campaign activity. To keep the debrief precise, this should be described as <strong>Cross-network / likely PMax traffic</strong> unless confirmed directly by Session campaign or Google Ads campaign name in GA4.</p>
+      <div style="margin-top:12px">
+        <span class="ip ip-amber">Review audience signals</span>
+        <span class="ip ip-amber">Confirm campaign source in GA4</span>
+        <span class="ip ip-blue">Optimise reach quality</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="finding-head" onclick="tog(this)">
+      <div class="finding-num">2</div>
+      <div class="finding-title">Landing page performs strongly for high-intent Paid Search traffic</div>
+      <span class="finding-badge ip-green">Positive Finding</span>
+      <div class="finding-chev">▾</div>
+    </div>
+    <div class="finding-body">
+      <p>The accountants landing page (<code>/professional-indemnity-insurance/accountants-insurance</code>) shows strong engagement from Paid Search visitors, with a 23.7% session key event rate and a lower bounce rate than Cross-network traffic.</p>
+      <p>This indicates the page is capable of converting when users arrive with high intent. The opportunity is to bring more qualified traffic into the page and use the Search learnings to guide cross-network optimisation.</p>
+      <div style="margin-top:12px">
+        <span class="ip ip-green">Paid Search: 23.7% key event rate</span>
+        <span class="ip ip-green">Paid Search: 32.2% bounce rate</span>
+        <span class="ip ip-blue">Use Search as benchmark</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <div class="finding-head" onclick="tog(this)">
+      <div class="finding-num">3</div>
+      <div class="finding-title">Brisbane and selected NSW areas are key locations to monitor</div>
+      <span class="finding-badge ip-blue">Geo Insight</span>
+      <div class="finding-chev">▾</div>
+    </div>
+    <div class="finding-body">
+      <p>From 1 April to 11 May 2026, Brisbane City was the top converting location with 6 conversions. Sydney, Inner West Council and Rouse Hill also contributed conversions, with Inner West Council and Rouse Hill showing growth from smaller bases.</p>
+      <p>This gives a clear direction for monitoring future performance by location, while avoiding over-adjustment before campaign-level and location-level conversion data are reviewed together.</p>
+      <div style="margin-top:12px">
+        <span class="ip ip-green">Brisbane City: 6 conv</span>
+        <span class="ip ip-green">Inner West: +200%</span>
+        <span class="ip ip-blue">Monitor by campaign</span>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── GEOGRAPHY ── -->
+<section class="sec" id="geo">
+  <div class="sec-hdr">
+    <div class="sec-title">Geographic Performance</div>
+    <div class="sec-sub">All campaigns · 1 Apr – 11 May 2026 · User location</div>
+  </div>
+
+  <div class="geo-grid">
+    <div>
+      <div class="lbl">Top Converting Locations</div>
+      <div class="card card-body">
+        <div class="state-bars" id="state-bars"></div>
+        <div class="note-green" style="margin-top:16px">✅ <strong>Current opportunity:</strong> Brisbane City is the strongest converting location in the current period, while Inner West Council and Rouse Hill are showing positive growth from a smaller base.</div>
+        <div class="note-warn" style="margin-top:8px">ℹ️ <strong>Monitoring point:</strong> Sydney remains relevant, but City of Sydney conversions declined versus the previous period and should be reviewed at campaign and keyword level.</div>
+      </div>
+    </div>
+
+    <div>
+      <div class="lbl">Top Converting Locations</div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>#</th><th>City</th><th>State</th><th>Conv.</th><th>vs Prev.</th><th>Change</th></tr></thead>
+          <tbody id="city-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:20px">
+    <div class="lbl">What This Means for Location Optimisation</div>
+    <div class="col3">
+      <div class="card card-body">
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin-bottom:8px">NSW — Key Metro Clusters</div>
+        <div style="font-size:13px;color:var(--mid);line-height:1.6">Sydney, Inner West Council and Rouse Hill all generated conversions during 1 Apr – 11 May. Inner West Council and Rouse Hill are showing positive growth and should remain under review for future bid and budget adjustments.</div>
+      </div>
+      <div class="card card-body">
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin-bottom:8px">QLD — Brisbane Lead</div>
+        <div style="font-size:13px;color:var(--mid);line-height:1.6">Brisbane City recorded the highest conversion volume in the current period with 6 conversions and growth versus the previous period. It should remain a priority location for monitoring and optimisation.</div>
+      </div>
+      <div class="card card-body">
+        <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--amber);margin-bottom:8px">Next Step — Validate by Campaign</div>
+        <div style="font-size:13px;color:var(--mid);line-height:1.6">The location data is account-wide, so the next step is to cut the same report by campaign / asset group to confirm whether the strongest locations are also driving accountant-specific conversions.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── LANDING PAGE ── -->
+<section class="sec" id="landing">
+  <div class="sec-hdr">
+    <div class="sec-title">Landing Page Performance</div>
+    <div class="sec-sub">Page: /professional-indemnity-insurance/accountants-insurance · GA4 · Mar – Apr 2026</div>
+  </div>
+
+  <div class="lp-grid">
+    <div class="lp-card" style="border-top:3px solid var(--red)">
+      <div class="lp-channel">Cross-network / likely PMax</div>
+      <div class="lp-metric">1,928</div>
+      <div class="lp-label">Sessions</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:12px;color:var(--mid)">Key Events: <strong style="color:var(--ink)">14</strong></div>
+        <div style="font-size:12px;color:var(--mid)">Conv. Rate: <strong style="color:var(--red)">0.21%</strong></div>
+        <div style="font-size:12px;color:var(--mid)">Bounce Rate: <strong style="color:var(--red)">85.6%</strong></div>
+        <div style="font-size:12px;color:var(--mid)">Avg. Engagement: <strong style="color:var(--ink)">5.6 sec</strong></div>
+      </div>
+      <span class="lp-pill" style="background:var(--red-l);color:var(--red)">Traffic quality review</span>
+    </div>
+    <div class="lp-card" style="border-top:3px solid var(--green)">
+      <div class="lp-channel">Paid Search</div>
+      <div class="lp-metric">59</div>
+      <div class="lp-label">Sessions</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:12px;color:var(--mid)">Key Events: <strong style="color:var(--ink)">31</strong></div>
+        <div style="font-size:12px;color:var(--mid)">Conv. Rate: <strong style="color:var(--green)">23.7%</strong></div>
+        <div style="font-size:12px;color:var(--mid)">Bounce Rate: <strong style="color:var(--green)">32.2%</strong></div>
+        <div style="font-size:12px;color:var(--mid)">Avg. Engagement: <strong style="color:var(--ink)">78 sec</strong></div>
+      </div>
+      <span class="lp-pill" style="background:var(--green-l);color:var(--green-d)">High quality, high intent</span>
+    </div>
+    <div class="lp-card" style="border-top:3px solid #94A3B8">
+      <div class="lp-channel">Direct</div>
+      <div class="lp-metric">84</div>
+      <div class="lp-label">Sessions</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:12px;color:var(--mid)">Key Events: <strong style="color:var(--ink)">6</strong></div>
+        <div style="font-size:12px;color:var(--mid)">Conv. Rate: <strong style="color:var(--ink)">5.95%</strong></div>
+        <div style="font-size:12px;color:var(--mid)">Bounce Rate: <strong style="color:var(--green)">15.5%</strong></div>
+        <div style="font-size:12px;color:var(--mid)">Avg. Engagement: <strong style="color:var(--ink)">8.9 sec</strong></div>
+      </div>
+      <span class="lp-pill" style="background:#F1F5F9;color:#475569">Brand recall visitors</span>
+    </div>
+    <div class="lp-card" style="border-top:3px solid #94A3B8">
+      <div class="lp-channel">Organic Search</div>
+      <div class="lp-metric">28</div>
+      <div class="lp-label">Sessions</div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+        <div style="font-size:12px;color:var(--mid)">Key Events: <strong style="color:var(--ink)">3</strong></div>
+        <div style="font-size:12px;color:var(--mid)">Conv. Rate: <strong style="color:var(--ink)">7.1%</strong></div>
+        <div style="font-size:12px;color:var(--mid)">Bounce Rate: <strong style="color:var(--amber)">60.7%</strong></div>
+        <div style="font-size:12px;color:var(--mid)">Avg. Engagement: <strong style="color:var(--ink)">8.1 sec</strong></div>
+      </div>
+      <span class="lp-pill" style="background:#F1F5F9;color:#475569">Low volume, decent quality</span>
+    </div>
+  </div>
+
+  <div class="note" style="margin-top:16px">ℹ️ <strong>The key takeaway:</strong> The accountants landing page converts at 23.7% for Paid Search, which indicates strong relevance for high-intent visitors. Cross-network traffic is driving much higher session volume than Paid Search, but with weaker engagement and conversion quality. The next priority is to confirm the campaign source in GA4 and refine PMax / cross-network audience signals, search themes and asset structure.</div>
+</section>
+
+<!-- ── ASSET GROUP ── -->
+<section class="sec" id="asset">
+  <div class="sec-hdr">
+    <div class="sec-title">Accounting Asset Group — Messaging & Structure Review</div>
+    <div class="sec-sub">PMax Accounting asset group · Feb – May 2026 · Ad Strength: Excellent</div>
+  </div>
+
+  <div class="note-warn">⚠️ <strong>Optimisation opportunity:</strong> The asset group has Excellent ad strength (creative quality score) but ROAS 0.87. This suggests the main improvement area is likely <strong>traffic quality and audience matching</strong>, rather than a lack of creative assets. Ad Strength measures asset completeness and relevance, but it does not guarantee the campaign is reaching the highest-intent audience.</div>
+
+  <div class="col2" style="margin-top:20px">
+    <div>
+      <div class="lbl">Headlines — PI / PL Messaging Split</div>
+      <div class="card" style="overflow:hidden">
+        <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+          <div class="creative-type">Headline — PI Focused ✓</div>
+          <div class="creative-text">"Trusted PI For Accountants"</div>
+          <span class="creative-flag flag-ok">Correct signal</span>
+        </div>
+        <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+          <div class="creative-type">Headline — PI Focused ✓</div>
+          <div class="creative-text">"Professional Indemnity Cover"</div>
+          <span class="creative-flag flag-ok">Correct signal</span>
+        </div>
+        <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+          <div class="creative-type">Headline — PL Message</div>
+          <div class="creative-text">"Accountant PL Insurance"</div>
+          <span class="creative-flag flag-warn">PL-focused message</span>
+        </div>
+        <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+          <div class="creative-type">Headline — PL Message</div>
+          <div class="creative-text">"PL Insurance for Accountants"</div>
+          <span class="creative-flag flag-warn">PL-focused message</span>
+        </div>
+        <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+          <div class="creative-type">Headline — PL Message</div>
+          <div class="creative-text">"Accountant Liability Cover"</div>
+          <span class="creative-flag flag-warn">Broad liability message</span>
+        </div>
+        <div class="creative-item" style="border-radius:0;border:none">
+          <div class="creative-type">Headline — Generic</div>
+          <div class="creative-text">"Quick & Easy Insurance"</div>
+          <span class="creative-flag flag-bad">Lower priority</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="lbl">Long Headlines — Product Focus Review</div>
+      <div class="card" style="overflow:hidden">
+        <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+          <div class="creative-type">Long Headline — PL ⚠️</div>
+          <div class="creative-text">"Public Liability for accountants made simple. Instant online..."</div>
+          <span class="creative-flag flag-warn">PL-focused message</span>
+        </div>
+        <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+          <div class="creative-type">Long Headline — PI ✓</div>
+          <div class="creative-text">"Get A Quote In Seconds & Secure Your Professional Indemnity"</div>
+          <span class="creative-flag flag-ok">Correct signal</span>
+        </div>
+        <div class="creative-item" style="border-radius:0;border:none">
+          <div class="creative-type">Long Headline — PI ✓</div>
+          <div class="creative-text">"Reliable accountant cover from brokers who understand your practice"</div>
+          <span class="creative-flag flag-ok">Correct signal</span>
+        </div>
+      </div>
+      <div class="lbl" style="margin-top:16px">Descriptions</div>
+      <div class="card" style="overflow:hidden">
+        <div class="creative-item" style="border-radius:0;border:none;border-bottom:1px solid var(--border)">
+          <div class="creative-type">Description — PI ✓</div>
+          <div class="creative-text">"Get instant quotes for professional indemnity insurance for accountants."</div>
+          <span class="creative-flag flag-ok">Correct signal</span>
+        </div>
+        <div class="creative-item" style="border-radius:0;border:none">
+          <div class="creative-type">Description — PL ⚠️</div>
+          <div class="creative-text">"We offer tailored public liability insurance for your accounting practice."</div>
+          <span class="creative-flag flag-warn">PL-focused message</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</div>
+
+<footer class="ftr">
+  <div class="ftr-l">Balmer Agency · Express Insurance Accountant Optimisation Debrief · May 2026</div>
+  <div class="ftr-r">bing@balmeragency.com.au</div>
+</footer>
+
+<script>
+// Accordion
+function tog(head) {
+  const body = head.nextElementSibling;
+  const chev = head.querySelector('.finding-chev');
+  const open = body.classList.contains('open');
+  body.classList.toggle('open', !open);
+  chev.classList.toggle('open', !open);
+}
+
+// Nav spy
+const secs = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 90) cur = s.id; });
+  navLinks.forEach(a => { a.classList.remove('active'); if (a.getAttribute('href') === '#' + cur) a.classList.add('active'); });
+});
+document.querySelectorAll('.nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const el = document.getElementById(a.getAttribute('href').replace('#',''));
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
+  });
+});
+
+// State bars
+const states = [
+  { name: 'Brisbane City', conv: 6, prev: 5.54, chg: '+8%', up: true },
+  { name: 'City of Sydney', conv: 3, prev: 6, chg: '−50%', up: false },
+  { name: 'Inner West', conv: 3, prev: 1, chg: '+200%', up: true },
+  { name: 'Rouse Hill', conv: 2, prev: 1, chg: '+100%', up: true },
+];
+const maxConv = Math.max(...states.map(s => s.conv));
+const sb = document.getElementById('state-bars');
+states.forEach(s => {
+  const pct = (s.conv / maxConv * 100).toFixed(1);
+  const chgClass = s.chg === 'New' ? 'chg-new' : s.up ? 'chg-up' : 'chg-dn';
+  sb.innerHTML += `<div class="state-row">
+    <span class="state-name">${s.name}</span>
+    <div class="state-bar-wrap"><div class="state-bar-bg"><div class="state-bar-fill" style="width:${pct}%"></div></div></div>
+    <span class="state-conv">${s.conv.toFixed(0)}</span>
+    <span class="state-chg ${chgClass}">${s.chg}</span>
+  </div>`;
+});
+
+// City table
+const cities = [
+  { city: 'Brisbane City', state: 'QLD', conv: 6, prev: 5.54, chg: '+8%', up: true },
+  { city: 'Sydney / City of Sydney', state: 'NSW', conv: 3, prev: 6, chg: '−50%', up: false },
+  { city: 'Inner West Council', state: 'NSW', conv: 3, prev: 1, chg: '+200%', up: true },
+  { city: 'Rouse Hill', state: 'NSW', conv: 2, prev: 1, chg: '+100%', up: true },
+];
+const tbody = document.getElementById('city-tbody');
+cities.forEach((c, i) => {
+  const chgClass = c.chg === 'New' ? 'chg-new' : c.up ? 'chg-up' : 'chg-dn';
+  tbody.innerHTML += `<tr>
+    <td class="mono" style="color:var(--muted)">${i+1}</td>
+    <td><strong>${c.city}</strong></td>
+    <td style="color:var(--muted)">${c.state}</td>
+    <td class="mono">${c.conv.toFixed(2)}</td>
+    <td class="mono" style="color:var(--muted)">${c.prev.toFixed(2)}</td>
+    <td class="mono ${chgClass}" style="font-weight:600">${c.chg}</td>
+  </tr>`;
+});
+</script>
+</body>
+</html>
