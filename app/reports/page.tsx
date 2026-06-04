@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 const CORRECT_PASSWORD = 'Parently2026';
 const SESSION_KEY = 'aieconomy_reports_unlocked';
 
-const REPORTS = [
+const REPORTS: { client: string; items: { title: string; subtitle: string; href: string | null; tag: string; wip?: boolean }[] }[] = [
   {
     client: 'NMGS',
     items: [
