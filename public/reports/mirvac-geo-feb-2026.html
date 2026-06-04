@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mirvac GEO Audit Dashboard - February 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+        
+        .header {
+            background: #000;
+            color: #fff;
+            padding: 40px 20px;
+            margin: -40px -20px 50px -20px;
+            text-align: center;
+        }
+        
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            letter-spacing: 3px;
+        }
+        
+        .client-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 56px;
+            letter-spacing: 4px;
+            margin: 20px 0;
+        }
+        
+        .report-date { font-size: 14px; color: #ccc; margin-top: 5px; }
+        
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            letter-spacing: 2px;
+            margin: 40px 0 20px 0;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin-top: 30px;
+        }
+        
+        .exec-summary {
+            background: #f9f9f9;
+            padding: 40px;
+            margin: 40px 0;
+            border-left: 5px solid #000;
+        }
+        
+        .exec-summary p { font-size: 16px; line-height: 1.8; margin-bottom: 15px; }
+        
+        .highlight-stat {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 3px 8px;
+            font-weight: bold;
+        }
+        
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+        
+        .kpi-card {
+            background: #000;
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .kpi-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        
+        .kpi-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            letter-spacing: 2px;
+        }
+        
+        .kpi-subtitle { font-size: 12px; margin-top: 10px; opacity: 0.8; }
+        
+        .rankings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 40px 0;
+        }
+        
+        .rankings-table thead {
+            background: #000;
+            color: #fff;
+        }
+        
+        .rankings-table th {
+            padding: 15px;
+            text-align: left;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            font-weight: normal;
+        }
+        
+        .rankings-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+        
+        .rankings-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+        
+        .rankings-table tr.mirvac-row {
+            background: #fffacd;
+        }
+        
+        .rankings-table tr.mirvac-row:hover {
+            background: #fff5b8;
+        }
+        
+        .rank-badge {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 5px 12px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            min-width: 40px;
+            text-align: center;
+        }
+        
+        .share-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .share-bar {
+            flex: 1;
+            height: 20px;
+            background: #e8e8e8;
+            position: relative;
+            max-width: 150px;
+        }
+        
+        .share-fill {
+            height: 100%;
+            background: #ff9500;
+            transition: width 0.5s ease;
+        }
+        
+        .share-text {
+            font-weight: bold;
+            min-width: 45px;
+            font-size: 15px;
+        }
+        
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            background: #fff;
+            border: 2px solid #000;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        
+        .tab-btn:hover { background: #f0f0f0; }
+        .tab-btn.active { background: #000; color: #fff; }
+        
+        .prompt-item {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .prompt-item:hover {
+            border-color: #999;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .prompt-item.has-mirvac {
+            border-left: 5px solid #000;
+            background: #fffacd;
+        }
+        
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .prompt-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+        
+        .prompt-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            min-width: 40px;
+            color: #999;
+        }
+        
+        .prompt-text {
+            flex: 1;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+        
+        .prompt-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+        
+        .status-badge {
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .status-badge.mentioned { 
+            background: #d4f4dd;
+            color: #2e7d32;
+        }
+        
+        .prompt-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .stat-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .stat-number {
+            font-weight: bold;
+            color: #0066cc;
+        }
+        
+        .stat-number.sources {
+            color: #ff9500;
+        }
+        
+        .stat-label {
+            color: #999;
+        }
+        
+        .expand-arrow {
+            font-size: 18px;
+            color: #999;
+            transition: transform 0.2s;
+        }
+        
+        .prompt-item.expanded .expand-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .engines-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e8e8e8;
+        }
+        
+        .engines-grid.show { display: grid; }
+        
+        .engine-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+        
+        .engine-item.has-mirvac {
+            background: #d4f4dd;
+            border-left: 3px solid #2e7d32;
+            cursor: pointer;
+        }
+        
+        .engine-item.has-mirvac:hover {
+            background: #c8efd3;
+        }
+        
+        .engine-name { font-weight: 600; font-size: 13px; }
+        
+        .engine-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .stat-item .stat-label {
+            font-weight: 500;
+            color: #999;
+            font-size: 11px;
+        }
+        
+        .stat-item .stat-value {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .mirvac-check {
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 40px 0;
+            padding: 20px;
+        }
+        
+        .pagination-btn {
+            padding: 12px 30px;
+            background: #fff;
+            border: 2px solid #000;
+            cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+        
+        .pagination-btn:hover:not(:disabled) {
+            background: #000;
+            color: #fff;
+        }
+        
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .page-info {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 30px;
+            border: 2px solid #000;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #000;
+        }
+        
+        .modal-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 1px;
+            flex: 1;
+        }
+        
+        .modal-close {
+            font-size: 32px;
+            font-weight: bold;
+            color: #999;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 10px;
+        }
+        
+        .modal-close:hover {
+            color: #000;
+        }
+        
+        .mention-item {
+            background: #fffacd;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #000;
+            line-height: 1.9;
+            font-size: 15px;
+            font-family: Georgia, serif;
+        }
+        
+        .mention-item mark {
+            background: #000;
+            color: #fff;
+            padding: 3px 6px;
+            font-weight: bold;
+            border-radius: 2px;
+        }
+        
+        .mention-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .no-mentions {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .client-logo { font-size: 42px; }
+            .kpi-grid { grid-template-columns: 1fr; }
+            .engines-grid { grid-template-columns: 1fr; }
+            .prompt-header { flex-direction: column; align-items: flex-start; }
+            .prompt-left { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .prompt-right { 
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                gap: 10px;
+            }
+            .prompt-stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .rankings-table { font-size: 13px; }
+            .rankings-table th, .rankings-table td { padding: 10px 5px; }
+            .share-bar { max-width: 100px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-text">BALMER AGENCY</div>
+            <div class="client-logo">MIRVAC</div>
+            <div class="report-date">GEO Audit Report | 4 February 2026 (Updated)</div>
+        </div>
+
+        <div class="exec-summary">
+            <h2>Executive Summary</h2>
+            <p>This comprehensive audit analyses Mirvac's visibility across <span class="highlight-stat">28 search prompts</span> spanning residential property development, commercial property, and build-to-rent sectors. Mirvac appears in <span class="highlight-stat">68% of queries</span> tested across multiple AI search engines - demonstrating strong overall visibility.</p>
+            
+            <p>The build-to-rent category shows exceptional performance with <span class="highlight-stat">100% visibility</span> and <span class="highlight-stat">#1 ranking (43% share of voice)</span>. Residential performance has improved significantly to <span class="highlight-stat">#2 ranking (28% share)</span>, whilst commercial presents the primary optimisation opportunity.</p>
+        </div>
+
+        <h2>Performance Overview</h2>
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">Total Prompts Analysed</div>
+                <div class="kpi-value">28</div>
+                <div class="kpi-subtitle">Across 3 property sectors</div>
+            </div>
+            
+            <div class="kpi-card">
+                <div class="kpi-label">Visibility Rate</div>
+                <div class="kpi-value">68%</div>
+                <div class="kpi-subtitle">Mentioned in 19 of 28 prompts</div>
+            </div>
+            
+            <div class="kpi-card">
+                <div class="kpi-label">AI Engines Tested</div>
+                <div class="kpi-value">9</div>
+                <div class="kpi-subtitle">ChatGPT, Gemini, Perplexity, etc.</div>
+            </div>
+            
+            <div class="kpi-card">
+                <div class="kpi-label">Best Performance</div>
+                <div class="kpi-value">#1</div>
+                <div class="kpi-subtitle">Build-to-Rent sector</div>
+            </div>
+        </div>
+
+        <h2>Mirvac Rankings by Category</h2>
+        
+        <h3>Build-to-Rent (Exceptional Performance)</h3>
+        <table class="rankings-table">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">Rank</th>
+                    <th>Brand</th>
+                    <th style="width: 200px;">Share of Voice</th>
+                    <th style="width: 100px;">Position</th>
+                    <th style="width: 120px;">Citations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="mirvac-row">
+                    <td><span class="rank-badge">#1</span></td>
+                    <td><strong>Mirvac</strong> <span style="color: #999; font-size: 13px;">mirvac.com</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 43%"></div>
+                            </div>
+                            <span class="share-text">43%</span>
+                        </div>
+                    </td>
+                    <td>2.9</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">23</span> URLs</td>
+                </tr>
+                <tr>
+                    <td><span class="rank-badge">#2</span></td>
+                    <td>LIV <span style="color: #999; font-size: 13px;">liv.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 33%"></div>
+                            </div>
+                            <span class="share-text">33%</span>
+                        </div>
+                    </td>
+                    <td>2.1</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">16</span> URLs</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Residential Property Development (Strong Performance)</h3>
+        <table class="rankings-table">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">Rank</th>
+                    <th>Brand</th>
+                    <th style="width: 200px;">Share of Voice</th>
+                    <th style="width: 100px;">Position</th>
+                    <th style="width: 120px;">Citations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="rank-badge">#1</span></td>
+                    <td>Stockland <span style="color: #999; font-size: 13px;">stockland.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 32%"></div>
+                            </div>
+                            <span class="share-text">32%</span>
+                        </div>
+                    </td>
+                    <td>3.1</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">9</span> URLs</td>
+                </tr>
+                <tr class="mirvac-row">
+                    <td><span class="rank-badge">#2</span></td>
+                    <td><strong>Mirvac</strong> <span style="color: #999; font-size: 13px;">mirvac.com</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 28%"></div>
+                            </div>
+                            <span class="share-text">28%</span>
+                        </div>
+                    </td>
+                    <td>4.6</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">8</span> URLs</td>
+                </tr>
+                <tr>
+                    <td><span class="rank-badge">#3</span></td>
+                    <td>Lendlease <span style="color: #999; font-size: 13px;">lendlease.com</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 21%"></div>
+                            </div>
+                            <span class="share-text">21%</span>
+                        </div>
+                    </td>
+                    <td>5.1</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">6</span> URLs</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Commercial Property (Improvement Opportunity)</h3>
+        <table class="rankings-table">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">Rank</th>
+                    <th>Brand</th>
+                    <th style="width: 200px;">Share of Voice</th>
+                    <th style="width: 100px;">Position</th>
+                    <th style="width: 120px;">Citations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="rank-badge">#1</span></td>
+                    <td>CBRE <span style="color: #999; font-size: 13px;">cbre.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 60%"></div>
+                            </div>
+                            <span class="share-text">60%</span>
+                        </div>
+                    </td>
+                    <td>3.2</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">27</span> URLs</td>
+                </tr>
+                <tr class="mirvac-row">
+                    <td><span class="rank-badge">#15</span></td>
+                    <td><strong>Mirvac</strong> <span style="color: #999; font-size: 13px;">mirvac.com</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 10%"></div>
+                            </div>
+                            <span class="share-text">10%</span>
+                        </div>
+                    </td>
+                    <td>7.3</td>
+                    <td><span style="color: #ff9500; font-weight: bold;">2</span> URLs</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 style="margin-top: 60px;">AI Engine Performance & Opportunities</h2>
+        <p style="margin-bottom: 20px; color: #666;">Analysis showing which AI engines mention Mirvac and where optimization opportunities exist.</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0;">
+            <!-- Best Performers -->
+            <div style="border: 2px solid #000; padding: 25px; background: #f9f9f9;">
+                <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 15px;">✓ Strong Performance</h3>
+                <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Engines consistently mentioning Mirvac</p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #fff; border-left: 3px solid #2e7d32;">
+                        <span style="font-weight: 500; font-size: 14px;">Meta AI</span>
+                        <span style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #2e7d32;">57%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #fff; border-left: 3px solid #2e7d32;">
+                        <span style="font-weight: 500; font-size: 14px;">Anthropic Claude</span>
+                        <span style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #2e7d32;">46%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #fff; border-left: 3px solid #2e7d32;">
+                        <span style="font-weight: 500; font-size: 14px;">Perplexity AI</span>
+                        <span style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #2e7d32;">36%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Critical Gaps -->
+            <div style="border: 2px solid #d32f2f; padding: 25px; background: #fff5f5;">
+                <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: #d32f2f; margin-bottom: 15px;">⚠ Critical Optimization Gaps</h3>
+                <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Highest priority engines for GEO work</p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #fff; border-left: 3px solid #d32f2f;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">Microsoft Copilot</div>
+                            <div style="font-size: 11px; color: #666;">14 missed opportunities</div>
+                        </div>
+                        <span style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #d32f2f;">74% gap</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #fff; border-left: 3px solid #d32f2f;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">OpenAI ChatGPT</div>
+                            <div style="font-size: 11px; color: #666;">13 missed opportunities</div>
+                        </div>
+                        <span style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #d32f2f;">68% gap</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #fff; border-left: 3px solid #ff9500;">
+                        <div>
+                            <div style="font-weight: 600; font-size: 14px;">Google AI Overviews</div>
+                            <div style="font-size: 11px; color: #666;">11 missed opportunities</div>
+                        </div>
+                        <span style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; color: #ff9500;">58% gap</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category Performance -->
+            <div style="border: 2px solid #000; padding: 25px; background: #f9f9f9;">
+                <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 15px;">📊 Category Performance</h3>
+                <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Mention rates by property sector</p>
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    <div style="padding: 12px; background: #fff;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 500; font-size: 14px;">Build-to-Rent</span>
+                            <span style="font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #2e7d32;">100%</span>
+                        </div>
+                        <div style="height: 6px; background: #e8e8e8;">
+                            <div style="height: 100%; background: #2e7d32; width: 100%;"></div>
+                        </div>
+                    </div>
+                    <div style="padding: 12px; background: #fff;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 500; font-size: 14px;">Residential</span>
+                            <span style="font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #2e7d32;">56%</span>
+                        </div>
+                        <div style="height: 6px; background: #e8e8e8;">
+                            <div style="height: 100%; background: #2e7d32; width: 56%;"></div>
+                        </div>
+                    </div>
+                    <div style="padding: 12px; background: #fff;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 500; font-size: 14px;">Commercial</span>
+                            <span style="font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: #ff9500;">44%</span>
+                        </div>
+                        <div style="height: 6px; background: #e8e8e8;">
+                            <div style="height: 100%; background: #ff9500; width: 44%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Engine Analysis Table -->
+        <h3 style="margin-top: 40px; font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px;">Complete Engine Gap Analysis</h3>
+        <p style="color: #666; margin-bottom: 20px; font-size: 14px;">How often each AI engine mentions Mirvac across all relevant queries</p>
+        
+        <table class="rankings-table">
+            <thead>
+                <tr>
+                    <th>AI Engine</th>
+                    <th style="width: 100px;">Tested</th>
+                    <th style="width: 100px;">Mentioned</th>
+                    <th style="width: 140px;">Mention Rate</th>
+                    <th style="width: 100px;">Missed</th>
+                    <th style="width: 150px;">Priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background: #fff5f5;">
+                    <td><strong>Microsoft Copilot</strong></td>
+                    <td>28</td>
+                    <td style="color: #d32f2f; font-weight: bold;">5</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #d32f2f; width: 18%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">18%</span>
+                        </div>
+                    </td>
+                    <td style="color: #d32f2f; font-weight: bold;">14</td>
+                    <td style="color: #d32f2f; font-weight: bold;">🔴 CRITICAL</td>
+                </tr>
+                <tr style="background: #fff5f5;">
+                    <td><strong>OpenAI ChatGPT</strong></td>
+                    <td>28</td>
+                    <td style="color: #d32f2f; font-weight: bold;">6</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #d32f2f; width: 21%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">21%</span>
+                        </div>
+                    </td>
+                    <td style="color: #d32f2f; font-weight: bold;">13</td>
+                    <td style="color: #d32f2f; font-weight: bold;">🔴 CRITICAL</td>
+                </tr>
+                <tr style="background: #fff9f0;">
+                    <td><strong>Google AI Overviews</strong></td>
+                    <td>28</td>
+                    <td style="color: #ff9500; font-weight: bold;">8</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #ff9500; width: 29%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">29%</span>
+                        </div>
+                    </td>
+                    <td style="color: #ff9500; font-weight: bold;">11</td>
+                    <td style="color: #ff9500; font-weight: bold;">🟠 HIGH</td>
+                </tr>
+                <tr>
+                    <td><strong>xAI Grok</strong></td>
+                    <td>28</td>
+                    <td>9</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #666; width: 32%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">32%</span>
+                        </div>
+                    </td>
+                    <td>10</td>
+                    <td>Medium</td>
+                </tr>
+                <tr>
+                    <td><strong>Google Gemini</strong></td>
+                    <td>28</td>
+                    <td>10</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #666; width: 36%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">36%</span>
+                        </div>
+                    </td>
+                    <td>9</td>
+                    <td>Medium</td>
+                </tr>
+                <tr>
+                    <td><strong>Google AI Mode</strong></td>
+                    <td>28</td>
+                    <td>10</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #666; width: 36%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">36%</span>
+                        </div>
+                    </td>
+                    <td>9</td>
+                    <td>Medium</td>
+                </tr>
+                <tr>
+                    <td><strong>Perplexity AI</strong></td>
+                    <td>28</td>
+                    <td>10</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #666; width: 36%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">36%</span>
+                        </div>
+                    </td>
+                    <td>9</td>
+                    <td>Medium</td>
+                </tr>
+                <tr style="background: #f5faf5;">
+                    <td><strong>Anthropic Claude</strong></td>
+                    <td>28</td>
+                    <td style="color: #2e7d32; font-weight: bold;">13</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #2e7d32; width: 46%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">46%</span>
+                        </div>
+                    </td>
+                    <td>6</td>
+                    <td style="color: #2e7d32;">✓ Good</td>
+                </tr>
+                <tr style="background: #f5faf5;">
+                    <td><strong>Meta AI</strong></td>
+                    <td>28</td>
+                    <td style="color: #2e7d32; font-weight: bold;">16</td>
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <div style="flex: 1; height: 16px; background: #e8e8e8; max-width: 100px;">
+                                <div style="height: 100%; background: #2e7d32; width: 57%;"></div>
+                            </div>
+                            <span style="font-weight: bold;">57%</span>
+                        </div>
+                    </td>
+                    <td>3</td>
+                    <td style="color: #2e7d32;">✓ Excellent</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Strategic Insights -->
+        <div style="background: #f9f9f9; padding: 35px; margin: 40px 0; border-left: 5px solid #000;">
+            <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 1px; margin-bottom: 20px;">💡 Strategic Insights & Recommendations</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 25px;">
+                <div style="background: #fff; padding: 20px; border-left: 4px solid #d32f2f;">
+                    <div style="font-weight: bold; margin-bottom: 8px; color: #d32f2f;">🎯 Immediate Priority</div>
+                    <div style="font-size: 14px; line-height: 1.7;">Focus on <strong>Microsoft Copilot</strong> (74% gap) and <strong>ChatGPT</strong> (68% gap) - combined 27 missed opportunities.</div>
+                </div>
+                <div style="background: #fff; padding: 20px; border-left: 4px solid #ff9500;">
+                    <div style="font-weight: bold; margin-bottom: 8px; color: #ff9500;">📈 Sector Focus</div>
+                    <div style="font-size: 14px; line-height: 1.7;"><strong>Commercial property</strong> (44% visibility) has room for improvement vs BTR's perfect 100% score.</div>
+                </div>
+                <div style="background: #fff; padding: 20px; border-left: 4px solid #2e7d32;">
+                    <div style="font-weight: bold; margin-bottom: 8px; color: #2e7d32;">✓ Leverage Success</div>
+                    <div style="font-size: 14px; line-height: 1.7;"><strong>Meta AI</strong> (57%) and BTR content strategy show what's working - replicate this approach.</div>
+                </div>
+            </div>
+            
+            <div style="background: #fff; padding: 25px; margin-top: 20px;">
+                <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; margin-bottom: 15px;">Key Focus Areas</h4>
+                <ul style="line-height: 2; margin-left: 20px; font-size: 14px;">
+                    <li><strong>Microsoft Copilot & ChatGPT:</strong> 27 combined missed opportunities - highest impact targets</li>
+                    <li><strong>Commercial Property:</strong> Weakest category performance needs strategic content development</li>
+                    <li><strong>BTR Success Replication:</strong> Apply 100% visibility tactics to other categories</li>
+                    <li><strong>Meta AI Performance:</strong> Maintain and monitor 57% mention rate leadership</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 id="promptAnalysis">Detailed Prompt Analysis</h2>
+        <p style="margin-bottom: 20px; color: #666;">Click any prompt to expand and see which AI engines mentioned Mirvac. Click green engine boxes to view actual mentions.</p>
+        
+        <div class="category-tabs">
+            <button class="tab-btn active" onclick="filterPrompts('all')">ALL PROMPTS (28)</button>
+            <button class="tab-btn" onclick="filterPrompts('residential')">RESIDENTIAL (9)</button>
+            <button class="tab-btn" onclick="filterPrompts('commercial')">COMMERCIAL (9)</button>
+            <button class="tab-btn" onclick="filterPrompts('btr')">BUILD-TO-RENT (10)</button>
+            <button class="tab-btn" onclick="filterPrompts('mentioned')">MIRVAC MENTIONED (19)</button>
+        </div>
+        
+        <div id="promptsList"></div>
+        
+        <div class="pagination">
+            <button class="pagination-btn" id="prevBtn" onclick="changePage('prev')">← Previous</button>
+            <div class="page-info" id="pageInfo">Page 1 of 6</div>
+            <button class="pagination-btn" id="nextBtn" onclick="changePage('next')">Next →</button>
+        </div>
+        
+        <!-- Modal -->
+        <div id="mentionModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title" id="modalTitle"></div>
+                    <span class="modal-close" onclick="closeModal()">&times;</span>
+                </div>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+
+        <!-- Locked Premium Insights Section -->
+        <div style="margin: 50px 0; padding: 50px 40px; background: linear-gradient(135deg, #f9f9f9 0%, #ffffff 100%); border: 3px solid #000000; position: relative; overflow: hidden;">
+            <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 30px;">
+                <div style="font-size: 48px; color: #000000;">🔒</div>
+                <div>
+                    <h2 style="margin: 0;">Premium Strategic Insights</h2>
+                    <p style="margin-top: 10px; font-size: 16px; color: #666666;">Unlock actionable recommendations to improve your AI search visibility</p>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0;">
+                <div style="background: #ffffff; padding: 25px; border: 2px solid #e0e0e0;">
+                    <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 15px;">Why Mirvac is Missing from 32% of AI Searches</h4>
+                    <div style="filter: blur(3px); opacity: 0.6; pointer-events: none;">
+                        <p style="font-size: 14px; line-height: 1.6; color: #666666;">Detailed analysis of the critical content gaps preventing Mirvac from appearing in Microsoft Copilot and ChatGPT results. Includes specific topic clusters and keywords your competitors are dominating...</p>
+                        <div style="margin-top: 15px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #000000;">5 Content Gaps</div>
+                    </div>
+                </div>
+                
+                <div style="background: #ffffff; padding: 25px; border: 2px solid #e0e0e0;">
+                    <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 15px;">Website Technical Issues Blocking AI Engines</h4>
+                    <div style="filter: blur(3px); opacity: 0.6; pointer-events: none;">
+                        <p style="font-size: 14px; line-height: 1.6; color: #666666;">Technical audit revealing website structure and content issues preventing AI engines from properly indexing and citing your site. Includes crawlability problems, thin content pages, and schema markup gaps...</p>
+                        <div style="margin-top: 15px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #000000;">7 Critical Issues</div>
+                    </div>
+                </div>
+                
+                <div style="background: #ffffff; padding: 25px; border: 2px solid #e0e0e0;">
+                    <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 15px;">Top Competitor Strategy Breakdown</h4>
+                    <div style="filter: blur(3px); opacity: 0.6; pointer-events: none;">
+                        <p style="font-size: 14px; line-height: 1.6; color: #666666;">Learn exactly what Stockland, Lendlease, and other top performers are doing to achieve better visibility. Reverse-engineered content strategies, topic authority patterns...</p>
+                        <div style="margin-top: 15px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #000000;">8 Competitors</div>
+                    </div>
+                </div>
+                
+                <div style="background: #ffffff; padding: 25px; border: 2px solid #e0e0e0;">
+                    <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 15px;">Quick Win Opportunities</h4>
+                    <div style="filter: blur(3px); opacity: 0.6; pointer-events: none;">
+                        <p style="font-size: 14px; line-height: 1.6; color: #666666;">Specific prompts where Mirvac can achieve top-3 rankings within 60-90 days with targeted content creation. Estimated traffic impact and conversion projections...</p>
+                        <div style="margin-top: 15px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #000000;">+180% Growth</div>
+                    </div>
+                </div>
+                
+                <div style="background: #ffffff; padding: 25px; border: 2px solid #e0e0e0;">
+                    <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 15px;">12-Month GEO Action Plan</h4>
+                    <div style="filter: blur(3px); opacity: 0.6; pointer-events: none;">
+                        <p style="font-size: 14px; line-height: 1.6; color: #666666;">Month-by-month roadmap with specific content topics, optimisation priorities, and resource requirements. Projected visibility improvement: 68% → 90% within one year...</p>
+                        <div style="margin-top: 15px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #000000;">+22% Increase</div>
+                    </div>
+                </div>
+                
+                <div style="background: #ffffff; padding: 25px; border: 2px solid #e0e0e0;">
+                    <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 15px;">ROI & Traffic Projections</h4>
+                    <div style="filter: blur(3px); opacity: 0.6; pointer-events: none;">
+                        <p style="font-size: 14px; line-height: 1.6; color: #666666;">Conservative estimates of additional enquiries and revenue based on improved AI search visibility. Includes industry benchmarks for property development conversion rates...</p>
+                        <div style="margin-top: 15px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #000000;">$XXX,XXX</div>
+                    </div>
+                </div>
+                
+                <div style="background: #ffffff; padding: 25px; border: 2px solid #e0e0e0;">
+                    <h4 style="font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; margin-bottom: 15px;">Engine-Specific Optimization Tactics</h4>
+                    <div style="filter: blur(3px); opacity: 0.6; pointer-events: none;">
+                        <p style="font-size: 14px; line-height: 1.6; color: #666666;">Tailored strategies for each AI platform - ChatGPT, Copilot, Gemini, and Perplexity. Learn what content formats and structures each engine prioritizes...</p>
+                        <div style="margin-top: 15px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #000000;">9 Engines</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px; position: relative; z-index: 10;">
+                <a href="https://app.gohighlevel.com/v2/preview/aQK5M5bORIk7t6yjfvYS" style="display: inline-block; background: #000000; color: #ffffff; padding: 20px 50px; font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; text-decoration: none; transition: all 0.3s ease;">Book Your Strategy Call</a>
+                <p style="margin-top: 15px; font-size: 14px; color: #666666;">30-minute consultation to review your custom insights and action plan</p>
+                
+                <div style="display: flex; justify-content: center; gap: 30px; margin-top: 30px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: #333333;">
+                        <span style="font-weight: bold; font-size: 20px;">✓</span>
+                        <span>Website Technical Audit</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: #333333;">
+                        <span style="font-weight: bold; font-size: 20px;">✓</span>
+                        <span>Competitor Intelligence</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: #333333;">
+                        <span style="font-weight: bold; font-size: 20px;">✓</span>
+                        <span>Custom Action Plan</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; font-size: 14px; color: #333333;">
+                        <span style="font-weight: bold; font-size: 20px;">✓</span>
+                        <span>ROI Projections</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </div>
+
+    <script>
+        const promptsData = [{"id": 1, "category": "residential", "prompt": "The top residential property developers in Australia?", "engines": [{"name": "xAI Grok", "brands": 19, "sources": 37, "mentioned": true, "mirvac_mentions": ["...y Residential Developers In urban areas (especially Sydney and Melbourne), apartment specialists stand out: Meriton \u2014 One of Australia's largest apartment builders. Lendlease \u2014 Known for major mixed-use and urban renewal projects (e.g., Barangaroo). Mirvac \u2014 Premium apartments and mixed-use developments. Frasers Property Australia \u2014 Large-scale residential with sustainability focus. Coronation Property \u2014 Rising fast in apartments and build-to-rent. Others like Billbergia Group, Sekisui House Australia, and Deicorp also feature prominently in recent projects. Other Notable Large-Scale or Reputa"]}, {"name": "OpenAI ChatGPT", "brands": 19, "sources": 22, "mentioned": true, "mirvac_mentions": ["... prominent developers, active in major urban regeneration projects and high-quality residential precincts (e.g., Barangaroo in Sydney). [https://www.billbergia.com.au/top-10-developers-in-australia-leading-the-way-in-property-innovation-and-growth/] Mirvac \u2013 Major residential and mixed-use property group with a strong reputation for design and sustainability. [https://www.billbergia.com.au/australias-largest-property-developers-key-players-in-the-industry/] Stockland \u2013 Large diversified property developer with expansive residential master-planned communities across Australia. [https://en.wikip"]}, {"name": "Perplexity AI", "brands": 21, "sources": 10, "mentioned": true, "mirvac_mentions": ["...pitals like Sydney, Melbourne and Brisbane. openlot 3+ Major national / listed developers Stockland \u2013 Large master-planned residential communities across multiple states (e.g. Aura on the Sunshine Coast), as well as mixed-use projects. billbergia 1+ Mirvac \u2013 Major ASX-listed developer known for high-density apartments and master-planned communities in inner-city and middle-ring suburbs. billbergia 1+ Lendlease \u2013 Global developer with large urban renewal projects and master-planned residential communities across Australia. billbergia 1+ Cedar Woods \u2013 Listed developer with significant townhouse ", "Aura on the Sunshine Coast), as well as mixed-use projects. billbergia 1+ Mirvac \u2013 Major ASX-listed developer known for high-density apartments and master-planned communities in inner-city and middle-ring suburbs. billbergia 1+ Lendlease \u2013 Global developer with large urban renewal projects and master-planned residential communities across Australia. billbergia 1+ Cedar Woods \u2013 Listed developer with significant townhouse "]}, {"name": "Microsoft Copilot", "brands": 9, "sources": 3, "mentioned": false}, {"name": "Google Gemini", "brands": 12, "sources": 3, "mentioned": true, "mirvac_mentions": ["Best for: First-home buyers and families looking for \"house and land\" packages. Mirvac (MGR) Known for a higher-end, \"premium\" finish. Mirvac is unique because it handles everything in-house: design, construction, and sales.", "Mirvac (MGR) Known for a higher-end, \"premium\" finish. Mirvac is unique because it handles everything in-house: design, construction, and sales. Recent Focus: They have pivoted heavily toward Build-to-Rent (BTR) projects in 2025 and 2026, offering long-term rentals in luxury complexes."]}, {"name": "Google AI Mode", "brands": 16, "sources": 23, "mentioned": true, "mirvac_mentions": ["..., high-rise apartments, and integrated lifestyle precincts. Stockland : Often cited as the largest diversified property group in Australia. As of 2026, they remain a dominant force in residential estates across New South Wales and Western Australia. Mirvac : A major player known for high-quality residential apartments and suburban communities. Lendlease : An international giant headquartered in Australia, famous for large-scale urban regeneration projects and master-planned communities. Frasers Property Australia : Highly active in both boutique and large-scale residential developments across "]}, {"name": "Google AI Overviews", "brands": 28, "sources": 13, "mentioned": true, "mirvac_mentions": ["Top residential property developers and builders in Australia as of early 2026 include Metricon Homes (top home builder), Billbergia Group, Mirvac, Frasers Property, Stockland, Lendlease, and Meriton. These companies lead in delivering high-density, master-planned communities, and detached residential projects, supported by strong sector growth and demand for new housing. Source 1Source 2Source 3Source 4 Top Residential Developers and Builders Metricon: Ranked as Australia\u2019s number one", "Top residential property developers and builders in Australia as of early 2026 include Metricon Homes (top home builder), Billbergia Group, Mirvac, Frasers Property, Stockland, Lendlease, and Meriton. These companies lead in delivering high-density, master-planned communities, and detached residential projects, supported by strong sector growth and demand for new housing. Source 1Source 2Source 3Source 4 Top Residential Developers and Builders Metricon: Ranked as Australia\u2019s number one"]}, {"name": "Meta AI", "brands": 10, "sources": 10, "mentioned": true, "mirvac_mentions": ["...property developers in Australia: Lendlease: A leading international property and infrastructure company, Lendlease is one of the largest residential property developers in Australia, with a portfolio of over $15 billion in residential projects. [1] Mirvac: Mirvac is a leading Australian property developer, with a focus on residential and commercial developments. They have a pipeline of over $14 billion in residential projects across Australia. [2] Stockland: Stockland is one of Australia's largest residential property developers, with a focus on master-planned communities and urban renewal pr", "About Us. Retrieved from <https://www.lendlease.com/about-us/> [2] Mirvac. (2022). About Us."]}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "mirvac_mentions": ["Stockland: One of the largest diversified property groups in Australia Develops and manages a range of residential communities, retail town centers, and retirement living villages Source: https://www.stockland.com.au/ Mirvac: A leading Australian property group that develops and manages a diverse portfolio of residential, commercial, retail, and hotel assets Known for its master-planned communities and high-quality apartment developments Source: https://www.mirvac.com/ Lendlease: A multinational property and infrastructure company with a focus on residential, co"]}], "has_mirvac": true}, {"id": 2, "category": "residential", "prompt": "What is the process for getting planning approval for a residential property development?", "engines": [{"name": "Google AI Overviews", "brands": 11, "sources": 22, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 0, "sources": 0, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 7, "sources": 7, "mentioned": false}, {"name": "xAI Grok", "brands": 3, "sources": 43, "mentioned": false}, {"name": "Perplexity AI", "brands": 6, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 5, "sources": 0, "mentioned": false}, {"name": "Google AI Mode", "brands": 8, "sources": 17, "mentioned": false}, {"name": "Meta AI", "brands": 4, "sources": 3, "mentioned": false}, {"name": "Anthropic Claude", "brands": 1, "sources": 2, "mentioned": false}], "has_mirvac": false}, {"id": 3, "category": "residential", "prompt": "What are the best services for managing a new residential property development from start to finish?", "engines": [{"name": "Microsoft Copilot", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Google Gemini", "brands": 11, "sources": 3, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 9, "sources": 23, "mentioned": false}, {"name": "xAI Grok", "brands": 8, "sources": 37, "mentioned": false}, {"name": "Google AI Mode", "brands": 12, "sources": 17, "mentioned": false}, {"name": "Google AI Overviews", "brands": 21, "sources": 43, "mentioned": false}, {"name": "Perplexity AI", "brands": 0, "sources": 10, "mentioned": false}, {"name": "Meta AI", "brands": 43, "sources": 3, "mentioned": false}, {"name": "Anthropic Claude", "brands": 15, "sources": 15, "mentioned": true, "mirvac_mentions": ["..., and site supervision. Examples: Lendlease , Multiplex , Probuild Property Management Services: These services handle the day-to-day operations of the completed development, such as tenant management, maintenance, and financial reporting. Examples: Mirvac , Dexus , Goodman Group Consulting and Advisory Services: These services provide expert advice and guidance on various aspects of the development process, such as market analysis, feasibility studies, and regulatory compliance. Examples: Urbis , Savills , Knight Frank The choice of services will depend on the specific needs and requirements "]}], "has_mirvac": true}, {"id": 4, "category": "residential", "prompt": "Can you compare leading firms involved in master-planned community residential property development?", "engines": [{"name": "Microsoft Copilot", "brands": 8, "sources": 5, "mentioned": true, "mirvac_mentions": ["...ects: Springfield Rise (QLD), Harpley (VIC). Strengths: Global expertise in urban regeneration and sustainable design. Focus on long\u2011term community building and placemaking. Positioning: Major international developer with strong MPC credentials. --- Mirvac (Contextual industry knowledge) Notable Projects: Woodlea (VIC, partnership), Gainsborough Greens (QLD). Strengths: High design standards and strong architectural integration. Emphasis on premium amenities and cohesive neighbourhood planning. Positioning: Known for quality and design\u2011led development. --- Peet Limited (Contextual industry kno"]}, {"name": "xAI Grok", "brands": 13, "sources": 64, "mentioned": true, "mirvac_mentions": ["Strengths: Affordability focus, partnerships (e.g., with state bodies like DevelopmentWA). Market position: Strong in value-driven, large-scale estates. Mirvac (Publicly listed, integrated developer) Scale: Significant residential pipeline alongside commercial/urban projects. Regions: Eastern states + national mixed-use.", "...palai JV) reflect industry consolidation amid market pressures. Key differences: Scale vs. focus \u2014 Stockland wins on sheer volume and diversification; Satterley on private agility and award-winning quality. Ownership \u2014 Public firms (Stockland, Peet, Mirvac) have broader capital access; Satterley offers nimbleness. Trends \u2014 All emphasize sustainability, housing diversity, and amenities. Recent consolidation (e.g., Lendlease portfolio moves) is concentrating market power. Awards/recognition \u2014 Satterley and Stockland projects frequently win Property Council \"Best Master-Planned Community\" honours"]}, {"name": "Google Gemini", "brands": 13, "sources": 3, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 10, "sources": 39, "mentioned": false}, {"name": "Perplexity AI", "brands": 13, "sources": 10, "mentioned": true, "mirvac_mentions": ["...evelopers with MPC portfolios: Stockland \u2013 one of Australia\u2019s largest residential developers, explicitly positioned as a leader in affordable, master\u2011planned communities with integrated retail and community infrastructure. billbergia \u200b Lendlease and Mirvac \u2013 large, diversified groups with urban regeneration precincts and greenfield MPCs, distinguished by strong sustainability and design credentials. billbergia \u200b Peet and Satterley \u2013 long\u2011standing land developers specialising in greenfield estates and master\u2011planned communities across several Australian states. propertycouncil \u200b How these firms", "...evelopers with MPC portfolios: Stockland \u2013 one of Australia\u2019s largest residential developers, explicitly positioned as a leader in affordable, master\u2011planned communities with integrated retail and community infrastructure. billbergia \u200b Lendlease and Mirvac \u2013 large, diversified groups with urban regeneration precincts and greenfield MPCs, distinguished by strong sustainability and design credentials. billbergia \u200b Peet and Satterley \u2013 long\u2011standing land developers specialising in greenfield estates and master\u2011planned communities across several Australian states. propertycouncil \u200b How these firms"]}, {"name": "Google AI Mode", "brands": 11, "sources": 19, "mentioned": true, "mirvac_mentions": ["...(WA) is Australia's most awarded MPC and was the 2025 Property Council winner . Lennar Corporation (US): A leading US homebuilder that develops large-scale communities like Asante (Phoenix), which saw the highest year-over-year sales growth in 2025. Mirvac Group (Australia): Known for large-scale, high-quality urban renewal and residential communities, often incorporating complex infrastructure and sustainability features. Key Market Drivers & Comparison | Feature | US Leading Firms (e.g., The Villages, Lakewood Ranch) | Australian Leading Firms (e.g., Stockland , Satterley) | | --------------"]}, {"name": "Google AI Overviews", "brands": 19, "sources": 15, "mentioned": true, "mirvac_mentions": ["...WA) and Arcadia (VIC). They focus on social cohesion, diverse housing options, and integrating commercial/cultural hubs. Lendlease Group: Known globally for large-scale urban regeneration and sustainability, such as the Barangaroo project in Sydney. Mirvac Group: A major player focusing on high-quality residential, industrial, and commercial development. Cedar Woods: A developer expanding rapidly with projects in growing areas like Geelong (Somerley) and inner-city Melbourne. Source 1Source 2Source 3Source 4Source 5 Key Comparison Trends: 2025\u20132026 Geography: Florida and Texas lead in the US, "]}, {"name": "Meta AI", "brands": 8, "sources": 8, "mentioned": false}, {"name": "Anthropic Claude", "brands": 6, "sources": 6, "mentioned": true, "mirvac_mentions": ["Lendlease: Lendlease is a multinational property and infrastructure company that has a significant presence in the master-planned community development sector. Source: https://www.lendlease.com/ Mirvac: Mirvac is a leading Australian property group that specializes in the development of master-planned communities and residential projects. Source: https://www.mirvac.com/ Frasers Property Australia: Frasers Property Australia is a subsidiary of the Frasers Property Group, a multinational real estate company that develops master-planned commu"]}], "has_mirvac": true}, {"id": 5, "category": "residential", "prompt": "Where can I find companies specializing in residential property development in Australia?", "engines": [{"name": "Microsoft Copilot", "brands": 11, "sources": 13, "mentioned": false}, {"name": "xAI Grok", "brands": 20, "sources": 28, "mentioned": true, "mirvac_mentions": ["As of February 2026, it lists hundreds of active projects across states like Victoria (1,873 estates), New South Wales (1,153), and Queensland (1,124). Top-ranked developers often include Stockland, Mirvac, Frasers Property Australia, AVJennings, and others. Visit their developer ranking pages for state-specific lists and project details: OpenLot Developer Rankings. The Property Tribune maintains a directory of property developers in Australia, including many focused on residential work.", "...companies specializing in residential property development (often master-planned communities, apartments, build-to-rent, or land estates) include: Stockland \u2014 One of Australia's largest, focused on master-planned residential communities and housing. Mirvac \u2014 Award-winning developer of thriving residential communities and mixed-use projects with a strong residential focus. Frasers Property Australia \u2014 Specializes in residential land, housing, apartments, and neighborhoods (delivered over 145,000 homes historically). Lendlease \u2014 Known for large-scale urban regeneration with significant residenti"]}, {"name": "OpenAI ChatGPT", "brands": 14, "sources": 22, "mentioned": true, "mirvac_mentions": ["...communities, and mixed-use precincts across Australia: Stockland \u2013 One of Australia\u2019s largest diversified property groups, known for master-planned residential estates, apartments and community developments. [https://en.wikipedia.org/wiki/Stockland] Mirvac Group \u2013 Major ASX-listed property developer with a strong residential portfolio including urban apartments and communities. [https://www.billbergia.com.au/top-10-developers-in-australia-leading-the-way-in-property-innovation-and-growth/] Lendlease \u2013 Global developer active in large-scale urban regeneration and residential projects (e.g., Bar"]}, {"name": "Google Gemini", "brands": 21, "sources": 5, "mentioned": true, "mirvac_mentions": ["Company Specialty Notable For Stockland Master-planned communities Largest residential developer; focus on suburban growth areas. Mirvac High-end apartments & housing Known for quality finishes and sustainability; major urban presence. Frasers Property Mixed-use & Residential Historic company; develops land, housing, and \"build-to-rent\" projects.", "...iPro allow you to filter developers by project type (luxury, sustainable, etc.), while The Property Tribune lists companies by city. ASX Listed Property Groups: Many major developers are listed on the Australian Securities Exchange (e.g., Stockland, Mirvac, GPT Group).[https://eliteagent.com/australias-20-largest-property-groups-keep-growing/] Checking the \"A-REIT\" (Real Estate Investment Trust) sector is a great way to find financially backed developers. 3. Regional Specialists Depending on which state you are focusing on, different names come to the forefront: Sydney/NSW: Deicorp (high-densi"]}, {"name": "Google AI Mode", "brands": 28, "sources": 19, "mentioned": true, "mirvac_mentions": ["...the following major players and specialized groups lead the industry: Major National Developers These companies operate across multiple states and specialize in large-scale urban regeneration, master-planned communities, and high-density apartments. Mirvac : A top 100 ASX-listed company known for high-quality residential, commercial, and retail projects across Australia. Stockland : One of the country's largest developers, specializing in affordable housing and expansive master-planned communities. Lendlease: A global leader in urban regeneration with a significant presence in major Australian", "Castle Gr... OpenLot [] Australia Luxury Residential Real Estate Companies Australia Luxury Residential Real Estate Top Companies \\ Lendlease. \\ Mirvac. \\ Crown Group. \\ Gurner\u2122 \\ Frasers Property Australi... Mordor Intelligence [] Top Real Estate Development Companies in Australia - ensun 100 companies for Real Estate Development in Australia \\ The Urban Developer."]}, {"name": "Perplexity AI", "brands": 11, "sources": 10, "mentioned": true, "mirvac_mentions": ["...in master-planned communities, apartments, and mixed-use projects across multiple states, often including Queensland: Lendlease \u2013 large-scale urban renewal and master-planned residential communities in major cities and growth corridors. billbergia \u200b Mirvac \u2013 strong focus on medium\u2013high density residential projects and master-planned estates. billbergia \u200b Stockland \u2013 one of the biggest developers of master-planned residential communities and affordable housing. billbergia \u200b Frasers Property Australia \u2013 specialises in residential and mixed-use communities with an emphasis on sustainability. fras"]}, {"name": "Google AI Overviews", "brands": 17, "sources": 8, "mentioned": true, "mirvac_mentions": ["Top residential property developers in Australia, such as Satterley, Stockland, Mirvac, and Frasers Property, can be found through industry rankings, property listing platforms like OpenLot, and commercial real estate services such as Colliers. These companies specialize in land subdivisions, master-planned communities, and apartment projects across major cities. Source 1Source 2Source 3Source 4Source 5 Top Residential Propert", "Top residential property developers in Australia, such as Satterley, Stockland, Mirvac, and Frasers Property, can be found through industry rankings, property listing platforms like OpenLot, and commercial real estate services such as Colliers. These companies specialize in land subdivisions, master-planned communities, and apartment projects across major cities. Source 1Source 2Source 3Source 4Source 5 Top Residential Propert"]}, {"name": "Meta AI", "brands": 13, "sources": 13, "mentioned": true, "mirvac_mentions": ["...re are some companies specializing in residential property development in Australia: Lendlease: A leading international property and infrastructure company with a significant presence in Australia, developing residential and commercial projects. [1] Mirvac: An Australian property company that develops, owns, and manages residential and commercial properties across the country. [2] Stockland: A leading Australian property developer that specializes in residential and retail developments. [3] Franschhoek Property Group: A South African-Australian property developer that focuses on residential an...", "...re are some companies specializing in residential property development in Australia: Lendlease: A leading international property and infrastructure company with a significant presence in Australia, developing residential and commercial projects. [1] Mirvac: An Australian property company that develops, owns, and manages residential and commercial properties across the country. [2] Stockland: A leading Australian property developer that specializes in residential and retail developments. [3] Franschhoek Property Group: A South African-Australian property developer that focuses on residential an..."]}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "mirvac_mentions": ["Stockland One of Australia's largest diversified property groups, with a focus on residential communities, retail town centers, and logistics properties. Develops a range of residential communities, apartments, and land estates across Australia. Mirvac An ASX-listed property group that develops and manages a range of residential, commercial, retail, and industrial properties. Known for its master-planned residential communities and apartment developments in major Australian cities. Lendlease A multinational property and infrastructure company that develops and manages a variety of real est"]}], "has_mirvac": true}, {"id": 6, "category": "residential", "prompt": "List available land lease communities resulting from residential property development.", "engines": [{"name": "Microsoft Copilot", "brands": 4, "sources": 5, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 5, "sources": 21, "mentioned": false}, {"name": "xAI Grok", "brands": 10, "sources": 29, "mentioned": false}, {"name": "Google Gemini", "brands": 17, "sources": 0, "mentioned": false}, {"name": "Perplexity AI", "brands": 15, "sources": 10, "mentioned": false}, {"name": "Google AI Mode", "brands": 23, "sources": 15, "mentioned": false}, {"name": "Google AI Overviews", "brands": 8, "sources": 11, "mentioned": false}, {"name": "Meta AI", "brands": 8, "sources": 8, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}], "has_mirvac": false}, {"id": 7, "category": "residential", "prompt": "What are the typical steps involved in starting a small-scale residential property development?", "engines": [{"name": "Microsoft Copilot", "brands": 3, "sources": 3, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 0, "sources": 0, "mentioned": false}, {"name": "Perplexity AI", "brands": 9, "sources": 10, "mentioned": false}, {"name": "xAI Grok", "brands": 0, "sources": 33, "mentioned": false}, {"name": "Google AI Overviews", "brands": 27, "sources": 58, "mentioned": false}, {"name": "Google AI Mode", "brands": 10, "sources": 20, "mentioned": false}, {"name": "Google Gemini", "brands": 0, "sources": 0, "mentioned": false}, {"name": "Anthropic Claude", "brands": 4, "sources": 8, "mentioned": false}, {"name": "Meta AI", "brands": 13, "sources": 0, "mentioned": false}], "has_mirvac": false}, {"id": 8, "category": "residential", "prompt": "Find me consultants who help with site selection for residential property development.", "engines": [{"name": "Microsoft Copilot", "brands": 4, "sources": 4, "mentioned": false}, {"name": "xAI Grok", "brands": 11, "sources": 25, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 14, "sources": 20, "mentioned": false}, {"name": "Google Gemini", "brands": 11, "sources": 0, "mentioned": false}, {"name": "Google AI Mode", "brands": 11, "sources": 24, "mentioned": false}, {"name": "Google AI Overviews", "brands": 0, "sources": 0, "mentioned": false}, {"name": "Perplexity AI", "brands": 9, "sources": 10, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Meta AI", "brands": 8, "sources": 8, "mentioned": false}], "has_mirvac": false}, {"id": 9, "category": "residential", "prompt": "Show me current listings for residential property development projects available now.", "engines": [{"name": "Microsoft Copilot", "brands": 13, "sources": 13, "mentioned": false}, {"name": "xAI Grok", "brands": 11, "sources": 56, "mentioned": false}, {"name": "Google Gemini", "brands": 8, "sources": 4, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 8, "sources": 27, "mentioned": false}, {"name": "Perplexity AI", "brands": 7, "sources": 10, "mentioned": false}, {"name": "Google AI Mode", "brands": 8, "sources": 13, "mentioned": false}, {"name": "Google AI Overviews", "brands": 19, "sources": 25, "mentioned": false}, {"name": "Meta AI", "brands": 8, "sources": 8, "mentioned": true, "mirvac_mentions": ["...ome of their current projects include: Yarra's Edge in Melbourne, VIC - 1-2 bedroom apartments from $549,000 Newstead in Brisbane, QLD - 2-3 bedroom apartments from $449,000 Shellharbour in NSW - 3-4 bedroom houses from $649,000 www.stockland.com.au Mirvac - Multiple Projects: Mirvac is a well-known property developer in Australia, with several residential projects in development. Some of their current projects include: The Henry in Melbourne, VIC - 1-2 bedroom apartments from $599,000 6-10 Hordern Street in Sydney, NSW - 2-3 bedroom apartments from $1.2 million Yonge Street in Melbourne, VIC ", "...ome of their current projects include: Yarra's Edge in Melbourne, VIC - 1-2 bedroom apartments from $549,000 Newstead in Brisbane, QLD - 2-3 bedroom apartments from $449,000 Shellharbour in NSW - 3-4 bedroom houses from $649,000 www.stockland.com.au Mirvac - Multiple Projects: Mirvac is a well-known property developer in Australia, with several residential projects in development. Some of their current projects include: The Henry in Melbourne, VIC - 1-2 bedroom apartments from $599,000 6-10 Hordern Street in Sydney, NSW - 2-3 bedroom apartments from $1.2 million Yonge Street in Melbourne, VIC ..."]}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "mirvac_mentions": ["Stockland's Orion Apartments Stockland is a leading Australian property developer Orion Apartments is a new residential development in Sydney's northern suburbs Offering a range of 1, 2 and 3 bedroom apartments for sale Mirvac's Yarra's Edge Mirvac is a prominent Australian property group Yarra's Edge is a master-planned community in Melbourne's Docklands precinct Features a mix of apartments, townhouses and penthouses for sale Lendlease's Barangaroo South Lendlease is a major international property and infrastructure company Barangaroo South is a large-scale urba"]}], "has_mirvac": true}, {"id": 10, "category": "commercial", "prompt": "The top industrial property developers in Australia?", "engines": [{"name": "Microsoft Copilot", "brands": 5, "sources": 3, "mentioned": true, "mirvac_mentions": ["...lopment] BGC Housing Group Based in Western Australia. Active in construction and industrial property development. [https://thepropertytribune.com.au/companies/industrial-property-developers/] Listed among Australia\u2019s industrial property developers. Mirvac Major national developer with industri[https://thepropertytribune.com.au/companies/industrial-property-developers/]al, commercial, and residential portfolios. Included in industrial develo[https://thepropertytribune.com.au/companies/industrial-property-developers/]per listings due to its commercial and industrial projects. Pellicano Victoria"]}, {"name": "xAI Grok", "brands": 10, "sources": 19, "mentioned": true, "mirvac_mentions": ["...nt specialist in logistics and industrial property, known for large-scale estates (e.g., Heathwood Logistics Estate in Queensland, award-winning in past years). They target e-commerce, retail, and supply chain clients with high-quality developments. Mirvac \u2014 A diversified developer active in industrial alongside other sectors, frequently listed among top industrial players for their integrated projects. Stockland \u2014 Involved in industrial developments as part of broader portfolios, appearing in industry listings for industrial activity. Other notable mentions from market sources include: DEXUS "]}, {"name": "Google Gemini", "brands": 8, "sources": 6, "mentioned": true, "mirvac_mentions": ["Brisbane Trade Coast: High demand due to its proximity to the port and airport. Note: While companies like Mirvac and Stockland are also \"top developers,\" they are more diversified (residential/retail) compared to the \"pure-play\" industrial focus of Goodman or ESR. Would you like me to look up specific recent project completions or the current vacancy rates in a particular city for you?"]}, {"name": "Google AI Mode", "brands": 16, "sources": 15, "mentioned": true, "mirvac_mentions": ["...ide Industrial Estate in Victoria. Dexus: A leading Australian real estate group with a substantial industrial portfolio valued at over $5 billion . They are highly active in leasing and operating warehouses and logistics centres across the country. Mirvac : A diversified property group that integrates industrial development with its construction and investment arms. They focus on high-quality, sustainable industrial assets. Charter Hall Group: A major institutional developer and manager with a extensive industrial and logistics portfolio, including significant holdings in REITs . LOGOS: A spe", "Unclaimed. Click here to claim your listing. \\* Mirvac. Level 28, 200 Ge..."]}, {"name": "OpenAI ChatGPT", "brands": 9, "sources": 41, "mentioned": false}, {"name": "Perplexity AI", "brands": 10, "sources": 10, "mentioned": true, "mirvac_mentions": ["...ndustrial vehicles. eliteagent \u200b National Intermodal \u2013 Government\u2011backed developer focused on intermodal freight terminals and logistics precincts supporting the national supply chain. thepropertytribune \u200b Diversified developers active in industrial Mirvac \u2013 Large integrated property group with industrial and logistics projects alongside office, retail and residential portfolios. billbergia 1+ Stockland \u2013 Known for master\u2011planned communities and retail but also develops business parks and industrial estates. billbergia 1+ Pellicano \u2013 Private developer with a significant industrial and business"]}, {"name": "Google AI Overviews", "brands": 12, "sources": 13, "mentioned": true, "mirvac_mentions": ["Click here to claim your listing. Mirvac. Level 28, 200 George... ![](data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==) The Property Tribune [] Industrial real estate property development - Goodman Australia KGIP invests in core Australian industrial property to deliver stable income returns and capital appreciation."]}, {"name": "Meta AI", "brands": 10, "sources": 10, "mentioned": true, "mirvac_mentions": ["... a leading Australian real estate investment trust that develops and owns a range of properties, including industrial assets. They have a portfolio of over $27 billion in assets under management and are known for their high-quality developments. [3] Mirvac: Mirvac is a leading Australian property group that develops and owns a range of properties, including industrial assets. They have a portfolio of over $26 billion in assets under management and are known for their high-quality developments. [4] Lendlease: Lendlease is a global property and infrastructure company that develops and owns indus", "... the Australian industrial property market and have delivered numerous high-quality developments across the country. References: [1] https://www.goodman.com.au/ [2] https://www.charterindustrialreit.com.au/ [3] https://www.dexus.com/ [4] https://www.mirvac.com/ [5] https://www.lendlease.com/ [6] https://www.bhp.com/ [7] https://www.c-hn.com.au/ [8] https://www.ampcapital.com/ [9] https://www.australianunity.com.au/ [10] https://www.stockland.com.au/"]}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}], "has_mirvac": true}, {"id": 11, "category": "commercial", "prompt": "Compare investment opportunities in Australian commercial property sectors.", "engines": [{"name": "Microsoft Copilot", "brands": 4, "sources": 3, "mentioned": false}, {"name": "xAI Grok", "brands": 6, "sources": 15, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 14, "sources": 28, "mentioned": false}, {"name": "Google Gemini", "brands": 7, "sources": 8, "mentioned": false}, {"name": "Google AI Mode", "brands": 1, "sources": 10, "mentioned": false}, {"name": "Perplexity AI", "brands": 4, "sources": 10, "mentioned": false}, {"name": "Google AI Overviews", "brands": 9, "sources": 18, "mentioned": false}, {"name": "Meta AI", "brands": 17, "sources": 5, "mentioned": true, "mirvac_mentions": ["... Investment returns: 4-6% yields, with potential for long-term capital growth (Source: Australian Property Market Outlook) Key locations: CBDs (e.g., Sydney, Melbourne, Brisbane), major business hubs (e.g., Perth, Adelaide) Notable companies: Dexus, Mirvac, GPT Group Trends: Demand for high-quality, sustainable office spaces; growth in coworking and flexible workspaces Retail Properties Investment returns: 4-7% yields, with potential for rental growth (Source: Retail Property Market Update) Key locations: Prime retail precincts (e.g., Sydney's Pitt Street, Melbourne's Bourke Street), regional "]}, {"name": "Anthropic Claude", "brands": 4, "sources": 5, "mentioned": false}], "has_mirvac": true}, {"id": 12, "category": "commercial", "prompt": "List available industrial commercial property for sale in Australia right now.", "engines": [{"name": "Google AI Overviews", "brands": 18, "sources": 26, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 4, "sources": 4, "mentioned": false}, {"name": "xAI Grok", "brands": 9, "sources": 32, "mentioned": false}, {"name": "Perplexity AI", "brands": 4, "sources": 11, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 4, "sources": 20, "mentioned": false}, {"name": "Google AI Mode", "brands": 5, "sources": 13, "mentioned": false}, {"name": "Google Gemini", "brands": 4, "sources": 3, "mentioned": false}, {"name": "Meta AI", "brands": 4, "sources": 7, "mentioned": false}, {"name": "Anthropic Claude", "brands": 1, "sources": 5, "mentioned": false}], "has_mirvac": false}, {"id": 13, "category": "commercial", "prompt": "I need to research the average price per square meter for commercial property Australia.", "engines": [{"name": "Microsoft Copilot", "brands": 5, "sources": 6, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 5, "sources": 35, "mentioned": false}, {"name": "xAI Grok", "brands": 11, "sources": 54, "mentioned": false}, {"name": "Google AI Mode", "brands": 4, "sources": 13, "mentioned": false}, {"name": "Perplexity AI", "brands": 3, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 7, "sources": 6, "mentioned": false}, {"name": "Google AI Overviews", "brands": 16, "sources": 34, "mentioned": false}, {"name": "Meta AI", "brands": 5, "sources": 0, "mentioned": false}, {"name": "Anthropic Claude", "brands": 3, "sources": 3, "mentioned": false}], "has_mirvac": false}, {"id": 14, "category": "commercial", "prompt": "What are the latest sales figures for commercial property Australia?", "engines": [{"name": "xAI Grok", "brands": 5, "sources": 48, "mentioned": false}, {"name": "Google Gemini", "brands": 10, "sources": 9, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 8, "sources": 31, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 8, "sources": 5, "mentioned": false}, {"name": "Perplexity AI", "brands": 10, "sources": 10, "mentioned": false}, {"name": "Google AI Overviews", "brands": 4, "sources": 0, "mentioned": false}, {"name": "Google AI Mode", "brands": 1, "sources": 8, "mentioned": false}, {"name": "Meta AI", "brands": 3, "sources": 3, "mentioned": false}, {"name": "Anthropic Claude", "brands": 4, "sources": 4, "mentioned": false}], "has_mirvac": false}, {"id": 15, "category": "commercial", "prompt": "Can you show me available retail commercial property for lease in Australia?", "engines": [{"name": "Microsoft Copilot", "brands": 5, "sources": 6, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 7, "sources": 23, "mentioned": false}, {"name": "Google Gemini", "brands": 7, "sources": 2, "mentioned": false}, {"name": "xAI Grok", "brands": 6, "sources": 20, "mentioned": false}, {"name": "Google AI Mode", "brands": 7, "sources": 12, "mentioned": false}, {"name": "Perplexity AI", "brands": 4, "sources": 10, "mentioned": false}, {"name": "Google AI Overviews", "brands": 11, "sources": 21, "mentioned": false}, {"name": "Meta AI", "brands": 6, "sources": 6, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}], "has_mirvac": false}, {"id": 16, "category": "commercial", "prompt": "Show me the top real estate agencies specializing in commercial property Australia.", "engines": [{"name": "Perplexity AI", "brands": 10, "sources": 10, "mentioned": true, "mirvac_mentions": ["...nting larger firms. \\[Local market guides\\] DTZ (now part of Cushman & Wakefield) Historically strong in commercial leasing and advisory across Australian markets. \\[C&W history\\] Property firms with strong local presence BIG players like Lendlease, Mirvac, and Stockland also provide agency and investment services for commercial properties through their in-house teams, especially on large-scale developments and portfolio leasing. \\[Industry guides\\] Notes and tips For high-volume portfolio leasing and national coverage, the big multinationals (CBRE, JLL, Cushman & Wakefield, Colliers, Knight F"]}, {"name": "Microsoft Copilot", "brands": 4, "sources": 5, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 19, "sources": 20, "mentioned": false}, {"name": "Google Gemini", "brands": 12, "sources": 0, "mentioned": false}, {"name": "Google AI Mode", "brands": 11, "sources": 27, "mentioned": false}, {"name": "xAI Grok", "brands": 11, "sources": 25, "mentioned": false}, {"name": "Google AI Overviews", "brands": 11, "sources": 11, "mentioned": false}, {"name": "Meta AI", "brands": 8, "sources": 8, "mentioned": true, "mirvac_mentions": ["...s on office, industrial, and retail properties. [6] Dexus: Dexus is a leading Australian real estate investment trust (REIT) that specializes in commercial property, with a portfolio of office, industrial, and retail properties across Australia. [7] Mirvac: Mirvac is a leading Australian property company that specializes in commercial property, with a portfolio of office, industrial, and retail properties across Australia. [8] These companies are among the top commercial real estate agencies in Australia, but there are many other reputable agencies operating in the country as well. References:", "About Us. Retrieved from <https://www.dexus.com/about-us> [8] Mirvac. (n.d.). About Us."]}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false}], "has_mirvac": true}, {"id": 17, "category": "commercial", "prompt": "Where can I find current listings for commercial property in Australia?", "engines": [{"name": "xAI Grok", "brands": 11, "sources": 27, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 11, "sources": 17, "mentioned": false}, {"name": "Google AI Overviews", "brands": 11, "sources": 15, "mentioned": false}, {"name": "Google Gemini", "brands": 10, "sources": 11, "mentioned": false}, {"name": "Google AI Mode", "brands": 11, "sources": 21, "mentioned": false}, {"name": "Perplexity AI", "brands": 6, "sources": 10, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 5, "sources": 0, "mentioned": false}, {"name": "Anthropic Claude", "brands": 8, "sources": 8, "mentioned": false}, {"name": "Meta AI", "brands": 8, "sources": 8, "mentioned": false}], "has_mirvac": false}, {"id": 18, "category": "commercial", "prompt": "Get me a directory of services related to commercial property Australia management.", "engines": [{"name": "OpenAI ChatGPT", "brands": 10, "sources": 20, "mentioned": false}, {"name": "Google AI Mode", "brands": 16, "sources": 32, "mentioned": false}, {"name": "xAI Grok", "brands": 14, "sources": 43, "mentioned": false}, {"name": "Google AI Overviews", "brands": 15, "sources": 22, "mentioned": false}, {"name": "Perplexity AI", "brands": 8, "sources": 10, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 8, "sources": 5, "mentioned": false}, {"name": "Google Gemini", "brands": 20, "sources": 0, "mentioned": false}, {"name": "Meta AI", "brands": 17, "sources": 17, "mentioned": true, "mirvac_mentions": ["...rvices. www.pwc.com.au/realestate Construction and Development: Lendlease - A global construction and development company that provides services such as construction, project management, and development of commercial properties. www.lendlease.com.au Mirvac - An Australian construction and development company that provides services such as construction, project management, and development of commercial properties. www.mirvac.com Urbis - An Australian construction and development company that provides services such as construction, project management, and development of commercial properties. ww"]}, {"name": "Anthropic Claude", "brands": 12, "sources": 12, "mentioned": false}], "has_mirvac": true}, {"id": 19, "category": "btr", "prompt": "Compare the rental experience of build to rent versus traditional apartment leasing in Australia.", "engines": [{"name": "Microsoft Copilot", "brands": 3, "sources": 3, "mentioned": false}, {"name": "xAI Grok", "brands": 2, "sources": 41, "mentioned": false}, {"name": "Perplexity AI", "brands": 4, "sources": 10, "mentioned": false}, {"name": "Google AI Mode", "brands": 8, "sources": 22, "mentioned": true, "mirvac_mentions": ["Rental experiences in Australia differ significantly between Build-to-Rent (BTR) \u2014where institutional entities like Lendlease or Mirvac own and manage entire buildings\u2014and traditional leasing through private \"mum and dad\" landlords. 1\\. Security and Tenure Build-to-Rent: Offers \"unprecedented security\" because the building will never be sold to an owner-occupier."]}, {"name": "Google Gemini", "brands": 8, "sources": 5, "mentioned": true, "mirvac_mentions": ["Comparison Table: BTR vs. Traditional Leasing Feature Build-to-Rent (BTR) Traditional Leasing Ownership Single institutional owner (e.g., Mirvac, Greystar). Individual private landlords.", "...site maintenance teams and a vested interest in the building\u2019s long-term value, usually resulting in same-day or next-day service for most issues.[https://www.realestate.com.au/advice/build-to-rent/] 3. Community and Lifestyle BTR developments (like Mirvac\u2019s LIV or Sentinel\u2019s Kinma Valley) function more like a high-end hotel or a \"vertical village.\" Amenities: You often get access to concierge services, dog wash stations, rooftop gardens, and yoga studios.[https://houseseeker.com.au/blog/build-to-rent-australia-future-of-renting] Community: Operators frequently host resident events (BBQs, triv"]}, {"name": "OpenAI ChatGPT", "brands": 5, "sources": 16, "mentioned": false}, {"name": "Google AI Overviews", "brands": 11, "sources": 22, "mentioned": false}, {"name": "Anthropic Claude", "brands": 5, "sources": 2, "mentioned": true, "mirvac_mentions": ["...nger-term (e.g. 3-5 years) with more stability and less turnover compared to traditional rentals. Rents may be slightly higher than traditional apartments, but the experience is considered more premium. Examples of BTR operators in Australia include Mirvac, Lendlease, and Greystar. Source: https://www.domain.com.au/news/build-to-rent-what-is-it-and-how-does-it-work-1033277/ Traditional Apartment Leasing: Tenants rent from individual landlords or property management companies. The rental experience is more basic, with fewer on-site amenities. Leases are typically 6-12 months with more turnover "]}, {"name": "Meta AI", "brands": 6, "sources": 0, "mentioned": true, "mirvac_mentions": ["...en provide a more streamlined and modern rental experience, with on-site maintenance and smart home technology. Examples of BTR providers in Australia: Lendlease: Offers BTR properties in various locations, including Melbourne, Sydney, and Brisbane. Mirvac: Provides BTR properties in Sydney, Melbourne, and Brisbane, with a focus on sustainability and community living. Australian Unity: Offers BTR properties in Melbourne and Sydney, with a focus on retirement and lifestyle living. Sources: Australian Financial Review: \"Build-to-rent sector grows as investors seek stable income\" The Australian: "]}], "has_mirvac": true}, {"id": 20, "category": "btr", "prompt": "Show me companies specializing in build to rent projects across Australia.", "engines": [{"name": "Microsoft Copilot", "brands": 12, "sources": 15, "mentioned": true, "mirvac_mentions": ["...r 2,800 in development, now expanding heavily in Australia. Their Australian pipeline includes large-scale projects such as the Brisbane Showgrounds BTR development. [https://www.lendlease.com/au/insights/the-rise-of-build-to-rent-in-australia/] --- Mirvac (LIV Brand) A pioneer in Australia\u2019s BTR sector with flagship projects such as LIV Indigo (Sydney Olympic Park) and [[https://www.news.com.au/finance/money/costs/why-this-melbourne-apartment-building-will-change-renting-forever/news-story/a7f5cc75745f604a7a85a3ada7055568]https://www.theaustralian.com.au/business/property/mitsubishi-takes-the", "...bility. --- Additional Notable Participants These organisations are also active in the BTR pipeline: Blackstone \u2013 expanding BTR investment footprint. Kajima Corporation (with Pro\u2011partners) \u2013 entering the Australian BTR market. Mitsubishi Estate (via Mirvac partnerships) \u2013 investing in BTR growth. --- Quick Comparison Table | Company | Type | Notable Projects / Focus | |--------|-------|---------------------------| | Lendlease | Global developer | Brisbane Showgrounds BTR; major international experience | | Mirvac (LIV) | Australian developer | LIV Indigo, LIV Munro | | Sentinel Real Estate | U"]}, {"name": "xAI Grok", "brands": 24, "sources": 34, "mentioned": true, "mirvac_mentions": ["...ed in cities like Melbourne (leading the way), Sydney, Brisbane, and Perth. Here are some of the key companies and major players specializing in build-to-rent projects across Australia, based on their developments, partnerships, and market presence: Mirvac \u2014 A leading Australian developer and one of the pioneers in BTR. Their LIV brand offers build-to-rent communities in Melbourne, Sydney, and Brisbane, with LIV Indigo as Australia's first large-scale BTR property (opened in 2020).", "Many developments include amenities like gyms, co-working spaces, and community facilities. For the latest specifics on projects or availability, check company websites (e.g., Mirvac's LIV, Lendlease, or Kinleaf) or industry sources like Property Council of Australia reports. The market is evolving quickly, with Melbourne as the current hub."]}, {"name": "Perplexity AI", "brands": 16, "sources": 12, "mentioned": true, "mirvac_mentions": ["Here are notable Australia-based developers and operators active in build-to-rent (BtR) across multiple cities. This list includes both pure BtR operators and large developers embedding BtR within broader projects. Mirvac Group (Australia) \u2013 Public REIT actively pursuing BtR via its LIV apartment brands in Melbourne and other cities. mrisoftware \u200b Lendlease \u2013 Major developer with BtR projects in Brisbane and other markets, expanding its BtR pipeline. constructionpeople \u200b Frasers Property Australia \u2013 Active BtR player through its scale in Melbourne and Sydney "]}, {"name": "Google AI Overviews", "brands": 17, "sources": 0, "mentioned": true, "mirvac_mentions": ["Major companies specializing in Build-to-Rent (BTR) projects across Australia include institutional developers and operators like Mirvac , Lendlease , Investa (Indi) , and Sentinel (Kinleaf) . These firms focus on developing, owning, and managing purpose-built rental communities, with significant projects active in Melbourne, Sydney, and Brisbane.", "These firms focus on developing, owning, and managing purpose-built rental communities, with significant projects active in Melbourne, Sydney, and Brisbane. Key Build-to-Rent Developers & Operators: Mirvac (LIV): A leader in the sector with projects like LIV Indigo (Sydney), LIV Munro, and LIV Aston (Melbourne). Lendlease : Actively developing BTR projects in Melbourne and Brisbane, with a portfolio of thousands of apartments."]}, {"name": "Google AI Mode", "brands": 21, "sources": 24, "mentioned": true, "mirvac_mentions": ["As of 2026, the market is led by both established local firms and large global players. Leading BTR Developers and Operators Mirvac (LIV Mirvac): A pioneer in the Australian market, Mirvac operates under the LIV brand. Current Projects: Includes LIV Indigo (Sydney), LIV Munro (Melbourne), LIV Aston (Melbourne), and LIV Albert Fields (Melbourne). Pipeline: Aiming for 5,000 operational apartments by 2030, with new developments like LIV Anura in Brisbane. Greystar (Haiku): ", "...an BTR, accounting for over 50% of operating and announced projects . | Developer | Key Project Brand | Primary Locations | Avg. Project Size (Units) | | ------------- | ----------------- | --------------------------- | ------------------------- | | Mirvac | LIV | Sydney, Melbourne, Brisbane | 440 | | Lendlease | Lendlease BTR | Melbourne, Brisbane | 575 | | Greystar | Haiku | Melbourne | 429 | | Sentinel | Kinleaf | Melbourne, Perth, Adelaide | \\~170-350 | | Home | Home | Melbourne, Sydney | 435 | Government & Specialist Providers Landcom (NSW Government): Focuses on regional BTR and housing "]}, {"name": "OpenAI ChatGPT", "brands": 14, "sources": 23, "mentioned": true, "mirvac_mentions": ["...development, and property management for BTR projects. [https://www.colliers.com.au/en-au/news/launching-prd-melbourne-apartments] \ud83d\udcca Other Notable Players _(involved either as institutional investors, project sponsors or emerging entrants into BTR)_ Mirvac \u2013 Large Australian developer with an expanding living portfolio and BTR exposure (often with institutional co-investment). [https://www.theaustralian.com.au/business/property/commercial/superannuation-giant-art-rides-buildtorent-wave-as-mirvacs-17bn-fund-takes-off/news-story/4bffc77d8ec147d69ff9697e24a1f9c0] Super funds and institutional cap"]}, {"name": "Google Gemini", "brands": 12, "sources": 7, "mentioned": true, "mirvac_mentions": ["...date.com.au/build-to-rent-in-australia-booming-today-slowing-tomorrow/] Here are the primary companies and platforms currently leading the BTR market across Australia: Major BTR Developers & Operators Company / Brand Key Focus Areas Notable Projects Mirvac (LIV) Sydney, Melbourne, Brisbane LIV Indigo (Sydney), LIV Anura (Brisbane), LIV Albert Fields (Melbourne) Lendlease Melbourne, Brisbane West Tower at Melbourne Quarter , Exhibition Place (Brisbane) Greystar Melbourne, Sydney South Yarra BTR (Yarra & Claremont Towers), The Gladstone (South Melbourne) Sentinel (Kinleaf) Perth, Melbourne The E"]}, {"name": "Meta AI", "brands": 10, "sources": 10, "mentioned": true, "mirvac_mentions": ["...Australia: Lendlease: Lendlease is a global property and infrastructure company that has been actively involved in BTR projects in Australia. They have a portfolio of BTR projects across the country, including in Melbourne, Sydney, and Brisbane. [1] Mirvac: Mirvac is a leading Australian property company that has been investing in BTR projects. They have a portfolio of BTR projects across Australia, including in Melbourne, Sydney, and Brisbane. [2] Dexus: Dexus is a leading Australian property company that has been actively involved in BTR projects.", "Build to Rent. Retrieved from <https://www.lendlease.com.au/build-to-rent/> [2] Mirvac. (n.d.). Build to Rent."]}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "mirvac_mentions": ["Here are some companies specializing in build-to-rent projects across Australia, along with additional context about each: Mirvac Mirvac is a leading Australian property group that has a significant build-to-rent portfolio. They have completed several build-to-rent projects in major Australian cities like Sydney, Melbourne, and Brisbane. Source: https://www.mirvac.com/residential/build-to-rent Stockland Stockland is one of Australia's largest diversified property group"]}], "has_mirvac": true}, {"id": 21, "category": "btr", "prompt": "What are the requirements for a new housing project to qualify as build to rent in Australia?", "engines": [{"name": "Microsoft Copilot", "brands": 4, "sources": 4, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 6, "sources": 16, "mentioned": false}, {"name": "xAI Grok", "brands": 5, "sources": 32, "mentioned": false}, {"name": "Perplexity AI", "brands": 7, "sources": 10, "mentioned": false}, {"name": "Google AI Mode", "brands": 16, "sources": 13, "mentioned": false}, {"name": "Google Gemini", "brands": 8, "sources": 7, "mentioned": false}, {"name": "Google AI Overviews", "brands": 8, "sources": 16, "mentioned": false}, {"name": "Meta AI", "brands": 6, "sources": 6, "mentioned": true, "mirvac_mentions": ["... of the State Environmental Planning Policy (SEPP) 65. In Victoria, BTR projects must meet the requirements of the Victoria Planning Provisions and the Build-to-Rent Guidelines. Some examples of BTR projects in Australia include: BTR developments by Mirvac: Mirvac has developed several BTR projects across Australia, including the Edmondson Park project in New South Wales. BTR developments by Lendlease: Lendlease has also developed BTR projects, such as the Skyline Apartments project in Melbourne. BTR developments by Investa: Investa has developed several BTR projects, including the Alexandra o"]}, {"name": "Anthropic Claude", "brands": 2, "sources": 2, "mentioned": false}], "has_mirvac": true}, {"id": 22, "category": "btr", "prompt": "Are there any new build to rent housing developments planned for Brisbane or Melbourne?", "engines": [{"name": "Google AI Overviews", "brands": 15, "sources": 0, "mentioned": false}, {"name": "xAI Grok", "brands": 11, "sources": 47, "mentioned": true, "mirvac_mentions": ["...ds Bagot): Site works have started for a 32-level tower with 286 apartments (mix of 1\u20133 bedrooms). Pellicano's proposed tower: Plans lodged in late 2025 for a 41-storey development with 570 BTR apartments. Other projects like LIV Anura (Newstead, by Mirvac) opened in mid-2025 as the first under Queensland's BTR Pilot (396 rentals, including affordable units), showing the sector's momentum, with more in the pipeline. Melbourne Melbourne leads Australia's BTR market, with significant activity in inner-city and Docklands areas. Recent/planned highlights include: West Tower (Melbourne Quarter, Doc"]}, {"name": "OpenAI ChatGPT", "brands": 18, "sources": 35, "mentioned": true, "mirvac_mentions": ["...planned Build-to-Rent (BtR) housing developments underway or proposed in both Brisbane and Melbourne. Build-to-Rent continues to grow as a housing model in Australia, with purpose-built rental communities emerging beyond pilot projects. [https://www.mirvac.com/about/news-and-media/mirvac-and-queensland-government-open-first-build-to-rent-pilot-project-community] Latest Australian Build\u2011to\u2011Rent News Highlights ![Pellicano Files 570-Apartment Brisbane BtR Tower Plans ![] The Urban Developer Pellicano Files 570-Apartment Brisbane BtR Tower Plans Nov 4, 2025 ] ![US rental giant starts Melbourne ho", "Build-to-Rent continues to grow as a housing model in Australia, with purpose-built rental communities emerging beyond pilot projects. [https://www.mirvac.com/about/news-and-media/mirvac-and-queensland-government-open-first-build-to-rent-pilot-project-community] Latest Australian Build\u2011to\u2011Rent News Highlights ![Pellicano Files 570-Apartment Brisbane BtR Tower Plans ![] The Urban Developer Pellicano Files 570-Apartment Brisbane BtR Tower Plans Nov 4, 2025 ] ![US rental giant starts Melbourne ho"]}, {"name": "Google Gemini", "brands": 7, "sources": 9, "mentioned": false}, {"name": "Perplexity AI", "brands": 6, "sources": 10, "mentioned": true, "mirvac_mentions": ["...ecent public announcements and industry reporting. Brisbane: Australia\u2019s build-to-rent (BTR) sector has several high-profile Brisbane projects that have been underway or announced in recent years. Notably, LIV Anura in Newstead (dual-tower, built by Mirvac) has been a prominent example in inner-city Brisbane, with a focus on long-term rental, including a portion of affordable rental housing. There have also been other Brisbane BTR proposals and planning activity tied to the Queensland government\u2019s program, including multi-tower developments targeting large-scale rental supply.", "...get current specifics quickly: Check the Queensland and Victorian government planning portals for new BTR pipeline announcements and Expressions of Interest outcomes. Review recent press releases from major developers active in BTR in these markets (Mirvac, Frasers Property, Lendlease, and other large urban developers). Look at industry updates from property consultancies and trade outlets (e.g., space/property blogs and construction-focused outlets) for the latest project statuses and openings. If you\u2019d like, I can search for the latest confirmed BTR developments in Brisbane and Melbourne and"]}, {"name": "Microsoft Copilot", "brands": 4, "sources": 3, "mentioned": true, "mirvac_mentions": ["...f a broader $2.5 billion development pipeline in Melbourne. Aims to ease rental pressures and expand institutional rental housing. [https://theaussiecorporate.com/blogs/pickandscrollnews/macquarie-backed-developer-plans-370m-melbourne-build-to-rent] Mirvac\u2019s LIV BTR portfolio Mirvac continues to expand its LIV brand across Melbourne, Sydney, and Brisbane. While the pag[https://www.mirvac.com/build-to-rent]e doesn\u2019t list specific new Melbourne sites, Mirvac states it is actively growing its BTR footprint and pipeline. Brisbane: BTR Activity & Pipeline Mirvac\u2019s LIV brand includes Brisbane locati"]}, {"name": "Google AI Mode", "brands": 14, "sources": 19, "mentioned": true, "mirvac_mentions": ["...y Frasers Property that includes 144 subsidised rental apartments. ![] Halo Residences 0.0 Apartment building 33 Manning St ![] PL Story House, Kangaroo Point 5.0 (1) Apartment building 65 Linton St Future Outlook Major developers like Pellicano and Mirvac have filed further plans for towers in Spring Hill, Woolloongabba, and Fortitude Valley, indicating continued growth through 2026 and beyond. These resources highlight key build-to-rent projects in Brisbane and Melbourne, offering information on their locations, developers, and anticipated opening times: [] Five Build-to-Rent Projects Under "]}, {"name": "Meta AI", "brands": 6, "sources": 6, "mentioned": true, "mirvac_mentions": ["assistant Here are some new build-to-rent housing developments planned for Brisbane and Melbourne: Brisbane: Brisbane Build-to-Rent Project by Mirvac: A $3 billion project to develop 3,000 build-to-rent apartments across Brisbane, with the first stage expected to commence in 2024. [1] BTR Precinct by Lendlease: A 450-unit build-to-rent development in the Brisbane CBD, expected to be completed by 2026. [2] Riverwalk Build-to-Rent by Dexus: A 250-unit build-to-rent project in the Brisbane s", "assistant Here are some new build-to-rent housing developments planned for Brisbane and Melbourne: Brisbane: Brisbane Build-to-Rent Project by Mirvac: A $3 billion project to develop 3,000 build-to-rent apartments across Brisbane, with the first stage expected to commence in 2024. [1] BTR Precinct by Lendlease: A 450-unit build-to-rent development in the Brisbane CBD, expected to be completed by 2026. [2] Riverwalk Build-to-Rent by Dexus: A 250-unit build-to-rent project in the Brisbane s"]}, {"name": "Anthropic Claude", "brands": 4, "sources": 4, "mentioned": true, "mirvac_mentions": ["Based on my research, here are some relevant new build to rent housing developments planned for Brisbane and Melbourne: Brisbane: Mirvac's \"The Ascent\" - A 352-apartment build-to-rent development in Brisbane's Newstead precinct. Expected completion in 2023.", "Expected completion in 2023. Source: https://www.mirvac.com/residential/qld/the-ascent Frasers Property Australia's \"Coorparoo Square\" - A mixed-use development including a build-to-rent component in Brisbane's Coorparoo area."]}], "has_mirvac": true}, {"id": 23, "category": "btr", "prompt": "Which Australian regions are seeing the most investment in build to rent housing?", "engines": [{"name": "xAI Grok", "brands": 4, "sources": 49, "mentioned": false}, {"name": "Microsoft Copilot", "brands": 2, "sources": 3, "mentioned": false}, {"name": "Perplexity AI", "brands": 5, "sources": 10, "mentioned": false}, {"name": "Google AI Mode", "brands": 23, "sources": 18, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 9, "sources": 37, "mentioned": false}, {"name": "Google Gemini", "brands": 7, "sources": 7, "mentioned": true, "mirvac_mentions": ["...owing into Western Sydney (Parramatta and the new Aerotropolis corridor) and Sydney Olympic Park . Drivers: Recent state tax concessions and the rezoning of commercial land for BTR use have made Sydney more attractive to institutional investors like Mirvac and Greystar. 3. Queensland (Brisbane & Southeast QLD) Brisbane has become a major BTR hotspot, partly fueled by the infrastructure boom leading up to the 2032 Olympics .[https://www.bluewaveproperty.com.au/build-to-rent-revolution-could-this-be-the-future-of-qlds-rental-market/] Total Pipeline: Roughly 16,000 units ."]}, {"name": "Google AI Overviews", "brands": 19, "sources": 33, "mentioned": false}, {"name": "Meta AI", "brands": 9, "sources": 0, "mentioned": true, "mirvac_mentions": ["...1,500 BTR units currently under construction or planned. Some of the major players in the Australian BTR market include: Lendlease: Lendlease has announced plans to develop over 3,000 BTR units across Australia, with a focus on Sydney and Melbourne. Mirvac: Mirvac has a significant pipeline of BTR projects, with over 2,000 units currently under construction or planned across Sydney, Melbourne, and Brisbane. Stockland: Stockland has announced plans to develop over 1,500 BTR units across Australia, with a focus on Melbourne and Sydney. Unibank: Unibank has partnered with developer, Investa, to d"]}, {"name": "Anthropic Claude", "brands": 6, "sources": 4, "mentioned": true, "mirvac_mentions": ["... regions that are seeing the most investment in build-to-rent housing: Sydney, New South Wales: Major developers and investors are focusing on build-to-rent projects in Sydney, particularly in the inner-city and middle-ring suburbs. Examples include Mirvac's 'LIV' build-to-rent projects and Greystar's developments. Source: https://www.domain.com.au/news/sydneys-build-to-rent-revolution-1103305/ Melbourne, Victoria: The build-to-rent sector is growing in Melbourne, with projects by developers like Assemble, Mirvac, and Grocon. Locations include inner-city suburbs like Fitzroy, Collingwood, and ", "Sydney, New South Wales: Major developers and investors are focusing on build-to-rent projects in Sydney, particularly in the inner-city and middle-ring suburbs. Examples include Mirvac's 'LIV' build-to-rent projects and Greystar's developments. Source: https://www.domain.com.au/news/sydneys-build-to-rent-revolution-1103305/ Melbourne, Victoria: The build-to-rent sector is growing in Melbourne, with projects by developers like Assemble, Mirvac, and Grocon. Locations include inner-city suburbs like Fitzroy, Collingwood, and "]}], "has_mirvac": true}, {"id": 24, "category": "btr", "prompt": "List the benefits for tenants looking at build to rent options in Australia.", "engines": [{"name": "Microsoft Copilot", "brands": 4, "sources": 4, "mentioned": false}, {"name": "Google AI Mode", "brands": 2, "sources": 11, "mentioned": true, "mirvac_mentions": ["Mirvac was mentioned in this response."]}, {"name": "xAI Grok", "brands": 0, "sources": 29, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 7, "sources": 16, "mentioned": false}, {"name": "Perplexity AI", "brands": 2, "sources": 10, "mentioned": false}, {"name": "Google Gemini", "brands": 0, "sources": 0, "mentioned": false}, {"name": "Google AI Overviews", "brands": 10, "sources": 21, "mentioned": false}, {"name": "Meta AI", "brands": 5, "sources": 5, "mentioned": false}, {"name": "Anthropic Claude", "brands": 2, "sources": 2, "mentioned": false}], "has_mirvac": true}, {"id": 25, "category": "btr", "prompt": "What are the available rental properties under the build to rent model in major Australian cities?", "engines": [{"name": "Microsoft Copilot", "brands": 3, "sources": 4, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 9, "sources": 20, "mentioned": true, "mirvac_mentions": ["...ttps://www.realestate.com.au/advice/build-to-rent/] --- \ud83c\udfd9\ufe0f Sydney Available / Renting LIV Indigo \u2014 Sydney Olympic Park: One of Australia\u2019s early large-scale BTR properties with long-term rental options in Sydney\u2019s Olympic Park precinct. [https://www.mirvac.com/build-to-rent] Coming / Recently Opened Indi Sydney \u2014 Sydney CBD: Centrally located build-to-rent apartments with one, two and three bedroom layouts designed for long-term renters. [https://essencecommunities.com.au/build-to-rent-australia/] Wentworth Quarter \u2014 Wentworth Point: Waterfront rental community with premium finishes. [https://", "...ttps://www.realestate.com.au/advice/build-to-rent/] --- \ud83c\udfd9\ufe0f Sydney Available / Renting LIV Indigo \u2014 Sydney Olympic Park: One of Australia\u2019s early large-scale BTR properties with long-term rental options in Sydney\u2019s Olympic Park precinct. [https://www.mirvac.com/build-to-rent] Coming / Recently Opened Indi Sydney \u2014 Sydney CBD: Centrally located build-to-rent apartments with one, two and three bedroom layouts designed for long-term renters. [https://essencecommunities.com.au/build-to-rent-australia/] Wentworth Quarter \u2014 Wentworth Point: Waterfront rental community with premium finishes. [https://"]}, {"name": "xAI Grok", "brands": 10, "sources": 44, "mentioned": true, "mirvac_mentions": ["Check the providers' sites for current vacancies, as they handle direct leasing. Here are key active BTR providers and examples of available or recently operational properties in major cities: Sydney (and NSW) LIV Mirvac: A leading provider with communities like LIV Indigo (Sydney Olympic Park, opened 2020, mix of 1-3 bed apartments). Other projects in Sydney Olympic Park and pipeline. UKO: Modern, pet-friendly apartments in locations like Sydney Olympic Park (2 Murray Rose Ave), Parramatta Central (9 Hassall Street), and others. Indi (Investa): Indi Sydney ", "Here are key active BTR providers and examples of available or recently operational properties in major cities: Sydney (and NSW) LIV Mirvac: A leading provider with communities like LIV Indigo (Sydney Olympic Park, opened 2020, mix of 1-3 bed apartments). Other projects in Sydney Olympic Park and pipeline. UKO: Modern, pet-friendly apartments in locations like Sydney Olympic Park (2 Murray Rose Ave), Parramatta Central (9 Hassall Street), and others. Indi (Investa): Indi Sydney "]}, {"name": "Google Gemini", "brands": 13, "sources": 11, "mentioned": true, "mirvac_mentions": ["...pools and co-working hubs.[https://www.indi.com.au/] Local South Melbourne: A newly active player with a major precinct on Bank Street.[https://www.btrnews.au/local-expands-portfolio-to-2-5bn-with-new-btr-acquisition/] LIV Aston & LIV Albert Fields (Mirvac):[https://www.theurbandeveloper.com/articles/australian-build-to-rent-top-developers-2025] Known for community-focused living and high sustainability ratings.[https://www.mirvac.com/build-to-rent] Home Docklands & Home Southbank: Premium residences offering 24/7 concierge and wellness centers. Sydney Sydney\u2019s model is shifting toward major t", "...e pipeline in Brisbane is growing fast, driven by high demand and the upcoming 2032 Olympics preparation. LIV Anura (Newstead):[https://www.realestate.com.au/news/a-new-way-of-renting-is-catching-on-in-australia-so-why-is-supply-slowing/] A flagship Mirvac project in a popular riverside precinct. Arklife Cordelia (South Brisbane):[https://www.commercialready.com.au/content-hub/article/record-year-for-build-to-rent-but-challenges-loom] Focused on \"lifestyle\" renting with extensive communal social spaces. 50 Quay St (CBD): Expected to begin renting in the second half of 2026, positioned near the"]}, {"name": "Perplexity AI", "brands": 6, "sources": 10, "mentioned": true, "mirvac_mentions": ["...apshot of Build-to-Rent (BTR) rental options in Australia\u2019s major cities, focusing on projects that are either under construction or recently launched. Sydney Indi Sydney (home to a prominent BTR precinct by a major developer) LIV Indigo and related MIRVAC developments in the city\u2019s CBD fringe Other mid-to-large BTR sites in inner-city zones with professional management and long-term tenancy Melbourne South Yarra and Melbourne Quarter precincts feature BTR components with on-site amenities and long-term leases Luxury/amenity-rich BTR communities aimed at stable occupancy and professional manag"]}, {"name": "Google AI Mode", "brands": 16, "sources": 25, "mentioned": false}, {"name": "Google AI Overviews", "brands": 14, "sources": 37, "mentioned": true, "mirvac_mentions": ["...ly announced 355-unit project in South Melbourne (15-37 Bank Street) and existing, well-connected spots in Kensington and Southbank. Indi Footscray: Opening in 2026, this development features 702 studios, one, two, and three-bedroom apartments. LIV (Mirvac): Projects include LIV Munro (near Queen Victoria Market) and LIV Aston (North Wharf). Source 1Source 2Source 3Source 4Source 5Source 6Source 7 Sydney Sydney is accelerating its BTR supply, focusing on urban infill and transport-oriented development. Source 1Source 2 Indi Sydney (CBD): Located on Pitt Street, this flagship project offers pre", "...0rexRQFcKN3POOaKKeJY1SKN0BaNSceK1Hv440064dEVXUgKwGCKKKVM3Dot0/UL0XKKLu4xvAx2rdM/GpgvbuezuI57qeRAeFeQkDkeFFFKl0ZHg5vwGtYAwBBXBz4jilmpwxQx5hjSM7XOVUDkHg/ZRRRjxG31kk91rpV4CsMAeHdFaSu6RFkZlYLwQcGiitr4iX079o55Ltn40UUUTj//2Q==) Show all [] Build to Rent | Mirvac LIV Albert. Situated in Melbourne's cultural centre, Brunswick, LIV Albert is surrounded by parklands and green spaces with a plet... ![](data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==) Mirvac ![](data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==) [] INTRODUCING BUILD TO RE"]}, {"name": "Meta AI", "brands": 7, "sources": 0, "mentioned": true, "mirvac_mentions": ["...- Offers BTR apartments in Melbourne, with properties in suburbs like Docklands, Southbank, and St Kilda West. [4] Lifestyle Communities - Also offers BTR apartments in Melbourne, with properties in suburbs like Clayton, Dandenong, and Box Hill. [1] Mirvac - Develops and manages BTR properties in Melbourne, including apartments in suburbs like Yarra, Fitzroy, and Carlton. [5] Brisbane: Briscoes Group - Offers BTR apartments in Brisbane, with properties in suburbs like Brisbane City, Teneriffe, and Bulimba. [2] Unison Properties - Provides BTR apartments in Brisbane, with properties in suburbs ", "It's essential to research and compare different properties, amenities, and pricing to find the best fit for your needs. References: [1] Lifestyle Communities - www.lifestylecommunities.com.au [2] Briscoes Group - www.briscoesgroup.com.au [3] Unison Properties - www.unisonproperties.com.au [4] Dexus - www.dexus.com [5] Mirvac - www.mirvac.com.au [6] Stockland - www.stockland.com.au [7] Merlin Property Group - www.merlinproperty.com.au"]}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "mirvac_mentions": ["...r Australian cities, with relevant sources: Melbourne: Assemble Communities - Assemble operates several build-to-rent developments in Melbourne, including Assemble Kensington and Assemble Fitzroy North. (Source: https://www.assemblecommunities.com/) Mirvac - Mirvac has a build-to-rent project called The Fabric in Melbourne's Docklands area. (Source: https://www.mirvac.com/residential/build-to-rent) Grocon - Grocon is developing a build-to-rent project called Parkville Gardens in Melbourne. (Source: https://grocon.com/projects/parkville-gardens/) Sydney: Mirvac - In addition to their Melbourne ", "Melbourne: Assemble Communities - Assemble operates several build-to-rent developments in Melbourne, including Assemble Kensington and Assemble Fitzroy North. (Source: https://www.assemblecommunities.com/) Mirvac - Mirvac has a build-to-rent project called The Fabric in Melbourne's Docklands area. (Source: https://www.mirvac.com/residential/build-to-rent) Grocon - Grocon is developing a build-to-rent project called Parkville Gardens in Melbourne. (Source: https://grocon.com/projects/parkville-gardens/) Sydney: Mirvac - In addition to their Melbourne "]}], "has_mirvac": true}, {"id": 26, "category": "btr", "prompt": "How do I search for long-term rental apartments managed under the build to rent scheme in Australia?", "engines": [{"name": "xAI Grok", "brands": 14, "sources": 43, "mentioned": true, "mirvac_mentions": ["... Popular/current BTR providers include: UKO (Sydney and Melbourne) \u2192 uko.com.au \u2014 Modern, social-focused communities. Indi (by Investa, Sydney and Melbourne, with more coming) \u2192 indi.com.au \u2014 Mix of 1\u20133 bedroom apartments, often in CBD areas. LIV by Mirvac (Sydney, Melbourne, Brisbane) \u2192 livmirvac.com \u2014 Emphasizes security and quality in great locations. Home Apartments (Melbourne: Southbank, Richmond, Docklands) \u2192 homeapartments.com.au \u2014 Luxury communities with seamless applications and tours. Local Residential (Melbourne-focused, e.g., Kensington, Southbank) \u2192 localresidential.com.au \u2014 Hassl"]}, {"name": "Microsoft Copilot", "brands": 12, "sources": 4, "mentioned": true, "mirvac_mentions": ["...y by the developer or [https://www.lendlease.com/au/insights/the-rise-of-build-to-rent-in-australia/]operator, not through traditional agents. Common operators include: Lendlease Living \u2013 A major BTR developer with thousands of units in development. Mirvac (LIV) \u2013 Operates BTR communities in Melbourne and Sydney. Greystar \u2013 Global BTR operator active in Australia. Home by Caydon, Assemble, Novus, Altis, and others. How to search: Visit each operator\u2019s website \u2192 look for \u201cRent\u201d, \u201cCommunities\u201d, or \u201cBuild\u2011to\u2011Rent\u201d. Register interest for upcoming projects (many lease up before completion). --- Sea", "Common operators include: Lendlease Living \u2013 A major BTR developer with thousands of units in development. Mirvac (LIV) \u2013 Operates BTR communities in Melbourne and Sydney. Greystar \u2013 Global BTR operator active in Australia. Home by Caydon, Assemble, Novus, Altis, and others. How to search: Visit each operator\u2019s website \u2192 look for \u201cRent\u201d, \u201cCommunities\u201d, or \u201cBuild\u2011to\u2011Rent\u201d. Register interest for upcoming projects (many lease up before completion). --- Sea"]}, {"name": "OpenAI ChatGPT", "brands": 9, "sources": 8, "mentioned": false}, {"name": "Google Gemini", "brands": 15, "sources": 4, "mentioned": true, "mirvac_mentions": ["Most of these have projects in Melbourne (the BTR hub) and Sydney , with Brisbane and Perth growing quickly. Operator Major Projects / Brand Names Primary Locations Home Home Southbank, Home Richmond, Home Docklands Melbourne, Sydney (St Leonards) Mirvac (LIV) LIV Indigo, LIV Munro, LIV Anura Sydney, Melbourne, Brisbane Greystar The Gladstone Melbourne (South Melbourne) Lendlease Exhibition Place, Melbourne Quarter Melbourne, Brisbane Assemble Assemble Communities (Rent-to-buy focus) Melbourne (Kensington, Brunswick) UKO UKO Rosebery, UKO Parramatta Sydney, Melbourne Meriton Meriton Built Fo", "Use Filter Keywords on Real Estate Portals While BTR is a specialized niche, many operators still list on major portals like Realestate.com.au or Domain . To find them: Keywords: Use the search bar for specific keywords like \"Build to Rent,\" \"BTR,\" or the specific brand names listed above (e.g., \"LIV Mirvac\"). Search for \"Whole Buildings\": Look for listings that mention \"professional management,\" \"on-site concierge,\" or \"no bond\" (some BTR providers offer bond-free options).[https://essencecommunities.com.au/build-to-rent-sydney/] 3."]}, {"name": "Google AI Mode", "brands": 9, "sources": 15, "mentioned": true, "mirvac_mentions": ["Major BTR Operators Many of the largest BTR developments are managed through their own dedicated platforms. You can browse their current and upcoming locations directly: LIV by Mirvac : Operates major communities like LIV Indigo (Sydney) and LIV Munro (Melbourne), offering long-term leases and pet-friendly policies . Indi (by Investa) : Focuses on premium rental buildings in Sydney and Melbourne, such as Indi Sydney (CBD) and Indi Southbank . Home Apartments : Offers high-end, professionally managed rental buildings in Me"]}, {"name": "Perplexity AI", "brands": 1, "sources": 10, "mentioned": false}, {"name": "Google AI Overviews", "brands": 10, "sources": 18, "mentioned": true, "mirvac_mentions": ["To find long-term Build-to-Rent (BTR) apartments in Australia, use dedicated filters on Rent.com.au or search directly through major BTR operators like Mirvac (LIV), Home Apartments, Meriton, Essence Communities, or UKO. These purpose-built, professionally managed developments offer longer, more secure leases. Source 1Source 2Source 3Source 4Source 5 Key Methods for Finding BTR Properties: Specialized Rental Platforms: Use the dedicated \"Build-to-Rent\" filter on Rent.com.au to search for these spe", "To find long-term Build-to-Rent (BTR) apartments in Australia, use dedicated filters on Rent.com.au or search directly through major BTR operators like Mirvac (LIV), Home Apartments, Meriton, Essence Communities, or UKO. These purpose-built, professionally managed developments offer longer, more secure leases. Source 1Source 2Source 3Source 4Source 5 Key Methods for Finding BTR Properties: Specialized Rental Platforms: Use the dedicated \"Build-to-Rent\" filter on Rent.com.au to search for these spe"]}, {"name": "Meta AI", "brands": 11, "sources": 6, "mentioned": true, "mirvac_mentions": ["You can also filter by \"Build-to-Rent\" or \"BTR.\" Build-to-Rent Operators: Lendlease: Lendlease is one of the largest BTR operators in Australia. You can visit their website (www.lendlease.com) and search for available apartments by location. Mirvac: Mirvac is another prominent BTR operator in Australia. You can visit their website (www.mirvac.com) and search for available apartments. Dexus: Dexus is a leading Australian property group that offers BTR apartments.", "You can visit their website (www.lendlease.com) and search for available apartments by location. Mirvac: Mirvac is another prominent BTR operator in Australia. You can visit their website (www.mirvac.com) and search for available apartments. Dexus: Dexus is a leading Australian property group that offers BTR apartments. You can visit their website (www.dexus.com) and search for available apartments. Specialized BTR Websites: BTR Hub: A website"]}, {"name": "Anthropic Claude", "brands": 9, "sources": 9, "mentioned": true, "mirvac_mentions": ["Here are some relevant search results for finding long-term rental apartments managed under the build to rent scheme in Australia: Build-to-Rent Developments: Companies like Mirvac, Lendlease, and Greystar are developing large-scale build-to-rent projects in major Australian cities like Sydney, Melbourne, and Brisbane. These projects offer long-term rental apartments with professional property management, amenities, and a focus on tenant experience. Examples include Mirvac's LIV Indigo in Sydney and Lendlease's Burwood", "Build-to-Rent Developments: Companies like Mirvac, Lendlease, and Greystar are developing large-scale build-to-rent projects in major Australian cities like Sydney, Melbourne, and Brisbane. These projects offer long-term rental apartments with professional property management, amenities, and a focus on tenant experience. Examples include Mirvac's LIV Indigo in Sydney and Lendlease's Burwood"]}], "has_mirvac": true}, {"id": 27, "category": "btr", "prompt": "Can you show me a directory of build to rent operators in Australia?", "engines": [{"name": "Perplexity AI", "brands": 23, "sources": 10, "mentioned": true, "mirvac_mentions": ["Australia Build-to-Rent operators directory (start here) Mirvac Group (LIV series: LIV Indigo, LIV Aston, LIV Anura, LIV Albert Fields) Grok: Home Apartments (Sydney/Melbourne presence) and other operator brands under Homecorp and related platforms Greystar: Active BtR developments in major cities (Claremont Tower, South Yarra etc.) Scape: BtR projects including Scape Lachlan in Sydney The Yarra and The ", "Australia Build-to-Rent operators directory (start here) Mirvac Group (LIV series: LIV Indigo, LIV Aston, LIV Anura, LIV Albert Fields) Grok: Home Apartments (Sydney/Melbourne presence) and other operator brands under Homecorp and related platforms Greystar: Active BtR developments in major cities (Claremont Tower, South Yarra etc.) Scape: BtR projects including Scape Lachlan in Sydney The Yarra and The "]}, {"name": "Microsoft Copilot", "brands": 5, "sources": 5, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 22, "sources": 39, "mentioned": true, "mirvac_mentions": ["Investa \u2013 _Indi_ Investa\u2019s BTR management platform (Indi) delivers and operates purpose-built rental residences in Sydney and Melbourne supported by Oxford Properties Group. [https://www.investa.com.au/build-to-rent] 3\\. Mirvac Group Major property group with a significant BTR portfolio (e.g., LIV communities in Melbourne & Brisbane) and growing institutional involvement. [https://www.theurbandeveloper.com/articles/australian-build-to-rent-top-developers-2025] 4\\. Greystar Australia International rental housing giant active in Australia\u2019s BTR market, including proj", "...build-to-rent-top-developers-2025] --- \ud83d\udcca Examples of Cities Where These Operators Are Active | City / Region | Operators Involved | | ------------------ | ---------------------------------------------------- | | Melbourne, VIC | Lendlease, Greystar, Mirvac, Pellicano, Investa/Indi | | Sydney, NSW | Investa/Indi, Mirvac, Coronation Property, Deicorp | | Brisbane, QLD | Frasers, Pellicano, CDL Australia, Mirvac | --- If you want, I can compile this into a spreadsheet with links to each company\u2019s BTR portfolio and contact info \u2014 just let me know!"]}, {"name": "Google Gemini", "brands": 20, "sources": 0, "mentioned": true, "mirvac_mentions": ["Below is a directory of the major operators currently managing or developing projects. Major Build to Rent Operators & Platforms Operator / Brand Parent Company Focus Locations Notable Projects LIV Mirvac SYD, MEL, BNE LIV Indigo (Sydney), LIV Munro (Melbourne) Indi Investa / Oxford SYD, MEL Indi Sydney, Indi Southbank, Indi Footscray Home GIC / Grocon MEL, SYD Home Southbank, Home Docklands, Home Parramatta Kinleaf Sentinel Real Estate PER, MEL The Elements (Perth), The Briscoe (Melbourne) Greystar Greystar (Global) MEL, SYD Gladstone St (So", "...unswick. How to Find Specific Properties If you are looking for a place to live rather than a corporate list, you can search for these specific brand names on major listing sites: Search by Brand: Most BTR buildings use their brand names (e.g., \"LIV Mirvac\" or \"Home Southbank\") on Google Maps or https://www.google.com/search?q=realestate.com.au. Specialized Filters: On some rental portals, you can look for keywords like \"Build to Rent\" or \"Professional Management,\" though searching by the brand name is currently the most reliable method."]}, {"name": "xAI Grok", "brands": 23, "sources": 37, "mentioned": true, "mirvac_mentions": ["Major players include both local firms and international entrants. Here are some of the prominent Build to Rent operators, platforms, and developers in Australia, based on recent industry coverage (as of late 2025/early 2026 data): Mirvac (LIV Mirvac) \u2014 A leading pioneer and one of Australia's largest in BTR, with projects like LIV Indigo (Sydney Olympic Park), Munro, and Aston (Melbourne). They focus on high-quality, professionally managed communities. Greystar \u2014 Global BTR giant with significant Australian presence, including recent developments like a 443-unit project in K"]}, {"name": "Google AI Mode", "brands": 22, "sources": 15, "mentioned": true, "mirvac_mentions": ["...rket: Major National Operators These firms hold the largest pipelines and operational portfolios across multiple states: Local Residential : Backed by Macquarie Asset Management, they manage a $3.25 billion portfolio with approximately 4,000 units . Mirvac (LIV Communities) : One of the early movers, operating under the \"LIV\" brand with projects in Sydney, Melbourne, and Brisbane. Greystar : A global leader with significant Australian holdings, including over 1,500 apartments across South Melbourne, South Yarra, and Zetland. Lendlease : Actively developing large-scale projects, such as the $65"]}, {"name": "Google AI Overviews", "brands": 0, "sources": 0, "mentioned": false}, {"name": "Meta AI", "brands": 10, "sources": 10, "mentioned": true, "mirvac_mentions": ["Here's a list of some build-to-rent (BTR) operators in Australia: Lendlease: Lendlease is a global real estate company that has a significant presence in Australia's BTR market. They have a portfolio of BTR projects across the country, including in Melbourne, Sydney, and Brisbane. [1] Mirvac: Mirvac is a leading Australian property developer that has been actively involved in the BTR space. They have a number of BTR projects underway in Melbourne, Sydney, and Brisbane. [2] Stockland: Stockland is a well-known Australian property developer that has expanded into the BTR market.", "Our projects. Retrieved from <https://www.lendlease.com.au/projects/> [2] Mirvac. (n.d.). Our projects."]}, {"name": "Anthropic Claude", "brands": 6, "sources": 6, "mentioned": true, "mirvac_mentions": ["Sure, here's a directory of some of the major build-to-rent (BTR) operators in Australia: Mirvac: Mirvac is one of the leading BTR operators in Australia, with several BTR communities across the country. Their BTR projects include Build-to-Rent at Tullamore in Melbourne and Indooroopilly Green in Brisbane. (Source: https://www.mirvac.com/residential/build-to-rent) 2.", "Mirvac: Mirvac is one of the leading BTR operators in Australia, with several BTR communities across the country. Their BTR projects include Build-to-Rent at Tullamore in Melbourne and Indooroopilly Green in Brisbane. (Source: https://www.mirvac.com/residential/build-to-rent) Lendlease: Lendlease has several BTR projects in the pipeline, including the 490-apartment community at Melbourne's Docklands and the 350-apartment community at Sydney's Barangaroo. (Source: https://www.lendlease.com/au/projects/build-to-rent/) 3."]}], "has_mirvac": true}, {"id": 28, "category": "btr", "prompt": "Where can I find current build to rent developments happening in Australia right now?", "engines": [{"name": "xAI Grok", "brands": 11, "sources": 36, "mentioned": false}, {"name": "OpenAI ChatGPT", "brands": 8, "sources": 21, "mentioned": false}, {"name": "Google Gemini", "brands": 10, "sources": 4, "mentioned": true, "mirvac_mentions": ["... ---|---|---|--- Melbourne| Bank Street, South Melbourne| Local: Residential| New $370m project; 355 units planned. Melbourne| Melbourne Quarter (Docklands)| Lendlease| Large-scale tower in partnership with Daiwa House. Melbourne| LIV Albert Fields| Mirvac| Significant precinct in Brunswick / inner north. Melbourne| Fitzroy Gasworks| Local: Residential| ~350 rentals, including 100 affordable units. Sydney| The Joinery, Annandale| Landcom| 220 units specifically for essential workers. Sydney| Indi Sydney City| Investa/Indi| High-density urban rental near major transport. Brisbane| LIV Anura (Ne", "Export to Sheets 2\\. Major Developers to Follow If you are looking for specific vacancies or future sites, these five developers dominate the current landscape: Mirvac (LIV): One of the earliest movers with established communities like LIV Indigo (Sydney) and several LIV projects in Melbourne. Property Portfolio | Mirvac Local: Residential: Highly active in 2025\u20132026, focusing on \"sustainable\" and \"community-centric\" builds in Melbourne and the Gold Coast. Greystar: A global giant with massive projects in "]}, {"name": "Microsoft Copilot", "brands": 15, "sources": 3, "mentioned": false}, {"name": "Google AI Mode", "brands": 20, "sources": 30, "mentioned": false}, {"name": "Google AI Overviews", "brands": 14, "sources": 25, "mentioned": true, "mirvac_mentions": ["...nd 9,000 apartments are completed, with another 9,000 under construction, and 17,000 approved for development. Source 1Source 2Source 3Source 4 Here is where to find current BTR developments in Australia right now: Major Developers & Active Projects Mirvac (LIV): A first-mover in the sector, operating LIV Indigo in Sydney Olympic Park and developing projects in Melbourne (LIV Munro) and Brisbane. Sentinel: Focuses on premium rental apartments, including _The Briscoe_ in West Melbourne, and active sites in Perth (Subiaco, Scarborough) and North Melbourne. Lendlease: Actively constructing around", "...s major BTR project announcements, such as those by Frank Developments and Cedar Woods. State Planning Portals: The NSW Planning Portal, for example, provides information on BTR housing SEPP (State Environmental Planning Policy). Developer Websites: Mirvac (LIV), Sentinel (Kinleaf), and Home Apartments websites directly list their available and coming-soon locations. Source 1Source 2Source 3Source 4Source 5 Key Trends (2025\u20132026) Record Completion: Roughly 6,000 new units are expected to be completed in 2025. Future Pipeline: While growth is strong, high construction costs are expected to slow"]}, {"name": "Perplexity AI", "brands": 6, "sources": 12, "mentioned": true, "mirvac_mentions": ["... location, developers, and status (planning, under construction, completed). These are good for near-term completions and newly announced schemes. Major developer and asset manager pages Large developers and operators active in BTR (e.g., Lendlease, Mirvac, Greystar, Investa) often list current and upcoming BTR projects on their websites or in investor presentations. This can give you the live status and expected completion windows. Local and city-specific planning portals Australian city councils and state planning portals provide project approvals, construction start dates, and permit detail"]}, {"name": "Meta AI", "brands": 11, "sources": 11, "mentioned": true, "mirvac_mentions": ["...[4] Property Australia: This online publication is dedicated to the Australian property industry and often features articles on build-to-rent projects. [5] Developer websites: Major developers involved in build-to-rent projects in Australia include: Mirvac: Known for their significant build-to-rent portfolio, Mirvac frequently updates their website with new projects and developments. [6] Stockland: Stockland is another prominent developer with a range of build-to-rent projects across Australia. Their website provides information on current and upcoming developments. [7] Lendlease: Lendlease is", "...urrent build-to-rent developments happening in Australia. [1] https://www.nhfic.gov.au/ [2] https://www.propertycouncil.com.au/ [3] https://www.theurbandeveloper.com/ [4] https://www.afr.com/ [5] https://www.propertyaustralia.com.au/ [6] https://www.mirvac.com/ [7] https://www.stockland.com.au/ [8] https://www.lendlease.com/au/ [9] https://www.frasersproperty.com.au/ [10] https://www.domain.com.au/ [11] https://www.realestate.com.au/"]}, {"name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "mirvac_mentions": ["Here are some relevant build to rent developments happening in Australia currently: Mirvac's 'The Fabric' in Sydney: Mirvac is developing a large build-to-rent project in Sydney's Waterloo area. It will include over 500 apartments.", "It will include over 500 apartments. Source: https://www.mirvac.com/residential/build-to-rent Frasers Property's 'Burwood Brickworks' in Melbourne: Frasers Property is building a mixed-use development in Melbourne's eastern suburbs that will include a build-to-rent component."]}], "has_mirvac": true}];
+        
+        let currentPage = 1;
+        let currentFilter = 'all';
+        const itemsPerPage = 5;
+        
+        function showMentions(promptId, engineName, mentions) {
+            event.stopPropagation();
+            
+            const modal = document.getElementById('mentionModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            
+            title.textContent = engineName + ' - Mirvac Mentions';
+            
+            if (!mentions || mentions.length === 0) {
+                body.innerHTML = '<div class="no-mentions">No specific Mirvac mentions extracted from this response.</div>';
+            } else {
+                const mentionsHtml = mentions.map((m, idx) => {
+                    const highlighted = m.replace(/mirvac/gi, match => `<mark>${match}</mark>`);
+                    return `
+                        <div class="mention-number">Mention ${idx + 1} of ${mentions.length}</div>
+                        <div class="mention-item">${highlighted}</div>
+                    `;
+                }).join('');
+                
+                body.innerHTML = mentionsHtml;
+            }
+            
+            modal.style.display = 'block';
+        }
+        
+        function closeModal() {
+            document.getElementById('mentionModal').style.display = 'none';
+        }
+        
+        window.onclick = function(event) {
+            const modal = document.getElementById('mentionModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+        
+        function toggleEngines(id, event) {
+            event.stopPropagation();
+            const item = document.querySelector(`[data-prompt-id="${id}"]`);
+            const grid = document.getElementById('engines-' + id);
+            
+            if (item.classList.contains('expanded')) {
+                item.classList.remove('expanded');
+                grid.classList.remove('show');
+            } else {
+                item.classList.add('expanded');
+                grid.classList.add('show');
+            }
+        }
+        
+        function getTotalStats(engines) {
+            let totalBrands = 0;
+            let totalSources = 0;
+            
+            engines.forEach(e => {
+                totalBrands += e.brands;
+                totalSources += e.sources;
+            });
+            
+            return { totalBrands, totalSources };
+        }
+        
+        function renderPrompts(filter = 'all', page = 1) {
+            currentFilter = filter;
+            currentPage = page;
+            
+            const container = document.getElementById('promptsList');
+            container.innerHTML = '';
+            
+            let filtered = promptsData;
+            if (filter === 'residential') filtered = promptsData.filter(p => p.category === 'residential');
+            if (filter === 'commercial') filtered = promptsData.filter(p => p.category === 'commercial');
+            if (filter === 'btr') filtered = promptsData.filter(p => p.category === 'btr');
+            if (filter === 'mentioned') filtered = promptsData.filter(p => p.has_mirvac);
+            
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            const startIdx = (page - 1) * itemsPerPage;
+            const endIdx = startIdx + itemsPerPage;
+            const pagePrompts = filtered.slice(startIdx, endIdx);
+            
+            pagePrompts.forEach(prompt => {
+                const div = document.createElement('div');
+                div.className = `prompt-item ${prompt.has_mirvac ? 'has-mirvac' : ''}`;
+                div.setAttribute('data-prompt-id', prompt.id);
+                div.onclick = (e) => toggleEngines(prompt.id, e);
+                
+                const stats = getTotalStats(prompt.engines);
+                
+                const enginesHtml = prompt.engines.map(e => {
+                    const mentions = e.mirvac_mentions || [];
+                    const clickHandler = e.mentioned ? `onclick="showMentions(${prompt.id}, '${e.name.replace("'", "\\'")}', ${JSON.stringify(mentions).replace(/"/g, '&quot;')})"` : '';
+                    const cursorStyle = e.mentioned ? 'cursor: pointer;' : '';
+                    
+                    return `<div class="engine-item ${e.mentioned ? 'has-mirvac' : ''}" ${clickHandler} style="${cursorStyle}">
+                        <div class="engine-name">${e.name}</div>
+                        <div class="engine-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Brands:</span>
+                                <span class="stat-value">${e.brands}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Sources:</span>
+                                <span class="stat-value">${e.sources}</span>
+                            </div>
+                            ${e.mentioned ? '<div class="mirvac-check">✓ MIRVAC (Click to view)</div>' : ''}
+                        </div>
+                    </div>`;
+                }).join('');
+                
+                div.innerHTML = `
+                    <div class="prompt-header">
+                        <div class="prompt-left">
+                            <div class="prompt-number">#${prompt.id}</div>
+                            <div class="prompt-text">${prompt.prompt}</div>
+                        </div>
+                        <div class="prompt-right">
+                            ${prompt.has_mirvac ? '<span class="status-badge mentioned">✓ Mentioned</span>' : ''}
+                            <div class="prompt-stats">
+                                <div class="stat-group">
+                                    <span class="stat-number">${stats.totalBrands}</span>
+                                    <span class="stat-label">Brands</span>
+                                </div>
+                                <div class="stat-group">
+                                    <span class="stat-number sources">${stats.totalSources}</span>
+                                    <span class="stat-label">Sources</span>
+                                </div>
+                            </div>
+                            <div class="expand-arrow">▼</div>
+                        </div>
+                    </div>
+                    <div class="engines-grid" id="engines-${prompt.id}">
+                        ${enginesHtml}
+                    </div>
+                `;
+                
+                container.appendChild(div);
+            });
+            
+            updatePagination(totalPages, filtered.length);
+        }
+        
+        function updatePagination(totalPages, totalItems) {
+            const paginationDiv = document.querySelector('.pagination');
+            if (totalPages <= 1) {
+                paginationDiv.style.display = 'none';
+            } else {
+                paginationDiv.style.display = 'flex';
+                document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+                document.getElementById('prevBtn').disabled = currentPage === 1;
+                document.getElementById('nextBtn').disabled = currentPage === totalPages;
+            }
+        }
+        
+        function changePage(direction) {
+            if (direction === 'prev' && currentPage > 1) {
+                renderPrompts(currentFilter, currentPage - 1);
+                document.getElementById('promptAnalysis').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if (direction === 'next') {
+                renderPrompts(currentFilter, currentPage + 1);
+                document.getElementById('promptAnalysis').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        function filterPrompts(category) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderPrompts(category, 1);
+        }
+        
+        // Initialize
+        renderPrompts();
+    </script>
+</body>
+</html>

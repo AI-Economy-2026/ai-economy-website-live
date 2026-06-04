@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Henleybrook Mirvac GEO Audit</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; background: #fff; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+        
+        .header { background: #000; color: #fff; padding: 40px 20px; margin: -40px -20px 50px -20px; text-align: center; }
+        .logo-text { font-family: 'Bebas Neue', inherit, sans-serif; font-size: 32px; letter-spacing: 3px; text-transform: uppercase; }
+        .client-logo { font-family: 'Bebas Neue', inherit, sans-serif; font-size: 56px; letter-spacing: 4px; margin: 20px 0; text-transform: uppercase; }
+        .report-date { font-size: 14px; color: #ccc; margin-top: 5px; text-transform: uppercase; }
+
+        h1, h2, h3 { font-family: 'Bebas Neue', inherit, sans-serif; letter-spacing: 1px; margin-top: 0; text-transform: uppercase; }
+        h2 { font-size: 32px; margin: 40px 0 20px 0; border-bottom: 2px solid #000; padding-bottom: 10px; }
+        
+        .exec-summary { background: #f9f9f9; padding: 40px; margin: 40px 0; border-left: 5px solid #000; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 40px 0; }
+        .kpi-card { background: #000; color: #fff; padding: 30px; text-align: center; position: relative; overflow: hidden; }
+        .kpi-value { font-family: 'Bebas Neue', inherit, sans-serif; font-size: 48px; letter-spacing: 2px; }
+        .kpi-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; opacity: 0.9; }
+        
+        .comparison-container { display: flex; gap: 30px; margin: 40px 0; }
+        .comparison-column { flex: 1; padding: 30px; border-radius: 8px; }
+        .comparison-column.client-col { background: #f0f7f0; border: 2px solid #2e7d32; }
+        .comparison-column.comp-col { background: #f0f8ff; border: 2px solid #1976d2; }
+        .comparison-title { font-family: 'Bebas Neue', inherit, sans-serif; font-size: 28px; text-align: center; margin-bottom: 20px; text-transform: uppercase; }
+        .comparison-stat { text-align: center; margin: 15px 0; }
+        .comparison-val { font-size: 36px; font-weight: bold; }
+        .comparison-lbl { font-size: 14px; text-transform: uppercase; color: #666; letter-spacing: 1px; }
+
+        .category-tabs { display: flex; gap: 10px; margin: 30px 0; flex-wrap: wrap; }
+        .tab-btn { background: #fff; border: 2px solid #000; padding: 12px 25px; cursor: pointer; font-family: 'Bebas Neue', inherit, sans-serif; font-size: 16px; letter-spacing: 1px; transition: all 0.2s; text-transform: uppercase; }
+        .tab-btn:hover { background: #f0f0f0; }
+        .tab-btn.active { background: #000; color: #fff; }
+        .tab-btn.comp-tab { border-color: #1976d2; color: #1976d2; }
+        .tab-btn.comp-tab.active { background: #1976d2; color: #fff; }
+        .tab-btn.client-tab { border-color: #2e7d32; color: #2e7d32; }
+        .tab-btn.client-tab.active { background: #2e7d32; color: #fff; }
+        
+        .prompt-item { border: 1px solid #e0e0e0; padding: 20px; margin-bottom: 15px; background: #fff; }
+        .prompt-item:hover { border-color: #999; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .prompt-item.has-client { border-left: 5px solid #2e7d32; }
+        .prompt-item.has-comp { border-right: 5px solid #1976d2; }
+        .prompt-item.has-both { border-left: 5px solid #2e7d32; border-right: 5px solid #1976d2; background: #fafafa; }
+        
+        .prompt-header { display: flex; justify-content: space-between; align-items: flex-start; }
+        .prompt-title { font-weight: 500; font-size: 16px; margin-bottom: 5px; }
+        
+        .brands-list { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
+        .brand-pill { background: #eee; padding: 4px 10px; border-radius: 12px; font-size: 12px; color: #333; }
+        .brand-pill.client-pill { background: #d4f4dd; color: #2e7d32; font-weight: bold; border: 1px solid #2e7d32; }
+        .brand-pill.comp-pill { background: #e3f2fd; color: #1976d2; font-weight: bold; border: 1px solid #1976d2; }
+        
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 40px; margin-bottom: 40px; }
+        .pagination-btn { background: #000; color: #fff; border: none; padding: 10px 20px; cursor: pointer; font-family: 'Bebas Neue', inherit, sans-serif; font-size: 16px; letter-spacing: 1px; text-transform: uppercase; }
+        .pagination-btn:disabled { background: #ccc; cursor: not-allowed; }
+        .page-info { font-family: 'Bebas Neue', inherit, sans-serif; font-size: 18px; }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-text">GEO AUDIT REPORT</div>
+            <div class="client-logo">HENLEYBROOK MIRVAC</div>
+            <div class="report-date">MARCH 2026</div>
+        </div>
+
+        <h2 style="margin-top: 0;">Executive Summary</h2>
+        <div class="exec-summary">
+            <p style="font-size: 18px; line-height: 1.8;">
+                <strong>Diagnostic Overview:</strong> Mirvac currently has a <strong>50% Share of Voice</strong> across 6 tested prompts, with <strong>no current rankings</strong>.
+                <br><br>
+                In comparison, your key competitor <strong>Rivermark</strong> has a <strong>0% Share of Voice</strong> and <strong>no current rankings</strong>. The AI search environment for land packages and property developments shows distinct positioning for both developments.
+            </p>
+            <div style="margin-top: 20px; padding: 15px; background: #fffbe6; border-left: 4px solid #faad14; font-size: 15px;">
+                <strong>Key Visibility Insight:</strong> "Henleybrook Mirvac" properties (e.g. <code>henleybrook.mirvac.com</code>) currently have <strong>0% visibility</strong> for these prompts. The current 50% Share of Voice is attributed almost entirely to Mirvac's main website (<code>mirvac.com</code>). 
+            </div>
+        </div>
+        
+        <h2>Brand Visibility & Ranking Summary</h2>
+        <div style="margin-bottom: 20px;">
+            <p style="text-align: left; font-size: 14px; color: #666; margin-top: 0; margin-bottom: 15px;"><em>AI Search Brand Visibility (20 responses across 10 prompts):</em></p>
+            
+        <div style="background:#fff; border:1px solid #eee; border-radius:12px; padding:30px; margin-bottom:40px; box-shadow: 0 4px 15px rgba(0,0,0,0.02); overflow-x:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:1px solid #eee; padding-bottom:15px;">
+                <h3 style="margin:0; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size:20px; color:#333; text-transform:none;">Brands Visibility By Topic</h3>
+            </div>
+            <table style="width:100%; min-width:800px; border-collapse:collapse; text-align:left;">
+                <thead>
+                    <tr>
+                        <th style="padding:15px 10px; border-bottom:1px solid #eee; font-weight:600; font-size:14px; color:#333;">Topics</th>
+                        <th style="padding:15px 10px; border-bottom:1px solid #eee; font-weight:600; font-size:14px; color:#333;">#1</th>
+                        <th style="padding:15px 10px; border-bottom:1px solid #eee; font-weight:600; font-size:14px; color:#333;">#2</th>
+                        <th style="padding:15px 10px; border-bottom:1px solid #eee; font-weight:600; font-size:14px; color:#333;">#3</th>
+                        <th style="padding:15px 10px; border-bottom:1px solid #eee; font-weight:600; font-size:14px; color:#333;">#4</th>
+                        <th style="padding:15px 10px; border-bottom:1px solid #eee; font-weight:600; font-size:14px; color:#333;">#5</th>
+                        <th style="padding:15px 10px; border-bottom:1px solid #eee; font-weight:600; font-size:14px; color:#333;">#6</th>
+                        <th style="padding:15px 10px; border-bottom:1px solid #eee; font-weight:600; font-size:14px; color:#333;">#7</th>
+                        <th style="padding:15px 10px; border-bottom:1px solid #eee; font-weight:600; font-size:14px; color:#333;">#8</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                        <td style="padding:20px 10px; border-bottom:1px solid #eee; font-weight:500; font-size:14px; color:#333; width:22%;">house and land packages Henley Brook</td>
+    
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Brooklands Private Estate</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Mirvac</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Homebuyers Centre</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Dale Alcock Homes</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Starflower at Henley Brook</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Domain</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Starflower Estate</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Blueprint Homes</div>
+                        </td>
+        
+                    </tr>
+    
+                    <tr>
+                        <td style="padding:20px 10px; border-bottom:1px solid #eee; font-weight:500; font-size:14px; color:#333; width:22%;">land for sale Henley Brook WA</td>
+    
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Brooklands Private Estate</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">La Valle Estate</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Ariella Private Estate</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">St. Clare Estate</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Realestate.com.au</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Domain</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Mirvac</div>
+                        </td>
+        
+                        <td style="padding:20px 5px; border-bottom:1px solid #eee; text-align:left; vertical-align:top;">
+                            <div style="font-size:11px; color:#666; line-height:1.3; word-break:break-word;">Henley Brook Estate</div>
+                        </td>
+        
+                    </tr>
+    
+                </tbody>
+            </table>
+        </div>
+
+        </div>
+        
+        <h2>Overall Performance (ChatGPT Platform)</h2>
+        <p style="margin-top: -10px; margin-bottom: 20px; color: #666; font-size: 14px;"><em>* Note: All data in this audit represents the generative search environment exclusively on the OpenAI ChatGPT platform.</em></p>
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-value">6</div>
+                <div class="kpi-label">Total Prompts</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" style="color: #2e7d32;">50%</div>
+                <div class="kpi-label">Share of Voice</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">3</div>
+                <div class="kpi-label">Total Mentions</div>
+            </div>
+        </div>
+        
+        <!-- Competitor Comparison Header -->
+        <h2 style="margin-top: 60px;">Brand comparison: Mirvac vs Rivermark</h2>
+        <div class="comparison-container">
+            <div class="comparison-column client-col">
+                <div class="comparison-title" style="color: #2e7d32;">Mirvac</div>
+                <div class="comparison-stat">
+                    <div class="comparison-val" style="color: #2e7d32;">50%</div>
+                    <div class="comparison-lbl">Share of Voice</div>
+                </div>
+                <div class="comparison-stat">
+                    <div class="comparison-val">-</div>
+                    <div class="comparison-lbl">Best Ranking</div>
+                </div>
+            </div>
+            <div class="comparison-column comp-col">
+                <div class="comparison-title" style="color: #1976d2;">Rivermark</div>
+                <div class="comparison-stat">
+                    <div class="comparison-val" style="color: #1976d2;">0%</div>
+                    <div class="comparison-lbl">Share of Voice</div>
+                </div>
+                <div class="comparison-stat">
+                    <div class="comparison-val">-</div>
+                    <div class="comparison-lbl">Best Ranking</div>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="promptAnalysis" style="margin-top: 60px;">Detailed Prompt Analysis</h2>
+        <div class="category-tabs">
+            <button class="tab-btn active" onclick="filterPrompts('all')">ALL PROMPTS (6)</button><button class="tab-btn client-tab" onclick="filterPrompts('client')">MIRVAC MENTIONED (3)</button><button class="tab-btn comp-tab" onclick="filterPrompts('comp')">RIVERMARK MENTIONED (0)</button>
+        </div>
+        
+        <div id="promptsList"></div>
+        
+        <div class="pagination">
+            <button class="pagination-btn" id="prevBtn" onclick="changePage('prev')">← Previous</button>
+            <div class="page-info" id="pageInfo">Page 1 of 1</div>
+            <button class="pagination-btn" id="nextBtn" onclick="changePage('next')">Next →</button>
+        </div>
+        
+    </div>
+
+    <script>
+        const promptsData = [{"id": 1, "prompt": "Where can I find affordable house and land packages Henley Brook near me?", "avg_rank": "-", "visibility": "0", "responses": "2", "brands": ["Domain", "Homebuyers Centre", "Brooklands Private Estate", "Starflower Estate", "Blueprint Homes"], "has_client": false, "has_comp": false}, {"id": 2, "prompt": "Where can I find the best land for sale Henley Brook WA in Australia", "avg_rank": "-", "visibility": "0", "responses": "2", "brands": ["Brooklands Private Estate", "La Valle Estate", "Ariella Private Estate", "St. Clare Estate", "Starflower Estate", "Realestate.com.au", "Domain", "Henley Brook Estate", "OpenLot"], "has_client": false, "has_comp": false}, {"id": 3, "prompt": "Which companies offer land for sale Henley Brook WA", "avg_rank": "-", "visibility": "0", "responses": "2", "brands": ["Mirvac", "Brooklands Private Estate", "Dale Alcock Homes", "Ariella Private Estate", "La Valle Estate"], "has_client": true, "has_comp": false}, {"id": 4, "prompt": "What are the top developers selling land for sale Henley Brook WA in Australia", "avg_rank": "-", "visibility": "0", "responses": "2", "brands": ["Mirvac", "Ariella Private Estate", "La Valle Estate", "St. Clare Estate", "Brooklands Private Estate"], "has_client": true, "has_comp": false}, {"id": 5, "prompt": "Where to buy affordable land for sale Henley Brook WA", "avg_rank": "-", "visibility": "0", "responses": "2", "brands": ["Brooklands Private Estate", "La Valle Estate", "Realestate.com.au", "Domain", "Henley Brook Estate by Mirvac"], "has_client": true, "has_comp": false}, {"id": 6, "prompt": "Where to find new land for sale Henley Brook WA developments", "avg_rank": "-", "visibility": "0", "responses": "2", "brands": ["Brooklands Private Estate", "Ariella Private Estate", "St. Clare Estate", "Henley Brook Estate", "La Valle Estate"], "has_client": false, "has_comp": false}];
+        let currentPage = 1;
+        let currentFilter = 'all';
+        const itemsPerPage = 8;
+        
+        function renderPrompts(filter, page) {
+            filter = filter || 'all';
+            page = page || 1;
+            currentFilter = filter;
+            currentPage = page;
+
+            const container = document.getElementById('promptsList');
+            container.innerHTML = '';
+            
+            let filtered = promptsData;
+            if (filter !== 'all') {
+                if (filter === 'client') {
+                    filtered = promptsData.filter(p => p.has_client);
+                } else if (filter === 'comp') {
+                    filtered = promptsData.filter(p => p.has_comp);
+                }
+            }
+            
+            if (filtered.length === 0) {
+                container.innerHTML = '<div style="padding:20px; text-align:center; color:#666;">No results found for this filter.</div>';
+                updatePagination(0, 0);
+                return;
+            }
+            
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            const startIdx = (page - 1) * itemsPerPage;
+            const endIdx = startIdx + itemsPerPage;
+            const pagePrompts = filtered.slice(startIdx, endIdx);
+            
+            pagePrompts.forEach(p => {
+                const div = document.createElement('div');
+                let promptClass = 'prompt-item';
+                if (p.has_client && p.has_comp) promptClass += ' has-both';
+                else if (p.has_client) promptClass += ' has-client';
+                else if (p.has_comp) promptClass += ' has-comp';
+                div.className = promptClass;
+                
+                let badgeHtml = '';
+                if (p.has_client) badgeHtml += '<span style="background:#d4f4dd; color:#2e7d32; padding:3px 8px; font-size:11px; font-weight:bold; border-radius:3px; margin-right:5px;">MIRVAC</span>';
+                if (p.has_comp) badgeHtml += '<span style="background:#e3f2fd; color:#1976d2; padding:3px 8px; font-size:11px; font-weight:bold; border-radius:3px; margin-right:5px;">RIVERMARK</span>';
+                
+                let brandsHtml = '';
+                if (p.brands && p.brands.length > 0) {
+                    brandsHtml = '<div class="brands-list">';
+                    p.brands.forEach(b => {
+                        const bLower = b.toLowerCase();
+                        let pillClass = 'brand-pill';
+                        if (bLower.includes('mirvac') || bLower.includes('henleybrook')) pillClass += ' client-pill';
+                        else if (bLower.includes('rivermark')) pillClass += ' comp-pill';
+                        brandsHtml += `<span class="${pillClass}">${b}</span>`;
+                    });
+                    brandsHtml += '</div>';
+                } else {
+                    brandsHtml = '<div style="color:#999; font-size:12px; margin-top:10px;">No brands mentioned</div>';
+                }
+
+                div.innerHTML = `
+                    <div class="prompt-header">
+                        <div style="display:flex; align-items:flex-start; gap:15px; width:100%;">
+                            <span style="font-family:'Bebas Neue', sans-serif; font-size:24px; color:#ccc; min-width:30px; line-height:1;">#${p.id}</span>
+                            <div style="flex:1;">
+                                <div class="prompt-title">${p.prompt}</div>
+                                <div style="display:flex; gap:15px; font-size:12px; color:#666;">
+                                    <span>Avg Rank: <strong>${p.avg_rank}</strong></span>
+                                    <span>Visibility: <strong>${p.visibility}</strong></span>
+                                    <span>Responses: <strong>${p.responses}</strong></span>
+                                </div>
+                                ${brandsHtml}
+                            </div>
+                            <div style="text-align:right;">
+                                ${badgeHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+            
+            updatePagination(totalPages, filtered.length);
+        }
+        
+        function updatePagination(totalPages, totalItems) {
+            const paginationDiv = document.querySelector('.pagination');
+            if (totalPages <= 1) {
+                paginationDiv.style.display = 'none';
+            } else {
+                paginationDiv.style.display = 'flex';
+                document.getElementById('pageInfo').textContent = 'Page ' + currentPage + ' of ' + totalPages;
+                document.getElementById('prevBtn').disabled = currentPage === 1;
+                document.getElementById('nextBtn').disabled = currentPage === totalPages;
+            }
+        }
+
+        function changePage(direction) {
+            if (direction === 'prev' && currentPage > 1) {
+                renderPrompts(currentFilter, currentPage - 1);
+                document.getElementById('promptAnalysis').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if (direction === 'next') {
+                renderPrompts(currentFilter, currentPage + 1);
+                document.getElementById('promptAnalysis').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        renderPrompts('all', 1);
+        
+        function filterPrompts(type) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderPrompts(type, 1);
+        }
+        
+    </script>
+</body>
+</html>

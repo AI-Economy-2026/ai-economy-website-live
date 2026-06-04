@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dexion Victoria GEO Audit Dashboard - February 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            background: #000;
+            color: #fff;
+            padding: 40px 20px;
+            margin: -40px -20px 50px -20px;
+            text-align: center;
+        }
+
+        .logo-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            letter-spacing: 3px;
+        }
+
+        .client-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 56px;
+            letter-spacing: 4px;
+            margin: 20px 0;
+        }
+
+        .report-date {
+            font-size: 14px;
+            color: #ccc;
+            margin-top: 5px;
+        }
+
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            letter-spacing: 2px;
+            margin: 40px 0 20px 0;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 1px;
+            margin-top: 30px;
+        }
+
+        .exec-summary {
+            background: #f9f9f9;
+            padding: 40px;
+            margin: 40px 0;
+            border-left: 5px solid #000;
+        }
+
+        .exec-summary p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .highlight-stat {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 3px 8px;
+            font-weight: bold;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .kpi-card {
+            background: #000;
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .kpi-label {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .kpi-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 48px;
+            letter-spacing: 2px;
+        }
+
+        .kpi-subtitle {
+            font-size: 12px;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        .rankings-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0 40px 0;
+        }
+
+        .rankings-table thead {
+            background: #000;
+            color: #fff;
+        }
+
+        .rankings-table th {
+            padding: 15px;
+            text-align: left;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            font-weight: normal;
+        }
+
+        .rankings-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+
+        .rankings-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .rankings-table tr.nmgs-row {
+            background: #fffacd;
+        }
+
+        .rankings-table tr.nmgs-row:hover {
+            background: #fff5b8;
+        }
+
+        .rank-badge {
+            display: inline-block;
+            background: #000;
+            color: #fff;
+            padding: 5px 12px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .share-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .share-bar {
+            flex: 1;
+            height: 20px;
+            background: #e8e8e8;
+            position: relative;
+            max-width: 150px;
+        }
+
+        .share-fill {
+            height: 100%;
+            background: #ff9500;
+            transition: width 0.5s ease;
+        }
+
+        .share-text {
+            font-weight: bold;
+            min-width: 45px;
+            font-size: 15px;
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: #fff;
+            border: 2px solid #000;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .tab-btn.active {
+            background: #000;
+            color: #fff;
+        }
+
+        .prompt-item {
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .prompt-item:hover {
+            border-color: #999;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .prompt-item.has-nmgs {
+            border-left: 5px solid #000;
+            background: #fffacd;
+        }
+
+        .prompt-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .prompt-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+        }
+
+        .prompt-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            min-width: 40px;
+            color: #999;
+        }
+
+        .prompt-text {
+            flex: 1;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .prompt-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-badge.mentioned {
+            background: #d4f4dd;
+            color: #2e7d32;
+        }
+
+        .prompt-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .stat-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-number {
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        .stat-number.sources {
+            color: #ff9500;
+        }
+
+        .stat-label {
+            color: #999;
+        }
+
+        .expand-arrow {
+            font-size: 18px;
+            color: #999;
+            transition: transform 0.2s;
+        }
+
+        .prompt-item.expanded .expand-arrow {
+            transform: rotate(180deg);
+        }
+
+        .engines-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e8e8e8;
+        }
+
+        .engines-grid.show {
+            display: grid;
+        }
+
+        .engine-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+
+        .engine-item.has-nmgs {
+            background: #d4f4dd;
+            border-left: 3px solid #2e7d32;
+            cursor: pointer;
+        }
+
+        .engine-item.has-nmgs:hover {
+            background: #c8efd3;
+        }
+
+        .engine-name {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .engine-stats {
+            display: flex;
+            gap: 15px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .stat-item .stat-label {
+            font-weight: 500;
+            color: #999;
+            font-size: 11px;
+        }
+
+        .stat-item .stat-value {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .nmgs-check {
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 11px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 40px 0;
+            padding: 20px;
+        }
+
+        .pagination-btn {
+            padding: 12px 30px;
+            background: #fff;
+            border: 2px solid #000;
+            cursor: pointer;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 16px;
+            letter-spacing: 1px;
+            transition: all 0.2s;
+        }
+
+        .pagination-btn:hover:not(:disabled) {
+            background: #000;
+            color: #fff;
+        }
+
+        .pagination-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .page-info {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: auto;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 5% auto;
+            padding: 30px;
+            border: 2px solid #000;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #000;
+        }
+
+        .modal-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            letter-spacing: 1px;
+            flex: 1;
+        }
+
+        .modal-close {
+            font-size: 32px;
+            font-weight: bold;
+            color: #999;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0 10px;
+        }
+
+        .modal-close:hover {
+            color: #000;
+        }
+
+        .mention-item {
+            background: #fffacd;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #000;
+            line-height: 1.9;
+            font-size: 15px;
+            font-family: Georgia, serif;
+        }
+
+        .mention-item mark {
+            background: #000;
+            color: #fff;
+            padding: 3px 6px;
+            font-weight: bold;
+            border-radius: 2px;
+        }
+
+        .mention-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .no-mentions {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .client-logo {
+                font-size: 42px;
+            }
+
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .engines-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .prompt-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .prompt-left {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .prompt-right {
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+                gap: 10px;
+            }
+
+            .prompt-stats {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .rankings-table {
+                font-size: 13px;
+            }
+
+            .rankings-table th,
+            .rankings-table td {
+                padding: 10px 5px;
+            }
+
+            .share-bar {
+                max-width: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-text">BALMER AGENCY</div>
+            <div class="client-logo">DEXION VICTORIA</div>
+            <div class="report-date">GEO Audit Report | 12 February 2026</div>
+        </div>
+
+        <div class="exec-summary">
+            <h2>Executive Summary</h2>
+            <p>This comprehensive audit analyses Dexion Victoria (<strong>dexionvictoria.com.au</strong>) visibility
+                across <span class="highlight-stat">20 search prompts</span> spanning commercial pallet racking and
+                warehouse storage sectors. A critical discovery: AI engines frequently mention "Dexion" or "Dexion
+                Victoria" but link to <span class="highlight-stat">dexion.com.au</span> instead of the client's domain.
+            </p>
+
+            <p><strong>CRITICAL ISSUE:</strong> Dexion VIC (<strong>dexionvictoria.com.au</strong>) receives only <span
+                    class="highlight-stat">2 mentions (1.1%)</span> whilst <strong>Dexion AU (dexion.com.au)</strong>
+                receives <span class="highlight-stat">27 mentions (15.1%)</span> – often using variations of "Dexion
+                Victoria" but linking to dexion.com.au. This brand confusion represents a significant GEO opportunity.
+            </p>
+
+            <p>Rankings confirm the challenge: <span class="highlight-stat">#203 (1% SOV)</span> for "pallet racking
+                victoria" and <span class="highlight-stat">0% visibility</span> for "warehouse storage solutions
+                melbourne". The path forward requires clear domain differentiation and authoritative content to reclaim
+                the "Dexion Victoria" brand in AI responses.</p>
+        </div>
+
+        <h2>Performance Overview</h2>
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-label">Client Domain Visibility</div>
+                <div class="kpi-value">10%</div>
+                <div class="kpi-subtitle">dexionvictoria.com.au mentioned</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">Competitor Taking Credit</div>
+                <div class="kpi-value">90%</div>
+                <div class="kpi-subtitle">dexion.com.au (Dexion AU)</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">Brand Confusion Rate</div>
+                <div class="kpi-value">13:1</div>
+                <div class="kpi-subtitle">Competitor vs Client mentions</div>
+            </div>
+
+            <div class="kpi-card">
+                <div class="kpi-label">Ranking Position</div>
+                <div class="kpi-value">#203</div>
+                <div class="kpi-subtitle">Pallet racking victoria (1% SOV)</div>
+            </div>
+        </div>
+
+        <!-- Critical Issue Callout -->
+        <div style="background: #ffebee; padding: 30px; margin: 40px 0; border-left: 5px solid #c62828;">
+            <h3 style="color: #c62828; margin-top: 0;">🚨 Critical Brand Confusion Issue</h3>
+            <p style="font-size: 16px; line-height: 1.8; margin: 15px 0;">
+                <strong>The Problem:</strong> AI engines mention "Dexion Victoria" or "Dexion" in their responses, but
+                <strong>90% of the time they link to dexion.com.au (Dexion AU)</strong> instead of your domain
+                (<strong>dexionvictoria.com.au</strong>). This means:
+            </p>
+            <ul style="line-height: 2.2; font-size: 15px; margin: 15px 0 15px 30px;">
+                <li><strong style="color: #c62828;">Lost Traffic:</strong> When users click "Dexion Victoria" in AI
+                    responses, they land on a competitor's site</li>
+                <li><strong style="color: #c62828;">Brand Dilution:</strong> Your brand name is being used to promote
+                    dexion.com.au</li>
+                <li><strong style="color: #c62828;">Rankings Impact:</strong> AI engines treat dexion.com.au as the
+                    primary "Dexion Victoria" source</li>
+                <li><strong style="color: #c62828;">Revenue Loss:</strong> Potential customers meant for you are going
+                    to Dexion AU</li>
+            </ul>
+            <p style="font-size: 16px; line-height: 1.8; margin: 15px 0 0 0;">
+                <strong>The Solution:</strong> Strategic GEO content that explicitly establishes
+                <strong>dexionvictoria.com.au</strong> as the authoritative Victoria-specific source, with clear domain
+                mentions and differentiation from Dexion AU.
+            </p>
+        </div>
+
+        <!-- Keyword Performance Dashboard -->
+        <h3>Keyword Performance Dashboard</h3>
+        <div style="background: #f9f9f9; padding: 40px; margin: 40px 0; border: 1px solid #e0e0e0;">
+
+            <table class="rankings-table">
+                <thead>
+                    <tr>
+                        <th style="width: 350px;">Keyword</th>
+                        <th style="width: 120px;">Rank</th>
+                        <th style="width: 250px;">Share of Voice</th>
+                        <th style="width: 100px;">Position</th>
+                        <th style="width: 180px;">Domain Confusion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="nmgs-row">
+                        <td>
+                            <strong>pallet racking victoria</strong> 🇦🇺
+                            <div style="font-size: 11px; color: #999; margin-top: 3px;">Needs Improvement</div>
+                        </td>
+                        <td>
+                            <span class="rank-badge" style="background: #999;">#203</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 1%; background: #999;"></div>
+                                </div>
+                                <span class="share-text" style="color: #999;">1%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center; font-weight: bold;">9.0</td>
+                        <td style="font-size: 12px; color: #c62828;">
+                            <strong>⚠️ dexion.com.au</strong> getting mentions
+                        </td>
+                    </tr>
+
+                    <tr style="background: #ffebee;">
+                        <td>
+                            <strong>warehouse storage solutions melbourne</strong> 🇦🇺
+                            <div style="font-size: 11px; color: #c62828; margin-top: 3px; font-weight: bold;">🚨 NO
+                                VISIBILITY</div>
+                        </td>
+                        <td>
+                            <span class="rank-badge" style="background: #c62828;">-</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 0%; background: #c62828;"></div>
+                                </div>
+                                <span class="share-text" style="color: #c62828;">0%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center; font-weight: bold;">-</td>
+                        <td style="font-size: 12px; color: #c62828;">
+                            <strong>⚠️ Complete gap</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Key Insights -->
+            <div style="margin-top: 30px; padding: 30px; background: #fff; border-left: 5px solid #000;">
+                <h4
+                    style="font-family: 'Bebas Neue', sans-serif; font-size: 22px; margin-bottom: 18px; letter-spacing: 1px;">
+                    📊 Key Performance Insights</h4>
+                <ul style="line-height: 2.3; color: #333; font-size: 15px; margin: 0; padding-left: 20px;">
+                    <li><strong style="color: #c62828;">Brand Confusion Crisis:</strong> dexion.com.au (Dexion AU)
+                        receives 27 mentions vs your 2 mentions - 13.5x difference</li>
+                    <li><strong style="color: #c62828;">Domain Cannibalis ation:</strong> 90% of "Dexion Victoria"
+                        mentions link to dexion.com.au, not dexionvictoria.com.au</li>
+                    <li><strong style="color: #ff9500;">Lost Opportunity:</strong> Rank #203 (1% SOV) for "pallet
+                        racking victoria" - significant room for improvement</li>
+                    <li><strong style="color: #c62828;">Melbourne Gap:</strong> 0% visibility for "warehouse storage
+                        solutions melbourne" - critical local keyword</li>
+                    <li><strong style="color: #0066cc;">Quick Win Potential:</strong> Clear domain differentiation +
+                        authoritative content can reclaim brand mentions</li>
+                    <li><strong style="color: #2e7d32;">Competitive Position:</strong> STOW Group also at #207 (1% SOV)
+                        - you're competing at same level as international brands</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Competitive Landscape -->
+        <h3>Competitive Landscape Analysis</h3>
+        <div style="background: #f9f9f9; padding: 40px; margin: 40px 0; border: 1px solid #e0e0e0;">
+
+            <p style="font-size: 15px; line-height: 1.8; margin-bottom: 25px; color: #666;">
+                Analysis highlighting the brand confusion between <strong>dexionvictoria.com.au</strong> (THE CLIENT)
+                and <strong>dexion.com.au</strong> (Dexion AU taking credit).
+            </p>
+
+            <table class="rankings-table">
+                <thead>
+                    <tr>
+                        <th style="width: 280px;">Company</th>
+                        <th style="width: 140px;">Domain Status</th>
+                        <th style="width: 130px;">Ranking</th>
+                        <th style="width: 220px;">Share of Voice</th>
+                        <th>Performance Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="nmgs-row">
+                        <td>
+                            <strong style="font-size: 17px;">Dexion Victoria</strong>
+                            <div style="font-size: 12px; color: #2e7d32; margin-top: 3px; font-weight: bold;">✓ THE
+                                CLIENT</div>
+                            <div style="font-size: 11px; color: #666; margin-top: 2px;">dexionvictoria.com.au</div>
+                        </td>
+                        <td>
+                            <span
+                                style="background: #c62828; color: #fff; padding: 7px 14px; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; border-radius: 3px;">LOW</span>
+                        </td>
+                        <td style="text-align: center;">
+                            <span
+                                style="background: #999; color: #fff; padding: 6px 14px; font-weight: bold; border-radius: 3px; font-size: 15px;">#203</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 1%; background: #999;"></div>
+                                </div>
+                                <span class="share-text" style="color: #999; font-size: 16px;">1%</span>
+                            </div>
+                        </td>
+                        <td style="font-size: 14px; font-weight: 500;">Only 2 domain mentions - brand being taken by
+                            dexion.com.au</td>
+                    </tr>
+
+                    <tr style="background: #ffebee;">
+                        <td>
+                            <strong style="font-size: 17px;">Dexion AU</strong>
+                            <div style="font-size: 12px; color: #c62828; margin-top: 3px; font-weight: bold;">⚠️ TAKING
+                                CREDIT</div>
+                            <div style="font-size: 11px; color: #666; margin-top: 2px;">dexion.com.au</div>
+                        </td>
+                        <td>
+                            <span
+                                style="background: #ff9500; color: #fff; padding: 7px 14px; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; border-radius: 3px;">MODERATE</span>
+                        </td>
+                        <td style="text-align: center;">
+                            <span
+                                style="background: #ff9500; color: #fff; padding: 6px 14px; font-weight: bold; border-radius: 3px; font-size: 15px;">#15</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 9%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text" style="color: #ff9500; font-size: 16px;">9%</span>
+                            </div>
+                        </td>
+                        <td style="font-size: 14px; color: #c62828; font-weight: 600;">27 mentions using YOUR brand name
+                            but their domain!</td>
+                    </tr>
+
+                    <tr style="background: #fff;">
+                        <td>
+                            <strong style="font-size: 17px;">Colby Dandenong</strong>
+                            <div style="font-size: 12px; color: #666; margin-top: 3px;">colbydandenong.com.au</div>
+                        </td>
+                        <td>
+                            <span
+                                style="background: #ff9500; color: #fff; padding: 7px 14px; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; border-radius: 3px;">MODERATE</span>
+                        </td>
+                        <td style="text-align: center;">
+                            <span
+                                style="background: #ff9500; color: #fff; padding: 6px 14px; font-weight: bold; border-radius: 3px; font-size: 15px;">#20</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 10%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text" style="color: #ff9500; font-size: 16px;">10%</span>
+                            </div>
+                        </td>
+                        <td style="font-size: 14px;">Direct competitor with clear brand differentiation</td>
+                    </tr>
+
+                    <tr style="background: #fff;">
+                        <td>
+                            <strong style="font-size: 17px;">Safer Storage Systems</strong>
+                            <div style="font-size: 12px; color: #666; margin-top: 3px;">saferstoragesystems.com.au</div>
+                        </td>
+                        <td>
+                            <span
+                                style="background: #ff9500; color: #fff; padding: 7px 14px; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; border-radius: 3px;">MODERATE</span>
+                        </td>
+                        <td style="text-align: center;">
+                            <span
+                                style="background: #ff9500; color: #fff; padding: 6px 14px; font-weight: bold; border-radius: 3px; font-size: 15px;">#25</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 8%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text" style="color: #ff9500; font-size: 16px;">8%</span>
+                            </div>
+                        </td>
+                        <td style="font-size: 14px;">Safety-focused positioning</td>
+                    </tr>
+
+                    <tr style="background: #fff;">
+                        <td>
+                            <strong style="font-size: 17px;">Stow Group</strong>
+                            <div style="font-size: 12px; color: #666; margin-top: 3px;">stow-group.com</div>
+                        </td>
+                        <td>
+                            <span
+                                style="background: #c62828; color: #fff; padding: 7px 14px; font-size: 11px; font-weight: bold; letter-spacing: 0.5px; border-radius: 3px;">MINIMAL</span>
+                        </td>
+                        <td style="text-align: center;">
+                            <span
+                                style="background: #c62828; color: #fff; padding: 6px 14px; font-weight: bold; border-radius: 3px; font-size: 15px;">#207</span>
+                        </td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 1%; background: #c62828;"></div>
+                                </div>
+                                <span class="share-text" style="color: #c62828; font-size: 16px;">1%</span>
+                            </div>
+                        </td>
+                        <td style="font-size: 14px;">International brand, low Australian visibility</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Solution Strategy -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 35px;">
+                <div style="background: #fff; padding: 30px; border-left: 5px solid #c62828;">
+                    <h4
+                        style="font-family: 'Bebas Neue', sans-serif; font-size: 22px; margin-bottom: 18px; letter-spacing: 1px; color: #c62828;">
+                        🚨 URGENT: RECLAIM YOUR BRAND</h4>
+                    <ul style="line-height: 2.2; color: #333; font-size: 15px; margin: 0; padding-left: 20px;">
+                        <li><strong>Domain Differentiation:</strong> Content must explicitly mention
+                            "dexionvictoria.com.au" to establish presence</li>
+                        <li><strong>Stop the Leakage:</strong> 13.5x more mentions going to dexion.com.au than to you
+                        </li>
+                        <li><strong>Victoria Specialisation:</strong> Emphasise Victoria-specific expertise to
+                            differentiate from Dexion AU</li>
+                        <li><strong>Clear URLs:</strong> GEO content needs explicit domain references, not just "Dexion
+                            Victoria"</li>
+                        <li><strong>Authority Building:</strong> Create comprehensive Victoria-specific content AI
+                            engines can't ignore</li>
+                    </ul>
+                </div>
+
+                <div style="background: #fff; padding: 30px; border-left: 5px solid #2e7d32;">
+                    <h4
+                        style="font-family: 'Bebas Neue', sans-serif; font-size: 22px; margin-bottom: 18px; letter-spacing: 1px; color: #2e7d32;">
+                        ✓ PATH FORWARD</h4>
+                    <ul style="line-height: 2.2; color: #333; font-size: 15px; margin: 0; padding-left: 20px;">
+                        <li><strong>Quick Win:</strong> Fix brand confusion first - reclaim your name from dexion.com.au
+                        </li>
+                        <li><strong>Melbourne Focus:</strong> Target "warehouse storage solutions melbourne" (currently
+                            0% SOV)</li>
+                        <li><strong>Beat STOW:</strong> You're both at 1% - very achievable to surpass</li>
+                        <li><strong>Climb Rankings:</strong> From #203 to top 50 is realistic with proper GEO strategy
+                        </li>
+                        <li><strong>Source Building:</strong> Increase from 1 to 5-10 URL citations through
+                            authoritative content</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h3>Top Rankings - Pallet Racking Victoria</h3>
+        <table class="rankings-table">
+            <thead>
+                <tr>
+                    <th style="width: 80px;">Rank</th>
+                    <th>Brand / Domain</th>
+                    <th style="width: 150px;">Share of Voice</th>
+                    <th style="width: 90px;">Position</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><span class="rank-badge">#1</span></td>
+                    <td><strong>Erect-A-Rack</strong><br /><span
+                            style="font-size: 12px; color: #999;">erectarack.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 55%"></div>
+                            </div>
+                            <span class="share-text">55%</span>
+                        </div>
+                    </td>
+                    <td>3.5</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">#2</span></td>
+                    <td><strong>Mr Pallet Racking</strong><br /><span
+                            style="font-size: 12px; color: #999;">mrpalletracking.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 37%"></div>
+                            </div>
+                            <span class="share-text">37%</span>
+                        </div>
+                    </td>
+                    <td>4.0</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">#3</span></td>
+                    <td><strong>Able Storage Systems</strong><br /><span
+                            style="font-size: 12px; color: #999;">ablestorage.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 34%"></div>
+                            </div>
+                            <span class="share-text">34%</span>
+                        </div>
+                    </td>
+                    <td>4.5</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">#4</span></td>
+                    <td><strong>Absolute Storage Systems</strong><br /><span
+                            style="font-size: 12px; color: #999;">absolutestorage.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 34%"></div>
+                            </div>
+                            <span class="share-text">34%</span>
+                        </div>
+                    </td>
+                    <td>4.9</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">#5</span></td>
+                    <td><strong>ReadyRack</strong><br /><span
+                            style="font-size: 12px; color: #999;">readyrack.net.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 27%"></div>
+                            </div>
+                            <span class="share-text">27%</span>
+                        </div>
+                    </td>
+                    <td>5.8</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">#6</span></td>
+                    <td><strong>BHD Victoria</strong><br /><span
+                            style="font-size: 12px; color: #999;">bhdvictoria.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 19%"></div>
+                            </div>
+                            <span class="share-text">19%</span>
+                        </div>
+                    </td>
+                    <td>3.5</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">#7</span></td>
+                    <td><strong>Super Rack</strong><br /><span
+                            style="font-size: 12px; color: #999;">superrack.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 20%"></div>
+                            </div>
+                            <span class="share-text">20%</span>
+                        </div>
+                    </td>
+                    <td>5.6</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">#8</span></td>
+                    <td><strong>ABRSS</strong><br /><span style="font-size: 12px; color: #999;">abrss.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 20%"></div>
+                            </div>
+                            <span class="share-text">20%</span>
+                        </div>
+                    </td>
+                    <td>6.0</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">#9</span></td>
+                    <td><strong>Shelving Supply Australia</strong><br /><span
+                            style="font-size: 12px; color: #999;">shelvingsupplyaus.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 19%"></div>
+                            </div>
+                            <span class="share-text">19%</span>
+                        </div>
+                    </td>
+                    <td>7.8</td>
+                </tr>
+
+                <tr>
+                    <td><span class="rank-badge">#10</span></td>
+                    <td><strong>One Stop Pallet Racking</strong><br /><span
+                            style="font-size: 12px; color: #999;">onestoppalletracking.com.au</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar">
+                                <div class="share-fill" style="width: 16%"></div>
+                            </div>
+                            <span class="share-text">16%</span>
+                        </div>
+                    </td>
+                    <td>5.3</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <h2 id="all-prompts">All Prompts Tested</h2>
+        <p style="margin-bottom: 20px;"><strong>Domain Tracking:</strong> <span
+                style="background: #d4f4dd; padding: 3px 8px;">Green = dexionvictoria.com.au</span> | <span
+                style="background: #ffebee; padding: 3px 8px;">Red border = dexion.com.au</span></p>
+
+        <div class="category-tabs">
+            <button class="tab-btn active" onclick="filterPrompts('all')">All Prompts</button>
+            <button class="tab-btn" onclick="filterPrompts('pallet_racking_victoria')">Pallet Racking Victoria</button>
+            <button class="tab-btn" onclick="filterPrompts('warehouse_storage_solutions_melbourne')">Warehouse Storage
+                Melbourne</button>
+            <button class="tab-btn" onclick="filterPrompts('mentioned')">✓ Any Dexion</button>
+        </div>
+
+        <div id="promptsList"></div>
+
+        <div class="pagination">
+            <button class="pagination-btn" id="prevBtn" onclick="changePage('prev')">← Previous</button>
+            <span class="page-info" id="pageInfo"></span>
+            <button class="pagination-btn" id="nextBtn" onclick="changePage('next')">Next →</button>
+        </div>
+    </div>
+
+    <div id="mentionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title" id="modalTitle"></div>
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+            </div>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const promptsData = [{ "id": 1, "prompt": "Compare different types of pallet racking systems available for purchase in Victoria.", "category": "pallet_racking_victoria", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 6, "sources": 41, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 15, "sources": 19, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["[Dexion Racking - Pallet Racking System Melbourne | Storemax](https://www.storemax.com.au/pallet-racking-systems/dexion-racking/)\n\n  * **Mesh or decked shelves** — improve safety for smaller goods or non-palletised storage."] }, { "name": "Microsoft Copilot", "brands": 2, "sources": 9, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 6, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 10, "sources": 6, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 8, "sources": 17, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Overviews", "brands": 11, "sources": 15, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 1, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 4, "sources": 0, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["Selective pallet racking systems are available from various suppliers in Victoria, including:\n\t* Dexion: $1,500 - $3,000 per bay\n\t* Bosch: $1,000 - $2,500 per bay\n\t* Storage Solutions: $1,200 - $2,800 per bay\n2.", "Some suppliers offering drive-in pallet racking in Victoria include:\n\t* Dexion: $2,000 - $4,000 per bay\n\t* Bosch: $1,800 - $3,500 per bay\n\t* Storage Solutions: $2,200 - $4,200 per bay\n3.", "Some suppliers offering push-back pallet racking in Victoria include:\n\t* Storage Solutions: $2,000 - $4,000 per bay\n\t* Dexion: $1,800 - $3,500 per bay\n\t* Shelving Australia: $2,200 - $4,200 per bay\n4."] }] }, { "id": 2, "prompt": "List businesses in Victoria that provide pallet racking relocation and inspection services.", "category": "pallet_racking_victoria", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 13, "sources": 43, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 12, "sources": 13, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 4, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 6, "sources": 0, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 16, "sources": 28, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 12, "sources": 22, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Overviews", "brands": 10, "sources": 16, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["Key providers include Colby Derrimut, Dexion Victoria, ReadyRack, and Able Storage Systems, offering services such as, site inspections, reconfigurations, and repairs\n\n.", "* **[Dexion Victoria](https://www.google.com/search?q=Dexion+Victoria&hl=en-AU&gl=au&mstk=AUtExfCFPEyF8eIxOoeFQaOXhIytmX_A-aGdUSfR6EKC-aDpdXgkZiyOj3SjY1BRor8yTIss2y5nTU2FJ9IASpm9wD7rtB3uyb9uUPWlqZ-rkd7-7zfCMdrTWRH2z3_ybk0HJrk&csui=3&ved=2ahUKEwiXuoSJodOSAxVG0AIHHZVbKCsQgK4QegQIAxAN) (Melbourne):** Provides pallet racking inspections, repairs, and warehouse relocation.", "![](data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\n\nColby Derrimut\n\n![](data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==)\n\n  * [](https://nmgs.com.au/pallet-racking/#:~:text=Dexion%20Victoria's%20pallet%20racking%20systems%20are%20designed,more%20information%20about%20Dexion%20Victoria%20at%20www.dexion.com.au.)\n\nIndustrial, Commercial & Warehouse Pallet Racking Storage Systems Brisbane\n\nDexion Victoria's pallet racking systems are designed to meet Australian standards, including seismic requirements."] }, { "name": "Meta AI", "brands": 8, "sources": 8, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }] }, { "id": 3, "prompt": "I need a quote for custom pallet racking design services in Victoria.", "category": "pallet_racking_victoria", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 10, "sources": 37, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 4, "sources": 4, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 8, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 4, "sources": 0, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 18, "sources": 20, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["* **Dexion Victoria** – Established racking supplier that can assist with system design."] }, { "name": "Google AI Mode", "brands": 6, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Overviews", "brands": 8, "sources": 14, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 5, "sources": 4, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }] }, { "id": 4, "prompt": "Where can I find companies that install pallet racking in Victoria?", "category": "pallet_racking_victoria", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 13, "sources": 34, "mentioned": true, "is_client": true, "is_dexion_au": true, "dexion_mentions": ["Website: dexionvictoria.com.au\n  * **A1 Precision Solutions** — Supplies and installs Australian-made pallet racking (including Colby brands), plus used options and safety systems."] }, { "name": "Microsoft Copilot", "brands": 11, "sources": 12, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 5, "sources": 10, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["Here are some options to start with:\n\n  * Dexion Victoria (Melbourne area): established provider offering pallet racking installation, inspection, and maintenance across Victoria."] }, { "name": "Google AI Mode", "brands": 10, "sources": 17, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["[![Image of Mr Pallet Racking](https://lh3.googleusercontent.com/gps-cs-s/AHVAweqez3qpI4ug8ND1JpR8dafJm-Y7enzpRL-UhCZUwhTlFppFL5JewvD9bV1hCr9UO1RTc5H7tHlRgu6havWA23nda_6OCEDeKP7syqZABpOvAAWPvp7JOiTsW6K8KaJVoUbleewclw=s192-w192-h144-n-k-no)Mr Pallet Racking5.0(43)Shelving storeOpen391 Somerville Rd](/viewer/place?mid=%2Fg%2F1v6p4fd_)\n\n**[Mr Pallet Racking](https://www.mrpalletracking.com.au/)** (West Footscray): Specialises in affordable wholesale solutions for warehouses, workshops, and garages, with a focus on Dexion-compatible systems."] }, { "name": "Google Gemini", "brands": 7, "sources": 3, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 13, "sources": 16, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["* **Dexion Victoria** – Offers Dexion racking solutions with supply and installation options."] }, { "name": "Google AI Overviews", "brands": 12, "sources": 18, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 7, "sources": 7, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["**Dexion**: A global company with a presence in Australia, Dexion provides pallet racking installation services, along with storage solutions and material handling equipment.", "[www.dexion.com](http://www.dexion.com)\n6."] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }] }, { "id": 5, "prompt": "What are the steps to get my warehouse space optimized using pallet racking in Victoria?", "category": "pallet_racking_victoria", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 8, "sources": 43, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 7, "sources": 17, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 3, "sources": 3, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 10, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 2, "sources": 1, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 10, "sources": 20, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 4, "sources": 12, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["[6]\n* **Dexion**: A global supplier of warehouse storage solutions, including pallet racking systems.", "References:\n[1] https://www.storemates.com.au/warehouse-racking/\n[2] https://www.dexion.com/en-au/warehouse-racking/\n[3] https://www.ssi-schaefer.com.au/products/warehouse-racking/\n[4] https://www.australianrack.com.au/pallet-racking/\n[5] https://www.storemates.com.au/warehouse-racking/installation-services/\n[6] https://www.storemates.com.au/\n[7] https://www.dexion.com/en-au/\n[8] https://www.ssi-schaefer.com.au/\n[9] https://www.australianrack.com.au/\n[10] https://www.storemates.com.au/warehouse-racking/safety-features/\n[11] https://www.dexion.com/en-au/warehouse-racking/scalable-solutions/\n[12] https://www.ssi-schaefer.com.au/products/warehouse-racking/efficient-storage-solutions/"] }, { "name": "Anthropic Claude", "brands": 3, "sources": 3, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["Pallet Racking Providers:\n   - Dexion: One of the leading pallet racking providers in Australia, offering customized solutions for warehouses.", "(https://www.dexion.com.au/)\n   - Speedlock: A Victorian-based pallet racking specialist that provides design, installation, and maintenance services."] }] }, { "id": 6, "prompt": "What are the best prices for new pallet racking in Victoria right now?", "category": "pallet_racking_victoria", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 10, "sources": 64, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["* Good for budget starters; compatible with common systems like Dexion.", "* Many suppliers (e.g., ReadyRack, Unirack, Brownbuilt, Dexion) in Melbourne emphasize quotes over fixed prices, especially for installation or compliance checks."] }, { "name": "Microsoft Copilot", "brands": 4, "sources": 3, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["### Upright Frames (Individual Components)\n\nWholesales Direct (Melbourne) lists upright frames at factory‑direct pricing:\n\nHeight| Depth| Capacity| Notes  \n---|---|---|---  \n2438–6098 mm| 838 mm| 9000 kg| Blue uprights with footplates & dynabolts| [Pallet Racking | Shelving | Wholesales Direct](https://www.wholesalesdirect.com.au/pallet-racking)  \n  \n(Individual frame prices weren’t listed in the snippet, but this supplier is known for lower wholesale pricing.)\n\n### General Market Notes\n\n  * MR Pallet Racking (Melbourne) advertises “lowest wholesale prices” and Dexion‑compatible systems, though specific prices weren’t shown in the retrieved data."] }, { "name": "Google Gemini", "brands": 2, "sources": 2, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 7, "sources": 16, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 0, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 6, "sources": 13, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["Price (AUD)**| **Key Specifications**| **Merchant**  \n---|---|---|---  \n**[Pallet Racking System 6 Pallet Spaces (1 Bay)](/search?ibp=oshop&prds=pvt:hg,pvo:29,imageDocid:3791172130529125734,headlineOfferDocid:17271240690058428045,productDocid:17271240690058428045&q=product&sa=X&ved=2ahUKEwir7fa6pNOSAxX0TUEAHV3cLJ4Qxa4PegQIBRAE)**| **$418.90~~$1059.00~~** (discounted)| 2438mm H x 838mm D, 2591mm beams (up to 2300kg capacity per pair).| [WholesalesDirect](https://www.wholesalesdirect.com.au/pallet-racking-6-space-package-dexion-compatible-2.html)  \n**Pallet Racking (Complete Bay)**| **$540.00**|  2500mm H x 838mm D x 1552mm W, 2550kg load capacity per level.| [Unirack](https://unirack.com.au/product/complete-bay-prp2513-75-838-3/)  \n**[Steelspan Pallet Racking (Full Bay)](/search?ibp=oshop&prds=pvt:hg,pvo:29,imageDocid:5442047574787742354,headlineOfferDocid:837049243349489499,productDocid:837049243349489499&q=product&sa=X&ved=2ahUKEwir7fa6pNOSAxX0TUEAHV3cLJ4Qxa4PegQIBRAM)**| **$599.00**|  2438mm H x 838mm D, 1829mm beams, certified to Australian Standard 4084-2023.| [Steelspan Storage Systems](https://steelspan.com.au/products/pallet-racking-2438-high-full-bay?variant=45450794107139)  \n**Pallet Racking Complete Bay**| **$798.00**|  2500mm H x 838mm D x 2771mm W, 3150kg load capacity per level, includes post protectors.| [Unirack](https://unirack.com.au/product/complete-bay-prp2525-130-838-3/)  \n**Steelspan Pallet Racking (Full Bay)**| **$1,139.00**|  2438mm H x 838mm D, 2591mm beams, 3125kg load capacity per pair of beams.| [Steelspan Storage Systems](https://steelspan.com.au/products/pallet-racking-2438-high-full-bay?variant=45450794565891)  \n  \n  * [![Brand New Heavy Duty Pallet Racking System 2438mm High 1 Bay 6 Pallet Spaces](data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBw8QEBUQEBAWFRUXEBYQEBIVEhgaFRgVFRUXFhUVGBYZHCggGBolGxUTIT0hJikrLy4uFx8zODMsNygtOisBCgoKDg0OGxAQGy0mICY3Ky8tLTE1LS0tMi8tLTAtLS0vLS0tKy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf/AABEIAOEA4QMBEQACEQEDEQH/xAAbAAEBAQADAQEAAAAAAAAAAAAABwYCAwUEAf/EAE0QAAEDAgIGBQUJDQcFAAAAAAEAAgMEEQUhBhIxMkFRBxNhcbEicoGRoSMzNEJDkrLB0RQVJCVSYoKDk6Kz0uEWJkRUY8PTNVNkc8L/xAAaAQEBAQADAQAAAAAAAAAAAAAABQQBAgMG/8QAOxEBAAECAgYGBwgDAAMBAAAAAAECAwQRBRIhMUFxMlGBkaHBExRCYbHR8BUiMzRSgrLhIyRicpLxQ//aAAwDAQACEQMRAD8AuKAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICD56auhlJbHKx5abODXtcRbI3AOS5mmqN8OtNdNW6X0Lh2EBAQEBAQEBAQEBAQEBAQEBAQEBAQEBB+EoPjnxamj35mDs1xf1DNeFeKs0dKqO960Ye7X0aZnsebNpdRjdc55/NYfrssdzS+Hp3TM/Xvya6NGYirfERzl5tVpqbHq4LZGznu/+f6rHXprPZbp75+XzaadETlnXV2Qz/RdG37pLmx6v4NIDnf5aMAX4jK3oK+squV3MHRVcnOrPe+Xi3Rbx1dNuMqcvOFRWJvEBAQEBAQEBAQEBAQEBAQEBAug4veALkgDmSuJmI3kRnuedU6QUce9OzuadY+pt1mrxtijfXHx+DTbwd+vo0S8yfTSnHvbJH9obYe039ix3NMWKd0TP172qjRV+d+UPNqdNZviQsZ2vffwssdem6p6NMfFqo0RRHTq7nxDG6+fce89kMV/ba68fW8de6MT2Rk9vVsFa35ds/Jy+8VdNvskd2yyi3qvcLiNH4270/Gf/pONwlvo5dkfN9dPoXMd+SJnmtc/6Vl70aEq9uvu+oeFel6fZpmeb0oNDoRvzSO7BqtHqtf2rXb0NYp6Wcstelb07sofW7RqkYx2pCC7UNi5xdnbLeJstUaPsU05U0Rmzzjb1U/eqliNAcRgiqHPe8Ma6NzWEnySS5pFshZthtPLtVu3hL1GBt2p2zG9FuYqzVjq7kTlTO7Nup9J6JmXXAn80Od7QLKNextmzVq1zt6tq1awd+7GdNOxOdKtIzPilO2F8gicyNj2FzmtLmSOfragdY7zcyOHcrOi7trEYequmN0zGeX/ACj6Vs3bF2Ka9nR/krywtwgICAgICAgICAgICDF0+lsrK2aOqLGwN12xOaCX6zZA1rSASTdusdlsuC6YjF4O3TFOtOvxjKfk7YfC4u7VMxR9zhPzehNphENyGV/aWarfW5TbmlbcdGJnwbqdG3J6VUR25/B5VTpnUE2ZFGzlrOLj+6ss6VvVzlbo8/k1U6NtUxnXX5fF84qsUn3eu7NWMRt9D3W8V5TOkbvCYjsh31cBb6p75co9FKyXOW3b1spc79249qRorE3OnVHjLmdI2Lf4dPhEPvg0IHx5/QyMD94krRb0JRHTqns+peFel6/Zh6MGiVIN8Pk7XSHwbYLXRovDU+znzZa9I36uOXJ9PU4fT8II+06gd6zmV75YezHsx3PHO/dnjPe6Z9KqJmQl1uxrHH22t7V5V6Rw1Htd2b2p0diatur37Hxy6Zx/JwSO86zR6xdZa9N2Y6MTLRToi77VUR4vin0uqTuxRM89xJ9lllq01cq2UUfGfk9Y0Zap6Vbq++OIy7HSAf6cHk/P1Tb1rj1nSF3o0zHZl8Xb0OCt78p7fk634JXy7/WkW+UmFvUHEj1LtbweOrqiqurvn5OKsVhKaJimmO75sxobg/3W7q7gWic+7m3GTmjyBcc+fNfaaYt3K7FMUV6s5xtjk+O0VXRGIq16daMp2TzayXQN7Wnqqm7vyXsszuuCSO/NT51L1v0eKpiv37p74UoiuzXr4WrU/wCd9PdLEYvhrosUpRIGxyNDdaMyBxfdxHWtPI2tq8LdqpaPw9ixYqpszs2zt5J2PxN+9cib8bfuxnG7ZK4KWqiAgICAgICAgICAgFBPsHo45cRqYzIWjrZZCGkBxdrgWub5WzyUmcP6bF1+kpnLKMvep+ki1haJpnbnOxrYdH6VvyQd55LvY42WyjB2Kd1Pmxzibs+0++GnjYLMY1vY1oHgtMUxG6HjMzO9M9AtLat7Jnzl856zUYHFrQ3ULr57BcFnzV46Tx9vD3ItU0bYiJnb183pgsHcu0zcqr2TOUbHuzaW1JNmRxNPIuL3eptlFq0veq2W7fxn5KcaPs09OvydBrcVm3RKOwQhg9DpAPFcel0ld3Rl2RHxd4t4C3vnPx+A3R/EJffHH9bUE+xoPin2fjbnTry7ZIxuEt9Cjw+b6IdCX/GmY3mGxl3tc76l6U6Ej26+51nS8x0afH5Pvg0OgbvSSO7LtaP3Wg+1aaNDYaN+c9rPXpS/Vuyh98GjlGz5EO88uf8ASJWqjAYejdRDNVi71W+qXoQ00bMmMa3zWgeC000U07oeE1TO+XauzhxebAnsRxO5Meij39234O7u32bvZ9d1a0n+HG7f5Iei5/zVb93HmoGOYo2liMhBc4kMijG9JI7JjGjmT9ak2rc3Ksu+eqFi7di3Tnx4R1ykmkdBLDi1IZ5daaVjZp7C7dYyuAY0/FY1rQBzseaq2KortzqxsjOI7k+/E0xEVTtnVz/9lrUZVEBAQEBAQEBAQEBAQS7AsJp6rGK1lRE2RoMrgHDY7rW+UDtBz2jmVWxFdVGFt6qXYoirE3Iqa8aLdX8FrKmDk3retj+ZMHZdxCn+mz6VMT4fBu9Dl0apjx+L58TrcRoYnTzS000TG6z3PDoHnsBGs0k7LWzJXaim1cqyiJie/wCTpVN2iM5mJ8PmyHQtTQysmLmNfYte0uZkOsdJewdsPkeC88bg5jEzeqymmqIiOze98Pi9azFndVEzM9u5V2MAFgAByAXlERG52clyCAgICAgIOEu6e4+COJ3Jf0WyNbK9zjYNpXFxOTQA9hNjy/qrekomaKYjr8kDRlURdqmZ4cebXYIw1s33fID1bbsoGEfFOTpyPynbByb3qbd/x0+ijf7Xy7PirWc7lXpZ3cI8+csh0gk/fuk3veY723ffpN7s5dq2YH8Grt+DNjelH7f5KopSmICAgICAgICAgICAgnuh4/HNb+t4f6rVTxP5W2mYb81cbfFMShponTTP1Wj1knY1o2ucTkANqnU0zVOUKNVUUxnLxcOw2WqlbWVrdUNOtSUhzEXKWTg6b2N4Zr1qqiiNSjtnr5e5500zVOtV2R9cWL6APg8x7IfGbj6Vs0hP3Lfb5MuFj/Nc7PgrKmKAgICAgICAg4Tbp80+CQ4ncjugmGGqkEJfaPUvUNB3mBzT1Q/NLtS/ZfmF9DjbkW7etlt4d2985gLc3bs057OPfuWRjQAABYAWAGwDkvnn0iWaej8e0mRPuMWYOQ93l2jiqmD/AAKv3fBLxv4kft/kqilqggICAgICAgICAgICCZYNisNJidfLM6wBeGtGbnuMoAYxu1zicrKrft1V4e1FKVYrinEXZn3NTheFS1Era2ubZwzpaa92wA/GdwdMeJ4bAsFdcUxqUbuM9f8ATfTRMzrVd3U0i8XslPQAPwWXui/3FT0jut8mHC/iXOfkqymNwgICAgICAg4Tbp80+COJ3InolUPgc2pibcRDXqGjb1ZLY3bNtg5pvwHcvo8Vq1Uejq47ufB8zhZqprm5G3V2zy4/NbIZWvaHtNw4BzTzBzBXzsxMTlL6amYmM4S3T0fj6kyv7jFY61rXnl4cVTwf4FX7v4puNjOuP2/yVVS1MQEBAQEBAQEBAQEBBIaapEGMVFS+ASRxTv619ruiD36ola2+djtNibE7FbuU62Eooicpnd78uCNRVqYmuvLOI3+73q3FIHNDmkEEAtIORBzBB5KJu2LETnDmjlKugEfgsvdF/uKlpHdb5MOF/Euc1VU1uEBAQEBAQEHCbdd5p8EcTuS7orja9743jWaaZzHMOzVc9l29uXirWks4opn3+SHoyda7VG/Z5tfolI6F0mHyEl0J1oXHa6B5uw9tr2PbccFOxH34i7HHfz/tRw3+OZszw2xyn5Mhp2B9/qPZ7zDa+34RLurXg/wKv3fxeGM/Ep50/wAlUUtTEBAQEBAQEBAQEBAQT/RBgdiuItcLgl7XNIBBBkNwVUxX5W0m4aP9m69TCpDh1QKGQk08riaGQnddtNM4/Rvt2Z8MleV2n0kdKN/v9/ze9E+hr1J3Tu93u+TVk5XWZrS7oDH4HJ3x+DlS0l7HJiwvTuc/JUlNbRAQEBAQEBBwn3XeafBHE7ky6Jz7sRyp3C3Ly2Zdu2/pVnSf4dOzj5Imi5zuVbeHm1ulkRhdHiDBnCdWYD40D8n/ADdvYNYqfh51s7U+18eCjiadXK7G+n4cWN0yka/HaJzXAh0EDmm1yR18pu08No9a2YWMrFUT/wBfxZ8XOtVTMf8AP8lVUpTEBAQEBAQEBAQEBAQYHQz/AKtiHnO/iFVcX+UtJuG/M3WwxrC46uB0EmxwycN5rhuvaeBBzU23XNFUVQ310RXTqy8rR7FZD1lHVH8Jhb5R4Sx7GTN7DsPIr0u0Rsro3T4T1PO1XPQq3x4+9kugT4FJ3x/Rctmkp20cnlhenc5+SoKY2CAgICAgICDhPuu80+CQ4ncmPROfdiP/AB3ejy48jzOat6Tj/HHPyQtFz/lmM+Hmp0sbXtLXAEEFrgdhBFiCoi7MZo9V0EsGL00T3XbHJHBHcXLo+sdJEdY7MnPHe0jgrduqK7FVyP8ArPnki1x6O5FrqmnLlreSyKItiAgICAgICAgICAgIJ/oYfxviHnO/iqpi5/1bSbhfzN1QFLUmd0xw7Wi+6opBFPTtdLHK4gN1ALvjeTlqEX27NvNe1iuKZ1atsTveN63NUZ0743Mp0GMDaWUNNxrs1TzFjb0rZpKqJqpy6nhg8/vzVGU5+Sll4G0j1qZnDbk4OqYxte0fpBca9PW7RTVO6HU7EacbZox+sb9q6zetxvqjvd/QXP0z3S63YzSjbURftG/avOcVZjfXHfDtGFvTuonul0u0hox/iI/Q6/gus43Dx7cO0YPEfolwOktF/wB9vqP2Lr6/h/1w7RgMT+iXW7SyhHyvqY/+Vec6Tw0e14S7xo3Ez7PjHzdZ0vo/y3fMP1rrOlsN1z3S7xorFfp8YdFRplS6rra58k/FHLvXX7Xw/DOexz9lYjjl3sn0XarKg+WCBBIA7Zfy4tt+P1WX0+IxEXsJRdmMs548pfM4fDTYxdVvPPKOHYpRr4R8qz57ftUrXp61bUq6knxXHW1WPQBg8gPiiYbZO6ua5cTfLN7rZK5atTaw80zxiZnuRb1UXbkV9U0xHLPesCirAgICAgICAgICAgICCXxUtTLX1LIHFknXSuJa4MvGJLC7m5nMjIqHiPWL2IqotVzsy4zHBdsTh7WGpru0ROefCHqHRrFDtqj6amT+VdPUcbPt+Mnr2Cj/APPwh5uHYVVVTJHtmc6NjiwSGV+pIW7xjyu5oII1iACRlddqtGYyNk1+MusaTwu+mjwh4ujpfXxdbTRyubxBIuMyBfyrcDxWfEaPxlFyaN+WXHr5tlvH4eaIqnZnnw6uT1xozVn/AA7vS9v1vWf7Pxc+z8Hb7Rw36o7nMaKVf+VP7SL+ddo0Ziv0+MOftOx+rwl2M0Uq/wDL275Y/qcUjReJnfT4w4nSlj9XhLvZolU8Ym/tGrt9k4nqjv8A6ec6Vs8Kp7nb/ZKp/IZ88fyFdvsjEe7v/p5zpS11z9dr9/shU8GxDvf9kaRoa/xmPFx9q2vf9dr9GiFVziH6Z/40+xb3XHiTpa11T4fN2N0OqOL4x+k7+Vdo0Hd41R4uPti3+mXGo0PmDHEytyaSQNbOw2Ln7FuU/e1o2e5xGlqKpy1ZZnQ/BBUOdCx7WhoLgdW+Q1QLtaQAc722Wtkvo8TYqxWi7dNU5TMxM7EGxiYw+lLs0xnGX1n73r4noyY5YqdkodLKTazCOrY3flN3HYNg4mwWLRuiKcPc9YuVZxTujLjwbNIaWrvUer0RlNW+c+DPVGECjx2lhDta3Vuvq2yLwLWueS+hwev6vXVXOczrz3wh4yqJu0xTGURqRlylalMUBAQEBAQEBAQEBAQEGA0RlccYrQTcDrNUW2e7C/1LRdwNq1RTiKY+9VveFvHXrtdViqfu07nr4rO+vmdQwOLYWENr52mxzF/uWN35ZBGsRug22nLimmKKderfO6PP5O0zrTqxue+adkcPVxtDWtj1WtAsA0NsABwC8c852vTLYnfQOy1C6/HUI9OstWNsU0XNaN9URM/B52r1VyJpq3UzOSm2WR6iAgICAgICDhNunzT4I4ncmXRpMyIySPNmtpQ9xO21ojdw5/VZWMbE126aaetGwVUUXa6qp4NfotA+Uvr5RZ89uqafiQN97He7ePe3iFhxMxTlap3U+M8VDDUzOd2rfV4RwhktJYwdIqc6uxkIvfYdd/Dje23hbtWrDz/rVfu+DwxH40c6fipylqIgICAgICAgICAgIPwoJXQGqditXDSkMdI+Rj5j8lGJbve0fGfwA5m5yBVi7qeqW5q4cOtJszV6zXEcVJwnDoqWFsMLbNaMs7kkm7nOPxnEkkniSpNVU1TnKrEREZQ76k+Q7zT4Lrxcpz0FOvQns1B7HKlpKMqqOTHhZzquc/JS1NbBAQEBAQEBBwm3T5p8EcSkmhmHGrc2K/uepE6oz32NhiOqed3ag7r8QruJueitZ8dsR7t/kgYe16W/lw2Z+/JXQLZKE+gTTSI/3hpxluQnPe3n7By5+hVLH5Wf3fBNxH40c6fipilqQgICAgICAgICAgICCU0OFvqMTrDDJ1c0ckktO/gHiQCzhxaQ4g9/HjauXIowtvOM4nZKRbt6+JuZTtjc32jmNiqY5r29XPEdSphO1j+Y5sO0HiFKu2tSdm2J3T9cVK1d14ynZMb4enV+9u8x3gvON71TfoH+Av8AOZ9EqlpPpUcmLCdK5z8oU1TG0QEBAQEBAQcJt13mnwRxO5INB8RfTas4BMY1Gz2Pybg1geR2O1f6AlfQ4y3TXRFE7+HP+3zmErqt3JuRGyN/Lr7N6wRvDgCDcEXB5g7F89MZPo4mJjOEyx8/3kgFx7zEbW8rffsPAcx2tVSx+Vq/d8IYb8f5Y50qepbeICAgICAgICAgICAgnehx/HVaO2b+Kz7VVxX5O39daZh/zVxpNIsHkL21lJZtTGLW2Nmj2mF/fwPA8tow2rkRGpX0Z8Pe23bcz9+npR9ZPpw3GI6umdLHcENcySN2T45GjymOHAhdLlqq3VlPZ73a3ciunOGJ6B/gL/OZ9ErfpPfRyZsJ0rnPyU1TG0QEBAQEBAQcJ913mnwSHE7ky6LKdkjJY3tDmvgLXg7HNOqD3ZZW7Fb0pVOrTMTx8kTRsR6SqMuHm1mi87oXvw+Ykui8qB5+UgdunvGYPaDwCnX414i9HHfz/tQw/wDiqmzPDbHLq7GUx1/95YRf5GI6urts92etwtfZxv2LVY/Kz+7ydL/4kc6VPUtvEBAQEBAQEBAQEBAQTfQ8/jyt/X/xY1VxP5O39daXh/zdajkgbVKVGI0tfFSOfX088TXahZVwula0TMtYOzPvjeHEjLPYddmqa49HXE5cJ6v6ZrlM0zr0b+Mdf9vN6DoiyklYeD2Dvs05rTpPpURPU8sFVra89c+SlKW3CAgICAgICDhPuu80+COJ3Jp0RHyndsV+/NguPD0K3pSc6Kefkh6MjK9Vy82w0qonlrauAXmpyXtA2vjPvkfbcC4HMW4qZh64iZoq6NWyfn2KmJtzVEVU9KnbHy7WDqsQZUY/TyxOJY6CB2W7fWdk4/lC5A/SVGi3NvDVU1b/AL3kyV3KblVNdPXSrSjKggICAgICAgICAgICCT4NhsdVjVXFI54brTv9ylfG4kSRixewh2r5RyvY2HJWb1c0YO3MfPrSrMZ4uttBoNhlrOpus/8AbLLJ/Eebqb6zdjdOXLKFH0VPU7zoth0bHdXQ07fIOYgZfZzsus37lW+qe921Kd+TG9AnwGTzmfRW3SPscmbDdK5z8lPU1rEBAQEBAQEHCfdd5p8EhxO5LuiedrHOc9waOpJu42BzjzudiuaTiZt05dfkhaNnK9Vns2ebc1OlmHsNjUsceDY7vJ7tS6l04S9Vt1Zjns+KrVjLMbNbPlt+Cc0Tqd2OMETJI7Pa5jZGFl2SHWsGnOweHEE2yeQNip51RhqorymYiY2bU+qnK/TNEfdmYmeG3+1hURZEBAQEBAQEBAQEBAKDBaMYXIzGaqY31XCYXLCANaSMgXO3dK7faM3afV5omNXjwn6zceoRan1iKonW4dTerq5cZG3BHMEetBntBtFGYXT/AHO2UyXdrF5bqnYABa55L1u3arkxNXDY6UUU055cdrRrydxAQEBAQEBB11B8h3mnwSHE7kq6McOhnJbNEHt1DI3WF2kgsbrDszcOPFXdIXa6KImme7khYC1RXcmK6eHHmqdNSRxC0cbWDk1oA9iiVVVVb5zXKaKad0JhiVv7UtyF+phAdrZjabavEHI34WHNVLMf6k9rJf6dP/lHwlVVJbRAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEHVVG0bj+Y7wTPJxMZ7E36Kqd7JSHsLfcXA35h0ewcBb23VLGY2xfoiLdcTMTujkm4TBX7F2ZuUTETHHmpqmqbGzaGPdjP3065ur1bWdVqHW8kAXDr24clpjEzFn0WX1nm8ZsxNWt78/DJslmewgICAgICAgICAgICAgICAgICAgICAgICDjIwOBadhBBHYdq4mM4yI2PhocGggdrxtINi3NzjkSCdp5gLPZwlqzVNVEbZ98va5iK7lOrV8IegtLxEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEH/9k=)Brand New Heavy Duty Pallet Racking System 2438mm High 1 Bay 6 Pallet Spaces$536.00](/search?ibp=oshop&prds=pvt:hg,pvo:29,imageDocid:3791172130529125734,headlineOfferDocid:17271240690058428045,productDocid:17271240690058428045&q=product&sa=X&ved=2ahUKEwir7fa6pNOSAxX0TUEAHV3cLJ4Q8ccPegQIBhAB)\n\n  * [![Steelspan Pallet Racking - H2438 x D838mm - Full Bay, L1829 x H80 x D50mm."] }, { "name": "Google AI Overviews", "brands": 6, "sources": 7, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }] }, { "id": 7, "prompt": "Find me vendors selling cantilever racking and drive-in racking in the Victoria area.", "category": "pallet_racking_victoria", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 11, "sources": 30, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 6, "sources": 3, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 10, "sources": 6, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 8, "sources": 17, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 10, "sources": 34, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 9, "sources": 17, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["* **Address** : 45 Gaine Rd, Dandenong South VIC 3175\n    * **Hours** : Mon–Fri: 8:00 AM – 4:00 PM\n  * **Erect-A-Rack** : A long-standing Melbourne supplier specializing in custom industrial solutions, including Dexion-compatible shelving, cantilever racks for oddly shaped materials, and drive-in systems."] }, { "name": "Meta AI", "brands": 6, "sources": 6, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["**Dexion** (Multiple locations in VIC) - Offers a range of cantilever racking systems, including custom designs, for various industries.", "[www.dexion.com.au](http://www.dexion.com.au)\n\n**Drive-in Racking:**\n\n1.", "**Dexion** (Multiple locations in VIC) - Provides drive-in racking systems, including custom designs, for various industries."] }, { "name": "Google AI Overviews", "brands": 5, "sources": 12, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["Dexion Australia - https://www.dexion.com.au/\nDexion is a leading provider of cantilever racking solutions in Australia, with a showroom and distribution center located in Melbourne, Victoria."] }] }, { "id": 8, "prompt": "Which pallet racking suppliers in Victoria adhere to the AS4084-2023 standard?", "category": "pallet_racking_victoria", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 10, "sources": 30, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["* Offers Dexion‑compatible systems and heavy‑duty steel construction."] }, { "name": "Google Gemini", "brands": 14, "sources": 6, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["**Dexion Victoria**|  Various / Melbourne| Offers a full range of racking systems and professional audit services strictly following the 2023 update.", "**MR Pallet Racking**|  Melbourne| Supplies Dexion-compatible and heavy-duty steel systems certified to the 2023 standard at wholesale prices."] }, { "name": "Perplexity AI", "brands": 5, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 12, "sources": 20, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["[Source 1](https://erectarack.com.au)[Source 2](https://saferstoragesystems.com.au)\n\n**Compliant Suppliers in Victoria**\n\nThe following companies explicitly state that their new pallet racking systems are certified and tested to the AS4084:2023 standard:\n\nSupplier [Source 1](https://www.mrpalletracking.com.au)[Source 2](https://erectarack.com.au)[Source 3](https://www.ablestorage.com.au)[Source 4](https://onestoppalletracking.com.au)[Source 5](https://colbydandenong.com.au)[Source 6](https://colbydandenong.com.au)[Source 7](https://vinatech.com.au)[Source 8](https://shelvingsupplyaus.com.au)[Source 9](https://shelvingsupplyaus.com.au)[Source 10](https://readyrack.net.au)[Source 11](https://www.superrack.com.au)| Location| Services Provided  \n---|---|---  \n[****](https://www.mrpalletracking.com.au/)**[](https://www.mrpalletracking.com.au/)[MR Pallet Racking](/viewer/place?mid=/g/1v6p4fd_&sa=X&ved=2ahUKEwjN-Zq2pNOSAxVNQ0EAHWwuO30QqdYPegQIBhAF)**| Melbourne| Wholesale supply, installation, and Dexion-compatible systems."] }, { "name": "OpenAI ChatGPT", "brands": 6, "sources": 16, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["[Warehouse Shelving Solutions | Shelving Supply Australia](https://shelvingsupplyaus.com.au/)\n\n### Other Notable Suppliers (Check Compliance on Request)\n\nThese suppliers are prominent pallet racking and industrial storage providers in Victoria, but specific AS4084-2023 compliance wasn’t clearly stated on the main web pages — you may need to confirm directly with them about their adherence to the current AS4084-2023 standard:\n\n  * Racking Supply Australia\n\n  * Able Storage\n\n  * Absolute Storage Systems\n\n  * One Stop Pallet Racking _(claims AS4084-2023 design and inspection compliance)_ [Pallet Racking Melbourne | One Stop Pallet Racking](https://onestoppalletracking.com.au/service-areas/pallet-racking-melbourne)\n\n  * All Brands Racking & Shelving Solutions\n\n  * Dexion Victoria\n\n  * CNA Storage Solution\n\n  * Unirack Melbourne\n\n  * Multiple Storage Solutions Melbourne\n\n  * Safer Storage Systems\n\n  * BHD Victoria\n\n### Tips When Selecting a Supplier\n\n✔ **Ask for AS4084-2023 certification** or engineering documentation before purchase/installation."] }, { "name": "Google AI Overviews", "brands": 15, "sources": 26, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["Dexion Australia (https://www.dexion.com.au/) - Dexion is a leading provider of pallet racking solutions in Australia and offers products that comply with the AS4084-2023 standard."] }] }, { "id": 9, "prompt": "Show me suppliers offering selective pallet racking solutions in Victoria.", "category": "pallet_racking_victoria", "has_nmgs": true, "engines": [{ "name": "Perplexity AI", "brands": 8, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["Also reports accessibility to Dexion components if needed.[Selective Warehouse Pallet Racking | Storeplan](https://storeplan.net.au/product/selective-pallet-racking/)​\n\n  * Pallet Racking Australia (Melbourne area) – Melbourne/Melbourne-area specialists with a range including selective, drive-in, narrow aisle, double deep, and powered pallet racking; provides quotes and nationwide service.[Warehouse Racking Solutions | Storage Solutions Melbourne](https://www.palletracking.com.au/racking/)​\n\n  * A1 Precision Solutions (Victoria) – Melbourne-wide pallet racking supplier and installer, featuring new and used options, and brands such as Colby."] }, { "name": "Microsoft Copilot", "brands": 8, "sources": 8, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "xAI Grok", "brands": 13, "sources": 41, "mentioned": true, "is_client": true, "is_dexion_au": false, "dexion_mentions": ["Website: dexionvictoria.com.au Contact: 1300 364 994 | 359 Frankston Dandenong Road, Dandenong South VIC 3175\n  * **ReadyRack** (Melbourne supplier, Australia-wide delivery) Offers flexible selective pallet racking systems with fast delivery."] }, { "name": "OpenAI ChatGPT", "brands": 15, "sources": 16, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 10, "sources": 3, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 13, "sources": 20, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["[![Image of B & R Storage Systems](https://lh3.googleusercontent.com/p/AF1QipOoZpOlRVp_4DksxG9UpPqLeG2Vk8CNx7Gaabhx=s192-w192-h144-n-k-no)B & R Storage Systems4.6(21)Shelving storeClosed20 Kitchen Rd](/viewer/place?mid=%2Fg%2F1tgln0lj)\n\nA leading supplier in Melbourne since 1982, B&R Storage Systems stocks major brands like Dexion, Colby, and Schaefer, offering both new and second-hand options across Victoria.", "[![Image of Mr Pallet Racking](https://lh3.googleusercontent.com/gps-cs-s/AHVAweqez3qpI4ug8ND1JpR8dafJm-Y7enzpRL-UhCZUwhTlFppFL5JewvD9bV1hCr9UO1RTc5H7tHlRgu6havWA23nda_6OCEDeKP7syqZABpOvAAWPvp7JOiTsW6K8KaJVoUbleewclw=s192-w192-h144-n-k-no)Mr Pallet Racking5.0(43)Shelving storeOpen391 Somerville Rd](/viewer/place?mid=%2Fg%2F1v6p4fd_)\n\nBased in Melbourne, MR Pallet Racking provides Dexion-compatible, heavy-duty steel racking systems that are certified to Australian Standard AS4084-2023.", "* **Product Range** : In addition to new racking, some suppliers offer cost-effective used options and can integrate with existing systems like Dexion."] }, { "name": "Google AI Overviews", "brands": 11, "sources": 15, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["* **[MR Pallet Racking (Melbourne)](https://www.mrpalletracking.com.au/) :** Offers Dexion-compatible racking systems with AS4084-2023 certification."] }, { "name": "Meta AI", "brands": 7, "sources": 6, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["**Dexion**: Dexion, a leading provider of storage solutions, offers selective pallet racking systems designed for high-density storage and easy picking.", "[www.dexion.com](http://www.dexion.com)\n4."] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["Dexion Australia (https://www.dexion.com.au/)\n   - Dexion is a leading provider of storage and materials handling solutions, including selective pallet racking systems."] }] }, { "id": 10, "prompt": "Do any Victorian companies offer heavy-duty steel pallet racking for large warehouses?", "category": "pallet_racking_victoria", "has_nmgs": true, "engines": [{ "name": "Microsoft Copilot", "brands": 4, "sources": 4, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "xAI Grok", "brands": 8, "sources": 34, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 19, "sources": 17, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 7, "sources": 3, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 5, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 5, "sources": 7, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Overviews", "brands": 13, "sources": 21, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["* **MR Pallet Racking (Melbourne, VIC):** Offers heavy-duty, Dexion-compatible, and AS4084-2023 certified steel racking for warehouses and distribution centres."] }, { "name": "Meta AI", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 4, "sources": 4, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["Dexion Australia (https://www.dexion.com.au/)\n   - Dexion is an Australian company that has been manufacturing industrial storage solutions since 1947."] }] }, { "id": 1, "prompt": "Show me companies offering pallet racking warehouse storage solutions in Melbourne.", "category": "warehouse_storage_solutions_melbourne", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 12, "sources": 38, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 8, "sources": 9, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 8, "sources": 14, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 11, "sources": 5, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["[Top 100 Pallet Rack Suppliers in Australia (2025) - ensun](https://ensun.io/search/pallet-rack/australia#:~:text=Safer%20Storage%20Systems%20are%20Australia's,%2D)\n\nHere are the top companies offering these solutions in Melbourne as of 2026:\n\n### **Top Specialized Racking Suppliers**\n\nCompany| Key Services| Notable Features  \n---|---|---  \n**Dexion Victoria**|  Pallet racking, shuttle racking, and consultation.| Industry leader; offers comprehensive warehouse audits and compliance services.", "**MR Pallet Racking**|  Dexion-compatible racking, long span shelving, and workbenches.| Focuses on wholesale prices and AS4084-2023 certified equipment."] }, { "name": "Google AI Mode", "brands": 10, "sources": 13, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["[![Image of Dexion Victoria](https://lh3.googleusercontent.com/p/AF1QipPdbrL7QJvk68_x2qlUIDEAOP3TrdWOtYkhr5Za=s192-w192-h144-n-k-no)Dexion Victoria4.2(16)Shelving storeClosed359 Frankston - Dandenong Rd](/viewer/place?mid=%2Fg%2F1tcvj71h)\n\nA major industry name with a supply centre at **359 Frankston Dandenong Road, Dandenong South**.", "[![Image of Mr Pallet Racking](https://lh3.googleusercontent.com/gps-cs-s/AHVAweqez3qpI4ug8ND1JpR8dafJm-Y7enzpRL-UhCZUwhTlFppFL5JewvD9bV1hCr9UO1RTc5H7tHlRgu6havWA23nda_6OCEDeKP7syqZABpOvAAWPvp7JOiTsW6K8KaJVoUbleewclw=s192-w192-h144-n-k-no)Mr Pallet Racking5.0(43)Shelving storeOpen391 Somerville Rd](/viewer/place?mid=%2Fg%2F1v6p4fd_)\n\nBased in **West Footscray (391 Somerville Rd)** , they supply Dexion-compatible systems and heavy-duty steel construction certified to Australian standards.", "[Source 1](https://colbydandenong.com.au)[Source 2](https://www.dexion.com.au)[Source 3](https://www.dexion.com.au)[Source 4](https://www.mrpalletracking.com.au)[Source 5](https://onestopshelving.com.au)[Source 6](https://axislifts.com.au)[Source 7](https://shelvingsupplyaus.com.au)[Source 8](https://www.realcommercial.com.au)[Source 9](https://warehousingclearancecentre.com.au)\n\nShow more\n\n**Service & Location Summary**\n\nCompany Name [Source 1](https://www.dexion.com.au/news/australias-warehouse-boom-strategic-storage-solutions-for-growing-markets/)[Source 2](https://onestopshelving.com.au/)[Source 3](https://erectarack.com.au)[Source 4](https://erectarack.com.au)[Source 5](https://absolute.co.com)| Primary Melbourne Location| Specialisation  \n---|---|---  \n**[Erect-A-Rack](/viewer/place?mid=/g/1tf7gtbg&sa=X&ved=2ahUKEwjF8pnTpdOSAxVjU6QEHXVNKhgQqdYPegQIBhAD)**|  Dandenong South| Design, Installation, & Inspections  \n**[Dexion Victoria](/viewer/place?mid=/g/1tcvj71h&sa=X&ved=2ahUKEwjF8pnTpdOSAxVjU6QEHXVNKhgQqdYPegQIBhAF)**|  Dandenong South| Scalable Industrial Systems  \n**[Mr Pallet Racking](/viewer/place?mid=/g/1v6p4fd_&sa=X&ved=2ahUKEwjF8pnTpdOSAxVjU6QEHXVNKhgQqdYPegQIBhAH)**|  West Footscray| Wholesale Racking & Accessories  \n**[Colby Storage](/viewer/place?mid=/g/12m98s988&sa=X&ved=2ahUKEwjF8pnTpdOSAxVjU6QEHXVNKhgQqdYPegQIBhAJ)**|  Clayton / Somerton| Material Handling & High Performance  \n**[Absolute Storage](/viewer/place?mid=/g/1tj89kjt&sa=X&ved=2ahUKEwjF8pnTpdOSAxVjU6QEHXVNKhgQqdYPegQIBhAL)**|  Dandenong South| Warehouse Storage Specialists  \n**[One Stop Shelving](/viewer/place?mid=/g/11sx4_ykkw&sa=X&ved=2ahUKEwjF8pnTpdOSAxVjU6QEHXVNKhgQqdYPegQIBhAN)**|  Truganina| New/Used Racking & Decommissioning  \n**[Able Storage](/viewer/place?mid=/g/1tdft8jj&sa=X&ved=2ahUKEwjF8pnTpdOSAxVjU6QEHXVNKhgQqdYPegQIBhAP)**|  Somerton| Custom Designed Industrial Solutions  \n  \n  * ![](https://lh3.googleusercontent.com/p/AF1QipMcGP16WsyjXwy111BLc6RjuA8ctboIjljFAqIb=s192-w192-h144-n-k-no)\n\nColby Storage Solutions Northern\n\n4.0(3)\n\nClosed\n\n· Shelving store\n\n4 Florey Court\n\n  * ![](https://lh3.googleusercontent.com/p/AF1QipPBxD6kF6H_Mp8mVN36B6PHX4kROb6SdDyeWBg=s192-w192-h144-n-k-no)\n\nAble Storage - Pallet Racking & Industrial Shelving Melbourne\n\n4.0(19)\n\nClosed\n\n· Shelving store\n\n4 Florey Court\n\nFor those looking for DIY or smaller scale solutions, [Speedrack](https://www.macrack.com.au/) offers kit-based systems compatible with standard Australian racking brands."] }, { "name": "OpenAI ChatGPT", "brands": 16, "sources": 17, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["Dexion Australia (https://www.dexion.com.au/)\nDexion is a leading provider of industrial storage solutions, including pallet racking, shelving, and mezzanine floors."] }, { "name": "Meta AI", "brands": 7, "sources": 7, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Overviews", "brands": 0, "sources": 0, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }] }, { "id": 2, "prompt": "Looking for heavy-duty storage box warehouse storage solutions in Melbourne.", "category": "warehouse_storage_solutions_melbourne", "has_nmgs": false, "engines": [{ "name": "xAI Grok", "brands": 9, "sources": 18, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 19, "sources": 21, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 6, "sources": 6, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 9, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 2, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 10, "sources": 8, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Overviews", "brands": 12, "sources": 12, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 9, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }] }, { "id": 3, "prompt": "List services related to warehouse storage solutions maintenance in Melbourne.", "category": "warehouse_storage_solutions_melbourne", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 12, "sources": 38, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 9, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 15, "sources": 20, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["[Automated Warehouse Shelving Solutions | BHD Storage Solutions](https://www.bhdstorage.com.au/)\n\n  * **Dexion Victoria** – Established shelving and racking provider with storage system support options."] }, { "name": "Google Gemini", "brands": 13, "sources": 0, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["* **Dexion Victoria:** One of the most established names, offering general and emergency maintenance for both traditional and semi-automated satellite/shuttle systems.", "* * *\n\n### Summary of Melbourne Providers\n\nService Provider| Location| Specialization  \n---|---|---  \n**BHD Storage Solutions**|  Melbourne-wide| Racking repair & component replacement  \n**Erect-A-Rack**|  Dandenong South| Annual inspections & rapid-response fixes  \n**Absolute Storage Systems**|  Dandenong South| Automation & high-density system maintenance  \n**A1 Precision Solutions**|  Servicing Melb| OHS compliance & racking safety audits  \n**Dexion Victoria**|  Melbourne-wide| Full-service lifecycle support & emergency repair  \n  \nExport to Sheets\n\n**Would you like me to find the contact details or specific service areas for any of these companies?**"] }, { "name": "Google AI Mode", "brands": 12, "sources": 22, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Overviews", "brands": 5, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 16, "sources": 4, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }] }, { "id": 4, "prompt": "Are there any local Melbourne businesses that install warehouse storage solutions?", "category": "warehouse_storage_solutions_melbourne", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 10, "sources": 32, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 12, "sources": 13, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 9, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 10, "sources": 3, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 10, "sources": 18, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 8, "sources": 18, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["[![Image of Fifty Shelves of Grey - Warehouse Shelving Melbourne | Pallet Racking | Garage Shelving Derrimut | Footscray](https://lh3.googleusercontent.com/gps-cs-s/AHVAwercxxov8Z7N6EH4_nCDhkCDu3TlkaLXwyk_xhYaepM3JFZa28Mza_DL4yLX7GSzaTd-xeUe0NryKKyBZ0zmfV_-qIsuYGRF5Ze8VQI4zj_h_WMCsvs3sQoRqSMV8nATHFOnkNzZ=s192-w192-h144-n-k-no)Fifty Shelves of Grey - Warehouse Shelving Melbourne | Pallet Racking | Garage Shelving Derrimut | Footscray5.0(3)Shelving storeClosed3 E Derrimut Cres](/viewer/place?mid=%2Fg%2F11qbtt3rht)\n\nSpecializes in **Dexion-compatible** and heavy-duty racking."] }, { "name": "Google AI Overviews", "brands": 12, "sources": 14, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 7, "sources": 7, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }] }, { "id": 5, "prompt": "Find suppliers for cantilever racking warehouse storage solutions near Melbourne.", "category": "warehouse_storage_solutions_melbourne", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 11, "sources": 25, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 8, "sources": 8, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 5, "sources": 9, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 8, "sources": 2, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 16, "sources": 17, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 7, "sources": 14, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Overviews", "brands": 6, "sources": 12, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["Dexion Australia (https://www.dexion.com.au/)\n   - Dexion is a leading provider of industrial storage solutions, including cantilever racking, for warehouses and distribution centers in Australia."] }, { "name": "Meta AI", "brands": 7, "sources": 7, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["**Dexion**: Dexion is a global company with a presence in Melbourne, offering a range of warehouse storage solutions, including cantilever racking.", "[www.dexion.com](http://www.dexion.com)\n3."] }] }, { "id": 6, "prompt": "What are the available industrial shelving warehouse storage solutions in Melbourne?", "category": "warehouse_storage_solutions_melbourne", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 15, "sources": 34, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 9, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 11, "sources": 6, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 10, "sources": 20, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 19, "sources": 21, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Overviews", "brands": 19, "sources": 16, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 8, "sources": 8, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["Dexion Industrial Shelving: Dexion is a leading provider of industrial shelving and storage solutions in Australia.", "(Source: https://www.dexion.com.au/)\n\n2."] }] }, { "id": 7, "prompt": "I need quotes for custom warehouse storage solutions in Melbourne.", "category": "warehouse_storage_solutions_melbourne", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 12, "sources": 50, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 8, "sources": 8, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 9, "sources": 4, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["Custom Racking & Shelving (Installation)\n\nIf you own or lease a facility and need a bespoke fit-out, these companies specialize in design, supply, and installation:\n\nCompany| Specialty| Location  \n---|---|---  \n**Fifty Shelves of Grey**|  High-end custom racking & Dexion-compatible systems.| Melbourne-wide  \n**Advanced Warehouse Solutions**|  Bespoke design, manufacturing, and vertical space optimization.| North Melbourne  \n**Erect-A-Rack**|  Heavy-duty industrial racking and mezzanine floors.| Melbourne-wide  \n**MR Pallet Racking**|  Budget-friendly wholesale prices and AS4084-2023 compliance.| West Footscray  \n**ABRSS**|  Selective pallet racking and safety audits for existing setups.| South East  \n  \nExport to Sheets\n\n* * *\n\n### 2\\."] }, { "name": "Perplexity AI", "brands": 4, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 19, "sources": 17, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 6, "sources": 16, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Overviews", "brands": 6, "sources": 14, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 7, "sources": 5, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["**Dexion**: Dexion provides customized storage solutions, including pallet racking, shelving, and mezzanine floors.", "[www.dexion.com.au](http://www.dexion.com.au)\n3."] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["Dexion Storage Solutions (https://www.dexion.com.au/)\n   - Provides bespoke warehouse storage solutions, including pallet racking, shelving, and mezzanines\n   - Has a team of storage experts based in Melbourne to assist with planning and installation\n   - Offers a range of materials handling equipment to complement the storage systems\n\n4."] }] }, { "id": 8, "prompt": "Compare different types of warehouse storage solutions available in Melbourne.", "category": "warehouse_storage_solutions_melbourne", "has_nmgs": false, "engines": [{ "name": "xAI Grok", "brands": 6, "sources": 31, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Microsoft Copilot", "brands": 5, "sources": 9, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 14, "sources": 7, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 15, "sources": 29, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 4, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 10, "sources": 25, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Overviews", "brands": 10, "sources": 23, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 11, "sources": 2, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 15, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }] }, { "id": 9, "prompt": "Where can I find the best warehouse storage solutions providers in Melbourne right now?", "category": "warehouse_storage_solutions_melbourne", "has_nmgs": true, "engines": [{ "name": "xAI Grok", "brands": 11, "sources": 54, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 21, "sources": 24, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 9, "sources": 7, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["They offer wholesale prices on Dexion-compatible racking and long-span shelving.", "[Pallet Rack Installation by The Racking Company: Pallet Racking Melbourne](https://www.therackingcompany.com.au/#:~:text=About%20Us,Australia's%20leading%20warehouse%20storage%20brands.)\n\n* * *\n\n### Key Comparison Table\n\nProvider| Best For| Location Focus  \n---|---|---  \n**Erect-A-Rack**|  Full warehouse fit-outs & Mezzanines| All Melbourne  \n**One Warehousing**|  Flexible 3PL & Distribution| Port/Metro Melbourne  \n**Able Storage**|  Custom racking & Rapid 5-day setup| Somerton / Northern Suburbs  \n**Rapid Pak**|  Temperature-controlled / Food-grade| Clayton South / SE Suburbs  \n**MR Pallet Racking**|  Affordable, Dexion-compatible shelving| All Melbourne  \n  \nExport to Sheets\n\n**Pro Tip for 2026:** Ensure any racking you purchase complies with the **AS4084-2023** standard, which is the current benchmark for steel storage racking safety in Australia."] }, { "name": "Microsoft Copilot", "brands": 11, "sources": 11, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 5, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 11, "sources": 11, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["[![Image of Mr Pallet Racking](https://lh3.googleusercontent.com/gps-cs-s/AHVAwerKUPg1C1NQNJqc9EMTRxrqvNu-YA9uKm9i-94N99w20MkzmA7NGWrTofEd4f67AaMi7-eASyDgbX986lCoXix4Zcxmc3ADYB0TGYsMlGfOCcs8pSy1tNtTQ63Nzu9cf1PCne7ZBA=s108-w108-h144-n-k-no)Mr Pallet Racking5.0(43)Shelving storeOpen391 Somerville Rd](/viewer/place?mid=%2Fg%2F1v6p4fd_)\n\nKnown for affordable, Dexion-compatible racking and wholesale pricing.", "[Source 1](https://www.abbe.com.au)\n\nShow more\n\n**Key Comparison for Racking Providers**\n\nProvider [Source 1](https://www.absolutestorage.com.au/)[Source 2](https://www.colby.com.au/)[Source 3](https://www.mrpalletracking.com.au/)[Source 4](https://www.macrack.com.au)[Source 5](https://inspectarack.com)| Primary Focus| Unique Feature  \n---|---|---  \n**[Absolute Storage](/viewer/place?mid=/g/1tj89kjt&sa=X&ved=2ahUKEwijxOPKpdOSAxWSQ_EDHeggGA4QqdYPegQICBAD)**|  Automation & Fit-outs| Gold Tier SSI Schaefer Distributor  \n**Colby Storage**|  Pallet Racking| Australian-made by Dematic  \n**[MR Pallet Racking](/viewer/place?mid=/g/1v6p4fd_&sa=X&ved=2ahUKEwijxOPKpdOSAxWSQ_EDHeggGA4QqdYPegQICBAG)**|  Budget Racking| Dexion-compatible & wholesale rates  \n**[MACRACK](/viewer/place?mid=/g/1v1vdc4_&sa=X&ved=2ahUKEwijxOPKpdOSAxWSQ_EDHeggGA4QqdYPegQICBAI)**|  Industrial Racking| Lifetime guarantee on manufactured products  \n  \nAre you looking for a **full warehouse fit-out** (racking and design), or do you specifically need a **3PL provider** to manage your inventory and shipping?"] }, { "name": "Google AI Overviews", "brands": 10, "sources": 18, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Meta AI", "brands": 7, "sources": 5, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["**Dexion** - Offers a variety of storage solutions, including pallet racking, shelving, and automated storage systems.", "[www.dexion.com.au](http://www.dexion.com.au)\n4."] }] }, { "id": 10, "prompt": "What safety compliant warehouse storage solutions can I get installed in Melbourne?", "category": "warehouse_storage_solutions_melbourne", "has_nmgs": true, "engines": [{ "name": "Microsoft Copilot", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google Gemini", "brands": 9, "sources": 7, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "xAI Grok", "brands": 9, "sources": 55, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": [] }, { "name": "Perplexity AI", "brands": 5, "sources": 10, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "OpenAI ChatGPT", "brands": 18, "sources": 20, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Mode", "brands": 7, "sources": 20, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Google AI Overviews", "brands": 10, "sources": 17, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": [] }, { "name": "Anthropic Claude", "brands": 10, "sources": 5, "mentioned": true, "is_client": false, "is_dexion_au": true, "dexion_mentions": ["- Brands like Dexion, Colby, and Borroughs offer pallet racking systems that are designed to meet Australian safety standards.", "- Source: https://www.dexion.com.au/products/pallet-racking/\n\n2.", "- Companies like Mecalux and Dexion provide mobile racking solutions that are designed to be safe and compliant."] }, { "name": "Meta AI", "brands": 5, "sources": 5, "mentioned": false, "is_client": false, "is_dexion_au": false, "dexion_mentions": ["**Dexion**: Dexion provides a range of storage solutions, including pallet racking, shelving, and mezzanine systems, that are designed to meet Australian safety standards.", "[4] (https://www.dexion.com/en-au/)\n5.", "References:\n[1] https://www.dematic.com/en-au/\n[2] https://www.ssi-schaefer.com/en-au/\n[3] https://www.kardex-remstar.com/en-au/\n[4] https://www.dexion.com/en-au/\n[5] https://www.spacesaver.com/en-au/"] }] }];
+        let currentPage = 1, currentFilter = 'all';
+        const itemsPerPage = 5;
+
+        function showMentions(promptId, engineName, mentions, isClient) {
+            event.stopPropagation();
+            const modal = document.getElementById('mentionModal');
+            const title = document.getElementById('modalTitle');
+            const body = document.getElementById('modalBody');
+            const domain = isClient ? 'dexionvictoria.com.au (THE CLIENT)' : 'dexion.com.au (Taking Credit)';
+            title.textContent = engineName + ' - ' + domain;
+
+            if (!mentions || mentions.length === 0) {
+                body.innerHTML = '<div class="no-mentions">No specific mentions extracted.</div>';
+            } else {
+                const mentionsHtml = mentions.map((m, idx) => {
+                    const highlighted = m.replace(/dexion/gi, match => '<mark>' + match + '</mark>');
+                    return '<div class="mention-number">Mention ' + (idx + 1) + ' of ' + mentions.length + '</div><div class="mention-item">' + highlighted + '</div>';
+                }).join('');
+                body.innerHTML = mentionsHtml;
+            }
+            modal.style.display = 'block';
+        }
+
+        function closeModal() { document.getElementById('mentionModal').style.display = 'none'; }
+        window.onclick = function (e) { if (e.target === document.getElementById('mentionModal')) closeModal(); }
+
+        function toggleEngines(id, e) {
+            e.stopPropagation();
+            const item = document.querySelector('[data-prompt-id="' + id + '"]');
+            const grid = document.getElementById('engines-' + id);
+            if (item.classList.contains('expanded')) {
+                item.classList.remove('expanded');
+                grid.classList.remove('show');
+            } else {
+                item.classList.add('expanded');
+                grid.classList.add('show');
+            }
+        }
+
+        function getTotalStats(engines) {
+            return {
+                totalBrands: engines.reduce((s, e) => s + e.brands, 0),
+                totalSources: engines.reduce((s, e) => s + e.sources, 0)
+            };
+        }
+
+        function renderPrompts(filter, page) {
+            currentFilter = filter;
+            currentPage = page;
+            const container = document.getElementById('promptsList');
+            container.innerHTML = '';
+
+            let filtered = promptsData;
+            if (filter === 'pallet_racking_victoria') filtered = promptsData.filter(p => p.category === 'pallet_racking_victoria');
+            if (filter === 'warehouse_storage_solutions_melbourne') filtered = promptsData.filter(p => p.category === 'warehouse_storage_solutions_melbourne');
+            if (filter === 'mentioned') filtered = promptsData.filter(p => p.has_nmgs);
+
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            const startIdx = (page - 1) * itemsPerPage;
+            const pagePrompts = filtered.slice(startIdx, startIdx + itemsPerPage);
+
+            pagePrompts.forEach(prompt => {
+                const div = document.createElement('div');
+                div.className = 'prompt-item' + (prompt.has_nmgs ? ' has-nmgs' : '');
+                div.setAttribute('data-prompt-id', prompt.id);
+                div.onclick = (e) => toggleEngines(prompt.id, e);
+
+                const stats = getTotalStats(prompt.engines);
+                const enginesHtml = prompt.engines.map(e => {
+                    const mentions = e.dexion_mentions || [];
+                    const mentionsJson = JSON.stringify(mentions).replace(/"/g, '&quot;');
+                    const domainLabel = e.is_client ? '✓ CLIENT DOMAIN' : (e.is_dexion_au ? '⚠️ DEXION AU' : '');
+                    const clickHandler = e.mentioned ? ' onclick="showMentions(' + prompt.id + ', \'' + e.name.replace(/'/g, "\\'") + '\', ' + mentionsJson + ', ' + e.is_client + ')"' : '';
+                    const itemClass = e.is_client ? ' has-nmgs' : (e.is_dexion_au ? ' has-nmgs' : '');
+                    const borderStyle = e.is_dexion_au ? 'border: 2px solid #c62828;' : '';
+
+                    return '<div class="engine-item' + itemClass + '"' + clickHandler + ' style="cursor: ' + (e.mentioned ? 'pointer' : 'default') + '; ' + borderStyle + '">' +
+                        '<div class="engine-name">' + e.name + '</div>' +
+                        '<div class="engine-stats">' +
+                        '<div class="stat-item"><span class="stat-label">Brands:</span><span class="stat-value">' + e.brands + '</span></div>' +
+                        '<div class="stat-item"><span class="stat-label">Sources:</span><span class="stat-value">' + e.sources + '</span></div>' +
+                        (domainLabel ? '<div class="nmgs-check" style="' + (e.is_dexion_au ? 'color: #c62828;' : '') + '">' + domainLabel + '</div>' : '') +
+                        '</div>' +
+                        '</div>';
+                }).join('');
+
+                div.innerHTML =
+                    '<div class="prompt-header">' +
+                    '<div class="prompt-left">' +
+                    '<div class="prompt-number">#' + prompt.id + '</div>' +
+                    '<div class="prompt-text">' + prompt.prompt + '</div>' +
+                    '</div>' +
+                    '<div class="prompt-right">' +
+                    (prompt.has_nmgs ? '<span class="status-badge mentioned">✓ Dexion</span>' : '') +
+                    '<div class="prompt-stats">' +
+                    '<div class="stat-group"><span class="stat-number">' + stats.totalBrands + '</span><span class="stat-label">Brands</span></div>' +
+                    '<div class="stat-group"><span class="stat-number sources">' + stats.totalSources + '</span><span class="stat-label">Sources</span></div>' +
+                    '</div>' +
+                    '<div class="expand-arrow">▼</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="engines-grid" id="engines-' + prompt.id + '">' + enginesHtml + '</div>';
+
+                container.appendChild(div);
+            });
+
+            updatePagination(totalPages);
+        }
+
+        function updatePagination(totalPages) {
+            const pag = document.querySelector('.pagination');
+            if (totalPages <= 1) { pag.style.display = 'none'; return; }
+            pag.style.display = 'flex';
+            document.getElementById('pageInfo').textContent = 'Page ' + currentPage + ' of ' + totalPages;
+            document.getElementById('prevBtn').disabled = currentPage === 1;
+            document.getElementById('nextBtn').disabled = currentPage === totalPages;
+        }
+
+        function changePage(dir) {
+            if (dir === 'prev' && currentPage > 1) renderPrompts(currentFilter, currentPage - 1);
+            else if (dir === 'next') renderPrompts(currentFilter, currentPage + 1);
+
+            const target = document.getElementById('all-prompts');
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function filterPrompts(cat) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderPrompts(cat, 1);
+        }
+
+        renderPrompts('all', 1);
+    </script>
+</body>
+
+</html>

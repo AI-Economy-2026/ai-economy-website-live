@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WOOD PROPERTY - April - GEO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+.container{max-width:1400px;margin:0 auto;padding:40px 20px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;}
+.header{background:#000;padding:50px 20px;margin:-40px -20px 50px -20px;text-align:center;}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:3px;}
+.client-logo{font-family:'Bebas Neue',sans-serif;font-size:64px;letter-spacing:4px;margin:20px 0;}
+.report-date{font-size:14px;color:#ccc;margin-top:5px;letter-spacing:1px;}
+h2{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;margin:50px 0 20px 0;border-bottom:2px solid #000;padding-bottom:10px;}
+h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;margin-top:30px;margin-bottom:15px;}
+h4{font-family:'Bebas Neue',sans-serif;}
+.exec-summary{background:#f9f9f9;padding:40px;margin:40px 0;border-left:5px solid #000;}
+.exec-summary p{font-size:16px;line-height:1.9;margin-bottom:15px;}
+.highlight-stat{display:inline-block;background:#000;color:#fff;padding:2px 8px;font-weight:bold;}
+.highlight-red{display:inline-block;background:#c62828;color:#fff;padding:2px 8px;font-weight:bold;}
+.highlight-orange{display:inline-block;background:#ff9500;color:#fff;padding:2px 8px;font-weight:bold;}
+.highlight-green{display:inline-block;background:#2e7d32;color:#fff;padding:2px 8px;font-weight:bold;}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin:30px 0;}
+.kpi-card{background:#000;color:#fff;padding:30px;text-align:center;}
+.kpi-card.red{background:#c62828;}.kpi-card.orange{background:#ff9500;}.kpi-card.green{background:#2e7d32;}
+.kpi-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-bottom:15px;opacity:.9;}
+.kpi-value{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:2px;}
+.kpi-subtitle{font-size:12px;margin-top:10px;opacity:.8;}
+.rankings-table{width:100%;border-collapse:collapse;margin:20px 0 30px 0;}
+.rankings-table thead{background:#000;}
+.rankings-table th{padding:15px;text-align:left;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;font-weight:normal;}
+.rankings-table td{padding:14px 15px;border-bottom:1px solid #e0e0e0;font-size:14px;}
+.rankings-table tbody tr:hover{background:#fafafa;}
+.rank-badge{display:inline-block;background:#000;color:#fff;padding:5px 12px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;min-width:44px;text-align:center;}
+.speed-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin:25px 0;}
+.speed-panel{border:2px solid #e0e0e0;padding:30px;}
+.score-circle{display:inline-flex;align-items:center;justify-content:center;width:76px;height:76px;border-radius:50%;font-family:'Bebas Neue',sans-serif;font-size:30px;color:#fff;margin:0 auto 8px auto;}
+.score-red{background:#c62828;}.score-orange{background:#ff9500;}.score-green{background:#2e7d32;}
+.metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;}
+.metric-item{padding:14px;background:#f9f9f9;}
+.metric-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#666;margin-bottom:4px;}
+.metric-value{font-family:'Bebas Neue',sans-serif;font-size:30px;}
+.metric-red{color:#c62828;}.metric-orange{color:#ff9500;}.metric-green{color:#2e7d32;}
+.badge{display:inline-block;padding:4px 11px;font-size:11px;font-weight:bold;border-radius:3px;letter-spacing:.5px;}
+@media(max-width:900px){.speed-grid{grid-template-columns:1fr;}.metrics-grid{grid-template-columns:1fr;}.kpi-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo-text">BALMER AGENCY</div>
+        <div class="client-logo">WOOD PROPERTY</div>
+        <div class="report-date">SEO Audit Report &nbsp;|&nbsp; April 2026</div>
+    </div>
+
+    <!-- EXECUTIVE SUMMARY -->
+    <div class="exec-summary">
+        <h2 style="color:#333">Executive Summary</h2>
+        <p style="color:#333">This SEO audit reveals significant untapped growth potential for Wood Property (woodproperty.com.au) in the competitive Melbourne apartment market. Currently generating just <span class="highlight-red">1,050 organic visits per month</span>, the site is virtually invisible compared to local competitors — and is missing <span class="highlight-stat">561,891+ keyword opportunities</span> that rivals are actively capturing every day.</p>
+
+        <p style="color:#333">Of the <span class="highlight-stat">13 tracked keywords</span>, only <span class="highlight-green">1 ranks in the top 3</span> — "sell an apartment" at #2. Three more keywords sit beyond page 1, and <span class="highlight-red">9 keywords with a combined 79,000+ monthly searches are entirely absent</span> from Google results. This includes high-intent terms like <span class="highlight-red">"apartment" (60,500/mo)</span> and <span class="highlight-orange">"rent a apartments" (6,600/mo)</span> — searches that your competitors are capturing instead.</p>
+
+        <p style="color:#333">Compounding the issue: Wood Property's mobile performance score is <span class="highlight-red">46/100</span>, with a Largest Contentful Paint of <span class="highlight-red">17.9 seconds</span> — nearly 7x over Google's recommended threshold of 2.5 seconds. Google uses Core Web Vitals as a direct ranking signal, and this score is actively suppressing your positions across every keyword category.</p>
+
+        <p style="color:#333">The good news: the site's SEO score is a perfect <span class="highlight-green">100/100</span>, meaning the technical foundations are solid. The problems are fixable — and with targeted SEO investment, Wood Property has a clear path from 1,050 to <span class="highlight-green">5,000+ monthly organic visitors within 6 months</span>, capturing high-intent buyers and renters before they find a competitor.</p>
+    </div>
+
+    <!-- PERFORMANCE SNAPSHOT -->
+    <h2 style="color:#333">Performance Snapshot</h2>
+    <div class="kpi-grid">
+        <div class="kpi-card red">
+            <div class="kpi-label">Monthly Organic Traffic</div>
+            <div class="kpi-value">1,050</div>
+            <div class="kpi-subtitle">Visits/month — March 2026</div>
+        </div>
+        <div class="kpi-card orange">
+            <div class="kpi-label">Keywords Ranking</div>
+            <div class="kpi-value">4/13</div>
+            <div class="kpi-subtitle">9 tracked keywords not ranking at all</div>
+        </div>
+        <div class="kpi-card red">
+            <div class="kpi-label">Mobile Performance</div>
+            <div class="kpi-value">46/100</div>
+            <div class="kpi-subtitle">LCP 17.9s — Critical issue</div>
+        </div>
+        <div class="kpi-card orange">
+            <div class="kpi-label">Keyword Gap</div>
+            <div class="kpi-value">561K+</div>
+            <div class="kpi-subtitle">Keywords competitors rank for that you don't</div>
+        </div>
+    </div>
+
+    <!-- KEYWORD RANKINGS -->
+    <h2 style="color:#333">Keyword Rankings Dashboard</h2>
+    <div style="background: #f9f9f9; padding: 40px; margin: 20px 0; border: 1px solid #e0e0e0;">
+
+        <table class="rankings-table">
+            <thead>
+                <tr>
+                    <th style="color:#fff;width: 270px;">Keyword</th>
+                    <th style="color:#fff;width: 95px;">Position</th>
+                    <th style="color:#fff;width: 140px;">Search Volume</th>
+                    <th style="color:#fff;width: 100px;">Difficulty</th>
+                    <th style="color:#fff;width: 160px;">Status</th>
+                    <th style="color:#fff">Ranking URL</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- STRONG -->
+                <tr style="background: #f0faf0;">
+                    <td style="color:#333">
+                        <strong>sell an apartment</strong> 🇦🇺
+                        <div style="font-size: 11px; color: #2e7d32; margin-top: 3px; font-weight: bold;">★ Top Performer</div>
+                    </td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#2e7d32;">#2</span></td>
+                    <td style="color:#333"><span style="background:#999;color:#fff;padding:4px 10px;font-size:13px;border-radius:3px;">110/mo</span></td>
+                    <td style="color:#333;font-weight:bold;">47</td>
+                    <td style="color:#333"><span class="badge" style="background:#d4f4dd;color:#2e7d32;">✓ STRONG</span></td>
+                    <td style="font-size:12px;color:#666;">/selling/sell-your-apartment-for-the-best-price/</td>
+                </tr>
+
+                <!-- NEEDS WORK -->
+                <tr style="background:#fff9f0;">
+                    <td style="color:#333">
+                        <strong>port melbourne apartments for sale</strong> 🇦🇺
+                        <div style="font-size:11px;color:#ff9500;margin-top:3px;font-weight:bold;">⚡ Quick Win Available</div>
+                    </td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#ff9500;">#18</span></td>
+                    <td style="color:#333"><span style="background:#ff9500;color:#fff;padding:4px 10px;font-size:13px;font-weight:bold;border-radius:3px;">720/mo</span></td>
+                    <td style="color:#333;font-weight:bold;">16</td>
+                    <td style="color:#333"><span class="badge" style="background:#fff3cd;color:#856404;">⚡ PAGE 2</span></td>
+                    <td style="font-size:12px;color:#666;">/local-apartment-markets/portmelbourne/</td>
+                </tr>
+
+                <tr style="background:#fff9f0;">
+                    <td style="color:#333">
+                        <strong>apartments in southbank</strong> 🇦🇺
+                        <div style="font-size:11px;color:#c62828;margin-top:3px;font-weight:bold;">Needs Improvement</div>
+                    </td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#c62828;">#41</span></td>
+                    <td style="color:#333"><span style="background:#ff9500;color:#fff;padding:4px 10px;font-size:13px;font-weight:bold;border-radius:3px;">1,900/mo</span></td>
+                    <td style="color:#333;font-weight:bold;">16</td>
+                    <td style="color:#333"><span class="badge" style="background:#ffebee;color:#c62828;">↓ PAGE 5</span></td>
+                    <td style="font-size:12px;color:#666;">/local-apartment-markets/southbank/</td>
+                </tr>
+
+                <tr style="background:#fff9f0;">
+                    <td style="color:#333">
+                        <strong>property management melbourne</strong> 🇦🇺
+                        <div style="font-size:11px;color:#c62828;margin-top:3px;font-weight:bold;">Needs Improvement</div>
+                    </td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#c62828;">#49</span></td>
+                    <td style="color:#333"><span style="background:#ff9500;color:#fff;padding:4px 10px;font-size:13px;font-weight:bold;border-radius:3px;">480/mo</span></td>
+                    <td style="color:#333;font-weight:bold;">49</td>
+                    <td style="color:#333"><span class="badge" style="background:#ffebee;color:#c62828;">↓ PAGE 5</span></td>
+                    <td style="font-size:12px;color:#666;">/ (Homepage)</td>
+                </tr>
+
+                <!-- SEPARATOR -->
+                <tr>
+                    <td colspan="6" style="text-align:center;padding:13px;color:#c62828;font-style:italic;font-weight:bold;font-size:13px;background:#ffebee;border-top:2px solid #c62828;border-bottom:2px solid #c62828;">
+                        🚨 NOT RANKING — 9 keywords with 79,000+ combined monthly searches have zero visibility in Google
+                    </td>
+                </tr>
+
+                <!-- NOT RANKING -->
+                <tr style="background:#ffebee;">
+                    <td style="color:#333">
+                        <strong>apartment</strong> 🇦🇺
+                        <div style="font-size:11px;color:#c62828;margin-top:3px;font-weight:bold;">🚨 HIGHEST VOLUME — No page targeting this</div>
+                    </td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#c62828;">—</span></td>
+                    <td style="color:#333"><span style="background:#c62828;color:#fff;padding:4px 10px;font-size:13px;font-weight:bold;border-radius:3px;">60,500/mo</span></td>
+                    <td style="font-weight:bold;color:#856404;">65</td>
+                    <td style="color:#333"><span class="badge" style="background:#ffebee;color:#c62828;">🚨 NOT RANKING</span></td>
+                    <td style="font-size:12px;color:#999;">No dedicated page</td>
+                </tr>
+
+                <tr style="background:#ffebee;">
+                    <td style="color:#333">
+                        <strong>rent a apartments</strong> 🇦🇺
+                        <div style="font-size:11px;color:#c62828;margin-top:3px;font-weight:bold;">🚨 HIGH VOLUME — No page targeting this</div>
+                    </td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#c62828;">—</span></td>
+                    <td style="color:#333"><span style="background:#c62828;color:#fff;padding:4px 10px;font-size:13px;font-weight:bold;border-radius:3px;">6,600/mo</span></td>
+                    <td style="font-weight:bold;color:#856404;">38</td>
+                    <td style="color:#333"><span class="badge" style="background:#ffebee;color:#c62828;">🚨 NOT RANKING</span></td>
+                    <td style="font-size:12px;color:#999;">No dedicated page</td>
+                </tr>
+
+                <tr style="background:#ffebee;">
+                    <td style="color:#333"><strong>rentals apartment</strong> 🇦🇺</td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#c62828;">—</span></td>
+                    <td style="color:#333"><span style="background:#ff9500;color:#fff;padding:4px 10px;font-size:13px;border-radius:3px;">1,900/mo</span></td>
+                    <td style="color:#333;font-weight:bold;">41</td>
+                    <td style="color:#333"><span class="badge" style="background:#ffebee;color:#c62828;">🚨 NOT RANKING</span></td>
+                    <td style="font-size:12px;color:#999;">No dedicated page</td>
+                </tr>
+
+                <tr style="background:#ffebee;">
+                    <td style="color:#333"><strong>rent apartment</strong> 🇦🇺</td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#c62828;">—</span></td>
+                    <td style="color:#333"><span style="background:#ff9500;color:#fff;padding:4px 10px;font-size:13px;border-radius:3px;">1,900/mo</span></td>
+                    <td style="color:#333;font-weight:bold;">48</td>
+                    <td style="color:#333"><span class="badge" style="background:#ffebee;color:#c62828;">🚨 NOT RANKING</span></td>
+                    <td style="font-size:12px;color:#999;">No dedicated page</td>
+                </tr>
+
+                <tr style="background:#ffebee;">
+                    <td style="color:#333"><strong>south bank apartment</strong> 🇦🇺</td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#c62828;">—</span></td>
+                    <td style="color:#333"><span style="background:#ff9500;color:#fff;padding:4px 10px;font-size:13px;border-radius:3px;">1,900/mo</span></td>
+                    <td style="color:#333;font-weight:bold;">38</td>
+                    <td style="color:#333"><span class="badge" style="background:#ffebee;color:#c62828;">🚨 NOT RANKING</span></td>
+                    <td style="font-size:12px;color:#999;">No dedicated page</td>
+                </tr>
+
+                <tr style="background:#ffebee;">
+                    <td style="color:#333"><strong>apartment rental</strong> 🇦🇺</td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#c62828;">—</span></td>
+                    <td style="color:#333"><span style="background:#ff9500;color:#fff;padding:4px 10px;font-size:13px;border-radius:3px;">1,300/mo</span></td>
+                    <td style="color:#333;font-weight:bold;">45</td>
+                    <td style="color:#333"><span class="badge" style="background:#ffebee;color:#c62828;">🚨 NOT RANKING</span></td>
+                    <td style="font-size:12px;color:#999;">No dedicated page</td>
+                </tr>
+
+                <tr style="background:#ffebee;">
+                    <td style="color:#333"><strong>apartment renting</strong> 🇦🇺</td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#c62828;">—</span></td>
+                    <td style="color:#333"><span style="background:#ff9500;color:#fff;padding:4px 10px;font-size:13px;border-radius:3px;">1,300/mo</span></td>
+                    <td style="color:#333;font-weight:bold;">58</td>
+                    <td style="color:#333"><span class="badge" style="background:#ffebee;color:#c62828;">🚨 NOT RANKING</span></td>
+                    <td style="font-size:12px;color:#999;">No dedicated page</td>
+                </tr>
+
+                <tr style="background:#ffebee;">
+                    <td style="color:#333"><strong>apartments rental</strong> 🇦🇺</td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#c62828;">—</span></td>
+                    <td style="color:#333"><span style="background:#ff9500;color:#fff;padding:4px 10px;font-size:13px;border-radius:3px;">1,300/mo</span></td>
+                    <td style="color:#333;font-weight:bold;">35</td>
+                    <td style="color:#333"><span class="badge" style="background:#ffebee;color:#c62828;">🚨 NOT RANKING</span></td>
+                    <td style="font-size:12px;color:#999;">No dedicated page</td>
+                </tr>
+
+                <tr style="background:#ffebee;">
+                    <td style="color:#333"><strong>buy an apartment</strong> 🇦🇺</td>
+                    <td style="color:#333"><span class="rank-badge" style="background:#c62828;">—</span></td>
+                    <td style="color:#333"><span style="background:#999;color:#fff;padding:4px 10px;font-size:13px;border-radius:3px;">210/mo</span></td>
+                    <td style="color:#333;font-weight:bold;">58</td>
+                    <td style="color:#333"><span class="badge" style="background:#ffebee;color:#c62828;">🚨 NOT RANKING</span></td>
+                    <td style="font-size:12px;color:#999;">No dedicated page</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <!-- Summary cards -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;margin-top:30px;">
+            <div style="background:#2e7d32;color:#fff;padding:25px;text-align:center;">
+                <div style="font-size:12px;opacity:.9;margin-bottom:10px;letter-spacing:1px;">STRONG RANKINGS</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:2px;">1</div>
+                <div style="font-size:13px;opacity:.9;margin-top:8px;">Top 3 position (110/mo)</div>
+            </div>
+            <div style="background:#ff9500;color:#fff;padding:25px;text-align:center;">
+                <div style="font-size:12px;opacity:.9;margin-bottom:10px;letter-spacing:1px;">NEED IMPROVEMENT</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:2px;">3</div>
+                <div style="font-size:13px;opacity:.9;margin-top:8px;">Ranking beyond page 1</div>
+            </div>
+            <div style="background:#c62828;color:#fff;padding:25px;text-align:center;">
+                <div style="font-size:12px;opacity:.9;margin-bottom:10px;letter-spacing:1px;">NOT RANKING</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:2px;">9</div>
+                <div style="font-size:13px;opacity:.9;margin-top:8px;">Zero Google visibility</div>
+            </div>
+            <div style="background:#000;color:#fff;padding:25px;text-align:center;">
+                <div style="font-size:12px;opacity:.9;margin-bottom:10px;letter-spacing:1px;">VOLUME MISSED</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:2px;">79K+</div>
+                <div style="font-size:13px;opacity:.9;margin-top:8px;">Monthly searches uncaptured</div>
+            </div>
+        </div>
+
+        <!-- Key Insights -->
+        <div style="margin-top:30px;padding:30px;background:#fff;border-left:5px solid #000;">
+            <h4 style="color:#333;font-family:'Bebas Neue',sans-serif;font-size:22px;margin-bottom:18px;letter-spacing:1px;">📊 Key Ranking Insights</h4>
+            <ul style="line-height:2.3;color:#333;font-size:15px;margin:0;padding-left:20px;">
+                <li style="color:#333"><strong style="color:#2e7d32;">One Proven Winner:</strong> "Sell an apartment" at #2 proves this site can rank competitively — this approach must be scaled to every service area</li>
+                <li style="color:#333"><strong style="color:#ff9500;">Fastest Quick Win:</strong> "Port Melbourne apartments for sale" at #18 with SD 16 (low competition) — a focused content push could reach page 1 within 60 days</li>
+                <li style="color:#333"><strong style="color:#ff9500;">Southbank Low-Hanging Fruit:</strong> #41 for 1,900 monthly searches, also SD 16 — same playbook, near-immediate impact</li>
+                <li style="color:#333"><strong style="color:#c62828;">Rental Category Completely Missing:</strong> 5 rental-intent keywords combining 13,000+ monthly searches — zero presence means renters cannot find Wood Property</li>
+                <li style="color:#333"><strong style="color:#c62828;">Category Terms Absent:</strong> "Apartment" (60,500/mo) is the single largest untapped opportunity — even a page-5 ranking would drive meaningful traffic</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PAGE SPEED -->
+    <h2 style="color:#333">Page Speed & Core Web Vitals</h2>
+    <p style="color:#666;margin-bottom:25px;font-size:15px;line-height:1.8;">Google has used Core Web Vitals as a direct ranking factor since 2021. Poor performance scores suppress your rankings across all keywords and dramatically increase bounce rates — research shows every additional second of mobile load delay reduces conversions by approximately 7%.</p>
+
+    <div class="speed-grid">
+        <!-- Mobile -->
+        <div class="speed-panel" style="border-color:#c62828;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #c62828;color:#c62828;">📱 Mobile Performance — CRITICAL</div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:25px;text-align:center;">
+                <div>
+                    <div class="score-circle score-red">46</div>
+                    <div style="font-size:12px;font-weight:bold;">Performance</div>
+                </div>
+                <div>
+                    <div class="score-circle score-green">91</div>
+                    <div style="font-size:12px;font-weight:bold;">Accessibility</div>
+                </div>
+                <div>
+                    <div class="score-circle score-orange">77</div>
+                    <div style="font-size:12px;font-weight:bold;">Best Practices</div>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-item" style="border-left:4px solid #c62828;">
+                    <div class="metric-label">Largest Contentful Paint</div>
+                    <div class="metric-value metric-red">17.9s</div>
+                    <div style="font-size:11px;color:#c62828;margin-top:3px;">Target &lt;2.5s &nbsp;⚠ 7× too slow</div>
+                </div>
+                <div class="metric-item" style="border-left:4px solid #c62828;">
+                    <div class="metric-label">Speed Index</div>
+                    <div class="metric-value metric-red">11.6s</div>
+                    <div style="font-size:11px;color:#c62828;margin-top:3px;">Target &lt;3.4s</div>
+                </div>
+                <div class="metric-item" style="border-left:4px solid #ff9500;">
+                    <div class="metric-label">First Contentful Paint</div>
+                    <div class="metric-value metric-orange">3.0s</div>
+                    <div style="font-size:11px;color:#ff9500;margin-top:3px;">Target &lt;1.8s</div>
+                </div>
+                <div class="metric-item" style="border-left:4px solid #ff9500;">
+                    <div class="metric-label">Total Blocking Time</div>
+                    <div class="metric-value metric-orange">560ms</div>
+                    <div style="font-size:11px;color:#ff9500;margin-top:3px;">Target &lt;200ms</div>
+                </div>
+                <div class="metric-item" style="border-left:4px solid #2e7d32;">
+                    <div class="metric-label">Cumulative Layout Shift</div>
+                    <div class="metric-value metric-green">0.007</div>
+                    <div style="font-size:11px;color:#2e7d32;margin-top:3px;">Target &lt;0.1 &nbsp;✓ Good</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop -->
+        <div class="speed-panel" style="border-color:#ff9500;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;margin-bottom:20px;padding-bottom:10px;border-bottom:2px solid #ff9500;color:#ff9500;">🖥 Desktop Performance — NEEDS WORK</div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:25px;text-align:center;">
+                <div>
+                    <div class="score-circle score-orange">50</div>
+                    <div style="font-size:12px;font-weight:bold;">Performance</div>
+                </div>
+                <div>
+                    <div class="score-circle score-green">91</div>
+                    <div style="font-size:12px;font-weight:bold;">Accessibility</div>
+                </div>
+                <div>
+                    <div class="score-circle score-orange">77</div>
+                    <div style="font-size:12px;font-weight:bold;">Best Practices</div>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-item" style="border-left:4px solid #ff9500;">
+                    <div class="metric-label">Largest Contentful Paint</div>
+                    <div class="metric-value metric-orange">3.3s</div>
+                    <div style="font-size:11px;color:#ff9500;margin-top:3px;">Target &lt;2.5s — needs work</div>
+                </div>
+                <div class="metric-item" style="border-left:4px solid #ff9500;">
+                    <div class="metric-label">Speed Index</div>
+                    <div class="metric-value metric-orange">3.4s</div>
+                    <div style="font-size:11px;color:#ff9500;margin-top:3px;">Target &lt;3.4s — borderline</div>
+                </div>
+                <div class="metric-item" style="border-left:4px solid #2e7d32;">
+                    <div class="metric-label">First Contentful Paint</div>
+                    <div class="metric-value metric-green">0.7s</div>
+                    <div style="font-size:11px;color:#2e7d32;margin-top:3px;">Target &lt;1.8s &nbsp;✓ Good</div>
+                </div>
+                <div class="metric-item" style="border-left:4px solid #ff9500;">
+                    <div class="metric-label">Total Blocking Time</div>
+                    <div class="metric-value metric-orange">570ms</div>
+                    <div style="font-size:11px;color:#ff9500;margin-top:3px;">Target &lt;200ms</div>
+                </div>
+                <div class="metric-item" style="border-left:4px solid #2e7d32;">
+                    <div class="metric-label">Cumulative Layout Shift</div>
+                    <div class="metric-value metric-green">0</div>
+                    <div style="font-size:11px;color:#2e7d32;margin-top:3px;">Target &lt;0.1 &nbsp;✓ Perfect</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="background:#000;color:#fff;padding:35px 40px;margin:10px 0 40px 0;">
+        <h4 style="color:#fff;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;margin-bottom:15px;">⚡ Why This Is Directly Costing You Rankings & Leads</h4>
+        <p style="color:#fff;font-size:15px;line-height:2;">A mobile LCP of <strong style="color:#ff6b6b;">17.9 seconds</strong> means your site takes nearly 18 seconds to render its main content on mobile. Google's pass threshold is 2.5 seconds. Given that <strong>over 60% of real estate searches happen on mobile devices</strong>, this is actively pushing your site down in rankings for every keyword you're targeting. Google's own research shows that as page load time increases from 1s to 10s, the probability of a mobile visitor bouncing <strong style="color:#ffa500;">increases by 123%</strong>. Fixing the LCP alone is expected to deliver measurable ranking improvements within 4–8 weeks of implementation.</p>
+    </div>
+
+    <!-- COMPETITIVE ANALYSIS -->
+    <h2 style="color:#333">Competitive Traffic Analysis</h2>
+    <p style="color:#666;margin-bottom:20px;font-size:15px;">Organic traffic comparison between Wood Property and key competitors in the Melbourne apartment market — March 2026 data sourced from Ubersuggest competitor tracking.</p>
+
+    <h3 style="color:#333">Direct Competitor Traffic Comparison</h3>
+    <div style="background:#f9f9f9;padding:40px;margin:15px 0 30px 0;border:1px solid #e0e0e0;">
+        <h4 style="color:#333;font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:30px;text-align:center;">Monthly Organic Traffic — Direct Competitors vs Wood Property</h4>
+        <div style="display:flex;align-items:flex-end;justify-content:space-around;gap:25px;min-height:300px;padding:0 20px 0 20px;">
+
+            <div style="text-align:center;flex:1;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#2e7d32;margin-bottom:8px;">39,383</div>
+                <div style="background:linear-gradient(to top,#2e7d32,#4caf50);width:100%;height:250px;border-radius:4px 4px 0 0;box-shadow:0 4px 6px rgba(0,0,0,0.1);"></div>
+                <div style="margin-top:12px;font-weight:bold;font-size:14px;">mre.today</div>
+                <div style="font-size:12px;color:#2e7d32;margin-top:4px;font-weight:bold;">37× more traffic</div>
+            </div>
+
+            <div style="text-align:center;flex:1;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#ff9500;margin-bottom:8px;">12,846</div>
+                <div style="background:linear-gradient(to top,#ff9500,#ffa726);width:100%;height:82px;border-radius:4px 4px 0 0;box-shadow:0 4px 6px rgba(0,0,0,0.1);"></div>
+                <div style="margin-top:12px;font-weight:bold;font-size:14px;">melcorprealestate</div>
+                <div style="font-size:12px;color:#ff9500;margin-top:4px;font-weight:bold;">12× more traffic</div>
+            </div>
+
+            <div style="text-align:center;flex:1;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:#c62828;margin-bottom:8px;">1,050</div>
+                <div style="background:#c62828;width:100%;height:7px;border-radius:4px 4px 0 0;"></div>
+                <div style="margin-top:12px;font-weight:bold;font-size:14px;">Wood Property</div>
+                <div style="font-size:12px;color:#c62828;margin-top:4px;font-weight:bold;">⚠ Your current position</div>
+            </div>
+
+        </div>
+        <div style="margin-top:25px;padding:20px;background:#fff;border-left:4px solid #c62828;font-size:14px;line-height:1.8;">
+            <strong>Bottom line:</strong> mre.today — a direct Melbourne apartment competitor — receives 37× more monthly organic visitors than Wood Property. melcorprealestate.com.au receives 12×. These visitors are potential Wood Property clients that are currently being acquired by competitors every single day.
+        </div>
+    </div>
+
+    <!-- Full competitor table -->
+    <table class="rankings-table">
+        <thead>
+            <tr>
+                <th style="color:#fff">Competitor</th>
+                <th style="color:#fff;width:160px;">Monthly Traffic</th>
+                <th style="color:#fff;width:150px;">Common Keywords</th>
+                <th style="color:#fff;width:150px;">Keyword Gap</th>
+                <th style="color:#fff;width:140px;">Backlinks</th>
+                <th style="color:#fff;width:130px;">Threat Level</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color:#333">
+                    <strong>realestate.com.au</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">Dominant national portal</div>
+                </td>
+                <td style="color:#333"><strong style="font-size:16px;">42.1M</strong></td>
+                <td style="color:#333">992 shared</td>
+                <td style="color:#c62828;font-weight:bold;">561,891</td>
+                <td style="color:#333">81.7M</td>
+                <td style="color:#333"><span class="badge" style="background:#c62828;color:#fff;">DOMINANT</span></td>
+            </tr>
+            <tr>
+                <td style="color:#333">
+                    <strong>domain.com.au</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">National portal</div>
+                </td>
+                <td style="color:#333"><strong style="font-size:16px;">5.5M</strong></td>
+                <td style="color:#333">766 shared</td>
+                <td style="color:#c62828;font-weight:bold;">332,711</td>
+                <td style="color:#333">29.5M</td>
+                <td style="color:#333"><span class="badge" style="background:#c62828;color:#fff;">DOMINANT</span></td>
+            </tr>
+            <tr>
+                <td style="color:#333">
+                    <strong>property.com.au</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">National portal</div>
+                </td>
+                <td style="color:#333"><strong style="font-size:16px;">2.8M</strong></td>
+                <td style="color:#333">535 shared</td>
+                <td style="color:#c62828;font-weight:bold;">202,841</td>
+                <td style="color:#333">2.3M</td>
+                <td style="color:#333"><span class="badge" style="background:#c62828;color:#fff;">DOMINANT</span></td>
+            </tr>
+            <tr style="background:#fff9f0;">
+                <td style="color:#333">
+                    <strong>mre.today</strong>
+                    <div style="font-size:12px;color:#ff9500;margin-top:3px;font-weight:bold;">Direct local competitor</div>
+                </td>
+                <td style="color:#333"><strong style="font-size:16px;color:#ff9500;">39,383</strong></td>
+                <td style="color:#333">97 shared</td>
+                <td style="color:#ff9500;font-weight:bold;">1,416</td>
+                <td style="color:#333">10,841</td>
+                <td style="color:#333"><span class="badge" style="background:#ff9500;color:#fff;">HIGH</span></td>
+            </tr>
+            <tr style="background:#fff9f0;">
+                <td style="color:#333">
+                    <strong>melcorprealestate.com.au</strong>
+                    <div style="font-size:12px;color:#ff9500;margin-top:3px;font-weight:bold;">Direct local competitor</div>
+                </td>
+                <td style="color:#333"><strong style="font-size:16px;color:#ff9500;">12,846</strong></td>
+                <td style="color:#333">182 shared</td>
+                <td style="color:#ff9500;font-weight:bold;">2,108</td>
+                <td style="color:#333">2,952</td>
+                <td style="color:#333"><span class="badge" style="background:#ff9500;color:#fff;">HIGH</span></td>
+            </tr>
+            <tr style="background:#ffebee;">
+                <td style="color:#333">
+                    <strong>woodproperty.com.au</strong>
+                    <div style="font-size:12px;color:#c62828;margin-top:3px;font-weight:bold;">YOUR SITE</div>
+                </td>
+                <td style="color:#333"><strong style="font-size:16px;color:#c62828;">1,050</strong></td>
+                <td style="color:#333">—</td>
+                <td style="color:#333">—</td>
+                <td style="color:#333">—</td>
+                <td style="color:#333"><span class="badge" style="background:#999;color:#fff;">CURRENT</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Two column competitive boxes -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:25px;margin:35px 0;">
+        <div style="background:#fff;padding:30px;border-left:5px solid #c62828;">
+            <h4 style="font-family:'Bebas Neue',sans-serif;font-size:22px;margin-bottom:18px;letter-spacing:1px;color:#c62828;">🚨 THE VISIBILITY GAP</h4>
+            <ul style="line-height:2.2;color:#333;font-size:15px;margin:0;padding-left:20px;">
+                <li style="color:#333"><strong>mre.today gets 37× more traffic</strong> with only 97 keywords in common — they're systematically targeting what you're missing</li>
+                <li style="color:#333"><strong>melcorprealestate gets 12×</strong> more — another direct Melbourne competitor pulling far ahead</li>
+                <li style="color:#333"><strong>561,891 keyword gap</strong> vs realestate.com.au — the full addressable apartment market is enormous</li>
+                <li style="color:#333"><strong>Renters cannot find Wood Property:</strong> Zero presence across all rental intent searches</li>
+                <li style="color:#333"><strong>Only 1 of 13 keywords</strong> is performing at a level that drives meaningful enquiries</li>
+            </ul>
+        </div>
+        <div style="background:#fff;padding:30px;border-left:5px solid #2e7d32;">
+            <h4 style="font-family:'Bebas Neue',sans-serif;font-size:22px;margin-bottom:18px;letter-spacing:1px;color:#2e7d32;">✓ YOUR COMPETITIVE EDGE</h4>
+            <ul style="line-height:2.2;color:#333;font-size:15px;margin:0;padding-left:20px;">
+                <li style="color:#333"><strong>You CAN compete locally:</strong> mre.today and melcorprealestate have achievable backlink profiles (10K and 2.9K respectively)</li>
+                <li style="color:#333"><strong>Low-difficulty keywords available:</strong> SD 16 for Port Melbourne &amp; Southbank — minimal competition right now</li>
+                <li style="color:#333"><strong>#2 ranking proves authority:</strong> The site can rank on page 1 — it needs strategy, not a rebuild</li>
+                <li style="color:#333"><strong>Perfect SEO score (100/100):</strong> Clean technical meta — this is a content &amp; speed problem with clear solutions</li>
+                <li style="color:#333"><strong>First-mover window:</strong> Suburb-specific apartment content opportunities still open before competitors move in</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- PRIORITY ACTION PLAN -->
+    <h2 style="color:#333">Priority Action Plan</h2>
+    <p style="color:#666;margin-bottom:25px;font-size:15px;line-height:1.8;">A phased SEO programme targeting the highest-impact improvements first. Phase 1 alone is projected to double organic traffic within 90 days.</p>
+
+    <!-- Phase 1 -->
+    <h3 style="color:#2e7d32;border-bottom:2px solid #2e7d32;padding-bottom:8px;">⚡ Phase 1 — Quick Wins (Days 1–30)</h3>
+    <table class="rankings-table" style="margin-top:15px;">
+        <thead>
+            <tr>
+                <th style="color:#fff">Action</th>
+                <th style="color:#fff;width:120px;">Impact</th>
+                <th style="color:#fff;width:100px;">Effort</th>
+                <th style="color:#fff;width:220px;">Expected Outcome</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color:#333">
+                    <strong>Fix Mobile LCP: 17.9s → &lt;2.5s</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">Image optimisation, lazy loading, defer render-blocking JS, server-side caching, CDN implementation</div>
+                </td>
+                <td style="color:#333"><span class="badge" style="background:#c62828;color:#fff;">CRITICAL</span></td>
+                <td style="color:#333"><span class="badge" style="background:#ff9500;color:#fff;">MEDIUM</span></td>
+                <td style="color:#333;font-size:13px;line-height:1.6;">Ranking lift across all keywords within 4–8 weeks; significantly lower bounce rate on mobile</td>
+            </tr>
+            <tr>
+                <td style="color:#333">
+                    <strong>Push "Port Melbourne apartments for sale" from #18 → Top 5</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">Expand suburb page content, add local data &amp; market insights, internal links, schema markup — SD 16 means very low competition</div>
+                </td>
+                <td style="color:#333"><span class="badge" style="background:#2e7d32;color:#fff;">HIGH</span></td>
+                <td style="color:#333"><span class="badge" style="background:#2e7d32;color:#fff;">LOW</span></td>
+                <td style="color:#333;font-size:13px;line-height:1.6;">+300–500 additional monthly visitors from this page alone</td>
+            </tr>
+            <tr>
+                <td style="color:#333">
+                    <strong>Push "Apartments in Southbank" from #41 → Top 10</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">Same playbook — 1,900/mo at SD 16 is the single best value opportunity in the audit</div>
+                </td>
+                <td style="color:#333"><span class="badge" style="background:#2e7d32;color:#fff;">HIGH</span></td>
+                <td style="color:#333"><span class="badge" style="background:#2e7d32;color:#fff;">LOW</span></td>
+                <td style="color:#333;font-size:13px;line-height:1.6;">+500–900 additional monthly visitors within 60 days</td>
+            </tr>
+            <tr>
+                <td style="color:#333">
+                    <strong>Reduce Total Blocking Time (560ms → &lt;200ms)</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">Audit and remove/defer unnecessary third-party scripts (chat widgets, tracking pixels, etc.)</div>
+                </td>
+                <td style="color:#333"><span class="badge" style="background:#ff9500;color:#fff;">MEDIUM</span></td>
+                <td style="color:#333"><span class="badge" style="background:#ff9500;color:#fff;">MEDIUM</span></td>
+                <td style="color:#333;font-size:13px;line-height:1.6;">Improved interactivity score; supports overall performance recovery</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Phase 2 -->
+    <h3 style="color:#ff9500;border-bottom:2px solid #ff9500;padding-bottom:8px;margin-top:40px;">📈 Phase 2 — Growth Strategy (Months 1–3)</h3>
+    <table class="rankings-table" style="margin-top:15px;">
+        <thead>
+            <tr>
+                <th style="color:#fff">Action</th>
+                <th style="color:#fff;width:120px;">Impact</th>
+                <th style="color:#fff;width:100px;">Effort</th>
+                <th style="color:#fff;width:220px;">Expected Outcome</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color:#333">
+                    <strong>Create Rental Hub — capture 5 missing rental keywords</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">Target "rent apartment", "apartment rental", "apartment renting", "rentals apartment", "apartments rental" — combined 7,700/mo at moderate difficulty</div>
+                </td>
+                <td style="color:#333"><span class="badge" style="background:#c62828;color:#fff;">CRITICAL</span></td>
+                <td style="color:#333"><span class="badge" style="background:#ff9500;color:#fff;">MEDIUM</span></td>
+                <td style="color:#333;font-size:13px;line-height:1.6;">New high-intent traffic channel — renters become leads for property management</td>
+            </tr>
+            <tr>
+                <td style="color:#333">
+                    <strong>Expand suburb pages — add 5+ Melbourne apartment suburbs</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">Docklands, St Kilda, Richmond, South Yarra, Carlton — each targets 500–2,000/mo of local search volume</div>
+                </td>
+                <td style="color:#333"><span class="badge" style="background:#2e7d32;color:#fff;">HIGH</span></td>
+                <td style="color:#333"><span class="badge" style="background:#ff9500;color:#fff;">MEDIUM</span></td>
+                <td style="color:#333;font-size:13px;line-height:1.6;">2,000–4,000 additional monthly visitors across the suburb network</td>
+            </tr>
+            <tr>
+                <td style="color:#333">
+                    <strong>Property Management Melbourne — #49 → Page 1</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">480/mo, SD 49 — requires expanded service page content and internal linking from suburb pages</div>
+                </td>
+                <td style="color:#333"><span class="badge" style="background:#ff9500;color:#fff;">MEDIUM</span></td>
+                <td style="color:#333"><span class="badge" style="background:#ff9500;color:#fff;">MEDIUM</span></td>
+                <td style="color:#333;font-size:13px;line-height:1.6;">Capture property management leads directly from Google</td>
+            </tr>
+            <tr>
+                <td style="color:#333">
+                    <strong>Blog content strategy — buyer &amp; renter guides</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">"How to buy an apartment in Melbourne", "apartment buying checklist", suburb investment guides — builds topical authority</div>
+                </td>
+                <td style="color:#333"><span class="badge" style="background:#2e7d32;color:#fff;">HIGH</span></td>
+                <td style="color:#333"><span class="badge" style="background:#2e7d32;color:#fff;">LOW</span></td>
+                <td style="color:#333;font-size:13px;line-height:1.6;">Long-tail traffic + signals expertise to Google — supports ranking for competitive terms</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Phase 3 -->
+    <h3 style="color:#000;border-bottom:2px solid #000;padding-bottom:8px;margin-top:40px;">🏆 Phase 3 — Authority & Scale (Months 3–6)</h3>
+    <table class="rankings-table" style="margin-top:15px;">
+        <thead>
+            <tr>
+                <th style="color:#fff">Action</th>
+                <th style="color:#fff;width:120px;">Impact</th>
+                <th style="color:#fff;width:100px;">Effort</th>
+                <th style="color:#fff;width:220px;">Expected Outcome</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="color:#333">
+                    <strong>Backlink acquisition campaign</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">Target Melbourne property, lifestyle &amp; business publications for editorial citations — match mre.today's 10K backlink profile</div>
+                </td>
+                <td style="color:#333"><span class="badge" style="background:#c62828;color:#fff;">CRITICAL</span></td>
+                <td style="color:#333"><span class="badge" style="background:#c62828;color:#fff;">HIGH</span></td>
+                <td style="color:#333;font-size:13px;line-height:1.6;">Domain authority lift — unlocks ranking for higher-difficulty, higher-volume terms</td>
+            </tr>
+            <tr>
+                <td style="color:#333">
+                    <strong>Target category terms: "apartment" (60,500/mo) &amp; "rent a apartments" (6,600/mo)</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">Requires authority foundation from Phase 1–2. Even page 3–4 rankings drive hundreds of visitors</div>
+                </td>
+                <td style="color:#333"><span class="badge" style="background:#c62828;color:#fff;">CRITICAL</span></td>
+                <td style="color:#333"><span class="badge" style="background:#c62828;color:#fff;">HIGH</span></td>
+                <td style="color:#333;font-size:13px;line-height:1.6;">Potential for thousands of additional monthly visitors from these terms alone</td>
+            </tr>
+            <tr>
+                <td style="color:#333">
+                    <strong>Google Business Profile &amp; Local SEO optimisation</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">Optimise GBP, build local citations across directories, review generation — drives map pack visibility</div>
+                </td>
+                <td style="color:#333"><span class="badge" style="background:#2e7d32;color:#fff;">HIGH</span></td>
+                <td style="color:#333"><span class="badge" style="background:#2e7d32;color:#fff;">LOW</span></td>
+                <td style="color:#333;font-size:13px;line-height:1.6;">Appear in Melbourne apartment map pack — massive local intent traffic source</td>
+            </tr>
+            <tr>
+                <td style="color:#333">
+                    <strong>Schema markup — listings, reviews, local business</strong>
+                    <div style="font-size:12px;color:#666;margin-top:3px;">Structured data for rich snippets in Google results — star ratings, property details, breadcrumbs</div>
+                </td>
+                <td style="color:#333"><span class="badge" style="background:#ff9500;color:#fff;">MEDIUM</span></td>
+                <td style="color:#333"><span class="badge" style="background:#2e7d32;color:#fff;">LOW</span></td>
+                <td style="color:#333;font-size:13px;line-height:1.6;">20–30% improvement in click-through rate without changing rank position</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ROI PROJECTION -->
+    <div style="background:#000;color:#fff;padding:55px 45px;margin:50px 0 0 0;">
+        <h2 style="color:#fff;border-bottom:2px solid #333;font-size:38px;letter-spacing:2px;margin-top:0;">The Opportunity — What's Possible</h2>
+        <p style="font-size:16px;line-height:1.9;margin:25px 0;max-width:950px;color:#ddd;">
+            Wood Property is currently capturing a tiny fraction of Melbourne's apartment search market. Based on the keyword data and competitor benchmarks, here is a conservative estimate of what a structured SEO programme delivers:
+        </p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:20px;margin:35px 0;">
+            <div style="background:#111;padding:30px;text-align:center;border-top:4px solid #666;">
+                <div style="font-size:11px;letter-spacing:2px;opacity:.6;margin-bottom:12px;">NOW</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:54px;letter-spacing:2px;color:#c62828;">1,050</div>
+                <div style="font-size:13px;opacity:.75;margin-top:8px;">Monthly organic visits</div>
+            </div>
+            <div style="background:#111;padding:30px;text-align:center;border-top:4px solid #ff9500;">
+                <div style="font-size:11px;letter-spacing:2px;opacity:.6;margin-bottom:12px;">MONTH 1–2</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:54px;letter-spacing:2px;color:#ff9500;">2,000+</div>
+                <div style="font-size:13px;opacity:.75;margin-top:8px;">Speed fix + suburb pages</div>
+            </div>
+            <div style="background:#111;padding:30px;text-align:center;border-top:4px solid #ffd54f;">
+                <div style="font-size:11px;letter-spacing:2px;opacity:.6;margin-bottom:12px;">MONTH 3</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:54px;letter-spacing:2px;color:#ffd54f;">3,500+</div>
+                <div style="font-size:13px;opacity:.75;margin-top:8px;">Rental hub + content live</div>
+            </div>
+            <div style="background:#111;padding:30px;text-align:center;border-top:4px solid #4caf50;">
+                <div style="font-size:11px;letter-spacing:2px;opacity:.6;margin-bottom:12px;">MONTH 6</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:54px;letter-spacing:2px;color:#4caf50;">5,000+</div>
+                <div style="font-size:13px;opacity:.75;margin-top:8px;">Full programme in effect</div>
+            </div>
+            <div style="background:#111;padding:30px;text-align:center;border-top:4px solid #81c784;">
+                <div style="font-size:11px;letter-spacing:2px;opacity:.6;margin-bottom:12px;">MONTH 12</div>
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:54px;letter-spacing:2px;color:#81c784;">10,000+</div>
+                <div style="font-size:13px;opacity:.75;margin-top:8px;">With authority &amp; scale</div>
+            </div>
+        </div>
+
+        <div style="background:#111;padding:35px;margin-top:30px;">
+            <h4 style="color:#fff;font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;margin-bottom:22px;">🎯 Quick Win Alone: Port Melbourne + Southbank</h4>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:25px;">
+                <div style="text-align:center;padding:20px;background:#0a0a0a;">
+                    <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#ff9500;letter-spacing:2px;">720/mo</div>
+                    <div style="font-size:13px;opacity:.8;margin-top:6px;">Port Melbourne search volume</div>
+                    <div style="font-size:12px;color:#4caf50;margin-top:5px;">SD 16 — Low competition</div>
+                </div>
+                <div style="text-align:center;padding:20px;background:#0a0a0a;">
+                    <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#ff9500;letter-spacing:2px;">1,900/mo</div>
+                    <div style="font-size:13px;opacity:.8;margin-top:6px;">Southbank search volume</div>
+                    <div style="font-size:12px;color:#4caf50;margin-top:5px;">SD 16 — Low competition</div>
+                </div>
+                <div style="text-align:center;padding:20px;background:#0a0a0a;">
+                    <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:#4caf50;letter-spacing:2px;">+900</div>
+                    <div style="font-size:13px;opacity:.8;margin-top:6px;">Estimated new visits/month</div>
+                    <div style="font-size:12px;color:#4caf50;margin-top:5px;">From just 2 pages, within 60 days</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:35px;padding-top:30px;border-top:1px solid #333;">
+            <p style="font-size:16px;line-height:2;color:#ccc;max-width:950px;">
+                The data tells a clear story: Wood Property has a strong technical foundation — a perfect SEO score and one proven top-3 ranking — but is being held back by two fixable problems: slow mobile performance and insufficient keyword targeting. <strong style="color:#fff;">Every month without action, mre.today and melcorprealestate.com.au are capturing the Melbourne apartment audience that should be yours.</strong> The low-competition suburb keywords — SD 16 for Port Melbourne and Southbank — represent a window that will not stay open indefinitely as competitors catch on. The time to act is now.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

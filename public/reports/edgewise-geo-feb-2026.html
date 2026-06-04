@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edgewise GEO Audit Dashboard - February 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; line-height: 1.6; color: #333; background: #fff; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+        
+        /* Header Match NMGS */
+        .header { background: #000; color: #fff; padding: 40px 20px; margin: -40px -20px 50px -20px; text-align: center; }
+        .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 32px; letter-spacing: 3px; }
+        .client-logo { font-family: 'Bebas Neue', sans-serif; font-size: 56px; letter-spacing: 4px; margin: 20px 0; }
+        .report-date { font-size: 14px; color: #ccc; margin-top: 5px; }
+
+        h1, h2, h3 { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; margin-top: 0; }
+        h2 { font-size: 32px; margin: 40px 0 20px 0; border-bottom: 2px solid #000; padding-bottom: 10px; }
+        h3 { font-size: 24px; margin-top: 30px; }
+        
+        /* Sections */
+        .exec-summary { background: #f9f9f9; padding: 40px; margin: 40px 0; border-left: 5px solid #000; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 40px 0; }
+        .kpi-card { background: #000; color: #fff; padding: 30px; text-align: center; }
+        .kpi-value { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 2px; }
+        .kpi-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; opacity: 0.8; }
+        
+        /* Tables */
+        .rankings-table { width: 100%; border-collapse: collapse; margin: 20px 0 40px 0; }
+        .rankings-table th { padding: 15px; text-align: left; background: #000; color: #fff; font-family: 'Bebas Neue', sans-serif; font-weight: normal; letter-spacing: 1px; }
+        .rankings-table td { padding: 15px; border-bottom: 1px solid #e0e0e0; }
+        .nmgs-row { background-color: #f0f7f0; border-left: 4px solid #2e7d32; }
+        .rank-badge { background: #000; color: #fff; padding: 5px 12px; font-family: 'Bebas Neue', sans-serif; font-size: 16px; min-width: 40px; text-align: center; display: inline-block; }
+        
+        .share-bar-container { display: flex; align-items: center; gap: 10px; }
+        .share-bar { flex: 1; height: 20px; background: #e8e8e8; max-width: 150px; }
+        .share-fill { height: 100%; background: #ff9500; }
+        .share-text { font-weight: bold; font-size: 15px; }
+
+        /* Interactive Prompts */
+        .category-tabs { display: flex; gap: 10px; margin: 30px 0; flex-wrap: wrap; }
+        .tab-btn { background: #fff; border: 2px solid #000; padding: 12px 25px; cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; transition: all 0.2s; }
+        .tab-btn:hover { background: #f0f0f0; }
+        .tab-btn.active { background: #000; color: #fff; }
+        
+        .prompt-item { border: 1px solid #e0e0e0; padding: 20px; margin-bottom: 15px; cursor: pointer; transition: all 0.2s; background: #fff; }
+        .prompt-item:hover { border-color: #999; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .prompt-item.has-nmgs { border-left: 5px solid #2e7d32; background: #f9fff9; }
+        
+        .prompt-header { display: flex; justify-content: space-between; align-items: center; }
+        .prompt-title { font-weight: 500; font-size: 16px; }
+        .prompt-meta { font-size: 12px; color: #666; margin-top: 5px; }
+
+        .engines-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px; }
+        .engines-grid.show { display: grid; }
+        
+        .engine-item { padding: 15px; background: #f5f5f5; border-radius: 4px; font-size: 14px; }
+        .engine-item.has-nmgs { background: #d4f4dd; border: 1px solid #2e7d32; cursor: pointer; }
+        .engine-item.has-nmgs:hover { background: #c8efd3; }
+
+        /* Pagination */
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 40px; }
+        .pagination-btn { background: #000; color: #fff; border: none; padding: 10px 20px; cursor: pointer; font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 1px; }
+        .pagination-btn:disabled { background: #ccc; cursor: not-allowed; }
+        .page-info { font-family: 'Bebas Neue', sans-serif; font-size: 18px; }
+        
+        /* Modal */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); }
+        .modal-content { background-color: #fff; margin: 5% auto; padding: 30px; border: 2px solid #000; width: 80%; max-width: 800px; max-height: 80vh; overflow-y: auto; }
+        .mention-item { background: #f9f9f9; padding: 15px; margin: 10px 0; border-left: 4px solid #2e7d32; font-family: monospace; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-text">GEO AUDIT REPORT</div>
+            <div class="client-logo">EDGEWISE</div>
+            <div class="report-date">FEBRUARY 2026</div>
+        </div>
+
+        <!-- Executive Summary -->
+        <h2 style="margin-top: 0;">Executive Summary</h2>
+        <div class="exec-summary">
+            <p style="font-size: 18px; line-height: 1.8;">
+                <strong>Diagnostic Overview:</strong> Edgewise has a foundational digital presence but minimal visibility in Generative Engine Optimization (GEO) channels.
+                With a <strong>10.0% visibility rate</strong> across 20 tested prompts, the brand is currently outranked
+                by major aggregators.
+                <br><br>
+                However, a <strong>#131 ranking</strong> in "Insurance Brokers Australia" shows potential foundation. The primary opportunity lies in optimizing for high-intent keywords where competitors currently dominate.
+            </p>
+        </div>
+        
+        <!-- Performance Overview (KPIs) -->
+        <h2>Performance Overview</h2>
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-value">20</div>
+                <div class="kpi-label">Total Prompts</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value" style="color: #2e7d32;">10.0%</div>
+                <div class="kpi-label">Visibility Rate</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">9</div>
+                <div class="kpi-label">AI Engines Tested</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-value">#131</div>
+                <div class="kpi-label">Best Ranking</div>
+            </div>
+        </div>
+
+        <!-- Keyword Performance Dashboard -->
+        <h2>Keyword Performance Dashboard</h2>
+        <table class="rankings-table">
+            <thead>
+                <tr>
+                    <th>Keyword</th>
+                    <th>Search Volume</th>
+                    <th>Your Rank</th>
+                    <th>Share of Voice</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td><strong>Business Insurance Brokers</strong></td>
+                    <td>100/mo</td>
+                    <td><span class="rank-badge">#327</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar"><div class="share-fill" style="width: 1.0%; background: #d32f2f"></div></div>
+                            <span class="share-text">1%</span>
+                        </div>
+                    </td>
+                    <td><span style="color: #d32f2f; font-weight: bold;">CRITICAL GAP</span></td>
+                </tr>
+    
+                <tr>
+                    <td><strong>Insurance Brokers Australia</strong></td>
+                    <td>9.7k/mo</td>
+                    <td><span class="rank-badge">#201</span></td>
+                    <td>
+                        <div class="share-bar-container">
+                            <div class="share-bar"><div class="share-fill" style="width: 1.0%; background: #d32f2f"></div></div>
+                            <span class="share-text">1%</span>
+                        </div>
+                    </td>
+                    <td><span style="color: #d32f2f; font-weight: bold;">CRITICAL GAP</span></td>
+                </tr>
+    
+            </tbody>
+        </table>
+
+        <!-- Edgewise Rankings by Category -->
+        <h2>Edgewise Rankings by Category</h2>
+        
+            <h3>Business Insurance Brokers (100/mo)</h3>
+            <table class="rankings-table">
+                <thead>
+                    <tr>
+                        <th style="width: 60px;">Rank</th>
+                        <th>Brand</th>
+                        <th>Share of Voice</th>
+                        <th style="width: 100px; text-align: center;">Avg Pos</th>
+                        <th style="width: 80px; text-align: center;">Sources</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#1</span></td>
+                        <td><strong>Aon</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 40.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">40%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">2.8</td>
+                        <td style="text-align: center;">18</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#2</span></td>
+                        <td><strong>Gallagher</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 39.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">39%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">3.9</td>
+                        <td style="text-align: center;">14</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#3</span></td>
+                        <td><strong>Marsh</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 30.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">30%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">1.8</td>
+                        <td style="text-align: center;">13</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#4</span></td>
+                        <td><strong>Steadfast Group</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 24.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">24%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">4.9</td>
+                        <td style="text-align: center;">10</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#5</span></td>
+                        <td><strong>HUB International</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 19.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">19%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">4.7</td>
+                        <td style="text-align: center;">5</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#6</span></td>
+                        <td><strong>Smart Business Insurance</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 18.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">18%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">5.8</td>
+                        <td style="text-align: center;">5</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#7</span></td>
+                        <td><strong>National Insurance Brokers Association (NIBA)</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 16.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">16%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">5.0</td>
+                        <td style="text-align: center;">6</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#8</span></td>
+                        <td><strong>Willis Towers Watson</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 13.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">13%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">3.1</td>
+                        <td style="text-align: center;">6</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#9</span></td>
+                        <td><strong>Lockton Affinity</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 16.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">16%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">5.1</td>
+                        <td style="text-align: center;">3</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#10</span></td>
+                        <td><strong>BizCover</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 14.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">14%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">7.0</td>
+                        <td style="text-align: center;">6</td>
+                    </tr>
+                    <tr><td colspan="5" style="text-align: center; color: #999;">...</td></tr>
+                    <tr class="nmgs-row">
+                        <td><span class="rank-badge" style="background: #2e7d32;">#327</span></td>
+                        <td><strong>Edgewise</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 1.0%; background: #2e7d32;"></div>
+                                </div>
+                                <span class="share-text">1%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">14.0</td>
+                        <td style="text-align: center;">0</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            
+            <h3>Insurance Brokers Australia (9.7k/mo)</h3>
+            <table class="rankings-table">
+                <thead>
+                    <tr>
+                        <th style="width: 60px;">Rank</th>
+                        <th>Brand</th>
+                        <th>Share of Voice</th>
+                        <th style="width: 100px; text-align: center;">Avg Pos</th>
+                        <th style="width: 80px; text-align: center;">Sources</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#1</span></td>
+                        <td><strong>Steadfast Group</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 50.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">50%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">4.4</td>
+                        <td style="text-align: center;">11</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#2</span></td>
+                        <td><strong>National Insurance Brokers Association (NIBA)</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 50.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">50%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">7.1</td>
+                        <td style="text-align: center;">16</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#3</span></td>
+                        <td><strong>Marsh</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 39.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">39%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">4.1</td>
+                        <td style="text-align: center;">11</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#4</span></td>
+                        <td><strong>Austbrokers</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 36.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">36%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">3.6</td>
+                        <td style="text-align: center;">8</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#5</span></td>
+                        <td><strong>Aon</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 33.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">33%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">6.0</td>
+                        <td style="text-align: center;">8</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#6</span></td>
+                        <td><strong>AUB Group</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 28.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">28%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">4.6</td>
+                        <td style="text-align: center;">10</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#7</span></td>
+                        <td><strong>Gallagher</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 19.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">19%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">5.3</td>
+                        <td style="text-align: center;">2</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#8</span></td>
+                        <td><strong>Ausure</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 21.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">21%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">7.7</td>
+                        <td style="text-align: center;">4</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#9</span></td>
+                        <td><strong>Shielded Insurance Brokers</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 19.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">19%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">7.3</td>
+                        <td style="text-align: center;">6</td>
+                    </tr>
+                    
+                    <tr>
+                        <td><span class="rank-badge" style="background: #000;">#10</span></td>
+                        <td><strong>McLardy McShane</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 17.0%; background: #ff9500;"></div>
+                                </div>
+                                <span class="share-text">17%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">5.8</td>
+                        <td style="text-align: center;">7</td>
+                    </tr>
+                    <tr><td colspan="5" style="text-align: center; color: #999;">...</td></tr>
+                    <tr class="nmgs-row">
+                        <td><span class="rank-badge" style="background: #2e7d32;">#131</span></td>
+                        <td><strong>Edgewise</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 1.0%; background: #2e7d32;"></div>
+                                </div>
+                                <span class="share-text">1%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">2.0</td>
+                        <td style="text-align: center;">0</td>
+                    </tr>
+                    
+                    <tr class="nmgs-row">
+                        <td><span class="rank-badge" style="background: #2e7d32;">#201</span></td>
+                        <td><strong>Edgewise Insurance Brokers</strong></td>
+                        <td>
+                            <div class="share-bar-container">
+                                <div class="share-bar">
+                                    <div class="share-fill" style="width: 1.0%; background: #2e7d32;"></div>
+                                </div>
+                                <span class="share-text">1%</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">7.0</td>
+                        <td style="text-align: center;">1</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+            
+
+        <!-- AI Engine Performance & Opportunities -->
+        <h2>AI Engine Performance & Opportunities</h2>
+        <div class="kpi-grid">
+
+            <div class="kpi-card" style="background: #f5f5f5; color: #333; border: 1px solid #ddd;">
+                <div class="kpi-value" style="font-size: 32px;">0/20</div>
+                <div class="kpi-label" style="color: #666;">Microsoft Copilot</div>
+            </div>
+        
+            <div class="kpi-card" style="background: #f5f5f5; color: #333; border: 1px solid #ddd;">
+                <div class="kpi-value" style="font-size: 32px;">1/20</div>
+                <div class="kpi-label" style="color: #666;">Google AI Overviews</div>
+            </div>
+        
+            <div class="kpi-card" style="background: #f5f5f5; color: #333; border: 1px solid #ddd;">
+                <div class="kpi-value" style="font-size: 32px;">0/20</div>
+                <div class="kpi-label" style="color: #666;">Perplexity AI</div>
+            </div>
+        
+            <div class="kpi-card" style="background: #f5f5f5; color: #333; border: 1px solid #ddd;">
+                <div class="kpi-value" style="font-size: 32px;">0/20</div>
+                <div class="kpi-label" style="color: #666;">Google Gemini</div>
+            </div>
+        
+            <div class="kpi-card" style="background: #f5f5f5; color: #333; border: 1px solid #ddd;">
+                <div class="kpi-value" style="font-size: 32px;">0/20</div>
+                <div class="kpi-label" style="color: #666;">OpenAI ChatGPT</div>
+            </div>
+        
+            <div class="kpi-card" style="background: #f5f5f5; color: #333; border: 1px solid #ddd;">
+                <div class="kpi-value" style="font-size: 32px;">0/20</div>
+                <div class="kpi-label" style="color: #666;">Meta AI</div>
+            </div>
+        
+            <div class="kpi-card" style="background: #f5f5f5; color: #333; border: 1px solid #ddd;">
+                <div class="kpi-value" style="font-size: 32px;">0/20</div>
+                <div class="kpi-label" style="color: #666;">Anthropic Claude</div>
+            </div>
+        
+            <div class="kpi-card" style="background: #f5f5f5; color: #333; border: 1px solid #ddd;">
+                <div class="kpi-value" style="font-size: 32px;">1/20</div>
+                <div class="kpi-label" style="color: #666;">Google AI Mode</div>
+            </div>
+        
+            <div class="kpi-card" style="background: #f5f5f5; color: #333; border: 1px solid #ddd;">
+                <div class="kpi-value" style="font-size: 32px;">1/20</div>
+                <div class="kpi-label" style="color: #666;">xAI Grok</div>
+            </div>
+        </div>
+
+        <!-- Detailed Prompt Analysis -->
+        <h2 id="promptAnalysis" style="margin-top: 60px;">Detailed Prompt Analysis</h2>
+        <p style="margin-bottom: 20px; color: #666;">Interactive breakdown of all 20 prompts tested. Click rows to expand.</p>
+        
+        <div class="category-tabs">
+            
+    <button class="tab-btn active" onclick="filterPrompts('all')">ALL PROMPTS (20)</button>
+<button class="tab-btn" onclick="filterPrompts('business_insurance_brokers')">BUSINESS INSURANCE BROKERS (10)</button><button class="tab-btn" onclick="filterPrompts('insurance_brokers_australia')">INSURANCE BROKERS AUSTRALIA (10)</button><button class="tab-btn" onclick="filterPrompts('mentioned')">EDGEWISE MENTIONED (2)</button>
+        </div>
+        
+        <div id="promptsList"></div>
+        
+        <div class="pagination">
+            <button class="pagination-btn" id="prevBtn" onclick="changePage('prev')">← Previous</button>
+            <div class="page-info" id="pageInfo">Page 1 of 1</div>
+            <button class="pagination-btn" id="nextBtn" onclick="changePage('next')">Next →</button>
+        </div>
+        
+        <!-- Modal -->
+        <div id="mentionModal" class="modal">
+            <div class="modal-content">
+                <div style="display:flex; justify-content:space-between; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px;">
+                    <h3 id="modalTitle" style="margin:0;">Mentions</h3>
+                    <span onclick="document.getElementById('mentionModal').style.display='none'" style="cursor:pointer; font-size:24px; font-weight:bold;">&times;</span>
+                </div>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const promptsData = [{"id": 1, "category": "business_insurance_brokers", "prompt": "I need recommendations for business insurance brokers with extensive market access.", "has_nmgs": false, "engines": [{"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 2, "category": "business_insurance_brokers", "prompt": "List top-rated business insurance brokers that offer tailored solutions.", "has_nmgs": false, "engines": [{"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 3, "category": "business_insurance_brokers", "prompt": "Compare services offered by different business insurance brokers.", "has_nmgs": false, "engines": [{"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 0, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 4, "category": "business_insurance_brokers", "prompt": "How do I choose a reliable business insurance broker for my small company?", "has_nmgs": false, "engines": [{"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 0, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 0, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 5, "category": "business_insurance_brokers", "prompt": "Are there any business insurance brokers specializing in risk management?", "has_nmgs": false, "engines": [{"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 6, "category": "business_insurance_brokers", "prompt": "Find business insurance brokers known for securing competitive rates.", "has_nmgs": false, "engines": [{"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 7, "category": "business_insurance_brokers", "prompt": "Where can I find the best business insurance brokers in my area?", "has_nmgs": false, "engines": [{"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 8, "category": "business_insurance_brokers", "prompt": "Show me a directory of reputable business insurance brokers in Australia.", "has_nmgs": true, "engines": [{"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": true, "nmgs_mentions": ["Here is a directory-style overview of **reputable sources and networks** for finding business (commercial) insurance brokers in Australia. Reputability is based on industry associations, awards, national networks, and recognition from sources like Insurance Business magazine, Clutch.co, and official bodies (as of early 2026 data).\n\nThe best starting point is using official or large-scale finder tools, as there isn&apos;t one single exhaustive &quot;directory&quot; published by the government, but professional associations and networks provide trusted ways to locate qualified brokers.\n\n### Key Recommended Finder Tools and Associations\n\n* **National Insurance Brokers Association (NIBA) \u2013 &quot;Need a Broker&quot; Service**The leading industry body for insurance brokers in Australia. Their tool connects you with qualified, professional brokers who can tailor business insurance. Website: [niba.com.au/need-a-broker](https://niba.com.au/need-a-broker)This is widely recommended (including by the Insurance Council of Australia) for finding accredited professionals.\n* **Steadfast Group \u2013 Find an Insurance Broker**Australasia&apos;s largest general insurance broker network, with strong access to competitive policies for businesses. Use their search tool (by location or name). Website: [steadfast.com.au/find-an-insurance-broker](https://www.steadfast.com.au/find-an-insurance-broker)\n* **Insurance Broker Search Australia**A specialized directory focused on brokers with expertise in specific industries or schemes (great for niche business needs). Search by business category. Website: [insurancebrokersearch.com.au](https://insurancebrokersearch.com.au/)\n\n### Notable Reputable Broker Networks and Firms\n\nThese appear frequently in top lists (e.g., Insurance Business Australia&apos;s rankings for 2023\u20132025), Clutch.co reviews, and industry awards:\n\n* **Steadfast** (network) \u2014 Massive national reach and buying power for business policies.\n* **Aon** \u2014 Global firm with strong Australian presence, often listed for commercial and corporate needs.\n* **Gallagher** \u2014 Recognized in premium broker lists.\n* **Howden Group** \u2014 Specialist capabilities.\n* **Insurance Advisernet Australia** \u2014 Large network, award-winning in recent years.\n* **Shielded Insurance Brokers** \u2014 Frequently tops or ranks high in brokerage awards.\n* **McLardy McShane** \u2014 Consistent high performer in top broker lists.\n* **Honan Insurance Group** \u2014 Strong reputation.\n* **SureInsure Insurance** \u2014 Highlighted in business-specific rankings.\n* **PSC Insurance Brokers** \u2014 Focus on commercial/SME.\n* **Adroit Insurance Group**, **Edgewise**, **King Insurance Brokers** \u2014 From broader directories.\n\nFor the most current top performers, check recent awards from Insurance Business Australia (e.g., their 2025 best brokers report highlights individuals and firms like Kellie D\u2019Arcy from Australian Elite Insurance Solutions and others).\n\n### Tips for Choosing a Reputable Broker\n\n* Ensure they hold an **Australian Financial Services (AFS) licence** \u2014 Verify via ASIC&apos;s professional register.\n* Look for NIBA membership or affiliation with major networks (e.g., Steadfast) for credibility and access to better options.\n* Compare quotes from 2\u20133 brokers, as they access different insurers (e.g., QBE, Allianz, Vero, Chubb).\n* For specialized business types (e.g., trades, professional services), use niche directories.\n\nIf you provide your location (e.g., Sydney, Melbourne) or industry (e.g., construction, retail), I can help narrow it down further!"]}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 9, "category": "business_insurance_brokers", "prompt": "What are the key benefits of using professional business insurance brokers?", "has_nmgs": false, "engines": [{"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 10, "category": "business_insurance_brokers", "prompt": "What kind of support can I expect from leading business insurance brokers?", "has_nmgs": false, "engines": [{"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 0, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 0, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 0, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 11, "category": "insurance_brokers_australia", "prompt": "Find me contact information for leading insurance brokers Australia.", "has_nmgs": false, "engines": [{"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 0, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 12, "category": "insurance_brokers_australia", "prompt": "Can you list major insurance brokers located throughout Australia?", "has_nmgs": false, "engines": [{"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 13, "category": "insurance_brokers_australia", "prompt": "Show me the best insurance brokers available across Australia.", "has_nmgs": false, "engines": [{"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 14, "category": "insurance_brokers_australia", "prompt": "I need to find a reliable insurance broker in Australia for my business.", "has_nmgs": false, "engines": [{"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 0, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 15, "category": "insurance_brokers_australia", "prompt": "Compare different insurance brokers services in Australia.", "has_nmgs": false, "engines": [{"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 0, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 16, "category": "insurance_brokers_australia", "prompt": "Which insurance brokers in Australia offer advice for individuals?", "has_nmgs": true, "engines": [{"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": true, "nmgs_mentions": ["Several insurance brokers in Australia provide tailored advice for individuals, covering personal assets, home, and motor insurance. Key firms include PSC Insurance Brokers , Edgewise , Marsh Private Clients , and Experien Insurance Services (specializing in life insurance). Other options include MGA Insurance Group , Ausure , and local brokers via Insurance Advisernet . PSC Insurance Brokers: Focuses on personal advice for home and lifestyle insurance. Experien Insurance Services : Provides tailored &quot;personal advice&quot; rather than just &quot;general advice,&quot; focusing on life insurance and individual needs. Marsh Private Clients : Specializes in bespoke solutions for high-net-worth individuals. Edgewise Insurance Brokers : Focuses on client-centred, personal, and professional advice. Scott Winton Insurance Brokers : Offers, customized, client-focused advice for individuals. MGA Insurance Group: Provides local, professional advice for personal risks. For finding a local broker, the National Insurance Brokers Association (NIBA) &apos;Need a Broker&apos; website is a reliable resource."]}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": true, "nmgs_mentions": ["In Australia, several major insurance brokerage networks and boutique firms provide specialised advice for individuals. These brokers act as independent intermediaries, assessing your personal risks to recommend tailored coverage for home, motor, life, and other personal assets. \n\n **National Brokerage Networks**  \n\nThese organisations operate via extensive networks of local authorised representatives across Australia:  \n\n* **[Austbrokers](https://www.austbrokers.com.au/personal/)** : A major national network providing expert advice on personal risks. They assist individuals in identifying insurance complexities and negotiating competitive premiums for [home and motor insurance](https://www.austbrokers.com.au/specialties/key-personal-insurance/) .\n* **[Insurance Advisernet](https://insuranceadviser.net/perth-insurance-brokers)** : One of Australasia&apos;s largest general insurance broker organisations. They offer professional advice for individuals from &quot;all walks of life,&quot; with specific local offices in [Melbourne](https://insuranceadviser.net/melbourne-insurance-brokers) , Perth , and other regions.\n* **[Ausure](https://ausure.com.au/ausure-city-and-rural/personal-insurance-ausure-city-and-rural/)** : With over 250 brokers nationwide, Ausure provides local advice supported by national scale. They specialise in personal insurance solutions including home, car, boat, and travel insurance .\n* **PSC Insurance Brokers** : A national brokerage focusing on cost-effective advice for individuals. They highlight a personal approach to [home insurance](https://www.chubb.com/au-en/individuals-families/brokers/vic/psc-insurance-brokers-vic.html)  that rivals larger global firms.\n\n**Specialist and Boutique Brokers**  \n\n* **[Experien Insurance Services](https://www.experien.com.au/)** : Specialises in personal advice for professionals (such as doctors and dentists), focusing on [life insurance, income protection](https://www.experien.com.au/life-insurance-broker-in-australia/) , and personal financial planning.\n* **[Bell Partners Insurance](https://www.bellpartners.com/services/insurance-business-and-personal/)** : A boutique brokerage providing professional advice for high net worth individuals  and managing the end-to-end claims process.\n* **Edgewise Insurance Brokers** : An Australian-owned advisory service that provides expert [personal insurance solutions](https://www.chubb.com/au-en/individuals-families/find-a-broker.html) .\n* **[GSK Insurance Brokers](https://gskinsurance.com.au/)** : Based in Perth but serving Australia-wide, they offer tailored advice for personal assets  and risk mitigation.\n\n**How to Find a Broker Near You**  \n\nIf you need a broker in a specific suburb or for a niche type of cover, you can use the official industry tools:  \n\n* **[Need a Broker (NIBA)](https://niba.com.au/need-a-broker)** : Operated by the National Insurance Brokers Association, this tool helps you [locate qualified brokers](https://www.cgu.com.au/workers-compensation/blog/choosing-a-workers-compensation-insurer-that-works-for-you)  in your immediate area.\n* **[Steadfast Group](https://ausure.com.au/find-your-nearest-broker/)** : Australia&apos;s largest general insurance broker network. Many local brokers (like [Central Insurance](https://www.centralins.com.au/why-cib/)  or Ausure ) are members, giving them access to exclusive policy wordings.\n\nAre you looking for advice on **general insurance**  (home/car) or **personal risk insurance**  (life/income protection)?"]}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 17, "category": "insurance_brokers_australia", "prompt": "Where can I find a list of the top insurance brokers in Australia?", "has_nmgs": false, "engines": [{"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 18, "category": "insurance_brokers_australia", "prompt": "Are there many large insurance brokers working in Australia?", "has_nmgs": false, "engines": [{"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 19, "category": "insurance_brokers_australia", "prompt": "What are some reputable insurance brokers operating in Australia?", "has_nmgs": false, "engines": [{"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}, {"id": 20, "category": "insurance_brokers_australia", "prompt": "How do I search for local insurance brokers in Australia?", "has_nmgs": false, "engines": [{"name": "Microsoft Copilot", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "xAI Grok", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google Gemini", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Meta AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Anthropic Claude", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Perplexity AI", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Overviews", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "Google AI Mode", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}, {"name": "OpenAI ChatGPT", "brands": 1, "sources": 0, "mentioned": false, "nmgs_mentions": []}]}];
+        let currentPage = 1;
+        let currentFilter = 'all';
+        const itemsPerPage = 5;
+        
+        function renderPrompts(filter, page) {
+            filter = filter || 'all';
+            page = page || 1;
+            currentFilter = filter;
+            currentPage = page;
+
+            const container = document.getElementById('promptsList');
+            container.innerHTML = '';
+            
+            let filtered = promptsData;
+            if (filter !== 'all') {
+                if (filter === 'mentioned') {
+                    filtered = promptsData.filter(p => p.has_nmgs);
+                } else {
+                    filtered = promptsData.filter(p => p.category === filter);
+                }
+            }
+            
+            if (filtered.length === 0) {
+                container.innerHTML = '<div style="padding:20px; text-align:center; color:#666;">No results found for this filter.</div>';
+                updatePagination(0, 0);
+                return;
+            }
+            
+            const totalPages = Math.ceil(filtered.length / itemsPerPage);
+            const startIdx = (page - 1) * itemsPerPage;
+            const endIdx = startIdx + itemsPerPage;
+            const pagePrompts = filtered.slice(startIdx, endIdx);
+            
+            pagePrompts.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'prompt-item' + (p.has_nmgs ? ' has-nmgs' : '');
+                
+                let enginesHtml = '';
+                p.engines.forEach(e => {
+                    enginesHtml += `<div class="engine-item ${e.mentioned ? 'has-nmgs' : ''}" 
+                        onclick="${e.mentioned ? `showMentions(${p.id}, '${e.name}')` : ''}">
+                        <div style="font-weight:bold; margin-bottom:5px;">${e.name}</div>
+                        <div style="color:#666;">Brands: ${e.brands}</div>
+                        ${e.mentioned ? '<div style="color:#2e7d32; font-weight:bold; margin-top:5px;">✓ Mentioned</div>' : ''}
+                    </div>`;
+                });
+                
+                div.innerHTML = `
+                    <div class="prompt-header" onclick="toggleEngines(this)">
+                        <div style="display:flex; align-items:center; gap:15px;">
+                            <span style="font-family:'Bebas Neue'; font-size:20px; color:#ccc; min-width:30px;">#${p.id}</span>
+                            <div>
+                                <div class="prompt-title">${p.prompt}</div>
+                                <div class="prompt-meta">${p.category.replace(/_/g, ' ').toUpperCase()}</div>
+                            </div>
+                        </div>
+                        <div>
+                            ${p.has_nmgs ? '<span style="background:#d4f4dd; color:#2e7d32; padding:3px 8px; font-size:11px; font-weight:bold; border-radius:3px; margin-right:10px;">MENTIONED</span>' : ''}
+                            <span style="font-size:12px; color:#999;">▼</span>
+                        </div>
+                    </div>
+                    <div class="engines-grid">${enginesHtml}</div>
+                `;
+                container.appendChild(div);
+            });
+            
+            updatePagination(totalPages, filtered.length);
+        }
+        
+        function updatePagination(totalPages, totalItems) {
+            const paginationDiv = document.querySelector('.pagination');
+            if (totalPages <= 1) {
+                paginationDiv.style.display = 'none';
+            } else {
+                paginationDiv.style.display = 'flex';
+                document.getElementById('pageInfo').textContent = 'Page ' + currentPage + ' of ' + totalPages;
+                document.getElementById('prevBtn').disabled = currentPage === 1;
+                document.getElementById('nextBtn').disabled = currentPage === totalPages;
+            }
+        }
+
+        function changePage(direction) {
+            if (direction === 'prev' && currentPage > 1) {
+                renderPrompts(currentFilter, currentPage - 1);
+                document.getElementById('promptAnalysis').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else if (direction === 'next') {
+                renderPrompts(currentFilter, currentPage + 1);
+                document.getElementById('promptAnalysis').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        
+        function toggleEngines(header) {
+            const grid = header.nextElementSibling;
+            grid.classList.toggle('show');
+        }
+        
+        function showMentions(promptId, engineName) {
+            event.stopPropagation();
+            try {
+                const prompt = promptsData.find(p => p.id === promptId);
+                const engine = prompt.engines.find(e => e.name === engineName);
+                
+                if (!engine) return;
+                
+                const list = engine.nmgs_mentions;
+                const body = document.getElementById('modalBody');
+                document.getElementById('modalTitle').innerText = engine.name + ' Mentions';
+                
+                if (list && list.length > 0) {
+                     body.innerHTML = list.map(m => `<div class="mention-item">${m.replace(/</g, '&lt;')}</div>`).join('');
+                } else {
+                    body.innerHTML = '<div style="color:#666;">Mentions detected but text extraction uncertain. Check source data.</div>';
+                }
+                
+                document.getElementById('mentionModal').style.display = 'block';
+            } catch (e) {
+                console.error("Error showing mentions", e);
+            }
+        }
+
+        
+        // Initial Render
+        renderPrompts('all', 1);
+        
+        function filterPrompts(type) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            renderPrompts(type, 1);
+        }
+        
+        // Modal Close Logic
+        window.onclick = function(event) {
+            const modal = document.getElementById('mentionModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
