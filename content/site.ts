@@ -56,7 +56,7 @@ export const footerSections: FooterSection[] = [
   {
     title: 'Ecosystem',
     items: [
-      { label: 'Ask Sarah', href: '/product/agent-alice' },
+      { label: 'Gatha, for white label partners', href: 'https://gatha.ai/', external: true },
       { label: 'Prolinks', href: 'https://prolinksai.com/', external: true },
       { label: 'Parently', href: 'https://parently.ai/', external: true },
     ],

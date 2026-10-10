@@ -16,7 +16,7 @@ interface MoreProductsProps {
 }
 
 export function MoreProducts({ currentProductId }: MoreProductsProps) {
-  const otherProducts = products.filter(p => p.id !== currentProductId && p.id !== 'gatha-ai');
+  const otherProducts = products.filter(p => p.id !== currentProductId && p.id !== 'gatha-ai' && p.id !== 'agent-alice');
 
   if (otherProducts.length === 0) return null;
 

@@ -102,16 +102,6 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     comingSoon: true,
   },
   {
-    id: 'agent-alice',
-    productId: 'agent-alice',
-    label: 'MARKETING AGENT',
-    title: 'Ask Sarah',
-    description: 'Your AI marketing agent for content ideation, repurposing, and SEO/GEO-aware campaign output.',
-    cta: 'Join the Waitlist',
-    href: '/product/agent-alice',
-    comingSoon: true,
-  },
-  {
     id: 'prolinks',
     productId: 'prolinks',
     label: 'DOCUMENT AI',

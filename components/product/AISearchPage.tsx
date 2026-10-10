@@ -196,6 +196,23 @@ export function AISearchPage({ product }: AISearchPageProps) {
         </div>
       </section>
 
+      {/* Who it is for */}
+      <section className="py-20 bg-white border-t border-black/5">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Who it is for</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="rounded-3xl bg-[#F5F5F7] p-10">
+              <h3 className="text-2xl font-extrabold tracking-tight text-black mb-3">Businesses</h3>
+              <p className="text-foreground/60 font-medium leading-relaxed">Clinics, trades, professional firms and B2B services with a team behind them. We check the questions your customers ask, fix what the engines need, and track it monthly. Done for you.</p>
+            </div>
+            <div className="rounded-3xl bg-[#F5F5F7] p-10">
+              <h3 className="text-2xl font-extrabold tracking-tight text-black mb-3">Founders and personal brands</h3>
+              <p className="text-foreground/60 font-medium leading-relaxed">When someone asks AI who the experts are in your field, is it your name that comes back? Same check, same fixes, built around you rather than a company. Done for you.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* What influences AI search visibility */}
       <section className="py-28 bg-[#F5F5F7]">
         <div className="max-w-7xl mx-auto px-6">

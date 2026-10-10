@@ -12,7 +12,7 @@ import { AISearchPage } from '@/components/product/AISearchPage';
 
 export async function generateStaticParams() {
   return products
-    .filter((p) => !p.externalLink && p.id !== 'ai-toolkit' && p.id !== 'gatha-ai')
+    .filter((p) => !p.externalLink && p.id !== 'ai-toolkit' && p.id !== 'gatha-ai' && p.id !== 'agent-alice')
     .map((p) => ({ id: p.id }));
 }
 
@@ -44,8 +44,8 @@ export default async function ProductPage({
     redirect('/product/ai-toolkit');
   }
   // Old Gatha curator concept is retired
-  if (id === 'gatha-ai') {
-    redirect('/product/geo-audit');
+  if (id === 'gatha-ai' || id === 'agent-alice') {
+    redirect('/');
   }
 
   const product = getProductById(id);
