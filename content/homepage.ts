@@ -125,10 +125,10 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
   },
   {
     id: 'partner-program',
-    label: 'AI ECONOMY',
-    title: 'Partner Program',
-    description: 'We want to be the home of AI service providers — the go-to for those who have no idea where to start. Join our ecosystem of trusted partners.',
-    cta: 'Get Involved',
+    label: 'WHITE LABEL PARTNERS',
+    title: 'Sell more of what you do',
+    description: 'Agencies, consultants and SEO firms: put our AI search and AI readiness tools under your brand and sell them to the clients you already have.',
+    cta: 'Talk to us',
     href: '/contact',
   },
 ];
