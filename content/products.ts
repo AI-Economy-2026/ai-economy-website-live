@@ -799,19 +799,19 @@ export const products: Product[] = [
     id: 'geo-audit',
     slug: 'geo-audit',
     type: 'service',
-    label: 'GET FOUND',
-    name: 'GEO Audit.',
-    tagline: 'Can AI search engines see your brand?',
+    label: 'AI SEARCH, DONE FOR YOU',
+    name: 'AI Search Visibility.',
+    tagline: 'Is your business in the AI answer?',
     description:
-      'Analyses your visibility across ChatGPT, Gemini, and Perplexity. Shows you how to get cited.',
+      'We check how you show up in ChatGPT, Gemini, Perplexity and Google AI, make the fixes, and track the movement every month.',
     image: '/images/geo_audit_hero.jpg',
     letter: 'G',
     color: '#2563EB',
     ctaLink: '#subscribe',
     hero: {
-      headline: 'Own the new era of search.',
+      headline: 'Is your business in the AI answer?',
       subheadline:
-        "Measure and maximise your brand's share of voice across ChatGPT, Perplexity, Grok, and the world's leading AI models.",
+        'When a customer asks ChatGPT, Gemini or Google AI who to call, one answer comes back. Either you are in it, or a competitor is. We check, we fix, we track.',
     },
     overview:
       "As Generative AI rapidly reshapes how consumers discover information, traditional SEO is no longer enough. The GEO Audit provides a definitive analysis of your brand's share of voice across major AI engines like ChatGPT, Perplexity, and Grok. Our proven methodology moves sequentially from a comprehensive initial Audit, to identifying strategic Opportunities, Activating targeted campaigns, and maintaining dominance through an ongoing Retainer.",
@@ -841,10 +841,10 @@ export const products: Product[] = [
       'A clear picture of your AI search presence today and a targeted strategic roadmap to ensure your brand is consistently recommended by AI.',
     cta: 'Start your journey',
     stats: [
-      { value: '5+', label: 'AI Engines Audited' },
-      { value: '87%', label: 'of Consumers Use AI Search' },
-      { value: '0%', label: 'Traditional SEO Overlap' },
-      { value: '1st', label: 'to Market in AU' },
+      { value: '5+', label: 'AI engines checked' },
+      { value: 'Weekly', label: 'Tracking of your questions' },
+      { value: 'Monthly', label: 'Report against your baseline' },
+      { value: '30 days', label: 'For the first fixes to go live' },
     ],
     targetAudience: [
       "Marketing leaders who know AI search is growing but don't know their current visibility",
@@ -901,9 +901,9 @@ export const products: Product[] = [
       },
     ],
     seo: {
-      title: 'GEO Audit – AI Visibility Ranking for Your Brand | AI Economy',
+      title: 'AI Search Visibility, Done For You | AI Economy',
       description:
-        'Analyse your brand visibility across ChatGPT, Gemini, and Perplexity. Get a strategic roadmap to own the AI search results in your category.',
+        'Is your business in the AI answer? We check how you show up in ChatGPT, Gemini, Perplexity and Google AI, make the fixes, and track the movement every month.',
       canonical: 'https://aieconomy.ai/product/geo-audit',
     },
   },

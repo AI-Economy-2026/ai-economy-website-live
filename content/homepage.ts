@@ -85,10 +85,10 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
   {
     id: 'geo-audit',
     productId: 'geo-audit',
-    label: 'AI VISIBILITY',
-    title: 'Rankco',
-    description: 'Is your business showing up when AI answers your customers\u2019 questions? Get ranked and get found.',
-    cta: 'Check Your Visibility',
+    label: 'AI SEARCH',
+    title: 'AI Search Visibility',
+    description: 'Is your business in the answer when customers ask ChatGPT, Gemini or Google AI? We check, we fix, we track.',
+    cta: 'Check your visibility',
     href: '/product/geo-audit',
   },
   {
@@ -305,19 +305,19 @@ export const homepageGeoSection = {
     "AI search is changing how customers find businesses. ChatGPT, Perplexity, Gemini and Copilot are already answering the questions your customers used to type into Google. If your business isn't showing up in those answers, you're invisible to a growing share of your market.",
   stats: [
     {
-      value: '5x',
-      label: 'more engaged traffic from AI search compared to traditional search',
+      value: '1 billion',
+      label: 'ChatGPT weekly users, up from 900 million six months earlier (OpenAI, Aug 2026)',
     },
     {
-      value: '400%',
-      label: 'increase in AI-powered search usage in the last 12 months',
+      value: '2.5 billion',
+      label: 'people a month seeing Google AI Overviews above the results (Google I/O, May 2026)',
     },
   ],
   outro:
-    'GEO (generative engine optimisation) is no longer optional. The businesses that act now will own the AI search results in their category. The ones that wait will wonder where their traffic went.',
-  cardTitle: 'Is your business turning up in AI search?',
+    'Search has changed. The businesses that act now will be in the AI answer for their category. The ones that wait will wonder where their enquiries went.',
+  cardTitle: 'Is your business in the AI answer?',
   cardBody:
-    'Find out where you rank for your key services and products. Get your AI visibility report.',
+    'We check how you show up, make the fixes, and track the movement every month. Done for you.',
   cardHref: '/product/geo-audit',
   cardCta: 'Check your visibility',
 };

@@ -8,11 +8,11 @@ import { SarahSpeaksPage } from '@/components/product/SarahSpeaksPage';
 import { AgentAlicePage } from '@/components/product/AgentAlicePage';
 import { AIConsultancyPage } from '@/components/product/AIConsultancyPage';
 import { GathaPage } from '@/components/product/GathaPage';
-import { RankcoPage } from '@/components/product/RankcoPage';
+import { AISearchPage } from '@/components/product/AISearchPage';
 
 export async function generateStaticParams() {
   return products
-    .filter((p) => !p.externalLink && p.id !== 'ai-toolkit')
+    .filter((p) => !p.externalLink && p.id !== 'ai-toolkit' && p.id !== 'gatha-ai')
     .map((p) => ({ id: p.id }));
 }
 
@@ -42,6 +42,10 @@ export default async function ProductPage({
   // Redirect ai-toolkit to its dedicated page
   if (id === 'ai-toolkit') {
     redirect('/product/ai-toolkit');
+  }
+  // Old Gatha curator concept is retired
+  if (id === 'gatha-ai') {
+    redirect('/product/geo-audit');
   }
 
   const product = getProductById(id);
@@ -85,7 +89,7 @@ function renderProductPage(id: string, product: Parameters<typeof PriorityAIPage
     case 'gatha-ai':
       return <GathaPage product={product} />;
     case 'geo-audit':
-      return <RankcoPage product={product} />;
+      return <AISearchPage product={product} />;
     default:
       // For products without a custom page (parently, prolinks), show generic layout
       return <GenericProductPage product={product} />;

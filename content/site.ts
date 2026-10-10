@@ -35,6 +35,7 @@ export const siteConfig = {
 
 export const marketingNavItems: SiteLink[] = [
   { label: 'About', href: '#about' },
+  { label: 'AI Search', href: '/product/geo-audit' },
   { label: 'Toolkit', href: '#products' },
   { label: 'Roadmap', href: '#approach' },
   { label: 'Ecosystem', href: '#ecosystem' },
@@ -48,7 +49,7 @@ export const footerSections: FooterSection[] = [
       { label: 'AI Consultancy', href: '/product/ai-consultancy' },
       { label: 'Priority AI', href: '/product/priority-ai' },
       { label: 'AI Toolkit', href: '/product/ai-toolkit' },
-      { label: 'Rankco', href: '/product/geo-audit' },
+      { label: 'AI Search Visibility', href: '/product/geo-audit' },
       { label: 'Sarah Speaks AI', href: '/product/sarah-speaks' },
     ],
   },

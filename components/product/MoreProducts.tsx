@@ -16,7 +16,7 @@ interface MoreProductsProps {
 }
 
 export function MoreProducts({ currentProductId }: MoreProductsProps) {
-  const otherProducts = products.filter(p => p.id !== currentProductId);
+  const otherProducts = products.filter(p => p.id !== currentProductId && p.id !== 'gatha-ai');
 
   if (otherProducts.length === 0) return null;
 

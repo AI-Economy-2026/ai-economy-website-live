@@ -1,0 +1,309 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { ArrowLeft, ChevronRight, Search, Wrench, Activity } from 'lucide-react';
+import { Product } from '@/data/products';
+import { Footer } from '@/components/layout/Footer';
+import { ContactForm } from '@/components/product/ContactForm';
+
+interface AISearchPageProps {
+  product: Product;
+}
+
+const BOOKING_URL = 'https://calendar.app.google/KMWhVZmsAGEMrna2A';
+
+const steps = [
+  {
+    icon: Search,
+    label: 'Check',
+    title: 'We check how you show up',
+    body: 'We put the questions your customers actually ask to ChatGPT, Claude, Gemini, Perplexity and Google AI, and show you the answers, screenshots included. You see who gets named and who does not.',
+  },
+  {
+    icon: Wrench,
+    label: 'Fix',
+    title: 'We make the fixes',
+    body: 'Pages that answer the question, one consistent description of what you do and where, listings the engines trust, reviews and the code behind your site. Done by our team, not a to-do list for yours.',
+  },
+  {
+    icon: Activity,
+    label: 'Track',
+    title: 'We track the movement',
+    body: 'The same questions, run every week, across every engine. You get a monthly report against the starting point so you can see movement engine by engine, not take our word for it.',
+  },
+];
+
+const influences = [
+  { n: '1', title: 'Answer pages', body: 'Does your site answer the questions customers ask, in plain words an AI can quote?' },
+  { n: '2', title: 'Site crawl', body: 'Can the AI engines read your site at all? Speed, structure, blocked pages and broken links.' },
+  { n: '3', title: 'Citations', body: 'Who else mentions you? Directories, industry sites, local media and partners the engines trust.' },
+  { n: '4', title: 'Consistency', body: 'Is your name, address, services and description identical across your site, Google listing and socials?' },
+  { n: '5', title: 'Reviews', body: 'How many, how recent, and what they say. Engines read reviews as evidence.' },
+  { n: '6', title: 'Structured data', body: 'The code behind the page that tells an engine what kind of business you are and what you do.' },
+];
+
+const stats = [
+  { value: '1 billion', unit: 'a week', body: 'ChatGPT weekly users, up from 900 million six months earlier.', source: 'OpenAI, Aug 2026' },
+  { value: '2.5 billion', unit: 'a month', body: 'People seeing Google AI Overviews above the results.', source: 'Google I/O via CNBC, May 2026' },
+  { value: '15% to 8%', unit: '', body: 'Clicks on normal Google results when an AI answer is shown.', source: 'Pew Research Center, 2025' },
+];
+
+const faqs = [
+  {
+    question: 'What is AI search?',
+    answer:
+      'Instead of typing keywords into Google and clicking through ten blue links, people now ask a question in ChatGPT, Claude, Gemini or Perplexity and get one answer. Google itself now puts an AI answer above the results. If that answer names a business, that business gets the call. If it does not name you, you are invisible to that customer.',
+  },
+  {
+    question: 'How does it work?',
+    answer:
+      'AI engines read the web, your Google Business listing, review sites and directories, then write an answer from what they find. They favour businesses that are described clearly and consistently everywhere, have pages that answer the actual question, and get mentioned by other sites. They do not favour the biggest ad budget.',
+  },
+  {
+    question: 'Is this just SEO?',
+    answer:
+      'It overlaps, but it is not the same. SEO gets you a position on a results page. AI search gives one answer, and either you are in it or you are not. A lot of businesses that rank fine on Google are nowhere in AI answers. Already have an SEO agency? Keep them. We handle the AI search side and work alongside them. No agency? We do both, Google and AI, in one plan.',
+  },
+  {
+    question: 'Why does the answer change each time?',
+    answer:
+      'AI answers are not fixed like a ranking. Ask twice and the names shift. That is why a single check is a snapshot, and why we measure how often you are mentioned across many runs and many questions, not just one.',
+  },
+  {
+    question: 'How do you measure success?',
+    answer:
+      'At kick-off we agree the ten questions your customers actually ask. Then we track how often each AI engine names you on those questions, run many times over. That share of mentions is the score. We report it monthly against the starting point, alongside your Google rankings.',
+  },
+  {
+    question: 'How long until something moves?',
+    answer:
+      'Google AI Overviews and Perplexity usually move within weeks of the fixes going live. ChatGPT is the slowest and can take months. We say this on the first call and put it in the proposal, so nobody expects to be number one in ChatGPT by next month.',
+  },
+];
+
+export function AISearchPage({ product }: AISearchPageProps) {
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Top Nav */}
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b h-14 flex items-center">
+        <div className="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
+          <Link
+            href="/"
+            className="flex items-center space-x-2 text-foreground/60 hover:text-foreground transition-colors font-semibold text-sm group"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            <span>AI Economy</span>
+          </Link>
+          <span className="text-[11px] font-bold text-foreground/30 uppercase tracking-widest">AI Search</span>
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-6 py-2 bg-[#004AAD] text-white rounded-full font-semibold text-sm hover:bg-[#003A8C] transition-all"
+          >
+            Schedule a call
+          </a>
+        </div>
+      </div>
+
+      {/* Hero */}
+      <section className="relative pt-14 min-h-[85vh] flex items-center overflow-hidden bg-black text-white">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="max-w-4xl"
+          >
+            <p className="mb-6 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">AI search visibility, done for you</p>
+            <h1 className="mb-8 text-5xl md:text-[88px] font-extrabold text-white tracking-tighter leading-[0.9]">
+              Is your business<br />in the AI answer?
+            </h1>
+            <p className="mb-12 text-white/70 text-xl md:text-2xl font-medium max-w-2xl leading-snug">
+              When a customer asks ChatGPT, Gemini or Google AI who to call, one answer comes back. Either you are in it, or a competitor is. We check, we fix, we track.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg shadow-2xl"
+              >
+                Schedule a call <ChevronRight className="w-5 h-5" />
+              </a>
+              <a
+                href="#how-it-works"
+                className="inline-flex items-center justify-center gap-2 px-10 py-5 border border-white/25 text-white rounded-full font-semibold hover:bg-white/10 transition-all text-lg"
+              >
+                How it works
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="bg-[#0d1b2a] border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 py-14">
+          <p className="mb-8 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">Search is moving. Those who start early will win.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {stats.map((s) => (
+              <div key={s.value} className="border-t border-white/10 pt-6">
+                <div className="text-3xl md:text-4xl font-extrabold tracking-tighter text-white">
+                  {s.value} {s.unit && <span className="text-base font-medium text-white/50">{s.unit}</span>}
+                </div>
+                <p className="mt-2 text-white/70 text-sm font-medium">{s.body}</p>
+                <p className="mt-1 text-white/35 text-xs">{s.source}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section id="how-it-works" className="py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-16 max-w-2xl">
+            <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">How it works</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-black leading-tight">
+              Check. Fix. Track.
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {steps.map((step, i) => {
+              const Icon = step.icon;
+              return (
+                <motion.div
+                  key={step.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className="bg-[#F5F5F7] rounded-3xl p-10"
+                >
+                  <div className="w-12 h-12 rounded-2xl bg-[#004AAD]/10 flex items-center justify-center mb-6">
+                    <Icon className="w-6 h-6 text-[#004AAD]" />
+                  </div>
+                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/30 mb-2">0{i + 1} {step.label}</p>
+                  <h3 className="text-2xl font-extrabold tracking-tight text-black mb-3">{step.title}</h3>
+                  <p className="text-foreground/60 font-medium leading-relaxed">{step.body}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* What influences AI search visibility */}
+      <section className="py-28 bg-[#F5F5F7]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-16 max-w-2xl">
+            <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">What we look at</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-black leading-tight mb-4">
+              What influences AI search visibility
+            </h2>
+            <p className="text-foreground/60 text-lg font-medium leading-relaxed">
+              AI engines do not rank pages. They build an answer from what they can find and trust about you. Six things decide whether you are in it.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {influences.map((item) => (
+              <div key={item.n} className="bg-white rounded-3xl p-8">
+                <div className="w-8 h-8 rounded-full bg-[#004AAD]/10 text-[#004AAD] text-sm font-bold flex items-center justify-center mb-5">{item.n}</div>
+                <h3 className="text-xl font-bold text-black mb-2">{item.title}</h3>
+                <p className="text-foreground/60 font-medium leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Need a hand */}
+      <section className="py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="rounded-3xl bg-black text-white p-10 md:p-16 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
+            <div>
+              <p className="mb-4 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">Done for you</p>
+              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-5">Need a hand?</h2>
+              <p className="text-white/70 text-lg font-medium leading-relaxed mb-6">
+                Most businesses do not want to do this themselves. We run the check, make the fixes and track the movement every month, so you can get on with the work. Already have an SEO agency? Keep them. We handle the AI search side and work alongside them.
+              </p>
+              <p className="text-white/50 text-sm font-medium">
+                I have been helping businesses navigate digital change for 25 years. Now it is AI. Be seen in search. Sarah Balmer
+              </p>
+            </div>
+            <div className="flex flex-col gap-3">
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg"
+              >
+                Schedule a call <ChevronRight className="w-5 h-5" />
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center px-10 py-5 border border-white/25 text-white rounded-full font-semibold hover:bg-white/10 transition-all text-lg"
+              >
+                Send a message
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="py-28 bg-white border-t border-black/5">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="mb-16">
+            <p className="mb-4 text-[11px] font-bold text-foreground/30 uppercase tracking-[0.2em]">AI search, explained</p>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Questions, answered.</h2>
+          </div>
+          <div className="divide-y divide-black/10 border-t border-black/10">
+            {faqs.map((faq, i) => (
+              <FAQItem key={i} question={faq.question} answer={faq.answer} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="py-28 bg-[#F5F5F7]">
+        <div className="max-w-2xl mx-auto px-6 text-center">
+          <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Get in touch</p>
+          <h2 className="mb-4 text-5xl md:text-6xl font-extrabold tracking-tighter text-black leading-[0.9]">
+            Find out where you stand.
+          </h2>
+          <p className="mb-12 text-foreground/60 text-lg font-medium leading-relaxed">
+            Tell us your business and the question your customers ask. We will run the check and show you the answer.
+          </p>
+          <ContactForm />
+        </div>
+      </section>
+
+      <Footer minimal />
+    </div>
+  );
+}
+
+function FAQItem({ question, answer }: { question: string; answer: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border-b border-black/10 last:border-0">
+      <button
+        className="w-full text-left py-6 flex items-start justify-between gap-4 group"
+        onClick={() => setOpen((o) => !o)}
+      >
+        <span className="text-lg font-semibold text-foreground group-hover:text-[#004AAD] transition-colors leading-snug">{question}</span>
+        <span className="text-foreground/40 group-hover:text-[#004AAD] transition-colors mt-0.5 flex-shrink-0 text-xl leading-none">
+          {open ? '−' : '+'}
+        </span>
+      </button>
+      {open && (
+        <div className="pb-6 text-foreground/70 text-base font-medium leading-relaxed pr-8">{answer}</div>
+      )}
+    </div>
+  );
+}

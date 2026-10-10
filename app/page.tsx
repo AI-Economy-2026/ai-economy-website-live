@@ -55,6 +55,14 @@ export default function HomePage() {
             <p className="max-w-[34rem] text-lg leading-8 text-[#555555]">
               {homepageHero.body}
             </p>
+            <Link
+              href="/product/geo-audit"
+              className="mt-6 inline-flex max-w-[34rem] items-center gap-4 rounded-2xl border border-black/10 bg-[#F5F5F7] px-5 py-4 transition hover:border-[#004AAD]"
+            >
+              <span className="rounded-full bg-[#004AAD] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-white">AI search</span>
+              <span className="text-sm font-semibold text-black">Is your business in the AI answer? We check, we fix, we track.</span>
+              <ArrowRight className="ml-auto h-4 w-4 flex-shrink-0 text-[#004AAD]" />
+            </Link>
             <a
               href={homepageHero.ctaHref}
               className="mt-8 inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#86868B] transition hover:border-[#004AAD] hover:text-[#004AAD]"
