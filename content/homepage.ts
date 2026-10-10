@@ -127,7 +127,7 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     id: 'partner-program',
     label: 'WHITE LABEL PARTNERS',
     title: 'Sell more of what you do',
-    description: 'Agencies, consultants and SEO firms: put our AI search and AI readiness tools under your brand and sell them to the clients you already have.',
+    description: 'Agencies, consultants and SEO firms: put our AI search visibility service and the Priority AI diagnostic under your brand and sell them to the clients you already have.',
     cta: 'Talk to us',
     href: '/contact',
   },
