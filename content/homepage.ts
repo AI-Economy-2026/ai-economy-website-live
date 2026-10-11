@@ -102,15 +102,6 @@ const featuredCardConfig: (Omit<HomepageCardItem, 'image'> & { image?: string })
     href: '/toolkit',
   },
   {
-    id: 'partner-program',
-    image: '/images/white_label_hero.jpg',
-    label: 'WHITE LABEL PARTNERS',
-    title: 'Sell more of what you do',
-    description: 'Agencies, consultants and SEO firms: put our tools under your brand. The AI search tool to audit, track and manage visibility, and the Priority AI diagnostic. Done for you is on offer to white label partners too.',
-    cta: 'Talk to us',
-    href: '/contact',
-  },
-  {
     id: 'prolinks',
     productId: 'prolinks',
     label: 'DOCUMENT AI',
@@ -120,6 +111,15 @@ const featuredCardConfig: (Omit<HomepageCardItem, 'image'> & { image?: string })
     href: 'https://prolinksai.com/',
     external: true,
     comingSoon: true,
+  },
+  {
+    id: 'partner-program',
+    image: '/images/white_label_hero.jpg',
+    label: 'WHITE LABEL PARTNERS',
+    title: 'Sell more of what you do',
+    description: 'Agencies, consultants and SEO firms: put our tools under your brand. The AI search tool to audit, track and manage visibility, and the Priority AI diagnostic. Done for you is on offer to white label partners too.',
+    cta: 'Talk to us',
+    href: '/contact',
   },
   {
     id: 'parently',
