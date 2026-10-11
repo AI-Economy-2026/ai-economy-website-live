@@ -87,7 +87,7 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     productId: 'geo-audit',
     label: 'AI SEARCH',
     title: 'AI Search Visibility',
-    description: 'Is your business in the answer when customers ask ChatGPT, Gemini or Google AI? We check, we fix, we track.',
+    description: 'Is your business in the answer when customers ask ChatGPT, Gemini or Google AI? Audit, track and manage, or done for you.',
     cta: 'Check your visibility',
     href: '/product/geo-audit',
   },
@@ -307,7 +307,7 @@ export const homepageGeoSection = {
     'Search has changed. The businesses that act now will be in the AI answer for their category. The ones that wait will wonder where their enquiries went.',
   cardTitle: 'Is your business in the AI answer?',
   cardBody:
-    'We check how you show up, make the fixes, and track the movement every month. Done for you.',
+    'Audit where you stand, track it month to month, or hand the whole thing over. Done for you is on offer.',
   cardHref: '/product/geo-audit',
   cardCta: 'Check your visibility',
 };

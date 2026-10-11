@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ChevronRight, Search, Wrench, Activity } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Search, Activity, Wrench } from 'lucide-react';
 import { Product } from '@/data/products';
 import { Footer } from '@/components/layout/Footer';
 import { ContactForm } from '@/components/product/ContactForm';
@@ -14,24 +14,42 @@ interface AISearchPageProps {
 
 const BOOKING_URL = 'https://calendar.app.google/KMWhVZmsAGEMrna2A';
 
-const steps = [
+const explainer = [
   {
-    icon: Search,
-    label: 'Check',
-    title: 'We check how you show up',
-    body: 'We put the questions your customers actually ask to ChatGPT, Claude, Gemini, Perplexity and Google AI, and show you the answers, screenshots included. You see who gets named and who does not.',
+    title: 'Search has changed',
+    body: 'People no longer type keywords and scan ten links. They ask ChatGPT, Claude, Gemini or Perplexity a question and get one answer. Google now puts its own AI answer above the results.',
   },
   {
-    icon: Wrench,
-    label: 'Fix',
-    title: 'We make the fixes',
-    body: 'Pages that answer the question, one consistent description of what you do and where, listings the engines trust, reviews and the code behind your site. Done by our team, not a to-do list for yours.',
+    title: 'One answer, a few names',
+    body: 'That answer names two or three businesses. If you are one of them, you get the call. If not, the customer never knew you existed. There is no page two.',
+  },
+  {
+    title: 'It is not decided by ad spend',
+    body: 'AI engines build the answer from what they can find and trust about you: your site, your Google listing, reviews, directories and who else mentions you. Clear and consistent beats big and loud.',
+  },
+];
+
+const services = [
+  {
+    icon: Search,
+    label: 'Audit',
+    title: 'Know where you stand',
+    body: 'A one-off check across ChatGPT, Claude, Gemini, Perplexity and Google AI on the questions your customers actually ask. You get the answers, screenshots included, who gets named instead of you, and a plain-English list of what to fix.',
+    fit: 'For businesses that want the facts first, or have a team who can action a list.',
   },
   {
     icon: Activity,
-    label: 'Track',
-    title: 'We track the movement',
-    body: 'The same questions, run every week, across every engine. You get a monthly report against the starting point so you can see movement engine by engine, not take our word for it.',
+    label: 'Track and manage',
+    title: 'Watch it move, every month',
+    body: 'The same questions run weekly across every engine, with a monthly report against your starting point. We keep the fix list current as the answers shift, and you or your agency work through it.',
+    fit: 'For businesses with in-house marketing or an SEO agency already in place.',
+  },
+  {
+    icon: Wrench,
+    label: 'Done for you',
+    title: 'We check, we fix, we track',
+    body: 'We run the audit, make the fixes ourselves (answer pages, listings, consistency, reviews, structured data) and track the movement every month. You get on with the work; we handle the whole thing.',
+    fit: 'For founders and businesses who do not want another to-do list.',
   },
 ];
 
@@ -77,6 +95,11 @@ const faqs = [
       'At kick-off we agree the ten questions your customers actually ask. Then we track how often each AI engine names you on those questions, run many times over. That share of mentions is the score. We report it monthly against the starting point, alongside your Google rankings.',
   },
   {
+    question: 'Which service do I need?',
+    answer:
+      'If you want the facts and have someone to action them, start with the audit. If you have marketing in-house or an agency and want the numbers kept honest month to month, track and manage. If you would rather not touch any of it, done for you covers the audit, the fixes and the tracking. Most people start with a call and we point you at the right one.',
+  },
+  {
     question: 'How long until something moves?',
     answer:
       'Google AI Overviews and Perplexity usually move within weeks of the fixes going live. ChatGPT is the slowest and can take months. We say this on the first call and put it in the proposal, so nobody expects to be number one in ChatGPT by next month.',
@@ -117,12 +140,12 @@ export function AISearchPage({ product }: AISearchPageProps) {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-4xl"
           >
-            <p className="mb-6 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">AI search visibility, done for you</p>
+            <p className="mb-6 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">AI search visibility for founders and businesses</p>
             <h1 className="mb-8 text-5xl md:text-[88px] font-extrabold text-white tracking-tighter leading-[0.9]">
               Is your business<br />in the AI answer?
             </h1>
             <p className="mb-12 text-white/70 text-xl md:text-2xl font-medium max-w-2xl leading-snug">
-              When a customer asks ChatGPT, Gemini or Google AI who to call, one answer comes back. Either you are in it, or a competitor is. We check, we fix, we track.
+              When a customer asks ChatGPT, Gemini or Google AI who to call, one answer comes back. Either you are in it, or a competitor is. Here is how it works, and how we help: audit, track and manage, or done for you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <a
@@ -134,10 +157,10 @@ export function AISearchPage({ product }: AISearchPageProps) {
                 Schedule a call <ChevronRight className="w-5 h-5" />
               </a>
               <a
-                href="#how-it-works"
+                href="#services"
                 className="inline-flex items-center justify-center gap-2 px-10 py-5 border border-white/25 text-white rounded-full font-semibold hover:bg-white/10 transition-all text-lg"
               >
-                How it works
+                How we help
               </a>
             </div>
           </motion.div>
@@ -162,53 +185,33 @@ export function AISearchPage({ product }: AISearchPageProps) {
         </div>
       </section>
 
-      {/* How it works */}
+      {/* What is AI search visibility */}
       <section id="how-it-works" className="py-28 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-16 max-w-2xl">
-            <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">How it works</p>
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-black leading-tight">
-              Check. Fix. Track.
+            <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">AI search visibility, explained</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-black leading-tight mb-4">
+              What it is, and why it matters now
             </h2>
+            <p className="text-foreground/60 text-lg font-medium leading-relaxed">
+              AI search visibility is simple to define: when someone asks an AI engine a question your business should answer, does your name come back? Three things to know.
+            </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {steps.map((step, i) => {
-              const Icon = step.icon;
-              return (
-                <motion.div
-                  key={step.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className="bg-[#F5F5F7] rounded-3xl p-10"
-                >
-                  <div className="w-12 h-12 rounded-2xl bg-[#004AAD]/10 flex items-center justify-center mb-6">
-                    <Icon className="w-6 h-6 text-[#004AAD]" />
-                  </div>
-                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/30 mb-2">0{i + 1} {step.label}</p>
-                  <h3 className="text-2xl font-extrabold tracking-tight text-black mb-3">{step.title}</h3>
-                  <p className="text-foreground/60 font-medium leading-relaxed">{step.body}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Who it is for */}
-      <section className="py-20 bg-white border-t border-black/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Who it is for</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-3xl bg-[#F5F5F7] p-10">
-              <h3 className="text-2xl font-extrabold tracking-tight text-black mb-3">Businesses</h3>
-              <p className="text-foreground/60 font-medium leading-relaxed">Clinics, trades, professional firms and B2B services with a team behind them. We check the questions your customers ask, fix what the engines need, and track it monthly. Done for you.</p>
-            </div>
-            <div className="rounded-3xl bg-[#F5F5F7] p-10">
-              <h3 className="text-2xl font-extrabold tracking-tight text-black mb-3">Founders and personal brands</h3>
-              <p className="text-foreground/60 font-medium leading-relaxed">When someone asks AI who the experts are in your field, is it your name that comes back? Same check, same fixes, built around you rather than a company. Done for you.</p>
-            </div>
+            {explainer.map((item, i) => (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className="bg-[#F5F5F7] rounded-3xl p-10"
+              >
+                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/30 mb-3">0{i + 1}</p>
+                <h3 className="text-2xl font-extrabold tracking-tight text-black mb-3">{item.title}</h3>
+                <p className="text-foreground/60 font-medium leading-relaxed">{item.body}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -217,7 +220,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
       <section className="py-28 bg-[#F5F5F7]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-16 max-w-2xl">
-            <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">What we look at</p>
+            <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">What decides it</p>
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-black leading-tight mb-4">
               What influences AI search visibility
             </h2>
@@ -237,6 +240,71 @@ export function AISearchPage({ product }: AISearchPageProps) {
         </div>
       </section>
 
+      {/* Services */}
+      <section id="services" className="py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-16 max-w-2xl">
+            <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">How we help</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-black leading-tight mb-4">
+              Audit. Track and manage. Done for you.
+            </h2>
+            <p className="text-foreground/60 text-lg font-medium leading-relaxed">
+              Three ways to work with us, depending on how much you want to hand over. Every one starts with the same check on the questions your customers ask.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {services.map((svc, i) => {
+              const Icon = svc.icon;
+              return (
+                <motion.div
+                  key={svc.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                  className={`rounded-3xl p-10 flex flex-col ${i === 2 ? 'bg-black text-white' : 'bg-[#F5F5F7]'}`}
+                >
+                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 ${i === 2 ? 'bg-white/10' : 'bg-[#004AAD]/10'}`}>
+                    <Icon className={`w-6 h-6 ${i === 2 ? 'text-white' : 'text-[#004AAD]'}`} />
+                  </div>
+                  <p className={`text-[11px] font-bold uppercase tracking-[0.2em] mb-2 ${i === 2 ? 'text-white/40' : 'text-foreground/30'}`}>{svc.label}</p>
+                  <h3 className={`text-2xl font-extrabold tracking-tight mb-3 ${i === 2 ? 'text-white' : 'text-black'}`}>{svc.title}</h3>
+                  <p className={`font-medium leading-relaxed mb-6 ${i === 2 ? 'text-white/70' : 'text-foreground/60'}`}>{svc.body}</p>
+                  <p className={`mt-auto text-sm font-medium ${i === 2 ? 'text-white/50' : 'text-foreground/40'}`}>{svc.fit}</p>
+                </motion.div>
+              );
+            })}
+          </div>
+          <div className="mt-10 flex flex-col sm:flex-row gap-4">
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg"
+            >
+              Talk through the options <ChevronRight className="w-5 h-5" />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* Who it is for */}
+      <section className="py-20 bg-white border-t border-black/5">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Who it is for</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="rounded-3xl bg-[#F5F5F7] p-10">
+              <h3 className="text-2xl font-extrabold tracking-tight text-black mb-3">Businesses</h3>
+              <p className="text-foreground/60 font-medium leading-relaxed">Clinics, trades, professional firms and B2B services. Start with an audit, keep it tracked, or hand the whole thing over. Whichever you pick, we measure the questions your customers ask, not vanity keywords.</p>
+            </div>
+            <div className="rounded-3xl bg-[#F5F5F7] p-10">
+              <h3 className="text-2xl font-extrabold tracking-tight text-black mb-3">Founders and personal brands</h3>
+              <p className="text-foreground/60 font-medium leading-relaxed">When someone asks AI who the experts are in your field, is it your name that comes back? Same audit, same fixes, built around you rather than a company.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Need a hand */}
       <section className="py-28 bg-white">
         <div className="max-w-7xl mx-auto px-6">
@@ -245,7 +313,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
               <p className="mb-4 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">Done for you</p>
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-5">Need a hand?</h2>
               <p className="text-white/70 text-lg font-medium leading-relaxed mb-6">
-                Most businesses do not want to do this themselves. We run the check, make the fixes and track the movement every month, so you can get on with the work. Already have an SEO agency? Keep them. We handle the AI search side and work alongside them.
+                Most businesses do not want to do this themselves. We run the audit, make the fixes and track the movement every month, so you can get on with the work. Already have an SEO agency? Keep them. Take the audit or track and manage, and we work alongside them.
               </p>
               <p className="text-white/50 text-sm font-medium">
                 I have been helping businesses navigate digital change for 25 years. Now it is AI. Be seen in search. Sarah Balmer

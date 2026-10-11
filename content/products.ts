@@ -799,11 +799,11 @@ export const products: Product[] = [
     id: 'geo-audit',
     slug: 'geo-audit',
     type: 'service',
-    label: 'AI SEARCH, DONE FOR YOU',
+    label: 'AI SEARCH VISIBILITY',
     name: 'AI Search Visibility.',
     tagline: 'Is your business in the AI answer?',
     description:
-      'We check how you show up in ChatGPT, Gemini, Perplexity and Google AI, make the fixes, and track the movement every month.',
+      'When customers ask ChatGPT, Gemini or Google AI who to call, are you in the answer? Audit, track and manage, or done for you.',
     image: '/images/geo_audit_hero.jpg',
     letter: 'G',
     color: '#2563EB',
@@ -811,7 +811,7 @@ export const products: Product[] = [
     hero: {
       headline: 'Is your business in the AI answer?',
       subheadline:
-        'When a customer asks ChatGPT, Gemini or Google AI who to call, one answer comes back. Either you are in it, or a competitor is. We check, we fix, we track.',
+        'When a customer asks ChatGPT, Gemini or Google AI who to call, one answer comes back. Either you are in it, or a competitor is. Here is how it works, and how we help: audit, track and manage, or done for you.',
     },
     overview:
       "As Generative AI rapidly reshapes how consumers discover information, traditional SEO is no longer enough. The GEO Audit provides a definitive analysis of your brand's share of voice across major AI engines like ChatGPT, Perplexity, and Grok. Our proven methodology moves sequentially from a comprehensive initial Audit, to identifying strategic Opportunities, Activating targeted campaigns, and maintaining dominance through an ongoing Retainer.",
