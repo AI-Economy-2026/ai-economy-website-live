@@ -53,7 +53,16 @@ const productMap = Object.fromEntries(
   products.map((product) => [product.id, product]),
 ) as Record<string, Product>;
 
-const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
+const featuredCardConfig: (Omit<HomepageCardItem, 'image'> & { image?: string })[] = [
+  {
+    id: 'geo-audit',
+    productId: 'geo-audit',
+    label: 'AI SEARCH',
+    title: 'AI Search Visibility',
+    description: 'Is your business in the answer when customers ask ChatGPT, Gemini or Google AI? Audit, track and manage, or done for you.',
+    cta: 'Check your visibility',
+    href: '/product/geo-audit',
+  },
   {
     id: 'ai-consultancy',
     productId: 'ai-consultancy',
@@ -63,6 +72,16 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
       'Strategic advice, diagnostics, and implementation support to turn AI into measurable business outcomes.',
     cta: "Let's Talk",
     href: '/product/ai-consultancy',
+  },
+  {
+    id: 'sarah-speaks',
+    productId: 'sarah-speaks',
+    label: 'AI TRAINING',
+    title: 'Sarah Speaks',
+    description: 'Practical AI education for leaders and teams. No jargon. No hype. Just usable skills.',
+    cta: 'Join the Waitlist',
+    href: '/product/sarah-speaks',
+    comingSoon: true,
   },
   {
     id: 'priority-ai',
@@ -83,23 +102,13 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     href: '/toolkit',
   },
   {
-    id: 'geo-audit',
-    productId: 'geo-audit',
-    label: 'AI SEARCH',
-    title: 'AI Search Visibility',
-    description: 'Is your business in the answer when customers ask ChatGPT, Gemini or Google AI? Audit, track and manage, or done for you.',
-    cta: 'Check your visibility',
-    href: '/product/geo-audit',
-  },
-  {
-    id: 'sarah-speaks',
-    productId: 'sarah-speaks',
-    label: 'AI TRAINING',
-    title: 'Sarah Speaks',
-    description: 'Practical AI education for leaders and teams. No jargon. No hype. Just usable skills.',
-    cta: 'Join the Waitlist',
-    href: '/product/sarah-speaks',
-    comingSoon: true,
+    id: 'partner-program',
+    image: '/images/white_label_hero.jpg',
+    label: 'WHITE LABEL PARTNERS',
+    title: 'Sell more of what you do',
+    description: 'Agencies, consultants and SEO firms: put our tools under your brand. The AI search tool to audit, track and manage visibility, and the Priority AI diagnostic. Done for you is on offer to white label partners too.',
+    cta: 'Talk to us',
+    href: '/contact',
   },
   {
     id: 'prolinks',
@@ -123,19 +132,11 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     external: true,
     comingSoon: true,
   },
-  {
-    id: 'partner-program',
-    label: 'WHITE LABEL PARTNERS',
-    title: 'Sell more of what you do',
-    description: 'Agencies, consultants and SEO firms: put our tools under your brand. The AI search tool to audit, track and manage visibility, and the Priority AI diagnostic. Done for you is on offer to white label partners too.',
-    cta: 'Talk to us',
-    href: '/contact',
-  },
 ];
 
 export const homepageFeaturedCards: HomepageCardItem[] = featuredCardConfig.map((card) => ({
   ...card,
-  image: card.productId ? productMap[card.productId]?.image : undefined,
+  image: card.image ?? (card.productId ? productMap[card.productId]?.image : undefined),
 }));
 
 export const homepageFeaturedIntro: HomepageSectionIntro = {
