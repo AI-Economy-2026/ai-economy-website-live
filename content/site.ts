@@ -11,7 +11,7 @@ export type FooterSection = {
 
 export const siteConfig = {
   name: 'AI Economy',
-  shortName: 'AI ECONOMY',
+  shortName: 'AIECONOMY',
   description:
     'Helping businesses simplify the complex and focus on what works in the AI era.',
   copyright: '© 2026 AI Economy. All rights reserved.',

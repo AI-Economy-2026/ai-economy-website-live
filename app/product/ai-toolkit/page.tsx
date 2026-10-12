@@ -39,7 +39,7 @@ function ToolkitNav() {
             className="flex items-center gap-2 text-foreground/60 hover:text-foreground transition-colors font-semibold text-sm group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>AI Economy</span>
+            <span>AIEconomy</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-0.5">

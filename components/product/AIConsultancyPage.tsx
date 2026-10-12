@@ -38,7 +38,7 @@ export function AIConsultancyPage({ product }: AIConsultancyPageProps) {
             className="flex items-center space-x-2 text-foreground/60 hover:text-foreground transition-colors font-semibold text-sm group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>AI Economy</span>
+            <span>AIEconomy</span>
           </Link>
           <span className="text-[11px] font-bold text-foreground/30 uppercase tracking-widest">{product.label}</span>
           <a
