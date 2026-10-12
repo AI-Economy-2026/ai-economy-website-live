@@ -132,7 +132,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </div>
 
       {/* Hero */}
-      <section className="relative pt-14 min-h-[85vh] flex items-center overflow-hidden bg-black text-white">
+      <section className="relative pt-14 min-h-[85vh] flex items-center overflow-hidden bg-[#1C1C1E] text-white">
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 w-full">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -168,7 +168,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* Stats */}
-      <section className="bg-[#0d1b2a] border-b border-white/10">
+      <section className="bg-[#1C1C1E] border-b border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-14">
           <p className="mb-8 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">Search is moving. Those who start early will win.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -178,7 +178,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
                   {s.value} {s.unit && <span className="text-base font-medium text-white/50">{s.unit}</span>}
                 </div>
                 <p className="mt-2 text-white/70 text-sm font-medium">{s.body}</p>
-                <p className="mt-1 text-white/35 text-xs">{s.source}</p>
+                <p className="mt-1 text-white/60 text-xs">{s.source}</p>
               </div>
             ))}
           </div>
@@ -190,8 +190,8 @@ export function AISearchPage({ product }: AISearchPageProps) {
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-16 max-w-2xl">
             <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">AI search visibility, explained</p>
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-black leading-tight mb-4">
-              What it is, and why it matters now
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-[#20242C] leading-tight mb-4">
+              What it is, and <span className="text-[#004AAD]">why it matters now</span>
             </h2>
             <p className="text-foreground/60 text-lg font-medium leading-relaxed">
               AI search visibility is simple to define: when someone asks an AI engine a question your business should answer, does your name come back? Three things to know.
@@ -205,10 +205,10 @@ export function AISearchPage({ product }: AISearchPageProps) {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08 }}
-                className="bg-[#F5F5F7] rounded-3xl p-10"
+                className="bg-[#F4F4F6] rounded-3xl p-10"
               >
                 <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/30 mb-3">0{i + 1}</p>
-                <h3 className="text-2xl font-extrabold tracking-tight text-black mb-3">{item.title}</h3>
+                <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] mb-3">{item.title}</h3>
                 <p className="text-foreground/60 font-medium leading-relaxed">{item.body}</p>
               </motion.div>
             ))}
@@ -217,12 +217,12 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* What influences AI search visibility */}
-      <section className="py-28 bg-[#F5F5F7]">
+      <section className="py-28 bg-[#F4F4F6]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-16 max-w-2xl">
             <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">What decides it</p>
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-black leading-tight mb-4">
-              What influences AI search visibility
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-[#20242C] leading-tight mb-4">
+              What influences <span className="text-[#004AAD]">AI search visibility</span>
             </h2>
             <p className="text-foreground/60 text-lg font-medium leading-relaxed">
               AI engines do not rank pages. They build an answer from what they can find and trust about you. Six things decide whether you are in it.
@@ -232,7 +232,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
             {influences.map((item) => (
               <div key={item.n} className="bg-white rounded-3xl p-8">
                 <div className="w-8 h-8 rounded-full bg-[#004AAD]/10 text-[#004AAD] text-sm font-bold flex items-center justify-center mb-5">{item.n}</div>
-                <h3 className="text-xl font-bold text-black mb-2">{item.title}</h3>
+                <h3 className="text-xl font-bold text-[#20242C] mb-2">{item.title}</h3>
                 <p className="text-foreground/60 font-medium leading-relaxed">{item.body}</p>
               </div>
             ))}
@@ -245,8 +245,8 @@ export function AISearchPage({ product }: AISearchPageProps) {
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-16 max-w-2xl">
             <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">How we help</p>
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-black leading-tight mb-4">
-              Audit. Track and manage. Done for you.
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-[#20242C] leading-tight mb-4">
+              Audit. Track and manage. <span className="text-[#004AAD]">Done for you.</span>
             </h2>
             <p className="text-foreground/60 text-lg font-medium leading-relaxed">
               Three ways to work with us, depending on how much you want to hand over. Every one starts with the same check on the questions your customers ask.
@@ -262,13 +262,13 @@ export function AISearchPage({ product }: AISearchPageProps) {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
-                  className={`rounded-3xl p-10 flex flex-col ${i === 2 ? 'bg-black text-white' : 'bg-[#F5F5F7]'}`}
+                  className={`rounded-3xl p-10 flex flex-col ${i === 2 ? 'bg-[#1C1C1E] text-white' : 'bg-[#F4F4F6]'}`}
                 >
                   <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 ${i === 2 ? 'bg-white/10' : 'bg-[#004AAD]/10'}`}>
                     <Icon className={`w-6 h-6 ${i === 2 ? 'text-white' : 'text-[#004AAD]'}`} />
                   </div>
                   <p className={`text-[11px] font-bold uppercase tracking-[0.2em] mb-2 ${i === 2 ? 'text-white/40' : 'text-foreground/30'}`}>{svc.label}</p>
-                  <h3 className={`text-2xl font-extrabold tracking-tight mb-3 ${i === 2 ? 'text-white' : 'text-black'}`}>{svc.title}</h3>
+                  <h3 className={`text-2xl font-extrabold tracking-tight mb-3 ${i === 2 ? 'text-white' : 'text-[#20242C]'}`}>{svc.title}</h3>
                   <p className={`font-medium leading-relaxed mb-6 ${i === 2 ? 'text-white/70' : 'text-foreground/60'}`}>{svc.body}</p>
                   <p className={`mt-auto text-sm font-medium ${i === 2 ? 'text-white/50' : 'text-foreground/40'}`}>{svc.fit}</p>
                 </motion.div>
@@ -293,12 +293,12 @@ export function AISearchPage({ product }: AISearchPageProps) {
         <div className="max-w-7xl mx-auto px-6">
           <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Who it is for</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-3xl bg-[#F5F5F7] p-10">
-              <h3 className="text-2xl font-extrabold tracking-tight text-black mb-3">Businesses</h3>
+            <div className="rounded-3xl bg-[#F4F4F6] p-10">
+              <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] mb-3">Businesses</h3>
               <p className="text-foreground/60 font-medium leading-relaxed">Clinics, trades, professional firms and B2B services. Start with an audit, keep it tracked, or hand the whole thing over. Whichever you pick, we measure the questions your customers ask, not vanity keywords.</p>
             </div>
-            <div className="rounded-3xl bg-[#F5F5F7] p-10">
-              <h3 className="text-2xl font-extrabold tracking-tight text-black mb-3">Founders and personal brands</h3>
+            <div className="rounded-3xl bg-[#F4F4F6] p-10">
+              <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] mb-3">Founders and personal brands</h3>
               <p className="text-foreground/60 font-medium leading-relaxed">When someone asks AI who the experts are in your field, is it your name that comes back? Same audit, same fixes, built around you rather than a company.</p>
             </div>
           </div>
@@ -308,7 +308,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
       {/* Need a hand */}
       <section className="py-28 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <div className="rounded-3xl bg-black text-white p-10 md:p-16 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
+          <div className="rounded-3xl bg-[#1C1C1E] text-white p-10 md:p-16 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
             <div>
               <p className="mb-4 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">Done for you</p>
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-5">Need a hand?</h2>
@@ -355,10 +355,10 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-28 bg-[#F5F5F7]">
+      <section id="contact" className="py-28 bg-[#F4F4F6]">
         <div className="max-w-2xl mx-auto px-6 text-center">
           <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Get in touch</p>
-          <h2 className="mb-4 text-5xl md:text-6xl font-extrabold tracking-tighter text-black leading-[0.9]">
+          <h2 className="mb-4 text-5xl md:text-6xl font-extrabold tracking-tighter text-[#20242C] leading-[0.9]">
             Find out where you stand.
           </h2>
           <p className="mb-12 text-foreground/60 text-lg font-medium leading-relaxed">
