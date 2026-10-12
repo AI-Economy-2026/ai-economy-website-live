@@ -68,6 +68,39 @@ const stats = [
   { value: '15% to 8%', unit: '', body: 'Clicks on normal Google results when an AI answer is shown.', source: 'Pew Research Center, 2025' },
 ];
 
+const examples = [
+  {
+    id: 'business',
+    tab: 'A business',
+    name: 'AI Economy',
+    date: '11 Oct 2026',
+    question: 'Who can help my business get started with AI in Australia?',
+    verdict: '0 of 3 engines named AI Economy.',
+    meaning: 'When a business owner asks an AI where to start, AI Economy is not in the answer. Government centres and a handful of consultancies are, and they get the enquiry.',
+    todo: 'A page that answers this exact question, a listing in the National AI Centre directory, and one consistent description of AI Economy across the site, LinkedIn and Google. Most of it is a 30-day job.',
+    engines: [
+      { key: 'chatgpt', label: 'ChatGPT', img: '/images/checks/aieconomy-chatgpt.jpg', summary: 'Pointed to government AI Adopt Centres, then three private consultancies. AI Economy not among them.', named: ['AI Adopt Centres', 'Digital Solutions', 'ARM Hub', 'Netriq AI', 'Kersai'] },
+      { key: 'claude', label: 'Claude', img: '/images/checks/aieconomy-claude.jpg', summary: 'Government programs, the National AI Centre directory and "independent strategists" in general. AI Economy not named.', named: ['AI Adopt Centres', 'Boab AI', 'elevenM', 'AdoptAI', 'SA AI Capability Pilot'] },
+      { key: 'perplexity', label: 'Perplexity', img: '/images/checks/aieconomy-perplexity.jpg', summary: 'A six-row table of providers, led by SMEC AI in Melbourne. AI Economy not among them.', named: ['SMEC AI', 'ARM Hub', 'Mindset A.I', 'AI Lab Australia', 'Protiviti'] },
+    ],
+  },
+  {
+    id: 'founder',
+    tab: 'A founder',
+    name: 'Sarah Balmer',
+    date: '11 Oct 2026',
+    question: 'Who are the best AI speakers and trainers in Australia?',
+    verdict: '0 of 3 engines named Sarah Balmer.',
+    meaning: 'When an event organiser or business asks an AI who to book, Sarah is not in the answer. The names that are come from speaker bureau lists and "best of" roundups the engines trust.',
+    todo: 'A speaker page that says plainly what Sarah speaks and trains on, a bureau or directory listing, and a couple of third-party mentions. Then the engines have something to quote.',
+    engines: [
+      { key: 'chatgpt', label: 'ChatGPT', img: '/images/checks/sarah-balmer-chatgpt.jpg', summary: 'A ten-name table split into keynote speakers, strategists and trainers. Sarah Balmer not among them.', named: ['Toby Walsh', 'Ross Dawson', 'Steve Sammartino', 'Gihan Perera', 'Simon Kriss'] },
+      { key: 'claude', label: 'Claude', img: '/images/checks/sarah-balmer-claude.jpg', summary: 'Six names drawn from bureau and "best of 2026" lists. Sarah Balmer not among them.', named: ['Ross Dawson', 'Amanda Johnstone', 'Sean Gallagher', 'Anders Sörman-Nilsson', 'Simon Kriss'] },
+      { key: 'perplexity', label: 'Perplexity', img: '/images/checks/sarah-balmer-perplexity.jpg', summary: 'Five keynote speakers and four practical trainers, sourced from bureaus and speaker directories. Sarah Balmer not among them.', named: ['Toby Walsh', 'Catriona Wallace', 'Simon Kriss', 'Amanda Johnstone', 'Marek Kowalkiewicz'] },
+    ],
+  },
+];
+
 const faqs = [
   {
     question: 'What is AI search?',
@@ -288,6 +321,22 @@ export function AISearchPage({ product }: AISearchPageProps) {
         </div>
       </section>
 
+      {/* Examples */}
+      <section id="examples" className="py-28 bg-white border-t border-black/5">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-12 max-w-2xl">
+            <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Examples</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-black leading-tight mb-4">
+              We ran it on ourselves first.
+            </h2>
+            <p className="text-foreground/60 text-lg font-medium leading-relaxed">
+              One question a customer would ask, put to three AI engines on the same day. Here is what came back, screenshots included. Neither of us was in the answer. That is the point: most businesses are not, yet.
+            </p>
+          </div>
+          <Examples />
+        </div>
+      </section>
+
       {/* Who it is for */}
       <section className="py-20 bg-white border-t border-black/5">
         <div className="max-w-7xl mx-auto px-6">
@@ -369,6 +418,76 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       <Footer minimal />
+    </div>
+  );
+}
+
+function Examples() {
+  const [ex, setEx] = useState(0);
+  const [eng, setEng] = useState(0);
+  const example = examples[ex];
+  const engine = example.engines[eng];
+  return (
+    <div>
+      <div className="flex flex-wrap gap-2 mb-8">
+        {examples.map((e, i) => (
+          <button
+            key={e.id}
+            onClick={() => { setEx(i); setEng(0); }}
+            className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${i === ex ? 'bg-black text-white' : 'bg-[#F5F5F7] text-foreground/60 hover:text-foreground'}`}
+          >
+            {e.tab}: {e.name}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.3fr] gap-6">
+        <div className="rounded-3xl bg-[#F5F5F7] p-8 md:p-10 flex flex-col">
+          <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/30 mb-3">The question · {example.date}</p>
+          <p className="text-2xl md:text-3xl font-extrabold tracking-tight text-black leading-snug mb-6">&ldquo;{example.question}&rdquo;</p>
+          <div className="flex items-baseline gap-3 mb-6">
+            <span className="text-6xl font-extrabold tracking-tighter text-[#E0574A]">0<span className="text-2xl text-foreground/30 font-bold"> / 3</span></span>
+            <span className="text-foreground/60 font-medium">{example.verdict}</span>
+          </div>
+          <div className="space-y-5 text-sm">
+            <div>
+              <p className="font-bold text-black mb-1">What it means</p>
+              <p className="text-foreground/60 font-medium leading-relaxed">{example.meaning}</p>
+            </div>
+            <div>
+              <p className="font-bold text-black mb-1">What to do</p>
+              <p className="text-foreground/60 font-medium leading-relaxed">{example.todo}</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-black/10 overflow-hidden flex flex-col">
+          <div className="flex border-b border-black/10 bg-[#F5F5F7]">
+            {example.engines.map((e, i) => (
+              <button
+                key={e.key}
+                onClick={() => setEng(i)}
+                className={`flex-1 px-4 py-3.5 text-sm font-semibold transition-all ${i === eng ? 'bg-white text-black' : 'text-foreground/50 hover:text-foreground'}`}
+              >
+                {e.label}
+              </button>
+            ))}
+          </div>
+          <div className="p-6">
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#E0574A]/10 text-[#B8432F] text-xs font-bold">Not mentioned</span>
+              <span className="text-xs text-foreground/40 font-medium">Named instead:</span>
+              {engine.named.map((n) => (
+                <span key={n} className="inline-flex items-center px-3 py-1 rounded-full bg-[#F5F5F7] text-foreground/70 text-xs font-semibold">{n}</span>
+              ))}
+            </div>
+            <p className="text-sm text-foreground/60 font-medium leading-relaxed mb-5">{engine.summary}</p>
+            <div className="rounded-2xl overflow-hidden border border-black/10 bg-[#F5F5F7]">
+              <img src={engine.img} alt={`${engine.label} answer to: ${example.question}`} className="w-full h-auto" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
