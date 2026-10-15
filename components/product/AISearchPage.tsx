@@ -37,10 +37,10 @@ function EngineChips({ className = '' }: { className?: string }) {
 }
 
 const helpCtas = [
-  { icon: Search, title: 'Book an audit', body: 'We ask the engines the questions your customers ask and show you who gets named.', cta: 'Call us for an audit', href: BOOKING_URL },
-  { icon: ClipboardCheck, title: 'Assess your AI readiness', body: 'A short review of how ready your business is for AI-led search and AI in the business.', cta: 'Assess your readiness', href: '/product/priority-ai' },
-  { icon: Wrench, title: 'Site health and setup', body: 'Can the engines read your site? We check the crawl, structure and schema, then fix it.', cta: 'Check my site', href: BOOKING_URL },
-  { icon: Gauge, title: 'Prompt tracking support', body: 'We pick the prompts that matter, track them weekly and report against your starting point.', cta: 'Get tracking support', href: BOOKING_URL },
+  { icon: Search, title: 'Book an audit', body: 'We ask the engines the questions your customers ask and show you who gets named', cta: 'Call us for an audit', href: BOOKING_URL },
+  { icon: ClipboardCheck, title: 'Assess your AI readiness', body: 'A short review of how ready your business is for AI-led search and AI in the business', cta: 'Assess your readiness', href: '/product/priority-ai' },
+  { icon: Wrench, title: 'Site health and setup', body: 'Can the engines read your site? We check the crawl, structure and schema, then fix it', cta: 'Check my site', href: BOOKING_URL },
+  { icon: Gauge, title: 'Prompt tracking support', body: 'We pick the prompts that matter, track them weekly and report against your starting point', cta: 'Get tracking support', href: BOOKING_URL },
 ];
 
 const explainer = [
@@ -64,31 +64,31 @@ const services = [
     label: 'Audit',
     title: 'Know where you stand',
     body: 'A one-off check across ChatGPT, Claude, Gemini, Perplexity and Google AI on the questions your customers actually ask. You get the answers, screenshots included, who gets named instead of you, and a plain-English list of what to fix.',
-    fit: 'For businesses that want the facts first, or have a team who can action a list.',
+    fit: 'For businesses that want the facts first, or have a team who can action a list',
   },
   {
     icon: Activity,
     label: 'Track and manage',
     title: 'Watch it move, every month',
     body: 'The same questions run weekly across every engine, with a monthly report against your starting point. We keep the fix list current as the answers shift, and you or your agency work through it.',
-    fit: 'For businesses with in-house marketing or an SEO agency already in place.',
+    fit: 'For businesses with in-house marketing or an SEO agency already in place',
   },
   {
     icon: Wrench,
     label: 'Done for you',
     title: 'We check, we fix, we track',
     body: 'We run the audit, make the fixes ourselves (answer pages, listings, consistency, reviews, structured data) and track the movement every month. You get on with the work; we handle the whole thing.',
-    fit: 'For founders and businesses who do not want another to-do list.',
+    fit: 'For founders and businesses who do not want another to-do list',
   },
 ];
 
 const influences = [
   { n: '1', title: 'Answer pages', body: 'Does your site answer the questions customers ask, in plain words an AI can quote?' },
-  { n: '2', title: 'Site crawl', body: 'Can the AI engines read your site at all? Speed, structure, blocked pages and broken links.' },
-  { n: '3', title: 'Citations', body: 'Who else mentions you? Directories, industry sites, local media and partners the engines trust.' },
+  { n: '2', title: 'Site crawl', body: 'Can the AI engines read your site at all? Speed, structure, blocked pages and broken links' },
+  { n: '3', title: 'Citations', body: 'Who else mentions you? Directories, industry sites, local media and partners the engines trust' },
   { n: '4', title: 'Consistency', body: 'Is your name, address, services and description identical across your site, Google listing and socials?' },
   { n: '5', title: 'Reviews', body: 'How many, how recent, and what they say. Engines read reviews as evidence.' },
-  { n: '6', title: 'Structured data', body: 'The code behind the page that tells an engine what kind of business you are and what you do.' },
+  { n: '6', title: 'Structured data', body: 'The code behind the page that tells an engine what kind of business you are and what you do' },
 ];
 
 const stats = [
@@ -199,7 +199,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
           >
             <p className="mb-6 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">AI search visibility for founders and businesses</p>
             <h1 className="mb-8 text-5xl md:text-[96px] font-extrabold text-white tracking-tighter leading-[0.9]">
-              The search game<br />has changed.
+              The search game<br />has changed
             </h1>
             <p className="mb-8 text-white/70 text-xl md:text-2xl font-medium max-w-2xl leading-snug">
               Customers now ask ChatGPT, Claude, Gemini, Perplexity and Google AI who to call. Each gives its own answer, and the answers keep moving. The aim is not to show up once. It is to be found, again and again, in all search.
@@ -279,7 +279,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
               AI answers are fluid. Ask the same question twice and the names change, so nobody can promise you a spot. What we can do is measure how often you appear, work on the things that decide it, and show you the movement.
             </p>
             <p className="text-foreground/60 text-lg font-medium leading-relaxed mb-8">
-              That is the difference between hoping and knowing.
+              That is the difference between hoping and knowing
             </p>
             <EngineChips />
           </div>
@@ -348,9 +348,9 @@ export function AISearchPage({ product }: AISearchPageProps) {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { n: '01', title: 'Choose the prompts', body: 'We agree the questions that matter to your business: who to call, who to trust, who is best for what.' },
-              { n: '02', title: 'Run them on every engine', body: 'The same prompts run again and again across ChatGPT, Claude, Gemini, Perplexity and Google AI, because one answer proves nothing.' },
-              { n: '03', title: 'Report the movement', body: 'You see how often you are named, who is named instead, and what changed since your starting point. We do not guarantee a result. We show you the real one.' },
+              { n: '01', title: 'Choose the prompts', body: 'We agree the questions that matter to your business: who to call, who to trust, who is best for what' },
+              { n: '02', title: 'Run them on every engine', body: 'The same prompts run again and again across ChatGPT, Claude, Gemini, Perplexity and Google AI, because one answer proves nothing' },
+              { n: '03', title: 'Report the movement', body: 'You see how often you are named, who is named instead, and what changed since your starting point. We do not guarantee a result. We show you the real one' },
             ].map((t) => (
               <div key={t.n} className="border-t border-white/10 pt-6">
                 <p className="mb-3 text-white/40 text-xs font-bold tracking-[0.2em]">{t.n}</p>
@@ -368,7 +368,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
           <div className="mb-16 max-w-2xl">
             <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">How we help</p>
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-[#20242C] leading-tight mb-4">
-              Audit. Track and manage. <span className="text-[#004AAD]">Done for you.</span>
+              Audit, track and manage, <span className="text-[#004AAD]">done for you</span>
             </h2>
             <p className="text-[#20242C]/60 text-lg font-medium leading-relaxed">
               Three ways to work with us, depending on how much you want to hand over. Every one starts with the same check on the questions your customers ask.
@@ -510,7 +510,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
         <div className="max-w-4xl mx-auto px-6">
           <div className="mb-16">
             <p className="mb-4 text-[11px] font-bold text-foreground/30 uppercase tracking-[0.2em]">AI search, explained</p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Questions, answered.</h2>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Questions, answered</h2>
           </div>
           <div className="divide-y divide-black/10 border-t border-black/10">
             {faqs.map((faq, i) => (
@@ -525,7 +525,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
         <div className="max-w-2xl mx-auto px-6 text-center">
           <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Get in touch</p>
           <h2 className="mb-4 text-5xl md:text-6xl font-extrabold tracking-tighter text-[#20242C] leading-[0.9]">
-            Find out where you stand.
+            Find out where you stand
           </h2>
           <p className="mb-12 text-foreground/60 text-lg font-medium leading-relaxed">
             Tell us your business and the question your customers ask. We will run the check and show you the answer.
