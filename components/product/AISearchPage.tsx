@@ -92,9 +92,15 @@ const influences = [
 ];
 
 const stats = [
-  { from: 0, to: 1, decimals: 0, suffix: ' billion', unit: 'a week', body: 'ChatGPT weekly users, up from 900 million six months earlier.', source: 'OpenAI, Aug 2026' },
-  { from: 0, to: 2.5, decimals: 1, suffix: ' billion', unit: 'a month', body: 'People seeing Google AI Overviews above the results.', source: 'Google I/O via CNBC, May 2026' },
-  { from: 15, to: 8, decimals: 0, suffix: '%', unit: 'click rate', body: 'Clicks on normal Google results fall from 15% to 8% when an AI answer is shown.', source: 'Pew Research Center, 2025' },
+  { to: 14, decimals: 0, suffix: ' billion', label: 'Daily searches', sub: 'Google Search' },
+  { to: 2.5, decimals: 1, suffix: ' billion', label: 'Monthly users', sub: 'Google AI Overviews' },
+  { to: 1, decimals: 0, suffix: ' billion', label: 'Monthly users', sub: 'Google AI Mode' },
+  { to: 900, decimals: 0, suffix: ' million', label: 'Weekly users', sub: 'ChatGPT' },
+];
+
+const growth = [
+  { title: 'ChatGPT weekly users', from: 400, to: 900, decimals: 0, suffix: 'M', startLabel: 'Feb 2025', endLabel: 'Feb 2026' },
+  { title: 'Google AI Overviews monthly users', from: 1.5, to: 2.5, decimals: 1, suffix: 'B', startLabel: 'May 2025', endLabel: 'May 2026' },
 ];
 
 function CountUp({ from, to, decimals, suffix }: { from: number; to: number; decimals: number; suffix: string }) {
@@ -211,20 +217,45 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* Stats */}
-      <section className="bg-[#1C1C1E] border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 py-14">
-          <p className="mb-8 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">Search is moving. Those who start early will win.</p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {stats.map((s) => (
-              <div key={s.body} className="border-t border-white/10 pt-6">
-                <div className="text-5xl md:text-6xl font-extrabold tracking-tighter text-white">
-                  <CountUp from={s.from} to={s.to} decimals={s.decimals} suffix={s.suffix} /> <span className="ml-1 text-base font-medium tracking-normal text-white/50">{s.unit}</span>
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-6 py-20">
+          <p className="mb-3 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">AI search is here to stay</p>
+          <p className="mb-12 max-w-2xl text-[#20242C]/70 text-lg font-medium leading-relaxed">
+            Buyers still Google, and more of them now ask ChatGPT, Claude, Gemini and Perplexity. If AI does not name you, it names someone else.
+          </p>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-10">
+            {stats.map((st) => (
+              <div key={st.sub} className="border-t border-[#20242C]/20 pt-6">
+                <div className="text-4xl md:text-5xl font-extrabold tracking-tighter text-[#20242C]">
+                  <CountUp from={0} to={st.to} decimals={st.decimals} suffix={st.suffix} />
                 </div>
-                <p className="mt-2 text-white/70 text-sm font-medium">{s.body}</p>
-                <p className="mt-1 text-white/60 text-xs">{s.source}</p>
+                <p className="mt-3 text-[#20242C] text-sm font-semibold">{st.label}</p>
+                <p className="text-[#20242C]/60 text-sm font-medium">{st.sub}</p>
               </div>
             ))}
           </div>
+          <div className="mt-16">
+            <p className="mb-3 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">AI search, one year on</p>
+            <p className="mb-10 max-w-2xl text-[#20242C]/70 text-lg font-medium leading-relaxed">More places to get found. AI search is gaining real traction.</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-10">
+              {growth.map((g) => (
+                <div key={g.title} className="border-t border-[#20242C]/20 pt-6">
+                  <p className="text-[#20242C] text-sm font-semibold mb-3">{g.title}</p>
+                  <div className="flex items-baseline gap-6">
+                    <div>
+                      <div className="text-2xl font-extrabold tracking-tighter text-[#20242C]/40">{g.from}{g.suffix}</div>
+                      <p className="text-[#20242C]/50 text-xs font-medium">{g.startLabel}</p>
+                    </div>
+                    <div>
+                      <div className="text-5xl font-extrabold tracking-tighter text-[#004AAD]"><CountUp from={g.from} to={g.to} decimals={g.decimals} suffix={g.suffix} /></div>
+                      <p className="text-[#20242C]/50 text-xs font-medium">{g.endLabel}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <p className="mt-12 text-[#20242C]/50 text-xs font-medium">Sources: Google (5 trillion searches a year, 2025; AI Overviews at I/O May 2025 and May 2026; AI Mode, I/O May 2026), OpenAI (February 2025 and February 2026).</p>
         </div>
       </section>
 
@@ -279,22 +310,21 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* What influences AI search visibility */}
-      <section className="relative overflow-hidden py-28 bg-[#1C1C1E] text-white">
-        <img src="/images/abstract_ribbons.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-60" />
+      <section className="relative overflow-hidden py-28 bg-white text-[#20242C]">
         <div className="relative max-w-7xl mx-auto px-6">
           <div className="mb-16 max-w-2xl">
-            <p className="mb-4 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">What decides it</p>
+            <p className="mb-4 text-[#004AAD] text-xs font-bold uppercase tracking-[0.2em]">What decides it</p>
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-4">What influences AI search visibility</h2>
-            <p className="text-white/70 text-lg font-medium leading-relaxed">
+            <p className="text-[#20242C]/70 text-lg font-medium leading-relaxed">
               AI engines do not rank pages. They build an answer from what they can find and trust about you. Six things decide whether you are in it.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
             {influences.map((item) => (
-              <div key={item.n} className="border-t border-white/20 pt-6">
-                <p className="mb-3 text-white/50 text-xs font-bold tracking-[0.2em]">0{item.n}</p>
+              <div key={item.n} className="border-t border-[#20242C]/20 pt-6">
+                <p className="mb-3 text-[#20242C]/40 text-xs font-bold tracking-[0.2em]">0{item.n}</p>
                 <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-white/70 font-medium leading-relaxed">{item.body}</p>
+                <p className="text-[#20242C]/70 font-medium leading-relaxed">{item.body}</p>
               </div>
             ))}
           </div>
@@ -384,7 +414,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
                 <a key={c.title} href={c.href} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className="group grid grid-cols-1 md:grid-cols-[1fr_1.5fr_12rem] items-center gap-3 md:gap-10 border-b border-[#20242C]/20 py-7">
                   <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] group-hover:text-[#004AAD] transition-colors">{c.title}</h3>
                   <p className="text-[#20242C]/70 font-medium leading-relaxed">{c.body}</p>
-                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#004AAD] md:justify-end">{c.cta} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#004AAD] md:justify-end">{c.cta}</span>
                 </a>
               );
             })}
@@ -444,26 +474,26 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* Partner with us */}
-      <section className="relative overflow-hidden bg-[#1C1C1E] text-white">
-        <img src="/images/white_label_hero_web.jpg" alt="" className="absolute inset-y-0 right-0 h-full w-full object-cover opacity-50 lg:w-3/5" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1C1C1E] via-[#1C1C1E]/80 to-transparent" />
+      <section className="relative overflow-hidden bg-white text-[#20242C]">
+        <img src="/images/white_label_hero_web.jpg" alt="" className="absolute inset-y-0 right-0 h-full w-full object-cover opacity-90 lg:w-1/2" />
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent" />
         <div className="relative max-w-7xl mx-auto px-6">
           <div>
             <div className="py-28 max-w-2xl">
-              <Handshake className="w-7 h-7 text-white mb-6" />
-              <p className="mb-4 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">Agencies and resellers</p>
+              <Handshake className="w-7 h-7 text-[#004AAD] mb-6" />
+              <p className="mb-4 text-[#20242C]/50 text-xs font-bold uppercase tracking-[0.2em]">Agencies and resellers</p>
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-5">Want to partner with us?</h2>
-              <p className="text-white/70 text-lg font-medium leading-relaxed mb-4">
+              <p className="text-[#20242C]/70 text-lg font-medium leading-relaxed mb-4">
                 Your clients are asking where they show up in ChatGPT, Claude and Google AI. Gatha is the audit and tracking tool behind this service, and you can run it under your own brand with white label reports.
               </p>
-              <p className="text-white/70 text-lg font-medium leading-relaxed mb-8">
+              <p className="text-[#20242C]/70 text-lg font-medium leading-relaxed mb-8">
                 Resell it as it is, or hand us the client work and we deliver it done for you, with you as the face.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href={PARTNER_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg">
                   See the reseller program <ChevronRight className="w-5 h-5" />
                 </a>
-                <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-10 py-5 border border-white/25 text-white rounded-full font-semibold hover:bg-white/10 transition-all text-lg">
+                <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-10 py-5 border border-[#20242C] text-[#20242C] rounded-full font-semibold hover:bg-[#20242C]/5 transition-all text-lg">
                   Talk to us first
                 </a>
               </div>

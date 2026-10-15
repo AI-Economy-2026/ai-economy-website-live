@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowDown, ArrowRight } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import {
   homepageCta,
   homepageFeaturedIntro,
@@ -61,7 +61,6 @@ export default function HomePage() {
             >
               <span className="flex-shrink-0 whitespace-nowrap rounded-full bg-[#004AAD] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-white">AI search</span>
               <span className="text-sm font-semibold leading-snug text-[#20242C]">Is your business in the AI answer? Find out, and how we help.</span>
-              <ArrowRight className="ml-auto h-4 w-4 flex-shrink-0 text-[#004AAD]" />
             </Link>
             <a
               href={homepageHero.ctaHref}
