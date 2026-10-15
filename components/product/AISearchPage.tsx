@@ -186,7 +186,8 @@ export function AISearchPage({ product }: AISearchPageProps) {
       {/* Hero */}
       <section className="relative pt-14 min-h-[90vh] flex items-center overflow-hidden bg-[#1C1C1E] text-white">
         <div className="absolute inset-0 z-0">
-          <img src="/images/geo_audit_hero_web.jpg" alt="" className="w-full h-full object-cover opacity-30" />
+          <img src="/images/geo_audit_hero_web.jpg" alt="" className="w-full h-full object-cover opacity-40 grayscale" />
+          <div className="absolute inset-0 bg-[#004AAD] mix-blend-multiply opacity-70" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#1C1C1E] via-[#1C1C1E]/90 to-transparent" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-6 py-24 w-full">
@@ -263,7 +264,8 @@ export function AISearchPage({ product }: AISearchPageProps) {
       <section className="py-28 bg-white">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="relative overflow-hidden rounded-3xl aspect-[4/3] bg-[#1C1C1E]">
-            <img src="/images/priority_ai_hero_web.jpg" alt="" className="absolute inset-0 w-full h-full object-cover opacity-80" />
+            <img src="/images/priority_ai_hero_web.jpg" alt="" className="absolute inset-0 w-full h-full object-cover grayscale" />
+            <div className="absolute inset-0 bg-[#004AAD] mix-blend-multiply opacity-80" />
           </div>
           <div>
             <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Not just showing up</p>
@@ -475,7 +477,8 @@ export function AISearchPage({ product }: AISearchPageProps) {
 
       {/* Partner with us */}
       <section className="relative overflow-hidden bg-white text-[#20242C]">
-        <img src="/images/white_label_hero_web.jpg" alt="" className="absolute inset-y-0 right-0 h-full w-full object-cover opacity-90 lg:w-1/2" />
+        <img src="/images/white_label_hero_web.jpg" alt="" className="absolute inset-y-0 right-0 h-full w-full object-cover opacity-90 grayscale lg:w-1/2" />
+        <div className="absolute inset-y-0 right-0 w-full bg-[#004AAD] mix-blend-multiply opacity-60 lg:w-1/2" />
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent" />
         <div className="relative max-w-7xl mx-auto px-6">
           <div>
