@@ -15,7 +15,26 @@ interface AISearchPageProps {
 const BOOKING_URL = 'https://calendar.app.google/KMWhVZmsAGEMrna2A';
 const PARTNER_URL = 'https://gatha.ai';
 
-const engines = ['ChatGPT', 'Claude', 'Gemini', 'Perplexity', 'Google AI Overviews', 'Microsoft Copilot', 'Grok'];
+const engines = [
+  { name: 'ChatGPT', logo: '/logos/openai.svg' },
+  { name: 'Claude', logo: '/logos/anthropic.svg' },
+  { name: 'Gemini', logo: '/logos/googlegemini.svg' },
+  { name: 'Perplexity', logo: '/logos/perplexity.svg' },
+  { name: 'Google AI Overviews', logo: '/logos/google.svg' },
+];
+
+function EngineChips({ className = '' }: { className?: string }) {
+  return (
+    <div className={`flex flex-wrap gap-2 ${className}`}>
+      {engines.map((e) => (
+        <span key={e.name} className="inline-flex items-center gap-2 rounded-full border border-[#20242C]/10 bg-white px-4 py-2 text-xs font-semibold text-[#20242C]">
+          <img src={e.logo} alt="" className="h-4 w-4" />
+          {e.name}
+        </span>
+      ))}
+    </div>
+  );
+}
 
 const helpCtas = [
   { icon: Search, title: 'Book an audit', body: 'We ask the engines the questions your customers ask and show you who gets named.', cta: 'Call us for an audit', href: BOOKING_URL },
@@ -91,6 +110,11 @@ function CountUp({ from, to, decimals, suffix }: { from: number; to: number; dec
 }
 
 const faqs = [
+  {
+    question: 'Can you guarantee I will show up?',
+    answer:
+      'No, and be wary of anyone who does. AI answers change from run to run and from engine to engine. What we can do is measure how often you appear across many runs, fix the things that influence it, and report the movement honestly against your starting point.',
+  },
   {
     question: 'What is AI search?',
     answer:
@@ -168,16 +192,12 @@ export function AISearchPage({ product }: AISearchPageProps) {
           >
             <p className="mb-6 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">AI search visibility for founders and businesses</p>
             <h1 className="mb-8 text-5xl md:text-[96px] font-extrabold text-white tracking-tighter leading-[0.9]">
-              Be found in<br />all search.
+              The search game<br />has changed.
             </h1>
             <p className="mb-8 text-white/70 text-xl md:text-2xl font-medium max-w-2xl leading-snug">
-              Showing up is not enough. Customers now ask ChatGPT, Claude, Gemini, Perplexity and Google AI who to call, and the answer is different on every engine. We audit, track and fix your visibility across all of them.
+              Customers now ask ChatGPT, Claude, Gemini, Perplexity and Google AI who to call. Each gives its own answer, and the answers keep moving. The aim is not to show up once. It is to be found, again and again, in all search.
             </p>
-            <div className="mb-10 flex flex-wrap gap-2">
-              {engines.map((e) => (
-                <span key={e} className="rounded-full border border-white/25 px-4 py-1.5 text-xs font-semibold text-white/80">{e}</span>
-              ))}
-            </div>
+            <EngineChips className="mb-10" />
             <div className="flex flex-col sm:flex-row gap-4">
               <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg shadow-2xl">
                 Call us for an audit <ChevronRight className="w-5 h-5" />
@@ -220,16 +240,15 @@ export function AISearchPage({ product }: AISearchPageProps) {
               It is about being found in <span className="text-[#004AAD]">all search</span>
             </h2>
             <p className="text-foreground/60 text-lg font-medium leading-relaxed mb-4">
-              A good Google ranking does not mean ChatGPT names you. Being named by Claude does not mean Gemini does. Each engine reads different sources and gives its own answer.
+              Showing up once is luck. Being found, consistently, is the work. A good Google ranking does not mean ChatGPT names you, and being named by Claude does not mean Gemini does.
+            </p>
+            <p className="text-foreground/60 text-lg font-medium leading-relaxed mb-4">
+              AI answers are fluid. Ask the same question twice and the names change, so nobody can promise you a spot. What we can do is measure how often you appear, work on the things that decide it, and show you the movement.
             </p>
             <p className="text-foreground/60 text-lg font-medium leading-relaxed mb-8">
-              Being found means showing up in Google, in the AI answer above it, and in every assistant your customers use. That is what we measure and fix.
+              That is the difference between hoping and knowing.
             </p>
-            <div className="flex flex-wrap gap-2">
-              {engines.map((e) => (
-                <span key={e} className="rounded-full bg-[#F4F4F6] px-4 py-1.5 text-xs font-semibold text-[#20242C]">{e}</span>
-              ))}
-            </div>
+            <EngineChips />
           </div>
         </div>
       </section>
@@ -283,6 +302,34 @@ export function AISearchPage({ product }: AISearchPageProps) {
                 <div className="w-8 h-8 rounded-full bg-[#004AAD]/10 text-[#004AAD] text-sm font-bold flex items-center justify-center mb-5">{item.n}</div>
                 <h3 className="text-xl font-bold text-[#20242C] mb-2">{item.title}</h3>
                 <p className="text-foreground/60 font-medium leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Prompt tracking */}
+      <section className="py-28 bg-[#1C1C1E] text-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-16 max-w-2xl">
+            <p className="mb-4 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">Prompt visibility tracking</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-4">
+              Track the prompts your customers <span className="text-white/60">actually ask</span>
+            </h2>
+            <p className="text-white/70 text-lg font-medium leading-relaxed">
+              Our own software runs your prompts across every engine on a schedule, so you see a trend instead of a lucky screenshot.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { n: '01', title: 'Choose the prompts', body: 'We agree the questions that matter to your business: who to call, who to trust, who is best for what.' },
+              { n: '02', title: 'Run them on every engine', body: 'The same prompts run again and again across ChatGPT, Claude, Gemini, Perplexity and Google AI, because one answer proves nothing.' },
+              { n: '03', title: 'Report the movement', body: 'You see how often you are named, who is named instead, and what changed since your starting point. We do not guarantee a result. We show you the real one.' },
+            ].map((t) => (
+              <div key={t.n} className="border-t border-white/10 pt-6">
+                <p className="mb-3 text-white/40 text-xs font-bold tracking-[0.2em]">{t.n}</p>
+                <h3 className="text-xl font-bold mb-2">{t.title}</h3>
+                <p className="text-white/70 font-medium leading-relaxed">{t.body}</p>
               </div>
             ))}
           </div>
