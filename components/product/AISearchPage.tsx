@@ -254,30 +254,24 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* What is AI search visibility */}
-      <section id="how-it-works" className="py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+      <section id="how-it-works" className="relative overflow-hidden py-28 bg-white">
+        <img src="/images/abstract_mesh.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-70" />
+        <div className="relative max-w-7xl mx-auto px-6">
           <div className="mb-16 max-w-2xl">
             <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">AI search visibility, explained</p>
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-[#20242C] leading-tight mb-4">
               What it is, and <span className="text-[#004AAD]">why it matters now</span>
             </h2>
-            <p className="text-foreground/60 text-lg font-medium leading-relaxed">
+            <p className="text-[#20242C]/70 text-lg font-medium leading-relaxed">
               AI search visibility is simple to define: when someone asks an AI engine a question your business should answer, does your name come back? Three things to know.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {explainer.map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="bg-[#F4F4F6] rounded-3xl p-10"
-              >
-                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-foreground/30 mb-3">0{i + 1}</p>
+              <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="border-t border-[#20242C]/20 pt-6">
+                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#004AAD] mb-3">0{i + 1}</p>
                 <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] mb-3">{item.title}</h3>
-                <p className="text-foreground/60 font-medium leading-relaxed">{item.body}</p>
+                <p className="text-[#20242C]/70 font-medium leading-relaxed">{item.body}</p>
               </motion.div>
             ))}
           </div>
@@ -285,23 +279,22 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* What influences AI search visibility */}
-      <section className="py-28 bg-[#F4F4F6]">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="relative overflow-hidden py-28 bg-[#1C1C1E] text-white">
+        <img src="/images/abstract_ribbons.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-60" />
+        <div className="relative max-w-7xl mx-auto px-6">
           <div className="mb-16 max-w-2xl">
-            <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">What decides it</p>
-            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-[#20242C] leading-tight mb-4">
-              What influences <span className="text-[#004AAD]">AI search visibility</span>
-            </h2>
-            <p className="text-foreground/60 text-lg font-medium leading-relaxed">
+            <p className="mb-4 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">What decides it</p>
+            <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-4">What influences AI search visibility</h2>
+            <p className="text-white/70 text-lg font-medium leading-relaxed">
               AI engines do not rank pages. They build an answer from what they can find and trust about you. Six things decide whether you are in it.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-10">
             {influences.map((item) => (
-              <div key={item.n} className="bg-white rounded-3xl p-8">
-                <div className="w-8 h-8 rounded-full bg-[#004AAD]/10 text-[#004AAD] text-sm font-bold flex items-center justify-center mb-5">{item.n}</div>
-                <h3 className="text-xl font-bold text-[#20242C] mb-2">{item.title}</h3>
-                <p className="text-foreground/60 font-medium leading-relaxed">{item.body}</p>
+              <div key={item.n} className="border-t border-white/20 pt-6">
+                <p className="mb-3 text-white/50 text-xs font-bold tracking-[0.2em]">0{item.n}</p>
+                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                <p className="text-white/70 font-medium leading-relaxed">{item.body}</p>
               </div>
             ))}
           </div>
@@ -309,8 +302,9 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* Prompt tracking */}
-      <section className="py-28 bg-[#1C1C1E] text-white">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="relative overflow-hidden py-28 bg-[#20242C] text-white">
+        <img src="/images/abstract_ripples.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-60" />
+        <div className="relative max-w-7xl mx-auto px-6">
           <div className="mb-16 max-w-2xl">
             <p className="mb-4 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">Prompt visibility tracking</p>
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-4">
@@ -344,40 +338,26 @@ export function AISearchPage({ product }: AISearchPageProps) {
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-[#20242C] leading-tight mb-4">
               Audit. Track and manage. <span className="text-[#004AAD]">Done for you.</span>
             </h2>
-            <p className="text-foreground/60 text-lg font-medium leading-relaxed">
+            <p className="text-[#20242C]/60 text-lg font-medium leading-relaxed">
               Three ways to work with us, depending on how much you want to hand over. Every one starts with the same check on the questions your customers ask.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {services.map((svc, i) => {
               const Icon = svc.icon;
               return (
-                <motion.div
-                  key={svc.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08 }}
-                  className={`rounded-3xl p-10 flex flex-col ${i === 2 ? 'bg-[#1C1C1E] text-white' : 'bg-[#F4F4F6]'}`}
-                >
-                  <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 ${i === 2 ? 'bg-white/10' : 'bg-[#004AAD]/10'}`}>
-                    <Icon className={`w-6 h-6 ${i === 2 ? 'text-white' : 'text-[#004AAD]'}`} />
-                  </div>
-                  <p className={`text-[11px] font-bold uppercase tracking-[0.2em] mb-2 ${i === 2 ? 'text-white/40' : 'text-foreground/30'}`}>{svc.label}</p>
-                  <h3 className={`text-2xl font-extrabold tracking-tight mb-3 ${i === 2 ? 'text-white' : 'text-[#20242C]'}`}>{svc.title}</h3>
-                  <p className={`font-medium leading-relaxed mb-6 ${i === 2 ? 'text-white/70' : 'text-foreground/60'}`}>{svc.body}</p>
-                  <p className={`mt-auto text-sm font-medium ${i === 2 ? 'text-white/50' : 'text-foreground/40'}`}>{svc.fit}</p>
+                <motion.div key={svc.label} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="flex flex-col border-t-2 border-[#004AAD] pt-6">
+                  <Icon className="w-6 h-6 text-[#004AAD] mb-5" />
+                  <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-2 text-[#20242C]/40">{svc.label}</p>
+                  <h3 className="text-2xl font-extrabold tracking-tight mb-3 text-[#20242C]">{svc.title}</h3>
+                  <p className="font-medium leading-relaxed mb-6 text-[#20242C]/70">{svc.body}</p>
+                  <p className="mt-auto text-sm font-medium text-[#20242C]/50">{svc.fit}</p>
                 </motion.div>
               );
             })}
           </div>
-          <div className="mt-10 flex flex-col sm:flex-row gap-4">
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg"
-            >
+          <div className="mt-12 flex flex-col sm:flex-row gap-4">
+            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg">
               Talk through the options <ChevronRight className="w-5 h-5" />
             </a>
           </div>
@@ -385,29 +365,26 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* Search has changed CTAs */}
-      <section className="py-28 bg-[#F4F4F6]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="mb-16 max-w-2xl">
+      <section className="relative overflow-hidden py-28 bg-[#F4F4F6]">
+        <img src="/images/abstract_mesh.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" />
+        <div className="relative max-w-7xl mx-auto px-6">
+          <div className="mb-14 max-w-2xl">
             <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Search has changed</p>
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-[#20242C] leading-tight mb-4">
               Start with a <span className="text-[#004AAD]">call</span>
             </h2>
-            <p className="text-foreground/60 text-lg font-medium leading-relaxed">
+            <p className="text-[#20242C]/70 text-lg font-medium leading-relaxed">
               Pick the place to begin. Each one starts with a conversation, and we point you at what is worth doing.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="border-t border-[#20242C]/20">
             {helpCtas.map((c) => {
-              const Icon = c.icon;
               const external = c.href.startsWith('http');
               return (
-                <a key={c.title} href={c.href} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className="group flex flex-col rounded-3xl bg-white p-8 transition hover:shadow-lg">
-                  <div className="w-12 h-12 rounded-2xl bg-[#004AAD]/10 flex items-center justify-center mb-6">
-                    <Icon className="w-6 h-6 text-[#004AAD]" />
-                  </div>
-                  <h3 className="text-xl font-bold text-[#20242C] mb-2">{c.title}</h3>
-                  <p className="text-foreground/60 font-medium leading-relaxed mb-6">{c.body}</p>
-                  <span className="mt-auto inline-flex items-center gap-1 text-sm font-semibold text-[#004AAD]">{c.cta} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
+                <a key={c.title} href={c.href} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})} className="group grid grid-cols-1 md:grid-cols-[1fr_1.5fr_12rem] items-center gap-3 md:gap-10 border-b border-[#20242C]/20 py-7">
+                  <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] group-hover:text-[#004AAD] transition-colors">{c.title}</h3>
+                  <p className="text-[#20242C]/70 font-medium leading-relaxed">{c.body}</p>
+                  <span className="inline-flex items-center gap-1 text-sm font-semibold text-[#004AAD] md:justify-end">{c.cta} <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" /></span>
                 </a>
               );
             })}
@@ -416,26 +393,26 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* Who it is for */}
-      <section className="py-20 bg-white border-t border-black/5">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
-          <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Who it is for</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="rounded-3xl bg-[#F4F4F6] p-10">
+          <p className="mb-6 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Who it is for</p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="border-t-2 border-[#004AAD] pt-6">
               <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] mb-3">Businesses</h3>
-              <p className="text-foreground/60 font-medium leading-relaxed">Clinics, trades, professional firms and B2B services. Start with an audit, keep it tracked, or hand the whole thing over. Whichever you pick, we measure the questions your customers ask, not vanity keywords.</p>
+              <p className="text-[#20242C]/70 font-medium leading-relaxed">Clinics, trades, professional firms and B2B services. Start with an audit, keep it tracked, or hand the whole thing over. Whichever you pick, we measure the questions your customers ask, not vanity keywords.</p>
             </div>
-            <div className="rounded-3xl bg-[#F4F4F6] p-10">
+            <div className="border-t-2 border-[#004AAD] pt-6">
               <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] mb-3">Founders and personal brands</h3>
-              <p className="text-foreground/60 font-medium leading-relaxed">When someone asks AI who the experts are in your field, is it your name that comes back? Same audit, same fixes, built around you rather than a company.</p>
+              <p className="text-[#20242C]/70 font-medium leading-relaxed">When someone asks AI who the experts are in your field, is it your name that comes back? Same audit, same fixes, built around you rather than a company.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Need a hand */}
-      <section className="py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="rounded-3xl bg-[#1C1C1E] text-white p-10 md:p-16 grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
+      <section className="relative overflow-hidden bg-[#1C1C1E]">
+        <img src="/images/abstract_ribbons.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-50" />
+        <div className="relative max-w-7xl mx-auto px-6 py-28 text-white grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
             <div>
               <p className="mb-4 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">Done for you</p>
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-5">Need a hand?</h2>
@@ -464,18 +441,16 @@ export function AISearchPage({ product }: AISearchPageProps) {
               </a>
             </div>
           </div>
-        </div>
       </section>
 
       {/* Partner with us */}
-      <section className="py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="relative overflow-hidden rounded-3xl bg-[#1C1C1E] text-white">
-            <img src="/images/white_label_hero_web.jpg" alt="" className="absolute inset-y-0 right-0 h-full w-full object-cover opacity-30 lg:w-1/2" />
-            <div className="relative z-10 p-10 md:p-16 max-w-2xl">
-              <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center mb-6">
-                <Handshake className="w-6 h-6 text-white" />
-              </div>
+      <section className="relative overflow-hidden bg-[#1C1C1E] text-white">
+        <img src="/images/white_label_hero_web.jpg" alt="" className="absolute inset-y-0 right-0 h-full w-full object-cover opacity-50 lg:w-3/5" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1C1C1E] via-[#1C1C1E]/80 to-transparent" />
+        <div className="relative max-w-7xl mx-auto px-6">
+          <div>
+            <div className="py-28 max-w-2xl">
+              <Handshake className="w-7 h-7 text-white mb-6" />
               <p className="mb-4 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">Agencies and resellers</p>
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-5">Want to partner with us?</h2>
               <p className="text-white/70 text-lg font-medium leading-relaxed mb-4">
@@ -486,7 +461,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href={PARTNER_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg">
-                  See the reseller programme <ChevronRight className="w-5 h-5" />
+                  See the reseller program <ChevronRight className="w-5 h-5" />
                 </a>
                 <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-10 py-5 border border-white/25 text-white rounded-full font-semibold hover:bg-white/10 transition-all text-lg">
                   Talk to us first

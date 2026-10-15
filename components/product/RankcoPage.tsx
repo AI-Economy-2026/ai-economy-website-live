@@ -220,7 +220,7 @@ export function RankcoPage({ product }: RankcoPageProps) {
               When your customers ask ChatGPT, Perplexity, or Gemini about the products and services you sell, is your brand in the answer? Most businesses have no idea. Rankco gives you the data, the diagnosis, and the plan to fix it.
             </p>
             <p className="text-xl text-foreground/60 font-medium leading-relaxed">
-              From a single audit to an ongoing visibility programme, Rankco turns AI search into a measurable, manageable channel — just like SEO, but built for the era of generative answers.
+              From a single audit to an ongoing visibility program, Rankco turns AI search into a measurable, manageable channel — just like SEO, but built for the era of generative answers.
             </p>
           </motion.div>
         </div>
