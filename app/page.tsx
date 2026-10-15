@@ -57,15 +57,15 @@ export default function HomePage() {
             </p>
             <Link
               href="/product/geo-audit"
-              className="mt-6 inline-flex max-w-[34rem] items-center gap-4 rounded-2xl border border-black/10 bg-[#F5F5F7] px-5 py-4 transition hover:border-[#004AAD]"
+              className="mt-6 flex w-full max-w-[34rem] items-center gap-3 rounded-2xl border border-[#20242C]/10 bg-[#F4F4F6] px-4 py-3 transition hover:border-[#004AAD] sm:gap-4 sm:px-5 sm:py-4"
             >
-              <span className="rounded-full bg-[#004AAD] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-white">AI search</span>
-              <span className="text-sm font-semibold text-black">Is your business in the AI answer? Find out, and how we help.</span>
+              <span className="flex-shrink-0 whitespace-nowrap rounded-full bg-[#004AAD] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-white">AI search</span>
+              <span className="text-sm font-semibold leading-snug text-[#20242C]">Is your business in the AI answer? Find out, and how we help.</span>
               <ArrowRight className="ml-auto h-4 w-4 flex-shrink-0 text-[#004AAD]" />
             </Link>
             <a
               href={homepageHero.ctaHref}
-              className="mt-8 inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#86868B] transition hover:border-[#004AAD] hover:text-[#004AAD]"
+              className="mt-8 flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#86868B] transition hover:border-[#004AAD] hover:text-[#004AAD]"
             >
               <ArrowDown className="h-4 w-4 animate-bounce" />
             </a>

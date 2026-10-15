@@ -59,7 +59,7 @@ const featuredCardConfig: (Omit<HomepageCardItem, 'image'> & { image?: string })
     productId: 'geo-audit',
     label: 'AI SEARCH',
     title: 'AI Search Visibility',
-    description: 'Is your business in the answer when customers ask ChatGPT, Gemini or Google AI? Audit, track and manage, or done for you.',
+    description: 'Is your business in the answer when customers ask ChatGPT, Claude, Gemini or Google AI? Audit, track and manage, or done for you.',
     cta: 'Check your visibility',
     href: '/product/geo-audit',
   },

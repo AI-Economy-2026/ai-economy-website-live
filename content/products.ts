@@ -803,7 +803,7 @@ export const products: Product[] = [
     name: 'AI Search Visibility.',
     tagline: 'Is your business in the AI answer?',
     description:
-      'When customers ask ChatGPT, Gemini or Google AI who to call, are you in the answer? Audit, track and manage, or done for you.',
+      'When customers ask ChatGPT, Claude, Gemini or Google AI who to call, are you in the answer? Audit, track and manage, or done for you.',
     image: '/images/geo_audit_hero.jpg',
     letter: 'G',
     color: '#2563EB',
@@ -811,7 +811,7 @@ export const products: Product[] = [
     hero: {
       headline: 'Is your business in the AI answer?',
       subheadline:
-        'When a customer asks ChatGPT, Gemini or Google AI who to call, one answer comes back. Either you are in it, or a competitor is. Here is how it works, and how we help: audit, track and manage, or done for you.',
+        'When a customer asks ChatGPT, Claude, Gemini or Google AI who to call, one answer comes back. Either you are in it, or a competitor is. Here is how it works, and how we help: audit, track and manage, or done for you.',
     },
     overview:
       "As Generative AI rapidly reshapes how consumers discover information, traditional SEO is no longer enough. The GEO Audit provides a definitive analysis of your brand's share of voice across major AI engines like ChatGPT, Perplexity, and Grok. Our proven methodology moves sequentially from a comprehensive initial Audit, to identifying strategic Opportunities, Activating targeted campaigns, and maintaining dominance through an ongoing Retainer.",
@@ -903,7 +903,7 @@ export const products: Product[] = [
     seo: {
       title: 'AI Search Visibility, Done For You | AI Economy',
       description:
-        'Is your business in the AI answer? We check how you show up in ChatGPT, Gemini, Perplexity and Google AI, make the fixes, and track the movement every month.',
+        'Is your business in the AI answer? We check how you show up in ChatGPT, Claude, Gemini, Perplexity and Google AI, make the fixes, and track the movement every month.',
       canonical: 'https://aieconomy.ai/product/geo-audit',
     },
   },
