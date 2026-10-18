@@ -376,7 +376,7 @@ function HowItWorks() {
           <p className="text-[10px] font-semibold text-[#9CA3AF] tracking-widest uppercase mb-3">The Roadmap to AI Integration</p>
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <h2 className="text-3xl sm:text-4xl font-bold text-black leading-tight tracking-tight max-w-lg">
-              Discover. Evaluate. Activate.
+              Discover. Evaluate. Activate
             </h2>
             <p className="text-[14px] text-[#6B7280] max-w-xs">Three steps to finding the right AI tool for your workflow.</p>
           </div>
