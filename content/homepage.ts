@@ -12,6 +12,8 @@ export type HomepageCardItem = {
   image?: string;
   external?: boolean;
   comingSoon?: boolean;
+  live?: boolean;
+  wide?: boolean;
 };
 
 export type HomepageStatItem = {
@@ -78,10 +80,9 @@ const featuredCardConfig: (Omit<HomepageCardItem, 'image'> & { image?: string })
     label: 'DOCUMENT AI',
     title: 'Prolinks',
     description: 'Turn static documents into dynamic AI-powered web experiences with heatmaps, analytics, and signatures.',
-    cta: 'Join the Waitlist',
-    href: 'https://prolinksai.com/',
-    external: true,
-    comingSoon: true,
+    cta: 'Request a demo',
+    href: '/contact',
+    live: true,
   },
   {
     id: 'ai-consultancy',
@@ -121,6 +122,7 @@ const featuredCardConfig: (Omit<HomepageCardItem, 'image'> & { image?: string })
     href: 'https://parently.ai/',
     external: true,
     comingSoon: true,
+    wide: true,
   },
 ];
 
@@ -338,7 +340,7 @@ export const homepageJourneySteps: HomepageJourneyStep[] = [
 ];
 
 export const homepageCta = {
-  title: 'Start now.',
+  title: 'Start now',
   body:
     'Discover. Train. Activate. Find out where AI fits in your business and start getting real results.',
   buttonLabel: 'Get in Touch',
