@@ -1,3 +1,8 @@
+import { SocialIcon } from '@/components/homepage/SocialIcon';
+import { siteConfig } from '@/content/site';
+
+const linkedIn = siteConfig.socialLinks.find((link) => link.label === 'LinkedIn');
+
 export function MeetSarahVideo() {
   return (
     <div className="w-full max-w-[340px]">
@@ -26,6 +31,20 @@ export function MeetSarahVideo() {
           </span>
         ))}
       </div>
+      {linkedIn && (
+        <div className="mt-3 flex justify-center">
+          <a
+            href={linkedIn.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Connect with Sarah on LinkedIn"
+            className="inline-flex items-center gap-2 rounded-full border border-black/10 px-4 py-2 text-xs font-semibold text-black transition hover:border-[#004AAD] hover:text-[#004AAD]"
+          >
+            <SocialIcon label="LinkedIn" />
+            Connect on LinkedIn
+          </a>
+        </div>
+      )}
     </div>
   );
 }
