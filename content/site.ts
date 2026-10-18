@@ -57,7 +57,7 @@ export const footerSections: FooterSection[] = [
     title: 'Ecosystem',
     items: [
       { label: 'White label partners', href: '/contact' },
-      { label: 'Prolinks', href: 'https://prolinksai.com/', external: true },
+      { label: 'Prolinks', href: '/product/prolinks' },
       { label: 'Parently', href: 'https://parently.ai/', external: true },
     ],
   },
