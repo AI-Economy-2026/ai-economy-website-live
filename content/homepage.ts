@@ -81,7 +81,7 @@ const featuredCardConfig: (Omit<HomepageCardItem, 'image'> & { image?: string })
     title: 'Prolinks',
     description: 'Turn static documents into dynamic AI-powered web experiences with heatmaps, analytics, and signatures.',
     cta: 'Request a demo',
-    href: '/contact',
+    href: '/product/prolinks',
     live: true,
   },
   {
