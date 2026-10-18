@@ -27,7 +27,7 @@ function SmartLink({
 }
 
 export function ProductCard({ card, index }: { card: HomepageCardItem; index: number }) {
-  const spanClass = index < 2 ? 'md:col-span-3' : 'md:col-span-2';
+  const spanClass = card.wide ? 'md:col-span-4' : index < 2 ? 'md:col-span-3' : 'md:col-span-2';
 
   return (
     <SmartLink
@@ -61,6 +61,11 @@ export function ProductCard({ card, index }: { card: HomepageCardItem; index: nu
           {card.comingSoon && (
             <span className="inline-flex rounded-full border border-white/20 bg-white/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur">
               Coming soon
+            </span>
+          )}
+          {card.live && (
+            <span className="inline-flex rounded-full border border-white/20 bg-[#004AAD] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-white">
+              Now live
             </span>
           )}
         </div>
