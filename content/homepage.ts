@@ -115,9 +115,9 @@ const featuredCardConfig: (Omit<HomepageCardItem, 'image'> & { image?: string })
   {
     id: 'parently',
     productId: 'parently',
-    label: 'LIFE ADMIN AI',
+    label: 'PARENTS AND BUSINESSES',
     title: 'Parently',
-    description: 'A practical assistant for managing the endless life admin that comes with parenting and family logistics.',
+    description: 'For parents and the businesses that serve them. Families get help with the endless life admin. Clubs, tutors, charities and local providers get messaging, bookings and payments in one place.',
     cta: 'Join the Waitlist',
     href: 'https://parently.ai/',
     external: true,
