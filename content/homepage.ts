@@ -117,7 +117,7 @@ const featuredCardConfig: (Omit<HomepageCardItem, 'image'> & { image?: string })
     productId: 'parently',
     label: 'PARENTS AND BUSINESSES',
     title: 'Parently',
-    description: 'For parents and the businesses that serve them. Families get help with the endless life admin. Clubs, tutors, charities and local providers get messaging, bookings and payments in one place.',
+    description: 'Streamlining the overwhelm for parents and the businesses that service them.',
     cta: 'Join the Waitlist',
     href: 'https://parently.ai/',
     external: true,
