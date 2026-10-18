@@ -37,7 +37,7 @@ function EngineChips({ className = '' }: { className?: string }) {
 }
 
 const helpCtas = [
-  { icon: Search, title: 'Book an audit', body: 'We ask the engines the questions your customers ask and show you who gets named', cta: 'Call us for an audit', href: BOOKING_URL },
+  { icon: Search, title: 'Book an audit', body: 'We ask the engines the questions your customers ask and show you who gets named', cta: 'Find out more', href: BOOKING_URL },
   { icon: ClipboardCheck, title: 'Assess your AI readiness', body: 'A short review of how ready your business is for AI-led search and AI in the business', cta: 'Assess your readiness', href: '/product/priority-ai' },
   { icon: Wrench, title: 'Site health and setup', body: 'Can the engines read your site? We check the crawl, structure and schema, then fix it', cta: 'Check my site', href: BOOKING_URL },
   { icon: Gauge, title: 'Prompt tracking support', body: 'We pick the prompts that matter, track them weekly and report against your starting point', cta: 'Get tracking support', href: BOOKING_URL },
@@ -206,11 +206,8 @@ export function AISearchPage({ product }: AISearchPageProps) {
             </p>
             <EngineChips className="mb-10" />
             <div className="flex flex-col sm:flex-row gap-4">
-              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg shadow-2xl">
-                Call us for an audit <ChevronRight className="w-5 h-5" />
-              </a>
-              <a href="#services" className="inline-flex items-center justify-center gap-2 px-10 py-5 border border-white/25 text-white rounded-full font-semibold hover:bg-white/10 transition-all text-lg">
-                How we help
+              <a href="#services" className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg shadow-2xl">
+                Find out more <ChevronRight className="w-5 h-5" />
               </a>
             </div>
           </motion.div>
@@ -398,7 +395,6 @@ export function AISearchPage({ product }: AISearchPageProps) {
 
       {/* Search has changed CTAs */}
       <section className="relative overflow-hidden py-28 bg-[#F4F4F6]">
-        <img src="/images/abstract_mesh.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-80" />
         <div className="relative max-w-7xl mx-auto px-6">
           <div className="mb-14 max-w-2xl">
             <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Search has changed</p>
@@ -442,37 +438,56 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* Need a hand */}
-      <section className="relative overflow-hidden bg-[#1C1C1E]">
-        <img src="/images/abstract_ribbons.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-50" />
-        <div className="relative max-w-7xl mx-auto px-6 py-28 text-white grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-6 py-28 text-[#20242C] grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-10 items-center">
             <div>
-              <p className="mb-4 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">Done for you</p>
+              <p className="mb-4 text-[#004AAD] text-xs font-bold uppercase tracking-[0.2em]">Done for you</p>
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-5">Need a hand?</h2>
-              <p className="text-white/70 text-lg font-medium leading-relaxed mb-6">
+              <p className="text-[#20242C]/70 text-lg font-medium leading-relaxed mb-6">
                 Most businesses do not want to do this themselves. We run the audit, make the fixes and track the movement every month, so you can get on with the work. Already have an SEO agency? Keep them. Take the audit or track and manage, and we work alongside them.
               </p>
-              <p className="text-white/50 text-sm font-medium">
+              <p className="text-[#20242C]/50 text-sm font-medium">
                 I have been helping businesses navigate digital change for 25 years. Now it is AI. Be seen in search. Sarah Balmer
               </p>
             </div>
             <div className="flex flex-col gap-3">
-              <img src="/images/sarah_balmer_web.jpg" alt="Sarah Balmer" className="mb-3 h-72 w-full rounded-2xl object-cover" style={{ objectPosition: "50% 30%" }} />
-              <a
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg"
-              >
-                Schedule a call <ChevronRight className="w-5 h-5" />
-              </a>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center px-10 py-5 border border-white/25 text-white rounded-full font-semibold hover:bg-white/10 transition-all text-lg"
+                className="inline-flex items-center justify-center px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg"
               >
-                Send a message
+                Contact us
               </a>
             </div>
           </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="py-28 bg-white border-t border-black/5">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="mb-16">
+            <p className="mb-4 text-[11px] font-bold text-foreground/30 uppercase tracking-[0.2em]">AI search, explained</p>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Questions, answered</h2>
+          </div>
+          <div className="divide-y divide-black/10 border-t border-black/10">
+            {faqs.map((faq, i) => (
+              <FAQItem key={i} question={faq.question} answer={faq.answer} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section id="contact" className="py-28 bg-[#F4F4F6]">
+        <div className="max-w-2xl mx-auto px-6 text-center">
+          <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Get in touch</p>
+          <h2 className="mb-4 text-5xl md:text-6xl font-extrabold tracking-tighter text-[#20242C] leading-[0.9]">
+            Find out where you stand
+          </h2>
+          <p className="mb-12 text-foreground/60 text-lg font-medium leading-relaxed">
+            Tell us your business and the question your customers ask. We will run the check and show you the answer.
+          </p>
+          <ContactForm />
+        </div>
       </section>
 
       {/* Partner with us */}
@@ -502,35 +517,6 @@ export function AISearchPage({ product }: AISearchPageProps) {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* FAQs */}
-      <section className="py-28 bg-white border-t border-black/5">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="mb-16">
-            <p className="mb-4 text-[11px] font-bold text-foreground/30 uppercase tracking-[0.2em]">AI search, explained</p>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Questions, answered</h2>
-          </div>
-          <div className="divide-y divide-black/10 border-t border-black/10">
-            {faqs.map((faq, i) => (
-              <FAQItem key={i} question={faq.question} answer={faq.answer} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact */}
-      <section id="contact" className="py-28 bg-[#F4F4F6]">
-        <div className="max-w-2xl mx-auto px-6 text-center">
-          <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Get in touch</p>
-          <h2 className="mb-4 text-5xl md:text-6xl font-extrabold tracking-tighter text-[#20242C] leading-[0.9]">
-            Find out where you stand
-          </h2>
-          <p className="mb-12 text-foreground/60 text-lg font-medium leading-relaxed">
-            Tell us your business and the question your customers ask. We will run the check and show you the answer.
-          </p>
-          <ContactForm />
         </div>
       </section>
 
