@@ -9,6 +9,7 @@ import { AgentAlicePage } from '@/components/product/AgentAlicePage';
 import { AIConsultancyPage } from '@/components/product/AIConsultancyPage';
 import { GathaPage } from '@/components/product/GathaPage';
 import { AISearchPage } from '@/components/product/AISearchPage';
+import { ProlinksPage } from '@/components/product/ProlinksPage';
 
 export async function generateStaticParams() {
   return products
@@ -90,6 +91,8 @@ function renderProductPage(id: string, product: Parameters<typeof PriorityAIPage
       return <GathaPage product={product} />;
     case 'geo-audit':
       return <AISearchPage product={product} />;
+    case 'prolinks':
+      return <ProlinksPage product={product} />;
     default:
       // For products without a custom page (parently, prolinks), show generic layout
       return <GenericProductPage product={product} />;
