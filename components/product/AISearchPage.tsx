@@ -491,13 +491,10 @@ export function AISearchPage({ product }: AISearchPageProps) {
       </section>
 
       {/* Partner with us */}
-      <section className="relative overflow-hidden bg-white text-[#20242C]">
-        <img src="/images/white_label_hero_web.jpg" alt="" className="absolute inset-y-0 right-0 h-full w-full object-cover opacity-90 grayscale lg:w-1/2" />
-        <div className="absolute inset-y-0 right-0 w-full bg-[#004AAD] mix-blend-multiply opacity-60 lg:w-1/2" />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent" />
-        <div className="relative max-w-7xl mx-auto px-6">
-          <div>
-            <div className="py-28 max-w-2xl">
+      <section className="bg-white text-[#20242C]">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          <div className="flex items-center px-6 py-20 lg:py-28 lg:pl-[max(1.5rem,calc((100vw-80rem)/2+1.5rem))] lg:pr-16">
+            <div className="max-w-xl">
               <Handshake className="w-7 h-7 text-[#004AAD] mb-6" />
               <p className="mb-4 text-[#20242C]/50 text-xs font-bold uppercase tracking-[0.2em]">Agencies and resellers</p>
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-5">Want to partner with us?</h2>
@@ -516,6 +513,10 @@ export function AISearchPage({ product }: AISearchPageProps) {
                 </a>
               </div>
             </div>
+          </div>
+          <div className="relative min-h-[16rem] overflow-hidden lg:min-h-full">
+            <img src="/images/white_label_hero_web.jpg" alt="" className="absolute inset-0 h-full w-full object-cover opacity-90 grayscale" />
+            <div className="absolute inset-0 bg-[#004AAD] mix-blend-multiply opacity-60" />
           </div>
         </div>
       </section>
