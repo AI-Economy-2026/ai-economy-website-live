@@ -13,7 +13,6 @@ interface AISearchPageProps {
 }
 
 const BOOKING_URL = 'https://calendar.app.google/KMWhVZmsAGEMrna2A';
-const PARTNER_URL = 'https://gatha.ai';
 
 const engines = [
   { name: 'ChatGPT', logo: '/logos/openai.svg' },
@@ -78,7 +77,7 @@ const services = [
     label: 'Done for you',
     title: 'We check, we fix, we track',
     body: 'We run the audit, make the fixes ourselves (answer pages, listings, consistency, reviews, structured data) and track the movement every month. You get on with the work; we handle the whole thing.',
-    fit: 'For founders and businesses who do not want another to-do list',
+    fit: 'For businesses who do not want another to-do list',
   },
 ];
 
@@ -197,7 +196,7 @@ export function AISearchPage({ product }: AISearchPageProps) {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="max-w-4xl"
           >
-            <p className="mb-6 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">AI search visibility for founders and businesses</p>
+            <p className="mb-6 text-white/50 text-xs font-bold uppercase tracking-[0.2em]">AI search visibility for businesses</p>
             <h1 className="mb-8 text-5xl md:text-[96px] font-extrabold text-white tracking-tighter leading-[0.9]">
               The search game<br />has changed
             </h1>
@@ -424,15 +423,9 @@ export function AISearchPage({ product }: AISearchPageProps) {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <p className="mb-6 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Who it is for</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            <div className="border-t-2 border-[#004AAD] pt-6">
-              <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] mb-3">Businesses</h3>
-              <p className="text-[#20242C]/70 font-medium leading-relaxed">Clinics, trades, professional firms and B2B services. Start with an audit, keep it tracked, or hand the whole thing over. Whichever you pick, we measure the questions your customers ask, not vanity keywords.</p>
-            </div>
-            <div className="border-t-2 border-[#004AAD] pt-6">
-              <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] mb-3">Founders and personal brands</h3>
-              <p className="text-[#20242C]/70 font-medium leading-relaxed">When someone asks AI who the experts are in your field, is it your name that comes back? Same audit, same fixes, built around you rather than a company.</p>
-            </div>
+          <div className="max-w-3xl border-t-2 border-[#004AAD] pt-6">
+            <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] mb-3">Businesses</h3>
+            <p className="text-[#20242C]/70 font-medium leading-relaxed">Clinics, trades, professional firms and B2B services. Start with an audit, keep it tracked, or hand the whole thing over. Whichever you pick, we measure the questions your customers ask, not vanity keywords.</p>
           </div>
         </div>
       </section>
@@ -499,17 +492,14 @@ export function AISearchPage({ product }: AISearchPageProps) {
               <p className="mb-4 text-[#20242C]/50 text-xs font-bold uppercase tracking-[0.2em]">Agencies and resellers</p>
               <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter leading-tight mb-5">Want to partner with us?</h2>
               <p className="text-[#20242C]/70 text-lg font-medium leading-relaxed mb-4">
-                Your clients are asking where they show up in ChatGPT, Claude and Google AI. Gatha is the audit and tracking tool behind this service, and you can run it under your own brand with white label reports.
+                Your clients are asking where they show up in ChatGPT, Claude and Google AI. You can run the audit and tracking under your own brand with white label reports.
               </p>
               <p className="text-[#20242C]/70 text-lg font-medium leading-relaxed mb-8">
                 Resell it as it is, or hand us the client work and we deliver it done for you, with you as the face.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href={PARTNER_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg">
-                  See the reseller program <ChevronRight className="w-5 h-5" />
-                </a>
-                <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-10 py-5 border border-[#20242C] text-[#20242C] rounded-full font-semibold hover:bg-[#20242C]/5 transition-all text-lg">
-                  Talk to us first
+                <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-10 py-5 bg-[#004AAD] text-white rounded-full font-bold hover:bg-[#003A8C] transition-all text-lg">
+                  Talk to us about partnering <ChevronRight className="w-5 h-5" />
                 </a>
               </div>
             </div>
