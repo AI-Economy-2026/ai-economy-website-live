@@ -424,8 +424,8 @@ export function AISearchPage({ product }: AISearchPageProps) {
         <div className="max-w-7xl mx-auto px-6">
           <p className="mb-6 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Who it is for</p>
           <div className="max-w-3xl border-t-2 border-[#004AAD] pt-6">
-            <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] mb-3">Businesses</h3>
-            <p className="text-[#20242C]/70 font-medium leading-relaxed">Clinics, trades, professional firms and B2B services. Start with an audit, keep it tracked, or hand the whole thing over. Whichever you pick, we measure the questions your customers ask, not vanity keywords.</p>
+            <h3 className="text-2xl font-extrabold tracking-tight text-[#20242C] mb-3">Businesses and their key stakeholders</h3>
+            <p className="text-[#20242C]/70 font-medium leading-relaxed">Clinics, trades, professional firms and B2B services, and the owners, directors and marketing leads who answer for how the business is found. Start with an audit, keep it tracked, or hand the whole thing over. Whichever you pick, we measure the questions your customers ask, not vanity keywords.</p>
           </div>
         </div>
       </section>
