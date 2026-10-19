@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowDown, ArrowRight } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import {
   homepageCta,
   homepageFeaturedIntro,
@@ -40,7 +40,7 @@ export default function HomePage() {
       <SiteNav />
 
       <main>
-        <section className="mx-auto grid max-w-[1200px] grid-cols-1 gap-14 px-6 pb-20 pt-44 md:px-12 lg:grid-cols-[1.2fr_0.88fr] lg:items-center">
+        <section className="mx-auto grid max-w-[1200px] grid-cols-1 gap-14 px-6 pb-20 pt-44 md:px-12 md:grid-cols-[1.2fr_0.88fr] md:items-center">
           <div>
             <h1 className="mb-4 text-[clamp(3.5rem,8vw,6rem)] font-bold leading-[0.95] tracking-[-0.06em] text-black">
               {homepageHero.title}
@@ -57,13 +57,13 @@ export default function HomePage() {
             </p>
             <a
               href={homepageHero.ctaHref}
-              className="mt-8 inline-flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#86868B] transition hover:border-[#004AAD] hover:text-[#004AAD]"
+              className="mt-8 flex h-11 w-11 items-center justify-center rounded-full border border-black/10 text-[#86868B] transition hover:border-[#004AAD] hover:text-[#004AAD]"
             >
               <ArrowDown className="h-4 w-4 animate-bounce" />
             </a>
           </div>
 
-          <div className="w-full lg:flex lg:justify-end">
+          <div className="w-full md:flex md:justify-end">
             <MeetSarahVideo />
           </div>
         </section>
@@ -83,7 +83,7 @@ export default function HomePage() {
 
         <section id="founder" className="mx-auto grid max-w-[1200px] grid-cols-1 gap-14 px-6 py-20 md:px-12 lg:grid-cols-[300px_1fr]">
           <div className="relative h-[380px] overflow-hidden rounded-2xl">
-            <img src={sarahImg} alt="Sarah Balmer" className="h-full w-full object-cover" />
+            <img src={sarahImg} alt="Sarah Balmer" className="h-full w-full object-cover object-[50%_35%]" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             <div className="absolute bottom-4 left-4 rounded-full border border-white/15 bg-black/35 px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/90 backdrop-blur">
               {homepageFounder.imageBadge}

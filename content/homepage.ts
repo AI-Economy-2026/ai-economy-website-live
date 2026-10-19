@@ -12,6 +12,8 @@ export type HomepageCardItem = {
   image?: string;
   external?: boolean;
   comingSoon?: boolean;
+  live?: boolean;
+  wide?: boolean;
 };
 
 export type HomepageStatItem = {
@@ -53,16 +55,15 @@ const productMap = Object.fromEntries(
   products.map((product) => [product.id, product]),
 ) as Record<string, Product>;
 
-const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
+const featuredCardConfig: (Omit<HomepageCardItem, 'image'> & { image?: string })[] = [
   {
-    id: 'ai-consultancy',
-    productId: 'ai-consultancy',
-    label: 'AI CONSULTANCY',
-    title: 'AI Consultancy',
-    description:
-      'Strategic advice, diagnostics, and implementation support to turn AI into measurable business outcomes.',
-    cta: "Let's Talk",
-    href: '/product/ai-consultancy',
+    id: 'geo-audit',
+    productId: 'geo-audit',
+    label: 'AI SEARCH',
+    title: 'AI Search Visibility',
+    description: 'Is your business in the answer when customers ask ChatGPT, Claude, Gemini or Google AI? Audit, track and manage, or done for you.',
+    cta: 'Check your visibility',
+    href: '/product/geo-audit',
   },
   {
     id: 'priority-ai',
@@ -74,78 +75,60 @@ const featuredCardConfig: Omit<HomepageCardItem, 'image'>[] = [
     href: '/product/priority-ai',
   },
   {
-    id: 'ai-toolkit',
-    productId: 'ai-toolkit',
-    label: 'AI TOOLKIT',
-    title: 'AI Toolkit',
-    description: 'Hundreds of tools tested over three years. These are the ones I use every day to get ahead with AI.',
-    cta: 'Unlock Now',
-    href: '/toolkit',
-  },
-  {
-    id: 'geo-audit',
-    productId: 'geo-audit',
-    label: 'AI VISIBILITY',
-    title: 'Rankco',
-    description: 'Is your business showing up when AI answers your customers\u2019 questions? Get ranked and get found.',
-    cta: 'Check Your Visibility',
-    href: '/product/geo-audit',
-  },
-  {
-    id: 'sarah-speaks',
-    productId: 'sarah-speaks',
-    label: 'AI TRAINING',
-    title: 'Sarah Speaks',
-    description: 'Practical AI education for leaders and teams. No jargon. No hype. Just usable skills.',
-    cta: 'Join the Waitlist',
-    href: '/product/sarah-speaks',
-    comingSoon: true,
-  },
-  {
-    id: 'agent-alice',
-    productId: 'agent-alice',
-    label: 'MARKETING AGENT',
-    title: 'Ask Sarah',
-    description: 'Your AI marketing agent for content ideation, repurposing, and SEO/GEO-aware campaign output.',
-    cta: 'Join the Waitlist',
-    href: '/product/agent-alice',
-    comingSoon: true,
-  },
-  {
     id: 'prolinks',
     productId: 'prolinks',
     label: 'DOCUMENT AI',
     title: 'Prolinks',
     description: 'Turn static documents into dynamic AI-powered web experiences with heatmaps, analytics, and signatures.',
-    cta: 'Join the Waitlist',
-    href: 'https://prolinksai.com/',
-    external: true,
-    comingSoon: true,
+    cta: 'Request a demo',
+    href: '/product/prolinks',
+    live: true,
+  },
+  {
+    id: 'ai-consultancy',
+    productId: 'ai-consultancy',
+    label: 'AI CONSULTANCY',
+    title: 'AI Consultancy',
+    description:
+      'Strategic advice, diagnostics, and implementation support to turn AI into measurable business outcomes.',
+    cta: "Let's Talk",
+    href: '/product/ai-consultancy',
+  },
+  {
+    id: 'sarah-speaks',
+    productId: 'sarah-speaks',
+    label: 'SPEAKING, TRAINING AND ABOUT SARAH',
+    title: 'Sarah Speaks AI',
+    description: 'Keynotes, workshops and practical AI training for leaders and teams, from the founder behind AI Economy. No jargon, no hype, just usable skills.',
+    cta: 'Meet Sarah',
+    href: '/product/sarah-speaks',
+  },
+  {
+    id: 'partner-program',
+    image: '/images/white_label_hero.jpg',
+    label: 'WHITE LABEL PARTNERS',
+    title: 'Sell more of what you do',
+    description: 'Agencies, consultants and SEO firms: put our tools under your brand. The AI search tool to audit, track and manage visibility, and the Priority AI diagnostic. Done for you is on offer to white label partners too.',
+    cta: 'Talk to us',
+    href: '/contact',
   },
   {
     id: 'parently',
     productId: 'parently',
-    label: 'LIFE ADMIN AI',
+    label: 'PARENTS AND BUSINESSES',
     title: 'Parently',
-    description: 'A practical assistant for managing the endless life admin that comes with parenting and family logistics.',
+    description: 'Streamlining the overwhelm for parents and the businesses that service them.',
     cta: 'Join the Waitlist',
     href: 'https://parently.ai/',
     external: true,
     comingSoon: true,
-  },
-  {
-    id: 'partner-program',
-    label: 'AI ECONOMY',
-    title: 'Partner Program',
-    description: 'We want to be the home of AI service providers — the go-to for those who have no idea where to start. Join our ecosystem of trusted partners.',
-    cta: 'Get Involved',
-    href: '/contact',
+    wide: true,
   },
 ];
 
 export const homepageFeaturedCards: HomepageCardItem[] = featuredCardConfig.map((card) => ({
   ...card,
-  image: card.productId ? productMap[card.productId]?.image : undefined,
+  image: card.image ?? (card.productId ? productMap[card.productId]?.image : undefined),
 }));
 
 export const homepageFeaturedIntro: HomepageSectionIntro = {
@@ -305,19 +288,19 @@ export const homepageGeoSection = {
     "AI search is changing how customers find businesses. ChatGPT, Perplexity, Gemini and Copilot are already answering the questions your customers used to type into Google. If your business isn't showing up in those answers, you're invisible to a growing share of your market.",
   stats: [
     {
-      value: '5x',
-      label: 'more engaged traffic from AI search compared to traditional search',
+      value: '1 billion',
+      label: 'ChatGPT weekly users, up from 900 million six months earlier (OpenAI, Aug 2026)',
     },
     {
-      value: '400%',
-      label: 'increase in AI-powered search usage in the last 12 months',
+      value: '2.5 billion',
+      label: 'people a month seeing Google AI Overviews above the results (Google I/O, May 2026)',
     },
   ],
   outro:
-    'GEO (generative engine optimisation) is no longer optional. The businesses that act now will own the AI search results in their category. The ones that wait will wonder where their traffic went.',
-  cardTitle: 'Is your business turning up in AI search?',
+    'Search has changed. The businesses that act now will be in the AI answer for their category. The ones that wait will wonder where their enquiries went.',
+  cardTitle: 'Is your business in the AI answer?',
   cardBody:
-    'Find out where you rank for your key services and products. Get your AI visibility report.',
+    'Audit where you stand, track it month to month, or hand the whole thing over. Done for you is on offer.',
   cardHref: '/product/geo-audit',
   cardCta: 'Check your visibility',
 };
@@ -357,7 +340,7 @@ export const homepageJourneySteps: HomepageJourneyStep[] = [
 ];
 
 export const homepageCta = {
-  title: 'Start now.',
+  title: 'Start now',
   body:
     'Discover. Train. Activate. Find out where AI fits in your business and start getting real results.',
   buttonLabel: 'Get in Touch',

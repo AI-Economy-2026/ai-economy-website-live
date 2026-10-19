@@ -18,13 +18,13 @@ export default function ContactPage() {
             className="flex items-center space-x-2 text-foreground/60 hover:text-foreground transition-colors font-semibold text-sm group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>AI Economy</span>
+            <span>AIEconomy</span>
           </Link>
         </div>
       </div>
 
       <div className="pt-14 max-w-2xl mx-auto px-6 py-24">
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">Get in touch.</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tighter mb-4">Get in touch</h1>
         <p className="text-foreground/60 text-lg font-medium mb-12">
           Fill in the form below and we&apos;ll be in touch shortly.
         </p>

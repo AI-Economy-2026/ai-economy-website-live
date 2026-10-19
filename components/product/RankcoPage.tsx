@@ -122,7 +122,7 @@ export function RankcoPage({ product }: RankcoPageProps) {
             className="flex items-center space-x-2 text-foreground/60 hover:text-foreground transition-colors font-semibold text-sm group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>AI Economy</span>
+            <span>AIEconomy</span>
           </Link>
           <span className="text-[11px] font-bold text-foreground/30 uppercase tracking-widest">AI Visibility</span>
           <a
@@ -214,13 +214,13 @@ export function RankcoPage({ product }: RankcoPageProps) {
           >
             <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">What is Rankco</p>
             <h2 className="mb-6 text-5xl md:text-6xl font-extrabold tracking-tighter text-black leading-[0.9]">
-              AI search is the new front page.
+              AI search is the new front page
             </h2>
             <p className="text-xl text-foreground/60 font-medium leading-relaxed mb-6">
               When your customers ask ChatGPT, Perplexity, or Gemini about the products and services you sell, is your brand in the answer? Most businesses have no idea. Rankco gives you the data, the diagnosis, and the plan to fix it.
             </p>
             <p className="text-xl text-foreground/60 font-medium leading-relaxed">
-              From a single audit to an ongoing visibility programme, Rankco turns AI search into a measurable, manageable channel — just like SEO, but built for the era of generative answers.
+              From a single audit to an ongoing visibility program, Rankco turns AI search into a measurable, manageable channel — just like SEO, but built for the era of generative answers.
             </p>
           </motion.div>
         </div>
@@ -237,7 +237,7 @@ export function RankcoPage({ product }: RankcoPageProps) {
           >
             <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">How It Works</p>
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-black leading-tight">
-              Four stages. One connected workflow.
+              Four stages. One connected workflow
             </h2>
           </motion.div>
 
@@ -291,7 +291,7 @@ export function RankcoPage({ product }: RankcoPageProps) {
           >
             <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Platform</p>
             <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-black leading-tight">
-              Built for agencies and in-house teams.
+              Built for agencies and in-house teams
             </h2>
           </motion.div>
 
@@ -330,7 +330,7 @@ export function RankcoPage({ product }: RankcoPageProps) {
               className="mb-16 text-center"
             >
               <p className="mb-4 text-[11px] font-bold text-white/40 uppercase tracking-[0.2em]">What clients say</p>
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-white">Real results.</h2>
+              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tighter text-white">Real results</h2>
             </motion.div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {product.testimonials.map((t, i) => (
@@ -365,7 +365,7 @@ export function RankcoPage({ product }: RankcoPageProps) {
               className="mb-16"
             >
               <p className="mb-4 text-[11px] font-bold text-foreground/30 uppercase tracking-[0.2em]">FAQ</p>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Questions, answered.</h2>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Questions, answered</h2>
             </motion.div>
             <div className="divide-y divide-black/10 border-t border-black/10">
               {product.faqs.map((faq, i) => (
@@ -386,7 +386,7 @@ export function RankcoPage({ product }: RankcoPageProps) {
           >
             <p className="mb-4 text-[11px] font-bold text-[#004AAD] uppercase tracking-[0.2em]">Get Started</p>
             <h2 className="mb-4 text-5xl md:text-6xl font-extrabold tracking-tighter text-black leading-[0.9]">
-              Find out where you stand.
+              Find out where you stand
             </h2>
             <p className="mb-12 text-foreground/60 text-lg font-medium leading-relaxed">
               Get in touch to run your first AI visibility audit and see exactly how your brand ranks across the AI engines your customers use every day.

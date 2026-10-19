@@ -11,7 +11,7 @@ export type FooterSection = {
 
 export const siteConfig = {
   name: 'AI Economy',
-  shortName: 'AI ECONOMY',
+  shortName: 'AIECONOMY',
   description:
     'Helping businesses simplify the complex and focus on what works in the AI era.',
   copyright: '© 2026 AI Economy. All rights reserved.',
@@ -35,6 +35,7 @@ export const siteConfig = {
 
 export const marketingNavItems: SiteLink[] = [
   { label: 'About', href: '#about' },
+  { label: 'AI Search', href: '/product/geo-audit' },
   { label: 'Toolkit', href: '#products' },
   { label: 'Roadmap', href: '#approach' },
   { label: 'Ecosystem', href: '#ecosystem' },
@@ -48,15 +49,15 @@ export const footerSections: FooterSection[] = [
       { label: 'AI Consultancy', href: '/product/ai-consultancy' },
       { label: 'Priority AI', href: '/product/priority-ai' },
       { label: 'AI Toolkit', href: '/product/ai-toolkit' },
-      { label: 'Rankco', href: '/product/geo-audit' },
+      { label: 'AI Search Visibility', href: '/product/geo-audit' },
       { label: 'Sarah Speaks AI', href: '/product/sarah-speaks' },
     ],
   },
   {
     title: 'Ecosystem',
     items: [
-      { label: 'Ask Sarah', href: '/product/agent-alice' },
-      { label: 'Prolinks', href: 'https://prolinksai.com/', external: true },
+      { label: 'White label partners', href: '/contact' },
+      { label: 'Prolinks', href: '/product/prolinks' },
       { label: 'Parently', href: 'https://parently.ai/', external: true },
     ],
   },

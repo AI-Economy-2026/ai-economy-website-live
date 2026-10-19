@@ -46,7 +46,7 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
             className="flex items-center space-x-2 text-foreground/60 hover:text-foreground transition-colors font-semibold text-sm group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>AI Economy</span>
+            <span>AIEconomy</span>
           </Link>
           <span className="text-[11px] font-bold text-foreground/30 uppercase tracking-widest">{product.label}</span>
           <a
@@ -170,7 +170,7 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-black">Cut through the noise.</h2>
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 text-black">Cut through the noise</h2>
             <p className="text-xl text-foreground/60 font-medium">Most AI training is either too technical or too generic. We focus on the middle ground: commercial application.</p>
           </motion.div>
 
@@ -204,7 +204,7 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
             <div className="max-w-2xl">
               <p className="text-[#2563EB] text-xs font-bold uppercase tracking-[0.2em] mb-6">Curriculum</p>
-              <h2 className="text-4xl md:text-6xl font-bold tracking-tight">Structured for progression.</h2>
+              <h2 className="text-4xl md:text-6xl font-bold tracking-tight">Structured for progression</h2>
             </div>
             <div className="flex items-center gap-4 bg-white p-3 rounded-2xl shadow-sm">
               <Clock className="w-5 h-5 text-[#2563EB]" />
@@ -251,7 +251,7 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
             viewport={{ once: true }}
           >
             <h2 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-8 leading-[0.9]">
-              Future-proof your career.
+              Future-proof your career
             </h2>
             <p className="text-white/60 text-xl font-medium mb-12 max-w-xl mx-auto leading-relaxed">
               Join 5,000+ professionals who have transitioned from AI-overwhelmed to AI-confident.
@@ -265,7 +265,7 @@ export function SarahSpeaksPage({ product }: SarahSpeaksPageProps) {
         <section className="bg-white border-b border-black/5"><div className="max-w-7xl mx-auto px-6"><div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-black/5">{product.stats.map((stat, i) => (<motion.div key={stat.label} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="py-10 px-8 text-center"><div className="text-4xl md:text-5xl font-extrabold tracking-tighter text-foreground mb-2">{stat.value}</div><div className="text-xs font-bold uppercase tracking-widest text-foreground/40">{stat.label}</div></motion.div>))}</div></div></section>
       )}
       {product.faqs && (
-        <section className="py-32 bg-white border-t border-black/5"><div className="max-w-4xl mx-auto px-6"><motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16"><p className="text-[11px] font-bold text-foreground/30 uppercase tracking-[0.2em] mb-6">FAQ</p><h2 className="text-4xl md:text-5xl font-bold tracking-tight">Questions, answered.</h2></motion.div><div className="divide-y divide-black/10 border-t border-black/10">{product.faqs.map((faq, i) => <FAQItem key={i} question={faq.question} answer={faq.answer} />)}</div></div></section>
+        <section className="py-32 bg-white border-t border-black/5"><div className="max-w-4xl mx-auto px-6"><motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16"><p className="text-[11px] font-bold text-foreground/30 uppercase tracking-[0.2em] mb-6">FAQ</p><h2 className="text-4xl md:text-5xl font-bold tracking-tight">Questions, answered</h2></motion.div><div className="divide-y divide-black/10 border-t border-black/10">{product.faqs.map((faq, i) => <FAQItem key={i} question={faq.question} answer={faq.answer} />)}</div></div></section>
       )}
       <MoreProducts currentProductId={product.id} />
 

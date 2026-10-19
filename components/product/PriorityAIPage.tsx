@@ -47,7 +47,7 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
             className="flex items-center space-x-2 text-foreground/60 hover:text-foreground transition-colors font-semibold text-sm group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>AI Economy</span>
+            <span>AIEconomy</span>
           </Link>
           <span className="text-[11px] font-bold text-foreground/30 uppercase tracking-widest">{product.label}</span>
           <a
@@ -275,7 +275,7 @@ export function PriorityAIPage({ product }: PriorityAIPageProps) {
           <div className="max-w-4xl mx-auto px-6">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-16">
               <p className="text-[11px] font-bold text-foreground/30 uppercase tracking-[0.2em] mb-6">FAQ</p>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Questions, answered.</h2>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Questions, answered</h2>
             </motion.div>
             <div className="divide-y divide-black/10 border-t border-black/10">
               {product.faqs.map((faq, i) => <FAQItem key={i} question={faq.question} answer={faq.answer} />)}
